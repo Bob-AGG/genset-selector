@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>选型工具 - 东康发动机</title>
+<title>选型工具 - 发动机</title>
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body { font-family: -apple-system, "Microsoft YaHei", sans-serif; background: #f0f2f5; color: #333; }
@@ -51,8 +51,6 @@
 
   .stats { font-size: 13px; color: #666; margin-bottom: 12px; }
   .brand-tabs { display: flex; gap: 8px; margin-bottom: 16px; flex-wrap: wrap; }
-  .brand-tab { padding: 6px 16px; border-radius: 20px; border: 1px solid #d1d5db; background: #fff; cursor: pointer; font-size: 13px; }
-  .brand-tab.active { background: #1a365d; color: #fff; border-color: #1a365d; }
 
   @media (max-width: 768px) {
     .container { grid-template-columns: 1fr; }
@@ -66,30 +64,30 @@
   .tag-turbo { display:inline-block; background:#dbeafe; color:#1e40af; font-size:11px; padding:1px 6px; border-radius:3px; }
   .tag-na { display:inline-block; background:#fef3c7; color:#92400e; font-size:11px; padding:1px 6px; border-radius:3px; }
   .rule-box { background:#f0f9ff; border:1px solid #bae6fd; border-radius:6px; padding:10px; font-size:12px; line-height:1.7; margin-bottom:12px; }
+  .brand-badge { display:inline-block; padding:1px 6px; border-radius:3px; font-size:11px; }
+  .brand-dcec { background:#dcfce7; color:#166534; }
+  .brand-cqc { background:#fef9c3; color:#854d0e; }
+  .warn-badge { color:#d97706; font-weight:600; }
 </style>
 </head>
 <body>
 
 <div class="header">
   <h1>🔧 发电机组选型工具</h1>
-  <p>东康动力 · v1.0 · DCEC 官方海拔/温度修正规则</p>
+  <p>v1.1 · 东康 DCEC + 重庆康明斯 CQCC</p>
 </div>
 
 <div class="container">
   <div class="card">
     <h2>📋 选型参数</h2>
-    <div class="rule-box">
-      <b>修正规则说明：</b><br>
-      🏔 海拔 ≤2000m 不修正，超过后每300m降4%<br>
-      🌡️ 温度 ≤40℃ 不修正，超过后每10℃降3%<br>
-      ⚠️ 自然吸气机型（型号不含 T）不执行修正
-    </div>
     <div class="form-group">
       <label>品牌</label>
-      <select id="brand">
+      <select id="brand" onchange="onBrandChange()">
         <option value="dcec">东康 DCEC (Cummins)</option>
+        <option value="cqc">重庆康明斯 CQCC</option>
       </select>
     </div>
+    <div class="rule-box" id="ruleDesc">加载中...</div>
     <div class="form-group">
       <label>频率</label>
       <select id="frequency">
@@ -99,7 +97,7 @@
     </div>
     <div class="form-group">
       <label>额定功率 (kW)</label>
-      <input type="number" id="power" value="400" min="10" max="2000" step="5">
+      <input type="number" id="power" value="400" min="10" max="5000" step="5">
     </div>
     <div class="form-group">
       <label>用途</label>
@@ -135,91 +133,144 @@
 </div>
 
 <script>
-const ENGINE_DATA = {"dcec":{"name":"东康 DCEC","engines":[]}};
+// ============ 发动机数据 ============
+let ALL_ENGINES = [];
+let DATA_LOADED = false;
 
-// DCEC 官方修正规则
-// 海拔：≤2000m 不修正，超过后每300m降4%
-// 温度：≤40℃ 不修正，超过后每10℃降3%
-// 自然吸气（型号不含 T）不做任何修正
+// ============ 修正规则 ============
+// 每个品牌的修正配置
+const BRAND_CONFIG = {
+  dcec: {
+    name: '东康 DCEC',
+    defaultRule: 'none',  // 默认不修正，仅以下机型有规则
+    rules: [
+      // { seriesMatch: function(series, model) { return true/false }, rule: {...} }
+    ],
+    // DCEC的规则：型号含T的涡轮增压机，共用一套规则
+    getRule: function(model) {
+      // 型号无T（自然吸气）不修正
+      if (!/T/i.test(model) && !/^QS/i.test(model)) return null;
+      // 涡轮增压：海拔>2000m每300m降4%，温度>40℃每10℃降3%
+      return {
+        altBase: 2000, altStep: 300, altDrop: 0.04,
+        tempBase: 40, tempStep: 10, tempDrop: 0.03,
+        hasRule: true, name: 'DCEC 涡轮增压标准'
+      };
+    }
+  },
+  cqc: {
+    name: '重庆康明斯 CQCC',
+    defaultRule: 'none',  // 默认不修正
+    rules: [
+      // NTA855系列 + NT855/NTAA855
+      { match: /^(NT|NTA)/i, rule: { altBase:1525, altStep:300, altDrop:0.04, tempBase:40, tempStep:11, tempDrop:0.02, name:'NTA855 系列' } },
+      // KTA19系列
+      { match: /^KTA19/i, rule: { altBase:1525, altStep:300, altDrop:0.04, tempBase:40, tempStep:11, tempDrop:0.02, name:'KTA19 系列' } },
+      // K38系列 (KTA38)
+      { match: /^K38/i, rule: { altBase:1525, altStep:300, altDrop:0.04, tempBase:40, tempStep:11, tempDrop:0.02, name:'KTA38 系列' } },
+      // K50系列 (KTA50)
+      { match: /^K50/i, rule: { altBase:915, altStep:300, altDrop:0.04, tempBase:40, tempStep:11, tempDrop:0.16, name:'KTA50 系列' } }
+    ],
+    getRule: function(model) {
+      for (const r of this.rules) {
+        if (r.match.test(model)) return r.rule;
+      }
+      return null; // 无规则 → 不修正
+    }
+  }
+};
 
-function hasTurbo(model) {
-  // 型号含T表示涡轮增压，或无T但属于QSM/QSZ系列（实际也是涡轮增压）
-  return /[Tt]/.test(model) || /^QS/i.test(model);
+// ============ 修正计算函数 ============
+function calcCorrectionDCEC(model, altitude, temperature) {
+  const rule = BRAND_CONFIG.dcec.getRule(model);
+  if (!rule) {
+    return { total: 1, altFactor: 1, tempFactor: 1, turbo: false, altDesc: '无修正（自然吸气/无规则）', tempDesc: '无修正', hasRule: false, ruleName: '-' };
+  }
+  return calcCorrectionGeneric(altitude, temperature, rule);
 }
 
-function calcAltitudeFactor(altitude) {
-  if (altitude <= 2000) return 1.000;
-  const over = altitude - 2000;
-  const steps = Math.floor(over / 300);
-  // 每300m降4%，阶梯式递减
-  let factor = 1.0;
-  for (let i = 0; i < steps; i++) {
-    factor *= (1 - 0.04);
+function calcCorrectionCQC(model, altitude, temperature) {
+  const rule = BRAND_CONFIG.cqc.getRule(model);
+  if (!rule) {
+    return { total: 1, altFactor: 1, tempFactor: 1, turbo: false, altDesc: '⚠️ 无修正说明，暂不修正', tempDesc: '⚠️ 无修正说明，暂不修正', hasRule: false, ruleName: '无修正规则' };
   }
-  // 余数按比例折算
-  const remainder = over % 300;
-  if (remainder > 0) {
-    factor *= (1 - 0.04 * remainder / 300);
-  }
-  return Math.round(factor * 1000) / 1000;
+  return calcCorrectionGeneric(altitude, temperature, rule);
 }
 
-function calcTemperatureFactor(temp) {
-  if (temp <= 40) return 1.000;
-  const over = temp - 40;
-  const steps = Math.floor(over / 10);
-  let factor = 1.0;
-  for (let i = 0; i < steps; i++) {
-    factor *= (1 - 0.03);
-  }
-  const remainder = over % 10;
-  if (remainder > 0) {
-    factor *= (1 - 0.03 * remainder / 10);
-  }
-  return Math.round(factor * 1000) / 1000;
-}
+function calcCorrectionGeneric(altitude, temperature, rule) {
+  const { altBase, altStep, altDrop, tempBase, tempStep, tempDrop } = rule;
 
-function calcCorrection(model, altitude, temperature) {
-  if (!hasTurbo(model)) {
-    // 自然吸气不修正
-    return {
-      altFactor: 1.000,
-      tempFactor: 1.000,
-      total: 1.000,
-      turbo: false,
-      altDesc: '自然吸气机型，不执行海拔修正',
-      tempDesc: '自然吸气机型，不执行温度修正'
-    };
+  // 海拔修正
+  let altFactor = 1;
+  if (altitude > altBase) {
+    const over = altitude - altBase;
+    const steps = Math.floor(over / altStep);
+    for (let i = 0; i < steps; i++) altFactor *= (1 - altDrop);
+    const rem = over % altStep;
+    if (rem > 0) altFactor *= (1 - altDrop * rem / altStep);
+    altFactor = Math.round(altFactor * 1000) / 1000;
   }
 
-  const altFactor = calcAltitudeFactor(altitude);
-  const tempFactor = calcTemperatureFactor(temperature);
+  // 温度修正
+  let tempFactor = 1;
+  if (temperature > tempBase) {
+    const over = temperature - tempBase;
+    const steps = Math.floor(over / tempStep);
+    for (let i = 0; i < steps; i++) tempFactor *= (1 - tempDrop);
+    const rem = over % tempStep;
+    if (rem > 0) tempFactor *= (1 - tempDrop * rem / tempStep);
+    tempFactor = Math.round(tempFactor * 1000) / 1000;
+  }
+
   const total = Math.round(altFactor * tempFactor * 1000) / 1000;
 
   let altDesc, tempDesc;
-  if (altitude <= 2000) {
-    altDesc = '海拔 ≤2000m，无需修正';
+  if (altitude <= altBase) {
+    altDesc = '海拔 ≤' + altBase + 'm，无需修正';
   } else {
-    const over = altitude - 2000;
-    altDesc = '超过2000m，每300m降4%，降幅 ' + (Math.round((1 - altFactor) * 1000) / 10) + '%';
+    const pct = Math.round((1 - altFactor) * 1000) / 10;
+    altDesc = '超过' + altBase + 'm，每' + altStep + 'm降' + (altDrop*100) + '%，降幅 ' + pct + '%';
+  }
+  if (temperature <= tempBase) {
+    tempDesc = '温度 ≤' + tempBase + '℃，无需修正';
+  } else {
+    const pct = Math.round((1 - tempFactor) * 1000) / 10;
+    tempDesc = '超过' + tempBase + '℃，每' + tempStep + '℃降' + (tempDrop*100) + '%，降幅 ' + pct + '%';
   }
 
-  if (temperature <= 40) {
-    tempDesc = '温度 ≤40℃，无需修正';
-  } else {
-    const over = temperature - 40;
-    tempDesc = '超过40℃，每10℃降3%，降幅 ' + (Math.round((1 - tempFactor) * 1000) / 10) + '%';
-  }
-
-  return { altFactor, tempFactor, total, turbo: true, altDesc, tempDesc };
+  return { total, altFactor, tempFactor, turbo: true, altDesc, tempDesc, hasRule: true, ruleName: rule.name || '标准' };
 }
 
+function getCorrection(brand, model, altitude, temperature) {
+  if (brand === 'dcec') return calcCorrectionDCEC(model, altitude, temperature);
+  return calcCorrectionCQC(model, altitude, temperature);
+}
+
+// ============ 品牌切换 ============
+function onBrandChange() {
+  const brand = document.getElementById('brand').value;
+  const cfg = BRAND_CONFIG[brand];
+  const div = document.getElementById('ruleDesc');
+  let html = '<b>' + cfg.name + ' 修正规则：</b><br>';
+
+  if (brand === 'dcec') {
+    html += '• 涡轮增压机型：海拔>2000m每300m降4%，温度>40℃每10℃降3%<br>';
+    html += '• 自然吸气（型号无T）：不做修正';
+  } else {
+    html += '• 有修正规则的系列：NTA855、KTA19、KTA38、KTA50<br>';
+    html += '• 其他系列（QSM11/M15/QSNT/QSK19/QSK38等）：暂不修正';
+  }
+  div.innerHTML = html;
+}
+
+// ============ 数据加载与查询 ============
 async function loadData() {
   try {
-    const resp = await fetch('dcec_engines.json');
-    const data = await resp.json();
-    ENGINE_DATA.dcec.engines = data;
-    console.log('Loaded', data.length, 'engines');
+    const resp = await fetch('engines.json');
+    ALL_ENGINES = await resp.json();
+    DATA_LOADED = true;
+    console.log('Loaded', ALL_ENGINES.length, 'engines');
+    onBrandChange();
   } catch(e) {
     console.warn('Failed to load engine data');
   }
@@ -231,15 +282,19 @@ function doSearch() {
   const purpose = document.querySelector('input[name="purpose"]:checked').value;
   const altitude = parseFloat(document.getElementById('altitude').value);
   const temperature = parseFloat(document.getElementById('temperature').value);
+  const brand = document.getElementById('brand').value;
 
   if (!power || power < 1) { alert('请输入有效功率'); return; }
 
-  const engines = ENGINE_DATA.dcec.engines;
+  const cfg = BRAND_CONFIG[brand];
+
+  // Filter engines by brand and frequency
+  let filtered = ALL_ENGINES.filter(e =>
+    e.brand === brand && e.frequency === freq
+  );
+
   const candidates = [];
-
-  for (const eng of engines) {
-    if (eng.frequency !== freq) continue;
-
+  for (const eng of filtered) {
     let ratedPower = 0;
     if (purpose === 'ESP') {
       ratedPower = eng.esp_kWe ? eng.esp_kWe : (eng.esp_kVA ? eng.esp_kVA * 0.8 : 0);
@@ -248,7 +303,7 @@ function doSearch() {
     }
     if (ratedPower <= 0) continue;
 
-    const correction = calcCorrection(eng.model, altitude, temperature);
+    const correction = getCorrection(brand, eng.model, altitude, temperature);
     const correctedPower = ratedPower * correction.total;
 
     candidates.push({
@@ -256,8 +311,7 @@ function doSearch() {
       ratedPower: Math.round(ratedPower),
       correctedPower: Math.round(correctedPower * 10) / 10,
       meets: correctedPower >= power,
-      correction,
-      turbo: hasTurbo(eng.model)
+      correction
     });
   }
 
@@ -267,29 +321,29 @@ function doSearch() {
     return a.correctedPower - b.correctedPower;
   });
 
-  displayResults(candidates, power, purpose, altitude, temperature);
+  displayResults(candidates, power, purpose, altitude, temperature, brand, cfg);
 }
 
-function displayResults(candidates, reqPower, purpose, altitude, temperature) {
+function displayResults(candidates, reqPower, purpose, altitude, temperature, brand, cfg) {
   const passing = candidates.filter(c => c.meets);
   const resultDiv = document.getElementById('resultContent');
   const debugDiv = document.getElementById('debugContent');
+  const brandTag = brand === 'dcec' ? '东康' : '重庆康明斯';
 
   if (passing.length === 0) {
-    const sampleCorr = candidates.length > 0 ? candidates[0].correction : { altFactor:1, tempFactor:1, total:1, turbo:true, altDesc:'', tempDesc:'' };
     let html = '<div class="result-card fail" style="padding:16px">' +
-      '<div class="result-fail">❌ 未找到满足条件的型号</div>';
-
+      '<div class="result-fail">❌ 未找到满足条件的型号（' + brandTag + '）</div>';
     if (candidates.length === 0) {
-      html += '<p style="margin-top:10px;color:#666">当前频率下无可用发动机数据</p>';
+      html += '<p style="margin-top:10px;color:#666">当前品牌/频率下无可用发动机数据</p>';
     } else {
-      const minRequired = Math.ceil(reqPower / sampleCorr.total);
+      const first = candidates[0];
+      const c = first.correction;
+      const minReq = Math.ceil(reqPower / c.total);
       html += '<div class="calc-detail">原始需求: ' + reqPower + 'kW ' + purpose + '<br>' +
         '— 修正计算说明 —<br>' +
-        '海拔: ' + sampleCorr.altDesc + '<br>' +
-        '温度: ' + sampleCorr.tempDesc + '<br>' +
-        '<strong>综合系数: ×' + sampleCorr.total + '</strong><br>' +
-        '<strong>所需额定功率 ≥ ' + minRequired + 'kW</strong></div>';
+        '🏔 ' + c.altDesc + '<br>🌡️ ' + c.tempDesc + '<br>' +
+        (c.hasRule ? '<strong>综合系数: ×' + c.total + '</strong><br>所需额定功率 ≥ ' + minReq + 'kW' : '') +
+        '</div>';
     }
     html += '</div>';
     resultDiv.innerHTML = html;
@@ -297,24 +351,28 @@ function displayResults(candidates, reqPower, purpose, altitude, temperature) {
     const top = passing.slice(0, 5);
     const best = top[0];
     const c = best.correction;
-    const minRequired = Math.ceil(reqPower / c.total);
+    const minReq = Math.ceil(reqPower / c.total);
 
     let html = '<div class="result-card pass" style="padding:12px">' +
-      '<div class="result-ok" style="font-size:18px">✅ 推荐 ' + passing.length + ' 个可用型号</div>' +
-      '<div class="calc-detail" style="margin-top:10px">' +
-      '<b>📐 修正计算过程</b><br>' +
-      '原始需求: ' + reqPower + 'kW ' + purpose + '<br>' +
-      (best.turbo
-        ? '🏔 ' + c.altDesc + '<br>🌡️ ' + c.tempDesc +
-          '<br><strong>综合修正系数: ×' + c.total + '</strong>' +
-          '<br>所需额定功率 ≥ ' + minRequired + 'kW'
-        : '⚠️ 自然吸气机型（型号不含 T），不做功率修正<br>按额定功率直接选型') +
-      '</div>' +
-      '<div class="engine-result" style="background:#f0fdf4;border-radius:6px;padding:10px;margin-top:10px">' +
-      '<div class="engine-model">🏆 最佳推荐: ' + best.model + ' ' +
-        (best.turbo ? '<span class="tag-turbo">Turbo</span>' : '<span class="tag-na">NA</span>') +
-      '</div>' +
-      '<div class="engine-power"><span>📦 ' + best.config + '</span><span>⚖️ ' + (best.dry_weight_kg || '-') + 'kg</span></div>' +
+      '<div class="result-ok" style="font-size:18px">✅ 推荐 ' + passing.length + ' 个可用型号</div>';
+
+    if (c.hasRule && c.total !== 1) {
+      html += '<div class="calc-detail" style="margin-top:10px">' +
+        '<b>📐 修正计算过程</b><br>' +
+        '修正规则: ' + c.ruleName + '<br>' +
+        '🏔 ' + c.altDesc + '<br>🌡️ ' + c.tempDesc + '<br>' +
+        '<strong>综合修正系数: ×' + c.total + '</strong><br>' +
+        '所需额定功率 ≥ ' + minReq + 'kW</div>';
+    } else {
+      html += '<div class="calc-detail" style="margin-top:10px">' +
+        '<b>📐 无需功率修正</b><br>' +
+        (!c.hasRule ? '该机型无修正规则，按额定功率直接选型' : '海拔/温度未超基数，无需修正') +
+        '</div>';
+    }
+
+    html += '<div class="engine-result" style="background:#f0fdf4;border-radius:6px;padding:10px;margin-top:10px">' +
+      '<div class="engine-model">🏆 最佳推荐: ' + best.model + '</div>' +
+      '<div class="engine-power"><span>📦 系列: ' + (best.series || '-') + '</span></div>' +
       '<div class="engine-power"><span>ESP: ' + (best.esp_kWe ? best.esp_kWe + 'kW' : (best.esp_kVA ? Math.round(best.esp_kVA*0.8) + 'kW' : '—')) + ' / ' + (best.esp_kVA ? best.esp_kVA + 'kVA' : '—') + '</span>' +
       '<span>PRP: ' + (best.prp_kWe ? best.prp_kWe + 'kW' : (best.prp_kVA ? Math.round(best.prp_kVA*0.8) + 'kW' : '—')) + ' / ' + (best.prp_kVA ? best.prp_kVA + 'kVA' : '—') + '</span></div>' +
       '<div class="engine-power" style="font-weight:600"><span class="result-ok">修正后: ' + best.correctedPower + 'kW ≥ ' + reqPower + 'kW ✅</span></div></div>';
@@ -323,32 +381,30 @@ function displayResults(candidates, reqPower, purpose, altitude, temperature) {
       html += '<div style="margin-top:12px"><strong>其他可用型号:</strong></div>';
       for (let i = 1; i < top.length; i++) {
         const e = top[i];
-        html += '<div class="engine-result"><div class="engine-model">' + e.model + ' ' +
-          (e.turbo ? '<span class="tag-turbo">Turbo</span>' : '<span class="tag-na">NA</span>') +
-          '</div>' +
-          '<div class="engine-power"><span>修正后: ' + e.correctedPower + 'kW</span><span>额定: ' + e.ratedPower + 'kW</span>' +
-          (e.correction.total !== 1 ? '<span>系数: ×' + e.correction.total + '</span>' : '<span>无修正</span>') +
-          '</div></div>';
+        const ec = e.correction;
+        const corrStr = ec.total !== 1 ? ('系数: ×' + ec.total) : '无修正';
+        html += '<div class="engine-result"><div class="engine-model">' + e.model + '</div>' +
+          '<div class="engine-power"><span>修正后: ' + e.correctedPower + 'kW</span><span>额定: ' + e.ratedPower + 'kW</span><span>' + corrStr + '</span></div></div>';
       }
     }
     html += '</div>';
     resultDiv.innerHTML = html;
   }
 
-  let dbg = '<div class="stats">共 ' + candidates.length + ' 个型号，' + passing.length + ' 个满足</div>';
-  dbg += '<table><tr><th>型号</th><th>类型</th><th>配置</th><th>ESP(kW)</th><th>PRP(kW)</th><th>修正后(kW)</th><th>系数</th><th>结果</th><th>尺寸(mm)</th><th>重量(kg)</th></tr>';
+  // Debug table
+  let dbg = '<div class="stats">' + brandTag + ' | 共 ' + candidates.length + ' 个, ' + passing.length + ' 个满足</div>';
+  dbg += '<table><tr><th>型号</th><th>系列</th><th>ESP(kW)</th><th>PRP(kW)</th><th>修正后(kW)</th><th>系数</th><th>修正规则</th><th>结果</th></tr>';
   for (const e of candidates) {
     const cls = e.meets ? ' style="background:#f0fdf4"' : '';
+    const ec = e.correction;
     dbg += '<tr' + cls + '><td><b>' + e.model + '</b></td>' +
-      '<td>' + (e.turbo ? '<span class="tag-turbo">T</span>' : '<span class="tag-na">NA</span>') + '</td>' +
-      '<td>' + e.config + '</td>' +
+      '<td>' + (e.series || '-') + '</td>' +
       '<td>' + (e.esp_kWe ? e.esp_kWe : (e.esp_kVA ? Math.round(e.esp_kVA*0.8) : '-')) + '</td>' +
       '<td>' + (e.prp_kWe ? e.prp_kWe : (e.prp_kVA ? Math.round(e.prp_kVA*0.8) : '-')) + '</td>' +
       '<td><b>' + e.correctedPower + '</b></td>' +
-      '<td>' + (e.correction.total !== 1 ? '×' + e.correction.total : '1.000') + '</td>' +
-      '<td>' + (e.meets ? '✅' : '❌') + '</td>' +
-      '<td>' + (e.length_mm||'-') + '×' + (e.width_mm||'-') + '×' + (e.height_mm||'-') + '</td>' +
-      '<td>' + (e.dry_weight_kg||'-') + '</td></tr>';
+      '<td>' + (ec.total !== 1 ? '×' + ec.total : '1.000') + '</td>' +
+      '<td>' + (ec.hasRule ? ec.ruleName : (ec.turbo ? '有涡轮' : '无修正')) + '</td>' +
+      '<td>' + (e.meets ? '✅' : '❌') + '</td></tr>';
   }
   dbg += '</table>';
   debugDiv.innerHTML = dbg;
