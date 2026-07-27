@@ -37,6 +37,7 @@
 
   .result-ok { color: #22c55e; font-weight: 700; }
   .result-fail { color: #ef4444; font-weight: 700; }
+  .result-warn { color: #f59e0b; font-weight: 700; }
 
   .engine-result { padding: 12px 0; border-bottom: 1px solid #f0f0f0; }
   .engine-result:last-child { border-bottom: none; }
@@ -62,18 +63,27 @@
   th, td { padding: 6px 8px; text-align: left; border-bottom: 1px solid #e2e8f0; }
   th { background: #f8fafc; font-weight: 600; }
   tr:hover { background: #f8fafc; }
+  .tag-turbo { display:inline-block; background:#dbeafe; color:#1e40af; font-size:11px; padding:1px 6px; border-radius:3px; }
+  .tag-na { display:inline-block; background:#fef3c7; color:#92400e; font-size:11px; padding:1px 6px; border-radius:3px; }
+  .rule-box { background:#f0f9ff; border:1px solid #bae6fd; border-radius:6px; padding:10px; font-size:12px; line-height:1.7; margin-bottom:12px; }
 </style>
 </head>
 <body>
 
 <div class="header">
   <h1>🔧 发电机组选型工具</h1>
-  <p>东康动力 · v1.0 · 海拔/温度修正计算</p>
+  <p>东康动力 · v1.0 · DCEC 官方海拔/温度修正规则</p>
 </div>
 
 <div class="container">
   <div class="card">
     <h2>📋 选型参数</h2>
+    <div class="rule-box">
+      <b>修正规则说明：</b><br>
+      🏔 海拔 ≤2000m 不修正，超过后每300m降4%<br>
+      🌡️ 温度 ≤40℃ 不修正，超过后每10℃降3%<br>
+      ⚠️ 自然吸气机型（型号不含 T）不执行修正
+    </div>
     <div class="form-group">
       <label>品牌</label>
       <select id="brand">
@@ -127,34 +137,80 @@
 <script>
 const ENGINE_DATA = {"dcec":{"name":"东康 DCEC","engines":[]}};
 
-const ALTITUDE_FACTOR = {
-  0: 1.000, 500: 0.980, 1000: 0.960, 1500: 0.940,
-  2000: 0.910, 2500: 0.880, 3000: 0.840, 3500: 0.800,
-  4000: 0.750, 4500: 0.700, 5000: 0.650
-};
+// DCEC 官方修正规则
+// 海拔：≤2000m 不修正，超过后每300m降4%
+// 温度：≤40℃ 不修正，超过后每10℃降3%
+// 自然吸气（型号不含 T）不做任何修正
 
-const TEMP_FACTOR = {
-  25: 1.000, 30: 0.990, 35: 0.975, 40: 0.955,
-  45: 0.930, 50: 0.895, 55: 0.850, 60: 0.790
-};
-
-function interpolate(value, ref) {
-  const keys = Object.keys(ref).map(Number).sort((a,b)=>a-b);
-  if (value <= keys[0]) return ref[keys[0]];
-  if (value >= keys[keys.length-1]) return ref[keys[keys.length-1]];
-  for (let i = 0; i < keys.length-1; i++) {
-    if (value >= keys[i] && value <= keys[i+1]) {
-      const t = (value - keys[i]) / (keys[i+1] - keys[i]);
-      return ref[keys[i]] + t * (ref[keys[i+1]] - ref[keys[i]]);
-    }
-  }
-  return ref[keys[0]];
+function hasTurbo(model) {
+  return /[Tt]/.test(model);
 }
 
-function calcCorrection(altitude, temperature) {
-  const altFactor = interpolate(altitude, ALTITUDE_FACTOR);
-  const tempFactor = interpolate(temperature, TEMP_FACTOR);
-  return { altFactor, tempFactor, total: altFactor * tempFactor };
+function calcAltitudeFactor(altitude) {
+  if (altitude <= 2000) return 1.000;
+  const over = altitude - 2000;
+  const steps = Math.floor(over / 300);
+  // 每300m降4%，阶梯式递减
+  let factor = 1.0;
+  for (let i = 0; i < steps; i++) {
+    factor *= (1 - 0.04);
+  }
+  // 余数按比例折算
+  const remainder = over % 300;
+  if (remainder > 0) {
+    factor *= (1 - 0.04 * remainder / 300);
+  }
+  return Math.round(factor * 1000) / 1000;
+}
+
+function calcTemperatureFactor(temp) {
+  if (temp <= 40) return 1.000;
+  const over = temp - 40;
+  const steps = Math.floor(over / 10);
+  let factor = 1.0;
+  for (let i = 0; i < steps; i++) {
+    factor *= (1 - 0.03);
+  }
+  const remainder = over % 10;
+  if (remainder > 0) {
+    factor *= (1 - 0.03 * remainder / 10);
+  }
+  return Math.round(factor * 1000) / 1000;
+}
+
+function calcCorrection(model, altitude, temperature) {
+  if (!hasTurbo(model)) {
+    // 自然吸气不修正
+    return {
+      altFactor: 1.000,
+      tempFactor: 1.000,
+      total: 1.000,
+      turbo: false,
+      altDesc: '自然吸气机型，不执行海拔修正',
+      tempDesc: '自然吸气机型，不执行温度修正'
+    };
+  }
+
+  const altFactor = calcAltitudeFactor(altitude);
+  const tempFactor = calcTemperatureFactor(temperature);
+  const total = Math.round(altFactor * tempFactor * 1000) / 1000;
+
+  let altDesc, tempDesc;
+  if (altitude <= 2000) {
+    altDesc = '海拔 ≤2000m，无需修正';
+  } else {
+    const over = altitude - 2000;
+    altDesc = '超过2000m，每300m降4%，降幅 ' + (Math.round((1 - altFactor) * 1000) / 10) + '%';
+  }
+
+  if (temperature <= 40) {
+    tempDesc = '温度 ≤40℃，无需修正';
+  } else {
+    const over = temperature - 40;
+    tempDesc = '超过40℃，每10℃降3%，降幅 ' + (Math.round((1 - tempFactor) * 1000) / 10) + '%';
+  }
+
+  return { altFactor, tempFactor, total, turbo: true, altDesc, tempDesc };
 }
 
 async function loadData() {
@@ -177,27 +233,31 @@ function doSearch() {
 
   if (!power || power < 1) { alert('请输入有效功率'); return; }
 
-  const correction = calcCorrection(altitude, temperature);
   const engines = ENGINE_DATA.dcec.engines;
   const candidates = [];
 
   for (const eng of engines) {
     if (eng.frequency !== freq) continue;
+
     let ratedPower = 0;
     if (purpose === 'ESP') {
       ratedPower = eng.esp_kWe || (eng.esp_kVA ? eng.esp_kVA * 0.8 : 0);
     } else {
       ratedPower = eng.prp_kWe || (eng.prp_kVA ? eng.prp_kVA * 0.8 : 0);
     }
+    if (ratedPower <= 0) continue;
+
+    const correction = calcCorrection(eng.model, altitude, temperature);
     const correctedPower = ratedPower * correction.total;
-    if (ratedPower > 0) {
-      candidates.push({
-        ...eng,
-        ratedPower: Math.round(ratedPower),
-        correctedPower: Math.round(correctedPower * 10) / 10,
-        meets: correctedPower >= power
-      });
-    }
+
+    candidates.push({
+      ...eng,
+      ratedPower: Math.round(ratedPower),
+      correctedPower: Math.round(correctedPower * 10) / 10,
+      meets: correctedPower >= power,
+      correction,
+      turbo: hasTurbo(eng.model)
+    });
   }
 
   candidates.sort((a, b) => {
@@ -206,34 +266,53 @@ function doSearch() {
     return a.correctedPower - b.correctedPower;
   });
 
-  displayResults(candidates, power, purpose, correction, altitude, temperature);
+  displayResults(candidates, power, purpose, altitude, temperature);
 }
 
-function displayResults(candidates, reqPower, purpose, correction, altitude, temperature) {
+function displayResults(candidates, reqPower, purpose, altitude, temperature) {
   const passing = candidates.filter(c => c.meets);
   const resultDiv = document.getElementById('resultContent');
   const debugDiv = document.getElementById('debugContent');
 
   if (passing.length === 0) {
-    resultDiv.innerHTML = '<div class="result-card fail" style="padding:16px">' +
-      '<div class="result-fail">❌ 未找到满足条件的型号</div>' +
-      '<div class="calc-detail">原始需求: ' + reqPower + 'kW ' + purpose + '<br>' +
-      '海拔 ' + altitude + 'm 修正: ×' + correction.altFactor.toFixed(3) + '<br>' +
-      '温度 ' + temperature + '°C 修正: ×' + correction.tempFactor.toFixed(3) + '<br>' +
-      '综合修正系数: ×' + correction.total.toFixed(3) + '<br>' +
-      '<strong>所需额定功率 ≥ ' + Math.ceil(reqPower / correction.total) + 'kW</strong></div></div>';
+    const sampleCorr = candidates.length > 0 ? candidates[0].correction : { altFactor:1, tempFactor:1, total:1, turbo:true, altDesc:'', tempDesc:'' };
+    let html = '<div class="result-card fail" style="padding:16px">' +
+      '<div class="result-fail">❌ 未找到满足条件的型号</div>';
+
+    if (candidates.length === 0) {
+      html += '<p style="margin-top:10px;color:#666">当前频率下无可用发动机数据</p>';
+    } else {
+      const minRequired = Math.ceil(reqPower / sampleCorr.total);
+      html += '<div class="calc-detail">原始需求: ' + reqPower + 'kW ' + purpose + '<br>' +
+        '— 修正计算说明 —<br>' +
+        '海拔: ' + sampleCorr.altDesc + '<br>' +
+        '温度: ' + sampleCorr.tempDesc + '<br>' +
+        '<strong>综合系数: ×' + sampleCorr.total + '</strong><br>' +
+        '<strong>所需额定功率 ≥ ' + minRequired + 'kW</strong></div>';
+    }
+    html += '</div>';
+    resultDiv.innerHTML = html;
   } else {
     const top = passing.slice(0, 5);
     const best = top[0];
+    const c = best.correction;
+    const minRequired = Math.ceil(reqPower / c.total);
+
     let html = '<div class="result-card pass" style="padding:12px">' +
-      '<div class="result-ok" style="font-size:18px">✅ 推荐 ' + passing.length + ' 个型号</div>' +
-      '<div class="calc-detail" style="margin-top:10px">原始需求: ' + reqPower + 'kW ' + purpose + '<br>' +
-      '海拔 ' + altitude + 'm ×' + correction.altFactor.toFixed(3) + '<br>' +
-      '温度 ' + temperature + '°C ×' + correction.tempFactor.toFixed(3) + '<br>' +
-      '综合系数: ×' + correction.total.toFixed(3) + '<br>' +
-      '<strong>所需额定功率 ≥ ' + Math.ceil(reqPower / correction.total) + 'kW</strong></div>' +
+      '<div class="result-ok" style="font-size:18px">✅ 推荐 ' + passing.length + ' 个可用型号</div>' +
+      '<div class="calc-detail" style="margin-top:10px">' +
+      '<b>📐 修正计算过程</b><br>' +
+      '原始需求: ' + reqPower + 'kW ' + purpose + '<br>' +
+      (best.turbo
+        ? '🏔 ' + c.altDesc + '<br>🌡️ ' + c.tempDesc +
+          '<br><strong>综合修正系数: ×' + c.total + '</strong>' +
+          '<br>所需额定功率 ≥ ' + minRequired + 'kW'
+        : '⚠️ 自然吸气机型（型号不含 T），不做功率修正<br>按额定功率直接选型') +
+      '</div>' +
       '<div class="engine-result" style="background:#f0fdf4;border-radius:6px;padding:10px;margin-top:10px">' +
-      '<div class="engine-model">🏆 最佳推荐: ' + best.model + '</div>' +
+      '<div class="engine-model">🏆 最佳推荐: ' + best.model + ' ' +
+        (best.turbo ? '<span class="tag-turbo">Turbo</span>' : '<span class="tag-na">NA</span>') +
+      '</div>' +
       '<div class="engine-power"><span>📦 ' + best.config + '</span><span>⚖️ ' + (best.dry_weight_kg || '-') + 'kg</span></div>' +
       '<div class="engine-power"><span>ESP: ' + (best.esp_kWe || Math.round(best.esp_kVA*0.8) || '-') + 'kW / ' + (best.esp_kVA || '-') + 'kVA</span>' +
       '<span>PRP: ' + (best.prp_kWe || Math.round(best.prp_kVA*0.8) || '-') + 'kW / ' + (best.prp_kVA || '-') + 'kVA</span></div>' +
@@ -243,8 +322,12 @@ function displayResults(candidates, reqPower, purpose, correction, altitude, tem
       html += '<div style="margin-top:12px"><strong>其他可用型号:</strong></div>';
       for (let i = 1; i < top.length; i++) {
         const e = top[i];
-        html += '<div class="engine-result"><div class="engine-model">' + e.model + '</div>' +
-          '<div class="engine-power"><span>修正后: ' + e.correctedPower + 'kW</span><span>额定: ' + e.ratedPower + 'kW</span></div></div>';
+        html += '<div class="engine-result"><div class="engine-model">' + e.model + ' ' +
+          (e.turbo ? '<span class="tag-turbo">Turbo</span>' : '<span class="tag-na">NA</span>') +
+          '</div>' +
+          '<div class="engine-power"><span>修正后: ' + e.correctedPower + 'kW</span><span>额定: ' + e.ratedPower + 'kW</span>' +
+          (e.correction.total !== 1 ? '<span>系数: ×' + e.correction.total + '</span>' : '<span>无修正</span>') +
+          '</div></div>';
       }
     }
     html += '</div>';
@@ -252,13 +335,17 @@ function displayResults(candidates, reqPower, purpose, correction, altitude, tem
   }
 
   let dbg = '<div class="stats">共 ' + candidates.length + ' 个型号，' + passing.length + ' 个满足</div>';
-  dbg += '<table><tr><th>型号</th><th>排放</th><th>配置</th><th>ESP(kW)</th><th>PRP(kW)</th><th>修正(kW)</th><th>?</th><th>尺寸(mm)</th><th>重量(kg)</th></tr>';
+  dbg += '<table><tr><th>型号</th><th>类型</th><th>排放</th><th>配置</th><th>ESP(kW)</th><th>PRP(kW)</th><th>修正后(kW)</th><th>系数</th><th>结果</th><th>尺寸(mm)</th><th>重量(kg)</th></tr>';
   for (const e of candidates) {
     const cls = e.meets ? ' style="background:#f0fdf4"' : '';
-    dbg += '<tr' + cls + '><td><b>' + e.model + '</b></td><td>' + e.emission + '</td><td>' + e.config + '</td>' +
+    dbg += '<tr' + cls + '><td><b>' + e.model + '</b></td>' +
+      '<td>' + (e.turbo ? '<span class="tag-turbo">T</span>' : '<span class="tag-na">NA</span>') + '</td>' +
+      '<td>' + e.emission + '</td><td>' + e.config + '</td>' +
       '<td>' + (e.esp_kWe || Math.round(e.esp_kVA*0.8) || '-') + '</td>' +
       '<td>' + (e.prp_kWe || Math.round(e.prp_kVA*0.8) || '-') + '</td>' +
-      '<td><b>' + e.correctedPower + '</b></td><td>' + (e.meets ? '✅' : '❌') + '</td>' +
+      '<td><b>' + e.correctedPower + '</b></td>' +
+      '<td>' + (e.correction.total !== 1 ? '×' + e.correction.total : '1.000') + '</td>' +
+      '<td>' + (e.meets ? '✅' : '❌') + '</td>' +
       '<td>' + (e.length_mm||'-') + '×' + (e.width_mm||'-') + '×' + (e.height_mm||'-') + '</td>' +
       '<td>' + (e.dry_weight_kg||'-') + '</td></tr>';
   }
