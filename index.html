@@ -335,12 +335,12 @@ function displayResults(candidates, reqPower, purpose, altitude, temperature) {
   }
 
   let dbg = '<div class="stats">共 ' + candidates.length + ' 个型号，' + passing.length + ' 个满足</div>';
-  dbg += '<table><tr><th>型号</th><th>类型</th><th>排放</th><th>配置</th><th>ESP(kW)</th><th>PRP(kW)</th><th>修正后(kW)</th><th>系数</th><th>结果</th><th>尺寸(mm)</th><th>重量(kg)</th></tr>';
+  dbg += '<table><tr><th>型号</th><th>类型</th><th>配置</th><th>ESP(kW)</th><th>PRP(kW)</th><th>修正后(kW)</th><th>系数</th><th>结果</th><th>尺寸(mm)</th><th>重量(kg)</th></tr>';
   for (const e of candidates) {
     const cls = e.meets ? ' style="background:#f0fdf4"' : '';
     dbg += '<tr' + cls + '><td><b>' + e.model + '</b></td>' +
       '<td>' + (e.turbo ? '<span class="tag-turbo">T</span>' : '<span class="tag-na">NA</span>') + '</td>' +
-      '<td>' + e.emission + '</td><td>' + e.config + '</td>' +
+      '<td>' + e.config + '</td>'
       '<td>' + (e.esp_kWe || Math.round(e.esp_kVA*0.8) || '-') + '</td>' +
       '<td>' + (e.prp_kWe || Math.round(e.prp_kVA*0.8) || '-') + '</td>' +
       '<td><b>' + e.correctedPower + '</b></td>' +

@@ -1,6 +1,5 @@
 [
   {
-    "emission": "Stage0",
     "config": "4inline/JW",
     "length_mm": 765,
     "width_mm": 582,
@@ -17,7 +16,6 @@
     "frequency": "50Hz"
   },
   {
-    "emission": "Stage0",
     "config": "4inline/JW",
     "length_mm": 765,
     "width_mm": 582,
@@ -34,7 +32,6 @@
     "frequency": "50Hz"
   },
   {
-    "emission": "Stage0",
     "config": "4inline/JW",
     "length_mm": 765,
     "width_mm": 582,
@@ -51,7 +48,6 @@
     "frequency": "50Hz"
   },
   {
-    "emission": "Stage0",
     "config": "4inline/JW",
     "length_mm": 765,
     "width_mm": 582,
@@ -68,7 +64,6 @@
     "frequency": "50Hz"
   },
   {
-    "emission": "Stage0",
     "config": "4inline/JWAC",
     "length_mm": 765,
     "width_mm": 582,
@@ -85,7 +80,6 @@
     "frequency": "50Hz"
   },
   {
-    "emission": "Stage1",
     "config": "4inline/JWAC",
     "length_mm": 765,
     "width_mm": 582,
@@ -102,7 +96,6 @@
     "frequency": "50Hz"
   },
   {
-    "emission": "Stage0",
     "config": "4inline/JWAC",
     "length_mm": 765,
     "width_mm": 582,
@@ -119,7 +112,6 @@
     "frequency": "50Hz"
   },
   {
-    "emission": "Stage0",
     "config": "6inline/JW",
     "length_mm": 1016,
     "width_mm": 699,
@@ -136,7 +128,6 @@
     "frequency": "50Hz"
   },
   {
-    "emission": "Stage1",
     "config": "6inline/JW",
     "length_mm": 1016,
     "width_mm": 699,
@@ -153,7 +144,6 @@
     "frequency": "50Hz"
   },
   {
-    "emission": "Stage0",
     "config": "6inline/JW",
     "length_mm": 1016,
     "width_mm": 699,
@@ -170,7 +160,6 @@
     "frequency": "50Hz"
   },
   {
-    "emission": "Stage1",
     "config": "6inline/JW",
     "length_mm": 1016,
     "width_mm": 699,
@@ -187,7 +176,6 @@
     "frequency": "50Hz"
   },
   {
-    "emission": "Stage1",
     "config": "6inlineJWAC",
     "length_mm": 1016,
     "width_mm": 699,
@@ -204,7 +192,6 @@
     "frequency": "50Hz"
   },
   {
-    "emission": "Stage1",
     "config": "6inline/A-A",
     "length_mm": 1016,
     "width_mm": 699,
@@ -221,7 +208,6 @@
     "frequency": "50Hz"
   },
   {
-    "emission": "Stage0",
     "config": "6inline/A-A",
     "length_mm": 1016,
     "width_mm": 699,
@@ -238,7 +224,6 @@
     "frequency": "50Hz"
   },
   {
-    "emission": "Stage1",
     "config": "6inline/JWAC",
     "length_mm": 1115,
     "width_mm": 718,
@@ -255,7 +240,6 @@
     "frequency": "50Hz"
   },
   {
-    "emission": "Stage1",
     "config": "6inline/JWAC",
     "length_mm": 1115,
     "width_mm": 718,
@@ -272,7 +256,6 @@
     "frequency": "50Hz"
   },
   {
-    "emission": "Stage1",
     "config": "6inline/A-A",
     "length_mm": 1115,
     "width_mm": 718,
@@ -289,7 +272,6 @@
     "frequency": "50Hz"
   },
   {
-    "emission": "Stage2",
     "config": "6inline/A-A",
     "length_mm": 1206,
     "width_mm": 919,
@@ -306,7 +288,6 @@
     "frequency": "50Hz"
   },
   {
-    "emission": "Stage0",
     "config": "6inline/A-A",
     "length_mm": 1206,
     "width_mm": 919,
@@ -323,7 +304,6 @@
     "frequency": "50Hz"
   },
   {
-    "emission": "Stage2",
     "config": "6inline/A-A",
     "length_mm": 1428,
     "width_mm": 878,
@@ -340,7 +320,6 @@
     "frequency": "50Hz"
   },
   {
-    "emission": "Stage2",
     "config": "6inline/A-A",
     "length_mm": 1396,
     "width_mm": 1049,
@@ -357,7 +336,6 @@
     "frequency": "50Hz"
   },
   {
-    "emission": "Stage2",
     "config": "6inline/A-A",
     "length_mm": 1396,
     "width_mm": 1049,
@@ -374,7 +352,6 @@
     "frequency": "50Hz"
   },
   {
-    "emission": "Stage2",
     "config": "6inline/A-A",
     "length_mm": 1396,
     "width_mm": 1075,
@@ -391,7 +368,6 @@
     "frequency": "50Hz"
   },
   {
-    "emission": "Stage2",
     "config": "6inline/A-A",
     "length_mm": 1396,
     "width_mm": 1075,
@@ -408,7 +384,6 @@
     "frequency": "50Hz"
   },
   {
-    "emission": "Stage0",
     "config": "6inline/A-A",
     "length_mm": 1396,
     "width_mm": 1075,
@@ -425,7 +400,6 @@
     "frequency": "50Hz"
   },
   {
-    "emission": "Stage0",
     "config": "4inline/JW",
     "length_mm": 765,
     "width_mm": 582,
@@ -442,7 +416,6 @@
     "frequency": "60Hz"
   },
   {
-    "emission": "Stage0",
     "config": "4inline/JW",
     "length_mm": 765,
     "width_mm": 582,
@@ -459,7 +432,6 @@
     "frequency": "60Hz"
   },
   {
-    "emission": "Stage0",
     "config": "4inline/JWAC",
     "length_mm": 765,
     "width_mm": 582,
@@ -476,7 +448,6 @@
     "frequency": "60Hz"
   },
   {
-    "emission": "Stage1",
     "config": "4inline/JWAC",
     "length_mm": 765,
     "width_mm": 582,
@@ -493,7 +464,6 @@
     "frequency": "60Hz"
   },
   {
-    "emission": "Stage0",
     "config": "4inline/JWAC",
     "length_mm": 765,
     "width_mm": 582,
@@ -510,7 +480,6 @@
     "frequency": "60Hz"
   },
   {
-    "emission": "Stage0",
     "config": "6inline/JW",
     "length_mm": 1016,
     "width_mm": 699,
@@ -527,7 +496,6 @@
     "frequency": "60Hz"
   },
   {
-    "emission": "Stage1",
     "config": "6inline/JW",
     "length_mm": 1016,
     "width_mm": 699,
@@ -544,7 +512,6 @@
     "frequency": "60Hz"
   },
   {
-    "emission": "Stage1",
     "config": "6inlineJWAC",
     "length_mm": 1016,
     "width_mm": 699,
@@ -561,7 +528,6 @@
     "frequency": "60Hz"
   },
   {
-    "emission": "Stage1",
     "config": "6inline/A-A",
     "length_mm": 1016,
     "width_mm": 699,
@@ -578,7 +544,6 @@
     "frequency": "60Hz"
   },
   {
-    "emission": "Stage0",
     "config": "6inline/A-A",
     "length_mm": 1016,
     "width_mm": 699,
@@ -595,7 +560,6 @@
     "frequency": "60Hz"
   },
   {
-    "emission": "Stage1",
     "config": "6inline/JWAC",
     "length_mm": 1115,
     "width_mm": 718,
@@ -612,7 +576,6 @@
     "frequency": "60Hz"
   },
   {
-    "emission": "Stage1",
     "config": "6inline/A-A",
     "length_mm": 1115,
     "width_mm": 718,
@@ -629,7 +592,6 @@
     "frequency": "60Hz"
   },
   {
-    "emission": "Stage2",
     "config": "6inline/A-A",
     "length_mm": 1206,
     "width_mm": 919,
@@ -646,7 +608,6 @@
     "frequency": "60Hz"
   },
   {
-    "emission": "Stage0",
     "config": "6inline/A-A",
     "length_mm": 1206,
     "width_mm": 919,
@@ -663,7 +624,6 @@
     "frequency": "60Hz"
   },
   {
-    "emission": "Stage2",
     "config": "6inline/A-A",
     "length_mm": 1428,
     "width_mm": 878,
@@ -680,7 +640,6 @@
     "frequency": "60Hz"
   },
   {
-    "emission": "Stage2",
     "config": "6inline/A-A",
     "length_mm": 1396,
     "width_mm": 1049,
@@ -697,7 +656,6 @@
     "frequency": "60Hz"
   },
   {
-    "emission": "Stage2",
     "config": "6inline/A-A",
     "length_mm": 1396,
     "width_mm": 1049,
@@ -714,7 +672,6 @@
     "frequency": "60Hz"
   },
   {
-    "emission": "Stage2",
     "config": "6inline/A-A",
     "length_mm": 1396,
     "width_mm": 1075,
@@ -731,7 +688,6 @@
     "frequency": "60Hz"
   },
   {
-    "emission": "Stage2",
     "config": "6inline/A-A",
     "length_mm": 1396,
     "width_mm": 1075,
@@ -748,7 +704,6 @@
     "frequency": "60Hz"
   },
   {
-    "emission": "Stage0",
     "config": "6inline/A-A",
     "length_mm": 1396,
     "width_mm": 1075,
