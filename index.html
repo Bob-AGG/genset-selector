@@ -341,7 +341,7 @@ function displayResults(candidates, reqPower, purpose, altitude, temperature) {
     const cls = e.meets ? ' style="background:#f0fdf4"' : '';
     dbg += '<tr' + cls + '><td><b>' + e.model + '</b></td>' +
       '<td>' + (e.turbo ? '<span class="tag-turbo">T</span>' : '<span class="tag-na">NA</span>') + '</td>' +
-      '<td>' + e.config + '</td>'
+      '<td>' + e.config + '</td>' +
       '<td>' + (e.esp_kWe ? e.esp_kWe : (e.esp_kVA ? Math.round(e.esp_kVA*0.8) : '-')) + '</td>' +
       '<td>' + (e.prp_kWe ? e.prp_kWe : (e.prp_kVA ? Math.round(e.prp_kVA*0.8) : '-')) + '</td>' +
       '<td><b>' + e.correctedPower + '</b></td>' +
