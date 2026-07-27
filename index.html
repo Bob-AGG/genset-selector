@@ -168,8 +168,8 @@ const BRAND_CONFIG = {
       { match: /^KTA19/i, rule: { altBase:1525, altStep:300, altDrop:0.04, tempBase:40, tempStep:11, tempDrop:0.02, name:'KTA19 系列' } },
       // K38系列 (KTA38)
       { match: /^K38/i, rule: { altBase:1525, altStep:300, altDrop:0.04, tempBase:40, tempStep:11, tempDrop:0.02, name:'KTA38 系列' } },
-      // KTA50 - 暂不修正（待后续补充）
-      // { match: /^K50/i, rule: { altBase:915, altStep:300, altDrop:0.04, tempBase:40, tempStep:11, tempDrop:0.16, name:'KTA50 系列' } }
+      // KTA50系列
+      { match: /^K50/i, rule: { altBase:915, altStep:300, altDrop:0.04, tempBase:40, tempStep:11, tempDrop:0.16, name:'KTA50 系列' } }
     ],
     getRule: function(model) {
       for (const r of this.rules) {
@@ -278,8 +278,8 @@ function onBrandChange() {
     html += '• 自然吸气（型号无T）：不做修正<br>';
     html += '• ⚠️ 需要修正时，无修正规则的机型自动排除';
   } else {
-    html += '• 有修正规则的系列：NTA855、KTA19、KTA38（匹配修正Excel）<br>';
-    html += '• 无修正说明的系列（M15/QSM11/QSNT/QSK19/QSK38/KTA50等）：暂不修正<br>';
+    html += '• 有修正规则的系列：NTA855、KTA19、KTA38、KTA50（匹配修正Excel）<br>';
+    html += '• 无修正说明的系列（M15/QSM11/QSNT/QSK19/QSK38）：暂不修正<br>';
     html += '• ⚠️ 海拔/温度超过基数时，无规则机型不会出现在候选列表';
   }
   div.innerHTML = html;
