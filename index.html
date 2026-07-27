@@ -322,7 +322,10 @@ function doSearch() {
   for (const eng of filtered) {
     const correction = getCorrection(brand, eng.model, altitude, temperature);
 
-    // 如果需要修正但机型无修正规则 → 排除
+    // 重庆康明斯：海拔≥1000m时，无规则机型不出现在候选
+    if (brand === 'cqc' && altitude >= 1000 && !correction.hasRule) {
+      continue;
+    }
     const needAltCorr = altitude > getAltBase(brand, correction);
     const needTempCorr = temperature > getTempBase(brand, correction);
     if ((needAltCorr || needTempCorr) && !correction.hasRule) {
