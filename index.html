@@ -475,11 +475,10 @@ function displayGenResults(candidates, reqPower, corr) {
   }
 
   let d = '<div class="stats">共' + candidates.length + '个，' + pass.length + '个满足 | 综合修正: ×' + corr.total + '</div>';
-  d += '<table><tr><th>型号</th><th>励磁</th><th>连续H(kVA)</th><th>连续F(kVA)</th><th>备用27°C</th><th>修正后</th><th>结果</th></tr>';
+  d += '<table><tr><th>型号</th><th>标配励磁</th><th>可选励磁</th><th>连续H(kVA)</th><th>连续F(kVA)</th><th>备用27°C</th><th>修正后</th><th>结果</th></tr>';
   for (const e of candidates) {
     const cls = e.meets ? ' style="background:#f0fdf4"' : '';
-    const excLabel = e.exc === 'C' ? 'AREP' : 'SHUNT/AREP';
-    d += '<tr' + cls + '><td><b>' + e.model + '</b></td><td>' + excLabel + '</td>' +
+    d += '<tr' + cls + '><td><b>' + e.model + '</b></td><td>' + (e.exc_std||'-') + '</td><td>' + (e.exc_opt||'-') + '</td>' +
       '<td>' + e.cont_h_kVA + '</td><td>' + e.cont_f_kVA + '</td><td>' + e.stdby_27c_kVA + '</td>' +
       '<td><b>' + e.correctedPower + '</b></td><td>' + (e.meets ? '✅' : '❌') + '</td></tr>';
   }
