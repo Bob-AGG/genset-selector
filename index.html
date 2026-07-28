@@ -119,26 +119,26 @@ tr:hover{background:#f8fafc}
 <div class="form-group">
 <label>额定电压</label>
 <select id="genWinding">
-<optgroup label="50Hz 标准绕组">
+<optgroup label="50Hz 标准绕组" class="freq-50hz">
 <option value="6-380-400-415">6号绕组 380/400/415V</option>
 <option value="6-220-440">6号绕组 220/440V</option>
 <option value="6-12-380-400-415">6/12号绕组 380/400/415V(可选)</option>
 <option value="6-12-220-440">6/12号绕组 220/440V(可选)</option>
 </optgroup>
-<optgroup label="50Hz 特殊绕组">
+<optgroup label="50Hz 特殊绕组" class="freq-50hz">
 <option value="7-415-440">7号绕组 415/440V</option>
 <option value="9-500-525">9号绕组 500/525V</option>
 <option value="22-23-550">22/23号绕组 550V</option>
 <option value="22-23-600">22/23号绕组 600V</option>
 <option value="10-52-660-690">10/52号绕组 660/690V</option>
 </optgroup>
-<optgroup label="60Hz 标准绕组">
+<optgroup label="60Hz 标准绕组" class="freq-60hz" style="display:none">
 <option value="6-380-416">6号绕组 380/416V</option>
 <option value="6-440-480">6号绕组 440/480V</option>
 <option value="6-12-380-416">6/12号绕组 380/416V(可选)</option>
 <option value="6-12-440-480">6/12号绕组 440/480V(可选)</option>
 </optgroup>
-<optgroup label="60Hz 特殊绕组">
+<optgroup label="60Hz 特殊绕组" class="freq-60hz" style="display:none">
 <option value="8-380-416">8号绕组 380/416V</option>
 <option value="9-347-600">9号绕组 347/600V</option>
 <option value="22-23-660-690">22/23号绕组 660/690V</option>
@@ -148,6 +148,13 @@ tr:hover{background:#f8fafc}
 <div class="form-group">
 <label>额定功率 (kVA)</label>
 <input type="number" id="genPower" value="500" min="5" max="5000" step="5">
+</div>
+<div class="form-group">
+<label>相数</label>
+<div class="radio-group">
+<label><input type="radio" name="genPhase" value="3" checked> 三相 (3-ph)</label>
+<label><input type="radio" name="genPhase" value="1"> 单相 (1-ph)</label>
+</div>
 </div>
 <div class="form-group">
 <label>用途</label>
@@ -237,24 +244,26 @@ function switchTab(tab) {
 function onGenFreqChange() {
   const freq = document.getElementById('genFreq').value;
   const sel = document.getElementById('genWinding');
-  // 遍历所有option，根据optgroup显示/隐藏
-  for (let i = 0; i < sel.options.length; i++) {
-    const opt = sel.options[i];
-    if (opt.parentElement && opt.parentElement.tagName === 'OPTGROUP') {
-      if (freq === '50Hz' && opt.parentElement.label.indexOf('60Hz') >= 0) {
-        opt.disabled = true;
-      } else if (freq === '60Hz' && opt.parentElement.label.indexOf('50Hz') >= 0) {
-        opt.disabled = true;
+  // 根据className显示/隐藏optgroup
+  for (let i = 0; i < sel.children.length; i++) {
+    const og = sel.children[i];
+    if (og.tagName === 'OPTGROUP') {
+      if ((freq === '50Hz' && og.className.includes('freq-50hz')) ||
+          (freq === '60Hz' && og.className.includes('freq-60hz'))) {
+        og.style.display = '';
       } else {
-        opt.disabled = false;
+        og.style.display = 'none';
       }
     }
   }
-  // 选中第一个未禁用的
-  for (let i = 0; i < sel.options.length; i++) {
-    if (!sel.options[i].disabled) {
-      sel.selectedIndex = i;
-      break;
+  // 选中第一个可见的option
+  sel.selectedIndex = 0;
+  if (sel.options[0] && sel.options[0].parentElement.style.display === 'none') {
+    for (let i = 0; i < sel.options.length; i++) {
+      if (sel.options[i].parentElement.style.display !== 'none') {
+        sel.selectedIndex = i;
+        break;
+      }
     }
   }
 }
