@@ -116,6 +116,13 @@ tr:hover{background:#f8fafc}
 <option value="60Hz">60 Hz</option>
 </select>
 </div>
+<div class="form-group" id="genBrandGroup">
+<label>品牌/系列</label>
+<select id="genBrand" onchange="onGenBrandChange()">
+<option value="leroysomer">利莱森玛 LSA</option>
+<option value="talson">利莱森玛 TAL</option>
+</select>
+</div>
 <div class="form-group">
 <label>额定电压</label>
 <select id="genWinding">
@@ -142,6 +149,13 @@ tr:hover{background:#f8fafc}
 <option value="8-380-416">8号绕组 380/416V</option>
 <option value="9-347-600">9号绕组 347/600V</option>
 <option value="22-23-660-690">22/23号绕组 660/690V</option>
+</optgroup>
+<!-- TAL绕组-->
+<optgroup label="TAL 50Hz" class="brand-tal freq-50hz" style="display:none">
+<option value="6-380-415">6号绕组 380/400/415V(Y/△/YY)</option>
+</optgroup>
+<optgroup label="TAL 60Hz" class="brand-tal freq-60hz" style="display:none">
+<option value="6-380-480">6号绕组 380/416/440/480V(Y/△/YY)</option>
 </optgroup>
 </select>
 </div>
@@ -240,25 +254,25 @@ function switchTab(tab) {
   document.getElementById('genTab').className = tab === 'generator' ? '' : 'hidden';
 }
 
-// 根据频率切换绕组选项
+// 根据品牌+频率切换绕组选项
+function onGenBrandChange() {
+  onGenFreqChange();
+}
 function onGenFreqChange() {
   const freq = document.getElementById('genFreq').value;
+  const brand = document.getElementById('genBrand').value;
   const sel = document.getElementById('genWinding');
-  // 根据className显示/隐藏optgroup
   for (let i = 0; i < sel.children.length; i++) {
     const og = sel.children[i];
     if (og.tagName === 'OPTGROUP') {
-      if ((freq === '50Hz' && og.className.includes('freq-50hz')) ||
-          (freq === '60Hz' && og.className.includes('freq-60hz'))) {
-        og.style.display = '';
-      } else {
-        og.style.display = 'none';
-      }
+      const showByFreq = (freq === '50Hz' && og.className.includes('freq-50hz')) ||
+                         (freq === '60Hz' && og.className.includes('freq-60hz'));
+      const showByBrand = brand === 'leroysomer' || og.className.includes('brand-tal');
+      og.style.display = (showByFreq && showByBrand) ? '' : 'none';
     }
   }
   // 选中第一个可见的option
-  sel.selectedIndex = 0;
-  if (sel.options[0] && sel.options[0].parentElement.style.display === 'none') {
+  if (sel.options.length > 0 && sel.options[0].parentElement.style.display === 'none') {
     for (let i = 0; i < sel.options.length; i++) {
       if (sel.options[i].parentElement.style.display !== 'none') {
         sel.selectedIndex = i;
@@ -435,6 +449,7 @@ function doGenSearch() {
   const power = parseFloat(document.getElementById('genPower').value);
   const freq = document.getElementById('genFreq').value;
   const winding = document.getElementById('genWinding').value;
+  const brand = document.getElementById('genBrand').value;
   const purpose = document.querySelector('input[name="genPurpose"]:checked').value;
   const insClass = document.getElementById('genInsClass').value;
   const pf = parseFloat(document.getElementById('genPF').value);
@@ -442,7 +457,7 @@ function doGenSearch() {
   const temp = parseFloat(document.getElementById('genTemp').value);
   if (!power || power < 1) { alert('请输入有效功率'); return; }
 
-  const filtered = ALL_DATA.filter(e => e.type === 'generator' && e.frequency === freq && e.winding_code === winding);
+  const filtered = ALL_DATA.filter(e => e.type === 'generator' && e.brand === brand && e.frequency === freq && e.winding_code === winding);
   const corr = calcGenCorrection(alt, temp, insClass, pf);
   const candidates = [];
 
