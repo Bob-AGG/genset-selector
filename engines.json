@@ -7130,7 +7130,7 @@
     "frequency": "50Hz",
     "winding_code": "10-52-660-690",
     "cont_h_kVA": 2200,
-    "cont_f_kVA": 2207,
+    "cont_f_kVA": 2006,
     "stdby_40c_kVA": 2541,
     "stdby_27c_kVA": 2662,
     "exc_std": "AREP",

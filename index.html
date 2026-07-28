@@ -177,13 +177,7 @@ tr:hover{background:#f8fafc}
 <label><input type="radio" name="genPurpose" value="STANDBY"> 备用 (ESP) <span class="alt-badge">27°C备用功率</span></label>
 </div>
 </div>
-<div class="form-group">
-<label>绝缘等级</label>
-<select id="genInsClass">
-<option value="H">H 级 (125K)</option>
-<option value="F">F 级 (105K)</option>
-</select>
-</div>
+
 <div class="form-group">
 <label>功率因数 (PF)</label>
 <select id="genPF">
@@ -344,14 +338,13 @@ function onEngBrandChange() {
 }
 
 // ===== 发电机修正 =====
-function calcGenCorrection(alt, temp, insClass, pf) {
+function calcGenCorrection(alt, temp, pf) {
   const af = interpolate(alt, GEN_ALT_FACTOR);
-  const tempDict = GEN_TEMP_FACTOR[insClass] || GEN_TEMP_FACTOR.H;
-  const tf = interpolate(temp, tempDict);
+  const tf = interpolate(temp, GEN_TEMP_FACTOR.H);
   const pff = GEN_PF_FACTOR[pf] || 1;
   const total = Math.round(af * tf * pff * 1000) / 1000;
   let altDesc = alt <= 1000 ? '海拔 ≤1000m，无需修正' : '海拔修正系数 ×' + af;
-  let tempDesc = temp <= 40 ? '温度 ≤40℃，无需修正' : '温度(' + insClass + '级)修正系数 ×' + tf;
+  let tempDesc = temp <= 40 ? '温度 ≤40℃，无需修正' : '温度(H级)修正系数 ×' + tf;
   let pfDesc = pf >= 0.8 ? 'PF≥0.8，无需修正' : 'PF=' + pf + ' 修正系数 ×' + pff;
   return { total, altFactor:af, tempFactor:tf, pfFactor:pff, altDesc, tempDesc, pfDesc };
 }
@@ -451,14 +444,13 @@ function doGenSearch() {
   const winding = document.getElementById('genWinding').value;
   const brand = document.getElementById('genBrand').value;
   const purpose = document.querySelector('input[name="genPurpose"]:checked').value;
-  const insClass = document.getElementById('genInsClass').value;
   const pf = parseFloat(document.getElementById('genPF').value);
   const alt = parseFloat(document.getElementById('genAlt').value);
   const temp = parseFloat(document.getElementById('genTemp').value);
   if (!power || power < 1) { alert('请输入有效功率'); return; }
 
   const filtered = ALL_DATA.filter(e => e.type === 'generator' && e.brand === brand && e.frequency === freq && e.winding_code === winding);
-  const corr = calcGenCorrection(alt, temp, insClass, pf);
+  const corr = calcGenCorrection(alt, temp, pf);
   const candidates = [];
 
   for (const gen of filtered) {
