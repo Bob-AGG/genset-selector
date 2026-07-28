@@ -4743,5 +4743,83 @@
     "stdby_27c_kVA": 1350,
     "exc_std": "AREP",
     "exc_opt": "PMG"
+  },
+  {
+    "type": "generator",
+    "brand": "leroysomer",
+    "model": "LSA 49.3 M6",
+    "frequency": "50Hz",
+    "winding_code": "6-12-220-440",
+    "cont_h_kVA": 665,
+    "cont_f_kVA": 600,
+    "stdby_40c_kVA": 730,
+    "stdby_27c_kVA": 765,
+    "exc_std": "AREP",
+    "exc_opt": "PMG"
+  },
+  {
+    "type": "generator",
+    "brand": "leroysomer",
+    "model": "LSA 49.3 M8",
+    "frequency": "50Hz",
+    "winding_code": "6-12-220-440",
+    "cont_h_kVA": 810,
+    "cont_f_kVA": 710,
+    "stdby_40c_kVA": 885,
+    "stdby_27c_kVA": 925,
+    "exc_std": "AREP",
+    "exc_opt": "PMG"
+  },
+  {
+    "type": "generator",
+    "brand": "leroysomer",
+    "model": "LSA 49.3 L9",
+    "frequency": "50Hz",
+    "winding_code": "6-12-220-440",
+    "cont_h_kVA": 820,
+    "cont_f_kVA": 740,
+    "stdby_40c_kVA": 920,
+    "stdby_27c_kVA": 965,
+    "exc_std": "AREP",
+    "exc_opt": "PMG"
+  },
+  {
+    "type": "generator",
+    "brand": "leroysomer",
+    "model": "LSA 49.3 L10",
+    "frequency": "50Hz",
+    "winding_code": "6-12-220-440",
+    "cont_h_kVA": 950,
+    "cont_f_kVA": 840,
+    "stdby_40c_kVA": 1030,
+    "stdby_27c_kVA": 1080,
+    "exc_std": "AREP",
+    "exc_opt": "PMG"
+  },
+  {
+    "type": "generator",
+    "brand": "leroysomer",
+    "model": "LSA 50.2 M6",
+    "frequency": "50Hz",
+    "winding_code": "6-12-220-440",
+    "cont_h_kVA": 1210,
+    "cont_f_kVA": 1089,
+    "stdby_40c_kVA": 1210,
+    "stdby_27c_kVA": 1210,
+    "exc_std": "AREP",
+    "exc_opt": "PMG"
+  },
+  {
+    "type": "generator",
+    "brand": "leroysomer",
+    "model": "LSA 50.2 L8",
+    "frequency": "50Hz",
+    "winding_code": "6-12-220-440",
+    "cont_h_kVA": 1430,
+    "cont_f_kVA": 1287,
+    "stdby_40c_kVA": 1430,
+    "stdby_27c_kVA": 1430,
+    "exc_std": "AREP",
+    "exc_opt": "PMG"
   }
 ]
