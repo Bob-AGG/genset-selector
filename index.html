@@ -120,8 +120,8 @@ tr:hover{background:#f8fafc}
 <div class="form-group">
 <label>用途</label>
 <div class="radio-group">
-<label><input type="radio" name="genPurpose" value="PRIME" checked> 主用 (Prime)</label>
-<label><input type="radio" name="genPurpose" value="STANDBY"> 备用 (Standby)</label>
+<label><input type="radio" name="genPurpose" value="PRIME" checked> 主用 (PRP)</label>
+<label><input type="radio" name="genPurpose" value="STANDBY"> 备用 (ESP) <span class="alt-badge">27°C备用功率</span></label>
 </div>
 </div>
 <div class="form-group">
@@ -380,8 +380,8 @@ function doGenSearch() {
 
   for (const gen of filtered) {
     let rated = 0;
-    if (purpose === 'PRIME') rated = gen.cont_h_kVA;  // 主用 = 持续H级
-    else rated = gen.stdby_40c_kVA;  // 备用
+    if (purpose === 'PRIME') rated = gen.cont_h_kVA;
+    else rated = gen.stdby_27c_kVA;  // 备用用27°C
     if (!rated || rated <= 0) continue;
     const cp = Math.round(rated * corr.total * 10) / 10;
     candidates.push({ ...gen, ratedPower:rated, correctedPower:cp, meets:cp >= power, corr });
@@ -409,14 +409,13 @@ function displayGenResults(candidates, reqPower, corr) {
     let h = '<div class="result-card pass" style="padding:12px"><div class="result-ok" style="font-size:18px">✅ ' + pass.length + ' 个可用</div>' +
       '<div class="calc-detail"><b>📐 修正计算</b><br>🏔 ' + corr.altDesc + '<br>🌡 ' + corr.tempDesc + '<br>⚡ ' + corr.pfDesc + '<br><strong>综合修正: ×' + corr.total + '</strong></div>' +
       '<div class="engine-result" style="background:#f0fdf4;border-radius:6px;padding:10px;margin-top:10px"><div class="engine-model">🏆 ' + b.model + '</div>' +
-      '<div class="engine-power"><span>连续(H级): ' + b.cont_h_kVA + 'kVA</span><span>连续(F级): ' + b.cont_f_kVA + 'kVA</span></div>' +
-      '<div class="engine-power"><span>备用40°C: ' + b.stdby_40c_kVA + 'kVA</span><span>备用27°C: ' + b.stdby_27c_kVA + 'kVA</span></div>' +
+      '<div class="engine-power"><span>连续(H级): ' + b.cont_h_kVA + 'kVA</span><span>连续(F级): ' + b.cont_f_kVA + 'kVA</span><span>备用27°C: ' + b.stdby_27c_kVA + 'kVA</span></div>' +
       '<div class="engine-power" style="font-weight:600"><span class="result-ok">修正后: ' + b.correctedPower + 'kVA ≥ ' + reqPower + 'kVA ✅</span></div></div>';
     if (top.length > 1) {
       h += '<div style="margin-top:12px"><b>其他:</b></div>';
       for (let i=1; i<top.length; i++) {
         const e = top[i];
-        h += '<div class="engine-result"><div class="engine-model">' + e.model + '</div><div class="engine-power"><span>修正后: ' + e.correctedPower + 'kVA</span><span>额定: ' + e.ratedPower + 'kVA</span><span>×' + corr.total + '</span></div></div>';
+        h += '<div class="engine-result"><div class="engine-model">' + e.model + '</div><div class="engine-power"><span>修正后: ' + e.correctedPower + 'kVA</span><span>备用27°C: ' + e.stdby_27c_kVA + 'kVA</span><span>×' + corr.total + '</span></div></div>';
       }
     }
     h += '</div>';
@@ -424,11 +423,12 @@ function displayGenResults(candidates, reqPower, corr) {
   }
 
   let d = '<div class="stats">共' + candidates.length + '个，' + pass.length + '个满足 | 综合修正: ×' + corr.total + '</div>';
-  d += '<table><tr><th>型号</th><th>绕组</th><th>连续H(kVA)</th><th>连续F(kVA)</th><th>备用40°C</th><th>修正后</th><th>结果</th></tr>';
+  d += '<table><tr><th>型号</th><th>励磁</th><th>连续H(kVA)</th><th>连续F(kVA)</th><th>备用27°C</th><th>修正后</th><th>结果</th></tr>';
   for (const e of candidates) {
     const cls = e.meets ? ' style="background:#f0fdf4"' : '';
-    d += '<tr' + cls + '><td><b>' + e.model + '</b></td><td>' + (e.winding||'-') + '</td>' +
-      '<td>' + e.cont_h_kVA + '</td><td>' + e.cont_f_kVA + '</td><td>' + e.stdby_40c_kVA + '</td>' +
+    const excLabel = e.exc === 'C' ? 'AREP' : 'SHUNT/AREP';
+    d += '<tr' + cls + '><td><b>' + e.model + '</b></td><td>' + excLabel + '</td>' +
+      '<td>' + e.cont_h_kVA + '</td><td>' + e.cont_f_kVA + '</td><td>' + e.stdby_27c_kVA + '</td>' +
       '<td><b>' + e.correctedPower + '</b></td><td>' + (e.meets ? '✅' : '❌') + '</td></tr>';
   }
   d += '</table>';

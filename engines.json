@@ -3396,594 +3396,594 @@
     "type": "generator",
     "brand": "leroysomer",
     "model": "LSA 40 VS1",
-    "winding": "6",
     "frequency": "50Hz",
     "cont_h_kVA": 10,
     "cont_f_kVA": 9,
     "stdby_40c_kVA": 10.5,
-    "stdby_27c_kVA": 11
+    "stdby_27c_kVA": 11,
+    "exc": "J/C"
   },
   {
     "type": "generator",
     "brand": "leroysomer",
     "model": "LSA 40 VS2",
-    "winding": "6",
     "frequency": "50Hz",
     "cont_h_kVA": 12.5,
     "cont_f_kVA": 11.5,
     "stdby_40c_kVA": 13.5,
-    "stdby_27c_kVA": 14
+    "stdby_27c_kVA": 14,
+    "exc": "J/C"
   },
   {
     "type": "generator",
     "brand": "leroysomer",
     "model": "LSA 40 S3",
-    "winding": "6",
     "frequency": "50Hz",
     "cont_h_kVA": 15,
     "cont_f_kVA": 14,
     "stdby_40c_kVA": 16,
-    "stdby_27c_kVA": 16.5
+    "stdby_27c_kVA": 16.5,
+    "exc": "J/C"
   },
   {
     "type": "generator",
     "brand": "leroysomer",
     "model": "LSA 40 S4",
-    "winding": "6",
     "frequency": "50Hz",
     "cont_h_kVA": 17.5,
     "cont_f_kVA": 16,
     "stdby_40c_kVA": 19,
-    "stdby_27c_kVA": 19.5
+    "stdby_27c_kVA": 19.5,
+    "exc": "J/C"
   },
   {
     "type": "generator",
     "brand": "leroysomer",
     "model": "LSA 40 M5",
-    "winding": "6",
     "frequency": "50Hz",
     "cont_h_kVA": 20,
     "cont_f_kVA": 18.5,
     "stdby_40c_kVA": 21.5,
-    "stdby_27c_kVA": 22
+    "stdby_27c_kVA": 22,
+    "exc": "J/C"
   },
   {
     "type": "generator",
     "brand": "leroysomer",
     "model": "LSA 40 M7",
-    "winding": "6",
     "frequency": "50Hz",
     "cont_h_kVA": 23,
     "cont_f_kVA": 20,
     "stdby_40c_kVA": 24,
-    "stdby_27c_kVA": 25
+    "stdby_27c_kVA": 25,
+    "exc": "J/C"
   },
   {
     "type": "generator",
     "brand": "leroysomer",
     "model": "LSA 42.3 VS1",
-    "winding": "6",
     "frequency": "50Hz",
     "cont_h_kVA": 25,
     "cont_f_kVA": 23,
     "stdby_40c_kVA": 26.5,
-    "stdby_27c_kVA": 27.5
+    "stdby_27c_kVA": 27.5,
+    "exc": "J/C"
   },
   {
     "type": "generator",
     "brand": "leroysomer",
     "model": "LSA 42.3 VS2",
-    "winding": "6",
     "frequency": "50Hz",
     "cont_h_kVA": 27,
     "cont_f_kVA": 24.5,
     "stdby_40c_kVA": 28.5,
-    "stdby_27c_kVA": 30
+    "stdby_27c_kVA": 30,
+    "exc": "J/C"
   },
   {
     "type": "generator",
     "brand": "leroysomer",
     "model": "LSA 42.3 VS3",
-    "winding": "6",
     "frequency": "50Hz",
     "cont_h_kVA": 32,
     "cont_f_kVA": 29,
     "stdby_40c_kVA": 34,
-    "stdby_27c_kVA": 35
+    "stdby_27c_kVA": 35,
+    "exc": "J/C"
   },
   {
     "type": "generator",
     "brand": "leroysomer",
     "model": "LSA 42.3 S4",
-    "winding": "6",
     "frequency": "50Hz",
     "cont_h_kVA": 35,
     "cont_f_kVA": 32,
     "stdby_40c_kVA": 37,
-    "stdby_27c_kVA": 38.5
+    "stdby_27c_kVA": 38.5,
+    "exc": "J/C"
   },
   {
     "type": "generator",
     "brand": "leroysomer",
     "model": "LSA 42.3 S5",
-    "winding": "6",
     "frequency": "50Hz",
     "cont_h_kVA": 40,
     "cont_f_kVA": 36.5,
     "stdby_40c_kVA": 42.5,
-    "stdby_27c_kVA": 45
+    "stdby_27c_kVA": 45,
+    "exc": "J/C"
   },
   {
     "type": "generator",
     "brand": "leroysomer",
     "model": "LSA 42.3 M7",
-    "winding": "6",
     "frequency": "50Hz",
     "cont_h_kVA": 45,
     "cont_f_kVA": 41,
     "stdby_40c_kVA": 48,
-    "stdby_27c_kVA": 50
+    "stdby_27c_kVA": 50,
+    "exc": "J/C"
   },
   {
     "type": "generator",
     "brand": "leroysomer",
     "model": "LSA 42.3 M8",
-    "winding": "6",
     "frequency": "50Hz",
     "cont_h_kVA": 50,
     "cont_f_kVA": 45.5,
     "stdby_40c_kVA": 53,
-    "stdby_27c_kVA": 55
+    "stdby_27c_kVA": 55,
+    "exc": "J/C"
   },
   {
     "type": "generator",
     "brand": "leroysomer",
     "model": "LSA 42.3 L9",
-    "winding": "6",
     "frequency": "50Hz",
     "cont_h_kVA": 60,
     "cont_f_kVA": 55,
     "stdby_40c_kVA": 64,
-    "stdby_27c_kVA": 66
+    "stdby_27c_kVA": 66,
+    "exc": "J/C"
   },
   {
     "type": "generator",
     "brand": "leroysomer",
     "model": "LSA 44.3 S2",
-    "winding": "6",
     "frequency": "50Hz",
     "cont_h_kVA": 70,
     "cont_f_kVA": 64,
     "stdby_40c_kVA": 74,
-    "stdby_27c_kVA": 77
+    "stdby_27c_kVA": 77,
+    "exc": "J/C"
   },
   {
     "type": "generator",
     "brand": "leroysomer",
     "model": "LSA 44.3 S3",
-    "winding": "6",
     "frequency": "50Hz",
     "cont_h_kVA": 80,
     "cont_f_kVA": 73,
     "stdby_40c_kVA": 85,
-    "stdby_27c_kVA": 88
+    "stdby_27c_kVA": 88,
+    "exc": "J/C"
   },
   {
     "type": "generator",
     "brand": "leroysomer",
     "model": "LSA 44.3 S4",
-    "winding": "6",
     "frequency": "50Hz",
     "cont_h_kVA": 90,
     "cont_f_kVA": 82,
     "stdby_40c_kVA": 95,
-    "stdby_27c_kVA": 100
+    "stdby_27c_kVA": 100,
+    "exc": "J/C"
   },
   {
     "type": "generator",
     "brand": "leroysomer",
     "model": "LSA 44.3 S5",
-    "winding": "6",
     "frequency": "50Hz",
     "cont_h_kVA": 100,
     "cont_f_kVA": 91,
     "stdby_40c_kVA": 106,
-    "stdby_27c_kVA": 110
+    "stdby_27c_kVA": 110,
+    "exc": "J/C"
   },
   {
     "type": "generator",
     "brand": "leroysomer",
     "model": "LSA 44.3 M6",
-    "winding": "6",
     "frequency": "50Hz",
     "cont_h_kVA": 125,
     "cont_f_kVA": 114,
     "stdby_40c_kVA": 133,
-    "stdby_27c_kVA": 138
+    "stdby_27c_kVA": 138,
+    "exc": "J/C"
   },
   {
     "type": "generator",
     "brand": "leroysomer",
     "model": "LSA 44.3 M8",
-    "winding": "6",
     "frequency": "50Hz",
     "cont_h_kVA": 135,
     "cont_f_kVA": 123,
     "stdby_40c_kVA": 143,
-    "stdby_27c_kVA": 150
+    "stdby_27c_kVA": 150,
+    "exc": "J/C"
   },
   {
     "type": "generator",
     "brand": "leroysomer",
     "model": "LSA 44.3 L10",
-    "winding": "6",
     "frequency": "50Hz",
     "cont_h_kVA": 150,
     "cont_f_kVA": 137,
     "stdby_40c_kVA": 159,
-    "stdby_27c_kVA": 165
+    "stdby_27c_kVA": 165,
+    "exc": "J/C"
   },
   {
     "type": "generator",
     "brand": "leroysomer",
     "model": "LSA 44.3 L12",
-    "winding": "6",
     "frequency": "50Hz",
     "cont_h_kVA": 165,
     "cont_f_kVA": 150,
     "stdby_40c_kVA": 175,
-    "stdby_27c_kVA": 182
+    "stdby_27c_kVA": 182,
+    "exc": "J/C"
   },
   {
     "type": "generator",
     "brand": "leroysomer",
     "model": "LSA 44.3 VL13",
-    "winding": "6",
     "frequency": "50Hz",
     "cont_h_kVA": 180,
     "cont_f_kVA": 164,
     "stdby_40c_kVA": 191,
-    "stdby_27c_kVA": 200
+    "stdby_27c_kVA": 200,
+    "exc": "J/C"
   },
   {
     "type": "generator",
     "brand": "leroysomer",
     "model": "LSA 44.3 VL14",
-    "winding": "6",
     "frequency": "50Hz",
     "cont_h_kVA": 200,
     "cont_f_kVA": 182,
     "stdby_40c_kVA": 212,
-    "stdby_27c_kVA": 220
+    "stdby_27c_kVA": 220,
+    "exc": "J/C"
   },
   {
     "type": "generator",
     "brand": "leroysomer",
     "model": "LSA 46.3 S4",
-    "winding": "6",
     "frequency": "50Hz",
     "cont_h_kVA": 230,
     "cont_f_kVA": 209,
     "stdby_40c_kVA": 244,
-    "stdby_27c_kVA": 253
+    "stdby_27c_kVA": 253,
+    "exc": "J/C"
   },
   {
     "type": "generator",
     "brand": "leroysomer",
     "model": "LSA 46.3 S5",
-    "winding": "6",
     "frequency": "50Hz",
     "cont_h_kVA": 250,
     "cont_f_kVA": 228,
     "stdby_40c_kVA": 265,
-    "stdby_27c_kVA": 275
+    "stdby_27c_kVA": 275,
+    "exc": "J/C"
   },
   {
     "type": "generator",
     "brand": "leroysomer",
     "model": "LSA 46.3 M7",
-    "winding": "6",
     "frequency": "50Hz",
     "cont_h_kVA": 275,
     "cont_f_kVA": 250,
     "stdby_40c_kVA": 292,
-    "stdby_27c_kVA": 303
+    "stdby_27c_kVA": 303,
+    "exc": "J/C"
   },
   {
     "type": "generator",
     "brand": "leroysomer",
     "model": "LSA 46.3 M8",
-    "winding": "6",
     "frequency": "50Hz",
     "cont_h_kVA": 300,
     "cont_f_kVA": 273,
     "stdby_40c_kVA": 318,
-    "stdby_27c_kVA": 330
+    "stdby_27c_kVA": 330,
+    "exc": "J/C"
   },
   {
     "type": "generator",
     "brand": "leroysomer",
     "model": "LSA 46.3 L10",
-    "winding": "6",
     "frequency": "50Hz",
     "cont_h_kVA": 325,
     "cont_f_kVA": 300,
     "stdby_40c_kVA": 345,
-    "stdby_27c_kVA": 358
+    "stdby_27c_kVA": 358,
+    "exc": "J/C"
   },
   {
     "type": "generator",
     "brand": "leroysomer",
     "model": "LSA 46.3 L11",
-    "winding": "6",
     "frequency": "50Hz",
     "cont_h_kVA": 365,
     "cont_f_kVA": 332,
     "stdby_40c_kVA": 387,
-    "stdby_27c_kVA": 400
+    "stdby_27c_kVA": 400,
+    "exc": "J/C"
   },
   {
     "type": "generator",
     "brand": "leroysomer",
     "model": "LSA 47.3 S4",
-    "winding": "6",
     "frequency": "50Hz",
     "cont_h_kVA": 410,
     "cont_f_kVA": 375,
     "stdby_40c_kVA": 435,
-    "stdby_27c_kVA": 450
+    "stdby_27c_kVA": 450,
+    "exc": "C"
   },
   {
     "type": "generator",
     "brand": "leroysomer",
     "model": "LSA 47.3 S5",
-    "winding": "6",
     "frequency": "50Hz",
     "cont_h_kVA": 455,
     "cont_f_kVA": 415,
     "stdby_40c_kVA": 480,
-    "stdby_27c_kVA": 500
+    "stdby_27c_kVA": 500,
+    "exc": "C"
   },
   {
     "type": "generator",
     "brand": "leroysomer",
     "model": "LSA 47.3 M7",
-    "winding": "6",
     "frequency": "50Hz",
     "cont_h_kVA": 500,
     "cont_f_kVA": 465,
     "stdby_40c_kVA": 550,
-    "stdby_27c_kVA": 570
+    "stdby_27c_kVA": 570,
+    "exc": "C"
   },
   {
     "type": "generator",
     "brand": "leroysomer",
     "model": "LSA 47.3 M8",
-    "winding": "6",
     "frequency": "50Hz",
     "cont_h_kVA": 550,
     "cont_f_kVA": 500,
     "stdby_40c_kVA": 585,
-    "stdby_27c_kVA": 600
+    "stdby_27c_kVA": 600,
+    "exc": "C"
   },
   {
     "type": "generator",
     "brand": "leroysomer",
     "model": "LSA 47.3 L9",
-    "winding": "6",
     "frequency": "50Hz",
     "cont_h_kVA": 600,
     "cont_f_kVA": 545,
     "stdby_40c_kVA": 635,
-    "stdby_27c_kVA": 660
+    "stdby_27c_kVA": 660,
+    "exc": "C"
   },
   {
     "type": "generator",
     "brand": "leroysomer",
     "model": "LSA 47.3 L10",
-    "winding": "6",
     "frequency": "50Hz",
     "cont_h_kVA": 660,
     "cont_f_kVA": 600,
     "stdby_40c_kVA": 730,
-    "stdby_27c_kVA": 745
+    "stdby_27c_kVA": 745,
+    "exc": "C"
   },
   {
     "type": "generator",
     "brand": "leroysomer",
     "model": "LSA 49.3 M6",
-    "winding": "6",
     "frequency": "50Hz",
     "cont_h_kVA": 730,
     "cont_f_kVA": 660,
     "stdby_40c_kVA": 780,
-    "stdby_27c_kVA": 810
+    "stdby_27c_kVA": 810,
+    "exc": "C"
   },
   {
     "type": "generator",
     "brand": "leroysomer",
     "model": "LSA 49.3 M8",
-    "winding": "6",
     "frequency": "50Hz",
     "cont_h_kVA": 820,
     "cont_f_kVA": 760,
     "stdby_40c_kVA": 910,
-    "stdby_27c_kVA": 945
+    "stdby_27c_kVA": 945,
+    "exc": "C"
   },
   {
     "type": "generator",
     "brand": "leroysomer",
     "model": "LSA 49.3 L9",
-    "winding": "6",
     "frequency": "50Hz",
     "cont_h_kVA": 910,
     "cont_f_kVA": 820,
     "stdby_40c_kVA": 1000,
-    "stdby_27c_kVA": 1020
+    "stdby_27c_kVA": 1020,
+    "exc": "C"
   },
   {
     "type": "generator",
     "brand": "leroysomer",
     "model": "LSA 49.3 L10",
-    "winding": "6",
     "frequency": "50Hz",
     "cont_h_kVA": 1000,
     "cont_f_kVA": 900,
     "stdby_40c_kVA": 1085,
-    "stdby_27c_kVA": 1130
+    "stdby_27c_kVA": 1130,
+    "exc": "C"
   },
   {
     "type": "generator",
     "brand": "leroysomer",
     "model": "LSA 50.2 M6",
-    "winding": "6",
     "frequency": "50Hz",
     "cont_h_kVA": 1250,
     "cont_f_kVA": 1125,
     "stdby_40c_kVA": 1315,
-    "stdby_27c_kVA": 1375
+    "stdby_27c_kVA": 1375,
+    "exc": "C"
   },
   {
     "type": "generator",
     "brand": "leroysomer",
     "model": "LSA 50.2 L7",
-    "winding": "6",
     "frequency": "50Hz",
     "cont_h_kVA": 1350,
     "cont_f_kVA": 1215,
     "stdby_40c_kVA": 1420,
-    "stdby_27c_kVA": 1485
+    "stdby_27c_kVA": 1485,
+    "exc": "C"
   },
   {
     "type": "generator",
     "brand": "leroysomer",
     "model": "LSA 50.2 L8",
-    "winding": "6",
     "frequency": "50Hz",
     "cont_h_kVA": 1500,
     "cont_f_kVA": 1350,
     "stdby_40c_kVA": 1575,
-    "stdby_27c_kVA": 1650
+    "stdby_27c_kVA": 1650,
+    "exc": "C"
   },
   {
     "type": "generator",
     "brand": "leroysomer",
     "model": "LSA 50.2 VL10",
-    "winding": "6",
     "frequency": "50Hz",
     "cont_h_kVA": 1640,
     "cont_f_kVA": 1475,
     "stdby_40c_kVA": 1720,
-    "stdby_27c_kVA": 1800
+    "stdby_27c_kVA": 1800,
+    "exc": "C"
   },
   {
     "type": "generator",
     "brand": "leroysomer",
     "model": "LSA 52.3 S5",
-    "winding": "6",
     "frequency": "50Hz",
     "cont_h_kVA": 1860,
     "cont_f_kVA": 1696,
     "stdby_40c_kVA": 1953,
-    "stdby_27c_kVA": 2046
+    "stdby_27c_kVA": 2046,
+    "exc": "C"
   },
   {
     "type": "generator",
     "brand": "leroysomer",
     "model": "LSA 52.3 S6",
-    "winding": "6",
     "frequency": "50Hz",
     "cont_h_kVA": 2000,
     "cont_f_kVA": 1824,
     "stdby_40c_kVA": 2100,
-    "stdby_27c_kVA": 2200
+    "stdby_27c_kVA": 2200,
+    "exc": "C"
   },
   {
     "type": "generator",
     "brand": "leroysomer",
     "model": "LSA 52.3 S7",
-    "winding": "6",
     "frequency": "50Hz",
     "cont_h_kVA": 2200,
     "cont_f_kVA": 2006,
     "stdby_40c_kVA": 2310,
-    "stdby_27c_kVA": 2420
+    "stdby_27c_kVA": 2420,
+    "exc": "C"
   },
   {
     "type": "generator",
     "brand": "leroysomer",
     "model": "LSA 52.3 L9",
-    "winding": "6",
     "frequency": "50Hz",
     "cont_h_kVA": 2360,
     "cont_f_kVA": 2152,
     "stdby_40c_kVA": 2478,
-    "stdby_27c_kVA": 2596
+    "stdby_27c_kVA": 2596,
+    "exc": "C"
   },
   {
     "type": "generator",
     "brand": "leroysomer",
     "model": "LSA 52.3 L12",
-    "winding": "6",
     "frequency": "50Hz",
     "cont_h_kVA": 2560,
     "cont_f_kVA": 2335,
     "stdby_40c_kVA": 2688,
-    "stdby_27c_kVA": 2816
+    "stdby_27c_kVA": 2816,
+    "exc": "C"
   },
   {
     "type": "generator",
     "brand": "leroysomer",
     "model": "LSA 52.3 UL16",
-    "winding": "6",
     "frequency": "50Hz",
     "cont_h_kVA": 2750,
     "cont_f_kVA": 2508,
     "stdby_40c_kVA": 2888,
-    "stdby_27c_kVA": 3025
+    "stdby_27c_kVA": 3025,
+    "exc": "C"
   },
   {
     "type": "generator",
     "brand": "leroysomer",
     "model": "LSA 53.2 M9",
-    "winding": "6",
     "frequency": "50Hz",
     "cont_h_kVA": 3000,
     "cont_f_kVA": 2736,
     "stdby_40c_kVA": 3180,
-    "stdby_27c_kVA": 3300
+    "stdby_27c_kVA": 3300,
+    "exc": "C"
   },
   {
     "type": "generator",
     "brand": "leroysomer",
     "model": "LSA 53.2 M12",
-    "winding": "6",
     "frequency": "50Hz",
     "cont_h_kVA": 3300,
     "cont_f_kVA": 3010,
     "stdby_40c_kVA": 3465,
-    "stdby_27c_kVA": 3630
+    "stdby_27c_kVA": 3630,
+    "exc": "C"
   },
   {
     "type": "generator",
     "brand": "leroysomer",
     "model": "LSA 54.2 M10",
-    "winding": "6",
     "frequency": "50Hz",
     "cont_h_kVA": 3420,
     "cont_f_kVA": 3118,
     "stdby_40c_kVA": 3591,
-    "stdby_27c_kVA": 3762
+    "stdby_27c_kVA": 3762,
+    "exc": "C"
   },
   {
     "type": "generator",
     "brand": "leroysomer",
     "model": "LSA 54.2 L14",
-    "winding": "6",
     "frequency": "50Hz",
     "cont_h_kVA": 4320,
     "cont_f_kVA": 3938,
     "stdby_40c_kVA": 4536,
-    "stdby_27c_kVA": 4752
+    "stdby_27c_kVA": 4752,
+    "exc": "C"
   }
 ]
