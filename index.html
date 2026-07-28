@@ -110,12 +110,37 @@ tr:hover{background:#f8fafc}
 🌡 温度修正（按绝缘等级查表）：H级/F级/B级<br>
 ⚡ 功率因数修正：PF<0.8 时需降额</div>
 <div class="form-group">
-<label>额定功率 (kVA)</label>
-<input type="number" id="genPower" value="500" min="5" max="5000" step="5">
+<label>频率</label>
+<select id="genFreq" onchange="onGenFreqChange()">
+<option value="50Hz">50 Hz</option>
+<option value="60Hz">60 Hz</option>
+</select>
 </div>
 <div class="form-group">
-<label>频率</label>
-<select id="genFreq"><option value="50Hz">50 Hz</option><option value="60Hz">60 Hz</option></select>
+<label>额定电压</label>
+<select id="genWinding">
+<optgroup label="50Hz 标准绕组">
+<option value="6-380-400-415">6号绕组 380/400/415V</option>
+<option value="6-220-440">6号绕组 220/440V</option>
+<option value="6-12-380-400-415">6/12号绕组 380/400/415V(可选)</option>
+<option value="6-12-220-440">6/12号绕组 220/440V(可选)</option>
+</optgroup>
+<optgroup label="50Hz 特殊绕组">
+<option value="7-415-440">7号绕组 415/440V</option>
+<option value="9-500-525">9号绕组 500/525V</option>
+<option value="22-23-550">22/23号绕组 550V</option>
+<option value="22-23-600">22/23号绕组 600V</option>
+<option value="10-52-660-690">10/52号绕组 660/690V</option>
+</optgroup>
+<optgroup label="60Hz 标准绕组">
+<option value="6-380-416">6号绕组 380/416V</option>
+<option value="6-440-480">6号绕组 440/480V</option>
+</optgroup>
+</select>
+</div>
+<div class="form-group">
+<label>额定功率 (kVA)</label>
+<input type="number" id="genPower" value="500" min="5" max="5000" step="5">
 </div>
 <div class="form-group">
 <label>用途</label>
@@ -199,6 +224,32 @@ function switchTab(tab) {
   document.getElementById('tabGenerator').className = tab === 'generator' ? 'tab active' : 'tab';
   document.getElementById('engineTab').className = tab === 'engine' ? '' : 'hidden';
   document.getElementById('genTab').className = tab === 'generator' ? '' : 'hidden';
+}
+
+// 根据频率切换绕组选项
+function onGenFreqChange() {
+  const freq = document.getElementById('genFreq').value;
+  const sel = document.getElementById('genWinding');
+  // 遍历所有option，根据optgroup显示/隐藏
+  for (let i = 0; i < sel.options.length; i++) {
+    const opt = sel.options[i];
+    if (opt.parentElement && opt.parentElement.tagName === 'OPTGROUP') {
+      if (freq === '50Hz' && opt.parentElement.label.indexOf('60Hz') >= 0) {
+        opt.disabled = true;
+      } else if (freq === '60Hz' && opt.parentElement.label.indexOf('50Hz') >= 0) {
+        opt.disabled = true;
+      } else {
+        opt.disabled = false;
+      }
+    }
+  }
+  // 选中第一个未禁用的
+  for (let i = 0; i < sel.options.length; i++) {
+    if (!sel.options[i].disabled) {
+      sel.selectedIndex = i;
+      break;
+    }
+  }
 }
 
 // ===== 发动机修正规则 =====
@@ -367,6 +418,7 @@ function displayEngineResults(candidates, reqPower) {
 function doGenSearch() {
   const power = parseFloat(document.getElementById('genPower').value);
   const freq = document.getElementById('genFreq').value;
+  const winding = document.getElementById('genWinding').value;
   const purpose = document.querySelector('input[name="genPurpose"]:checked').value;
   const insClass = document.getElementById('genInsClass').value;
   const pf = parseFloat(document.getElementById('genPF').value);
@@ -374,7 +426,7 @@ function doGenSearch() {
   const temp = parseFloat(document.getElementById('genTemp').value);
   if (!power || power < 1) { alert('请输入有效功率'); return; }
 
-  const filtered = ALL_DATA.filter(e => e.type === 'generator' && e.frequency === freq);
+  const filtered = ALL_DATA.filter(e => e.type === 'generator' && e.frequency === freq && e.winding_code === winding);
   const corr = calcGenCorrection(alt, temp, insClass, pf);
   const candidates = [];
 
