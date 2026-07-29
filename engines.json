@@ -2229,7 +2229,7 @@
     "type": "engine"
   },
   {
-    "brand": "leroy_somer",
+    "brand": "leroysomer",
     "model": "LSA 40 VS1",
     "frequency": "50Hz",
     "winding": "6号标准",
@@ -2243,7 +2243,7 @@
     "pf": 0.8
   },
   {
-    "brand": "leroy_somer",
+    "brand": "leroysomer",
     "model": "LSA 40 VS2",
     "frequency": "50Hz",
     "winding": "6号标准",
@@ -2257,7 +2257,7 @@
     "pf": 0.8
   },
   {
-    "brand": "leroy_somer",
+    "brand": "leroysomer",
     "model": "LSA 40 S3",
     "frequency": "50Hz",
     "winding": "6号标准",
@@ -2271,7 +2271,7 @@
     "pf": 0.8
   },
   {
-    "brand": "leroy_somer",
+    "brand": "leroysomer",
     "model": "LSA 40 S4",
     "frequency": "50Hz",
     "winding": "6号标准",
@@ -2285,7 +2285,7 @@
     "pf": 0.8
   },
   {
-    "brand": "leroy_somer",
+    "brand": "leroysomer",
     "model": "LSA 40 M5",
     "frequency": "50Hz",
     "winding": "6号标准",
@@ -2299,7 +2299,7 @@
     "pf": 0.8
   },
   {
-    "brand": "leroy_somer",
+    "brand": "leroysomer",
     "model": "LSA 40 M7",
     "frequency": "50Hz",
     "winding": "6号标准",
@@ -2313,7 +2313,7 @@
     "pf": 0.8
   },
   {
-    "brand": "leroy_somer",
+    "brand": "leroysomer",
     "model": "LSA 42.3 VS1",
     "frequency": "50Hz",
     "winding": "6号标准",
@@ -2327,7 +2327,7 @@
     "pf": 0.8
   },
   {
-    "brand": "leroy_somer",
+    "brand": "leroysomer",
     "model": "LSA 42.3 VS2",
     "frequency": "50Hz",
     "winding": "6号标准",
@@ -2341,7 +2341,7 @@
     "pf": 0.8
   },
   {
-    "brand": "leroy_somer",
+    "brand": "leroysomer",
     "model": "LSA 42.3 VS3",
     "frequency": "50Hz",
     "winding": "6号标准",
@@ -2355,7 +2355,7 @@
     "pf": 0.8
   },
   {
-    "brand": "leroy_somer",
+    "brand": "leroysomer",
     "model": "LSA 42.3 S4",
     "frequency": "50Hz",
     "winding": "6号标准",
@@ -2369,7 +2369,7 @@
     "pf": 0.8
   },
   {
-    "brand": "leroy_somer",
+    "brand": "leroysomer",
     "model": "LSA 42.3 S5",
     "frequency": "50Hz",
     "winding": "6号标准",
@@ -2383,7 +2383,7 @@
     "pf": 0.8
   },
   {
-    "brand": "leroy_somer",
+    "brand": "leroysomer",
     "model": "LSA 42.3 M7",
     "frequency": "50Hz",
     "winding": "6号标准",
@@ -2397,7 +2397,7 @@
     "pf": 0.8
   },
   {
-    "brand": "leroy_somer",
+    "brand": "leroysomer",
     "model": "LSA 42.3 M8",
     "frequency": "50Hz",
     "winding": "6号标准",
@@ -2411,7 +2411,7 @@
     "pf": 0.8
   },
   {
-    "brand": "leroy_somer",
+    "brand": "leroysomer",
     "model": "LSA 42.3 L9",
     "frequency": "50Hz",
     "winding": "6号标准",
@@ -2425,7 +2425,7 @@
     "pf": 0.8
   },
   {
-    "brand": "leroy_somer",
+    "brand": "leroysomer",
     "model": "LSA 44.3 S2",
     "frequency": "50Hz",
     "winding": "6号标准",
@@ -2439,7 +2439,7 @@
     "pf": 0.8
   },
   {
-    "brand": "leroy_somer",
+    "brand": "leroysomer",
     "model": "LSA 44.3 S3",
     "frequency": "50Hz",
     "winding": "6号标准",
@@ -2453,7 +2453,7 @@
     "pf": 0.8
   },
   {
-    "brand": "leroy_somer",
+    "brand": "leroysomer",
     "model": "LSA 44.3 S4",
     "frequency": "50Hz",
     "winding": "6号标准",
@@ -2467,7 +2467,7 @@
     "pf": 0.8
   },
   {
-    "brand": "leroy_somer",
+    "brand": "leroysomer",
     "model": "LSA 44.3 S5",
     "frequency": "50Hz",
     "winding": "6号标准",
@@ -2481,7 +2481,7 @@
     "pf": 0.8
   },
   {
-    "brand": "leroy_somer",
+    "brand": "leroysomer",
     "model": "LSA 44.3 M6",
     "frequency": "50Hz",
     "winding": "6号标准",
@@ -2495,7 +2495,7 @@
     "pf": 0.8
   },
   {
-    "brand": "leroy_somer",
+    "brand": "leroysomer",
     "model": "LSA 44.3 M8",
     "frequency": "50Hz",
     "winding": "6号标准",
@@ -2509,7 +2509,7 @@
     "pf": 0.8
   },
   {
-    "brand": "leroy_somer",
+    "brand": "leroysomer",
     "model": "LSA 44.3 L10",
     "frequency": "50Hz",
     "winding": "6号标准",
@@ -2523,7 +2523,7 @@
     "pf": 0.8
   },
   {
-    "brand": "leroy_somer",
+    "brand": "leroysomer",
     "model": "LSA 44.3 L12",
     "frequency": "50Hz",
     "winding": "6号标准",
@@ -2537,7 +2537,7 @@
     "pf": 0.8
   },
   {
-    "brand": "leroy_somer",
+    "brand": "leroysomer",
     "model": "LSA 44.3 VL13",
     "frequency": "50Hz",
     "winding": "6号标准",
@@ -2551,7 +2551,7 @@
     "pf": 0.8
   },
   {
-    "brand": "leroy_somer",
+    "brand": "leroysomer",
     "model": "LSA 44.3 VL14",
     "frequency": "50Hz",
     "winding": "6号标准",
@@ -2565,7 +2565,7 @@
     "pf": 0.8
   },
   {
-    "brand": "leroy_somer",
+    "brand": "leroysomer",
     "model": "LSA 46.3 S4",
     "frequency": "50Hz",
     "winding": "6号标准",
@@ -2579,7 +2579,7 @@
     "pf": 0.8
   },
   {
-    "brand": "leroy_somer",
+    "brand": "leroysomer",
     "model": "LSA 46.3 S5",
     "frequency": "50Hz",
     "winding": "6号标准",
@@ -2593,7 +2593,7 @@
     "pf": 0.8
   },
   {
-    "brand": "leroy_somer",
+    "brand": "leroysomer",
     "model": "LSA 46.3 M7",
     "frequency": "50Hz",
     "winding": "6号标准",
@@ -2607,7 +2607,7 @@
     "pf": 0.8
   },
   {
-    "brand": "leroy_somer",
+    "brand": "leroysomer",
     "model": "LSA 46.3 M8",
     "frequency": "50Hz",
     "winding": "6号标准",
@@ -2621,7 +2621,7 @@
     "pf": 0.8
   },
   {
-    "brand": "leroy_somer",
+    "brand": "leroysomer",
     "model": "LSA 46.3 L10",
     "frequency": "50Hz",
     "winding": "6号标准",
@@ -2635,7 +2635,7 @@
     "pf": 0.8
   },
   {
-    "brand": "leroy_somer",
+    "brand": "leroysomer",
     "model": "LSA 46.3 L11",
     "frequency": "50Hz",
     "winding": "6号标准",
@@ -2649,7 +2649,7 @@
     "pf": 0.8
   },
   {
-    "brand": "leroy_somer",
+    "brand": "leroysomer",
     "model": "LSA 47.3 S4",
     "frequency": "50Hz",
     "winding": "6号标准",
@@ -2663,7 +2663,7 @@
     "pf": 0.8
   },
   {
-    "brand": "leroy_somer",
+    "brand": "leroysomer",
     "model": "LSA 47.3 S5",
     "frequency": "50Hz",
     "winding": "6号标准",
@@ -2677,7 +2677,7 @@
     "pf": 0.8
   },
   {
-    "brand": "leroy_somer",
+    "brand": "leroysomer",
     "model": "LSA 47.3 M7",
     "frequency": "50Hz",
     "winding": "6号标准",
@@ -2691,7 +2691,7 @@
     "pf": 0.8
   },
   {
-    "brand": "leroy_somer",
+    "brand": "leroysomer",
     "model": "LSA 47.3 M8",
     "frequency": "50Hz",
     "winding": "6号标准",
@@ -2705,7 +2705,7 @@
     "pf": 0.8
   },
   {
-    "brand": "leroy_somer",
+    "brand": "leroysomer",
     "model": "LSA 47.3 L9",
     "frequency": "50Hz",
     "winding": "6号标准",
@@ -2719,7 +2719,7 @@
     "pf": 0.8
   },
   {
-    "brand": "leroy_somer",
+    "brand": "leroysomer",
     "model": "LSA 47.3 L10",
     "frequency": "50Hz",
     "winding": "6号标准",
@@ -2733,7 +2733,7 @@
     "pf": 0.8
   },
   {
-    "brand": "leroy_somer",
+    "brand": "leroysomer",
     "model": "LSA 49.3 M6",
     "frequency": "50Hz",
     "winding": "6号标准",
@@ -2747,7 +2747,7 @@
     "pf": 0.8
   },
   {
-    "brand": "leroy_somer",
+    "brand": "leroysomer",
     "model": "LSA 49.3 M8",
     "frequency": "50Hz",
     "winding": "6号标准",
@@ -2761,7 +2761,7 @@
     "pf": 0.8
   },
   {
-    "brand": "leroy_somer",
+    "brand": "leroysomer",
     "model": "LSA 49.3 L9",
     "frequency": "50Hz",
     "winding": "6号标准",
@@ -2775,7 +2775,7 @@
     "pf": 0.8
   },
   {
-    "brand": "leroy_somer",
+    "brand": "leroysomer",
     "model": "LSA 49.3 L10",
     "frequency": "50Hz",
     "winding": "6号标准",
@@ -2789,7 +2789,7 @@
     "pf": 0.8
   },
   {
-    "brand": "leroy_somer",
+    "brand": "leroysomer",
     "model": "LSA 50.2 M6",
     "frequency": "50Hz",
     "winding": "6号标准",
@@ -2803,7 +2803,7 @@
     "pf": 0.8
   },
   {
-    "brand": "leroy_somer",
+    "brand": "leroysomer",
     "model": "LSA 50.2 L7",
     "frequency": "50Hz",
     "winding": "6号标准",
@@ -2817,7 +2817,7 @@
     "pf": 0.8
   },
   {
-    "brand": "leroy_somer",
+    "brand": "leroysomer",
     "model": "LSA 50.2 L8",
     "frequency": "50Hz",
     "winding": "6号标准",
@@ -2831,7 +2831,7 @@
     "pf": 0.8
   },
   {
-    "brand": "leroy_somer",
+    "brand": "leroysomer",
     "model": "LSA 50.2 VL10",
     "frequency": "50Hz",
     "winding": "6号标准",
@@ -2845,7 +2845,7 @@
     "pf": 0.8
   },
   {
-    "brand": "leroy_somer",
+    "brand": "leroysomer",
     "model": "LSA 52.3 S5",
     "frequency": "50Hz",
     "winding": "6号标准",
@@ -2859,7 +2859,7 @@
     "pf": 0.8
   },
   {
-    "brand": "leroy_somer",
+    "brand": "leroysomer",
     "model": "LSA 52.3 S6",
     "frequency": "50Hz",
     "winding": "6号标准",
@@ -2873,7 +2873,7 @@
     "pf": 0.8
   },
   {
-    "brand": "leroy_somer",
+    "brand": "leroysomer",
     "model": "LSA 52.3 S7",
     "frequency": "50Hz",
     "winding": "6号标准",
@@ -2887,7 +2887,7 @@
     "pf": 0.8
   },
   {
-    "brand": "leroy_somer",
+    "brand": "leroysomer",
     "model": "LSA 52.3 L9",
     "frequency": "50Hz",
     "winding": "6号标准",
@@ -2901,7 +2901,7 @@
     "pf": 0.8
   },
   {
-    "brand": "leroy_somer",
+    "brand": "leroysomer",
     "model": "LSA 52.3 L12",
     "frequency": "50Hz",
     "winding": "6号标准",
@@ -2915,7 +2915,7 @@
     "pf": 0.8
   },
   {
-    "brand": "leroy_somer",
+    "brand": "leroysomer",
     "model": "LSA 52.3 UL16",
     "frequency": "50Hz",
     "winding": "6号标准",
@@ -2929,7 +2929,7 @@
     "pf": 0.8
   },
   {
-    "brand": "leroy_somer",
+    "brand": "leroysomer",
     "model": "LSA 53.2 M9",
     "frequency": "50Hz",
     "winding": "6号标准",
@@ -2943,7 +2943,7 @@
     "pf": 0.8
   },
   {
-    "brand": "leroy_somer",
+    "brand": "leroysomer",
     "model": "LSA 53.2 M12",
     "frequency": "50Hz",
     "winding": "6号标准",
@@ -2957,7 +2957,7 @@
     "pf": 0.8
   },
   {
-    "brand": "leroy_somer",
+    "brand": "leroysomer",
     "model": "LSA 54.2 M10",
     "frequency": "50Hz",
     "winding": "6号标准",
@@ -2971,7 +2971,7 @@
     "pf": 0.8
   },
   {
-    "brand": "leroy_somer",
+    "brand": "leroysomer",
     "model": "LSA 54.2 L14",
     "frequency": "50Hz",
     "winding": "6号标准",
@@ -2985,7 +2985,7 @@
     "pf": 0.8
   },
   {
-    "brand": "leroy_somer",
+    "brand": "leroysomer",
     "model": "LSA 40 VS1",
     "frequency": "60Hz",
     "winding": "6号标准",
@@ -2999,7 +2999,7 @@
     "pf": 0.8
   },
   {
-    "brand": "leroy_somer",
+    "brand": "leroysomer",
     "model": "LSA 40 VS2",
     "frequency": "60Hz",
     "winding": "6号标准",
@@ -3013,7 +3013,7 @@
     "pf": 0.8
   },
   {
-    "brand": "leroy_somer",
+    "brand": "leroysomer",
     "model": "LSA 40 S3",
     "frequency": "60Hz",
     "winding": "6号标准",
@@ -3027,7 +3027,7 @@
     "pf": 0.8
   },
   {
-    "brand": "leroy_somer",
+    "brand": "leroysomer",
     "model": "LSA 40 S4",
     "frequency": "60Hz",
     "winding": "6号标准",
@@ -3041,7 +3041,7 @@
     "pf": 0.8
   },
   {
-    "brand": "leroy_somer",
+    "brand": "leroysomer",
     "model": "LSA 40 M5",
     "frequency": "60Hz",
     "winding": "6号标准",
@@ -3055,7 +3055,7 @@
     "pf": 0.8
   },
   {
-    "brand": "leroy_somer",
+    "brand": "leroysomer",
     "model": "LSA 40 M7",
     "frequency": "60Hz",
     "winding": "6号标准",
@@ -3069,7 +3069,7 @@
     "pf": 0.8
   },
   {
-    "brand": "leroy_somer",
+    "brand": "leroysomer",
     "model": "LSA 42.3 VS1",
     "frequency": "60Hz",
     "winding": "6号标准",
@@ -3083,7 +3083,7 @@
     "pf": 0.8
   },
   {
-    "brand": "leroy_somer",
+    "brand": "leroysomer",
     "model": "LSA 42.3 VS2",
     "frequency": "60Hz",
     "winding": "6号标准",
@@ -3097,7 +3097,7 @@
     "pf": 0.8
   },
   {
-    "brand": "leroy_somer",
+    "brand": "leroysomer",
     "model": "LSA 42.3 VS3",
     "frequency": "60Hz",
     "winding": "6号标准",
@@ -3111,7 +3111,7 @@
     "pf": 0.8
   },
   {
-    "brand": "leroy_somer",
+    "brand": "leroysomer",
     "model": "LSA 42.3 S4",
     "frequency": "60Hz",
     "winding": "6号标准",
@@ -3125,7 +3125,7 @@
     "pf": 0.8
   },
   {
-    "brand": "leroy_somer",
+    "brand": "leroysomer",
     "model": "LSA 42.3 S5",
     "frequency": "60Hz",
     "winding": "6号标准",
@@ -3139,7 +3139,7 @@
     "pf": 0.8
   },
   {
-    "brand": "leroy_somer",
+    "brand": "leroysomer",
     "model": "LSA 42.3 M7",
     "frequency": "60Hz",
     "winding": "6号标准",
@@ -3153,7 +3153,7 @@
     "pf": 0.8
   },
   {
-    "brand": "leroy_somer",
+    "brand": "leroysomer",
     "model": "LSA 42.3 M8",
     "frequency": "60Hz",
     "winding": "6号标准",
@@ -3167,7 +3167,7 @@
     "pf": 0.8
   },
   {
-    "brand": "leroy_somer",
+    "brand": "leroysomer",
     "model": "LSA 42.3 L9",
     "frequency": "60Hz",
     "winding": "6号标准",
@@ -3181,7 +3181,7 @@
     "pf": 0.8
   },
   {
-    "brand": "leroy_somer",
+    "brand": "leroysomer",
     "model": "LSA 44.3 S2",
     "frequency": "60Hz",
     "winding": "6号标准",
@@ -3195,7 +3195,7 @@
     "pf": 0.8
   },
   {
-    "brand": "leroy_somer",
+    "brand": "leroysomer",
     "model": "LSA 44.3 S3",
     "frequency": "60Hz",
     "winding": "6号标准",
@@ -3209,7 +3209,7 @@
     "pf": 0.8
   },
   {
-    "brand": "leroy_somer",
+    "brand": "leroysomer",
     "model": "LSA 44.3 S4",
     "frequency": "60Hz",
     "winding": "6号标准",
@@ -3223,7 +3223,7 @@
     "pf": 0.8
   },
   {
-    "brand": "leroy_somer",
+    "brand": "leroysomer",
     "model": "LSA 44.3 S5",
     "frequency": "60Hz",
     "winding": "6号标准",
@@ -3237,7 +3237,7 @@
     "pf": 0.8
   },
   {
-    "brand": "leroy_somer",
+    "brand": "leroysomer",
     "model": "LSA 44.3 M6",
     "frequency": "60Hz",
     "winding": "6号标准",
@@ -3251,7 +3251,7 @@
     "pf": 0.8
   },
   {
-    "brand": "leroy_somer",
+    "brand": "leroysomer",
     "model": "LSA 44.3 M8",
     "frequency": "60Hz",
     "winding": "6号标准",
@@ -3265,7 +3265,7 @@
     "pf": 0.8
   },
   {
-    "brand": "leroy_somer",
+    "brand": "leroysomer",
     "model": "LSA 44.3 L10",
     "frequency": "60Hz",
     "winding": "6号标准",
@@ -3279,7 +3279,7 @@
     "pf": 0.8
   },
   {
-    "brand": "leroy_somer",
+    "brand": "leroysomer",
     "model": "LSA 44.3 L12",
     "frequency": "60Hz",
     "winding": "6号标准",
@@ -3293,7 +3293,7 @@
     "pf": 0.8
   },
   {
-    "brand": "leroy_somer",
+    "brand": "leroysomer",
     "model": "LSA 44.3 VL13",
     "frequency": "60Hz",
     "winding": "6号标准",
@@ -3307,7 +3307,7 @@
     "pf": 0.8
   },
   {
-    "brand": "leroy_somer",
+    "brand": "leroysomer",
     "model": "LSA 44.3 VL14",
     "frequency": "60Hz",
     "winding": "6号标准",
@@ -3321,7 +3321,7 @@
     "pf": 0.8
   },
   {
-    "brand": "leroy_somer",
+    "brand": "leroysomer",
     "model": "LSA 46.3 S4",
     "frequency": "60Hz",
     "winding": "6号标准",
@@ -3335,7 +3335,7 @@
     "pf": 0.8
   },
   {
-    "brand": "leroy_somer",
+    "brand": "leroysomer",
     "model": "LSA 46.3 S5",
     "frequency": "60Hz",
     "winding": "6号标准",
@@ -3349,7 +3349,7 @@
     "pf": 0.8
   },
   {
-    "brand": "leroy_somer",
+    "brand": "leroysomer",
     "model": "LSA 46.3 M7",
     "frequency": "60Hz",
     "winding": "6号标准",
@@ -3363,7 +3363,7 @@
     "pf": 0.8
   },
   {
-    "brand": "leroy_somer",
+    "brand": "leroysomer",
     "model": "LSA 46.3 M8",
     "frequency": "60Hz",
     "winding": "6号标准",
@@ -3377,7 +3377,7 @@
     "pf": 0.8
   },
   {
-    "brand": "leroy_somer",
+    "brand": "leroysomer",
     "model": "LSA 46.3 L10",
     "frequency": "60Hz",
     "winding": "6号标准",
@@ -3391,7 +3391,7 @@
     "pf": 0.8
   },
   {
-    "brand": "leroy_somer",
+    "brand": "leroysomer",
     "model": "LSA 46.3 L11",
     "frequency": "60Hz",
     "winding": "6号标准",
@@ -3405,7 +3405,7 @@
     "pf": 0.8
   },
   {
-    "brand": "leroy_somer",
+    "brand": "leroysomer",
     "model": "LSA 47.3 S4",
     "frequency": "60Hz",
     "winding": "6号标准",
@@ -3419,7 +3419,7 @@
     "pf": 0.8
   },
   {
-    "brand": "leroy_somer",
+    "brand": "leroysomer",
     "model": "LSA 47.3 S5",
     "frequency": "60Hz",
     "winding": "6号标准",
@@ -3433,7 +3433,7 @@
     "pf": 0.8
   },
   {
-    "brand": "leroy_somer",
+    "brand": "leroysomer",
     "model": "LSA 47.3 M7",
     "frequency": "60Hz",
     "winding": "6号标准",
@@ -3447,7 +3447,7 @@
     "pf": 0.8
   },
   {
-    "brand": "leroy_somer",
+    "brand": "leroysomer",
     "model": "LSA 47.3 L9",
     "frequency": "60Hz",
     "winding": "6号标准",
@@ -3461,7 +3461,7 @@
     "pf": 0.8
   },
   {
-    "brand": "leroy_somer",
+    "brand": "leroysomer",
     "model": "LSA 47.3 L10",
     "frequency": "60Hz",
     "winding": "6号标准",
@@ -3475,7 +3475,7 @@
     "pf": 0.8
   },
   {
-    "brand": "leroy_somer",
+    "brand": "leroysomer",
     "model": "LSA 49.3 M6",
     "frequency": "60Hz",
     "winding": "6号标准",
@@ -3489,7 +3489,7 @@
     "pf": 0.8
   },
   {
-    "brand": "leroy_somer",
+    "brand": "leroysomer",
     "model": "LSA 49.3 M8",
     "frequency": "60Hz",
     "winding": "6号标准",
@@ -3503,7 +3503,7 @@
     "pf": 0.8
   },
   {
-    "brand": "leroy_somer",
+    "brand": "leroysomer",
     "model": "LSA 49.3 L9",
     "frequency": "60Hz",
     "winding": "6号标准",
@@ -3517,7 +3517,7 @@
     "pf": 0.8
   },
   {
-    "brand": "leroy_somer",
+    "brand": "leroysomer",
     "model": "LSA 49.3 L10",
     "frequency": "60Hz",
     "winding": "6号标准",
@@ -3531,7 +3531,7 @@
     "pf": 0.8
   },
   {
-    "brand": "leroy_somer",
+    "brand": "leroysomer",
     "model": "LSA 50.2 M6",
     "frequency": "60Hz",
     "winding": "6号标准",
@@ -3545,7 +3545,7 @@
     "pf": 0.8
   },
   {
-    "brand": "leroy_somer",
+    "brand": "leroysomer",
     "model": "LSA 50.2 L7",
     "frequency": "60Hz",
     "winding": "6号标准",
@@ -3559,7 +3559,7 @@
     "pf": 0.8
   },
   {
-    "brand": "leroy_somer",
+    "brand": "leroysomer",
     "model": "LSA 50.2 L8",
     "frequency": "60Hz",
     "winding": "6号标准",
@@ -3573,7 +3573,7 @@
     "pf": 0.8
   },
   {
-    "brand": "leroy_somer",
+    "brand": "leroysomer",
     "model": "LSA 50.2 VL10",
     "frequency": "60Hz",
     "winding": "6号标准",
@@ -3597,7 +3597,8 @@
     "stdby_27c_kVA": 11,
     "winding_code": "6-380-400-415",
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -3610,7 +3611,8 @@
     "stdby_27c_kVA": 14,
     "winding_code": "6-380-400-415",
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -3623,7 +3625,8 @@
     "stdby_27c_kVA": 16.5,
     "winding_code": "6-380-400-415",
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -3636,7 +3639,8 @@
     "stdby_27c_kVA": 19.5,
     "winding_code": "6-380-400-415",
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -3649,7 +3653,8 @@
     "stdby_27c_kVA": 22,
     "winding_code": "6-380-400-415",
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -3662,7 +3667,8 @@
     "stdby_27c_kVA": 25,
     "winding_code": "6-380-400-415",
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -3675,7 +3681,8 @@
     "stdby_27c_kVA": 27.5,
     "winding_code": "6-380-400-415",
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -3688,7 +3695,8 @@
     "stdby_27c_kVA": 30,
     "winding_code": "6-380-400-415",
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -3701,7 +3709,8 @@
     "stdby_27c_kVA": 35,
     "winding_code": "6-380-400-415",
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -3714,7 +3723,8 @@
     "stdby_27c_kVA": 38.5,
     "winding_code": "6-380-400-415",
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -3727,7 +3737,8 @@
     "stdby_27c_kVA": 45,
     "winding_code": "6-380-400-415",
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -3740,7 +3751,8 @@
     "stdby_27c_kVA": 50,
     "winding_code": "6-380-400-415",
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -3753,7 +3765,8 @@
     "stdby_27c_kVA": 55,
     "winding_code": "6-380-400-415",
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -3766,7 +3779,8 @@
     "stdby_27c_kVA": 66,
     "winding_code": "6-380-400-415",
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -3779,7 +3793,8 @@
     "stdby_27c_kVA": 77,
     "winding_code": "6-380-400-415",
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -3792,7 +3807,8 @@
     "stdby_27c_kVA": 88,
     "winding_code": "6-380-400-415",
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -3805,7 +3821,8 @@
     "stdby_27c_kVA": 100,
     "winding_code": "6-380-400-415",
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -3818,7 +3835,8 @@
     "stdby_27c_kVA": 110,
     "winding_code": "6-380-400-415",
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -3831,7 +3849,8 @@
     "stdby_27c_kVA": 138,
     "winding_code": "6-380-400-415",
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -3844,7 +3863,8 @@
     "stdby_27c_kVA": 150,
     "winding_code": "6-380-400-415",
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -3857,7 +3877,8 @@
     "stdby_27c_kVA": 165,
     "winding_code": "6-380-400-415",
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -3870,7 +3891,8 @@
     "stdby_27c_kVA": 182,
     "winding_code": "6-380-400-415",
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -3883,7 +3905,8 @@
     "stdby_27c_kVA": 200,
     "winding_code": "6-380-400-415",
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -3896,7 +3919,8 @@
     "stdby_27c_kVA": 220,
     "winding_code": "6-380-400-415",
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -3909,7 +3933,8 @@
     "stdby_27c_kVA": 253,
     "winding_code": "6-380-400-415",
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -3922,7 +3947,8 @@
     "stdby_27c_kVA": 275,
     "winding_code": "6-380-400-415",
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -3935,7 +3961,8 @@
     "stdby_27c_kVA": 303,
     "winding_code": "6-380-400-415",
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -3948,7 +3975,8 @@
     "stdby_27c_kVA": 330,
     "winding_code": "6-380-400-415",
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -3961,7 +3989,8 @@
     "stdby_27c_kVA": 358,
     "winding_code": "6-380-400-415",
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -3974,7 +4003,8 @@
     "stdby_27c_kVA": 400,
     "winding_code": "6-380-400-415",
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -3987,7 +4017,8 @@
     "stdby_27c_kVA": 450,
     "winding_code": "6-380-400-415",
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -4000,7 +4031,8 @@
     "stdby_27c_kVA": 500,
     "winding_code": "6-380-400-415",
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -4013,7 +4045,8 @@
     "stdby_27c_kVA": 570,
     "winding_code": "6-380-400-415",
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -4026,7 +4059,8 @@
     "stdby_27c_kVA": 600,
     "winding_code": "6-380-400-415",
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -4039,7 +4073,8 @@
     "stdby_27c_kVA": 660,
     "winding_code": "6-380-400-415",
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -4052,7 +4087,8 @@
     "stdby_27c_kVA": 745,
     "winding_code": "6-380-400-415",
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -4065,7 +4101,8 @@
     "stdby_27c_kVA": 810,
     "winding_code": "6-380-400-415",
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -4078,7 +4115,8 @@
     "stdby_27c_kVA": 945,
     "winding_code": "6-380-400-415",
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -4091,7 +4129,8 @@
     "stdby_27c_kVA": 1020,
     "winding_code": "6-380-400-415",
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -4104,7 +4143,8 @@
     "stdby_27c_kVA": 1130,
     "winding_code": "6-380-400-415",
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -4117,7 +4157,8 @@
     "stdby_27c_kVA": 1375,
     "winding_code": "6-380-400-415",
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -4130,7 +4171,8 @@
     "stdby_27c_kVA": 1485,
     "winding_code": "6-380-400-415",
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -4143,7 +4185,8 @@
     "stdby_27c_kVA": 1650,
     "winding_code": "6-380-400-415",
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -4156,7 +4199,8 @@
     "stdby_27c_kVA": 1800,
     "winding_code": "6-380-400-415",
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -4169,7 +4213,8 @@
     "stdby_27c_kVA": 2046,
     "winding_code": "6-380-400-415",
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -4182,7 +4227,8 @@
     "stdby_27c_kVA": 2200,
     "winding_code": "6-380-400-415",
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -4195,7 +4241,8 @@
     "stdby_27c_kVA": 2420,
     "winding_code": "6-380-400-415",
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -4208,7 +4255,8 @@
     "stdby_27c_kVA": 2596,
     "winding_code": "6-380-400-415",
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -4221,7 +4269,8 @@
     "stdby_27c_kVA": 2816,
     "winding_code": "6-380-400-415",
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -4234,7 +4283,8 @@
     "stdby_27c_kVA": 3025,
     "winding_code": "6-380-400-415",
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -4247,7 +4297,8 @@
     "stdby_27c_kVA": 3300,
     "winding_code": "6-380-400-415",
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -4260,7 +4311,8 @@
     "stdby_27c_kVA": 3630,
     "winding_code": "6-380-400-415",
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -4273,7 +4325,8 @@
     "stdby_27c_kVA": 3762,
     "winding_code": "6-380-400-415",
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -4286,7 +4339,8 @@
     "stdby_27c_kVA": 4752,
     "winding_code": "6-380-400-415",
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -4299,7 +4353,8 @@
     "stdby_40c_kVA": 9,
     "stdby_27c_kVA": 10,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -4312,7 +4367,8 @@
     "stdby_40c_kVA": 12,
     "stdby_27c_kVA": 12.5,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -4325,7 +4381,8 @@
     "stdby_40c_kVA": 14,
     "stdby_27c_kVA": 15,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -4338,7 +4395,8 @@
     "stdby_40c_kVA": 17,
     "stdby_27c_kVA": 17.5,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -4351,7 +4409,8 @@
     "stdby_40c_kVA": 19,
     "stdby_27c_kVA": 20,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -4364,7 +4423,8 @@
     "stdby_40c_kVA": 20,
     "stdby_27c_kVA": 22,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -4377,7 +4437,8 @@
     "stdby_40c_kVA": 26,
     "stdby_27c_kVA": 27,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -4390,7 +4451,8 @@
     "stdby_40c_kVA": 27.5,
     "stdby_27c_kVA": 28.5,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -4403,7 +4465,8 @@
     "stdby_40c_kVA": 32,
     "stdby_27c_kVA": 33,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -4416,7 +4479,8 @@
     "stdby_40c_kVA": 32.5,
     "stdby_27c_kVA": 33.5,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -4429,7 +4493,8 @@
     "stdby_40c_kVA": 37,
     "stdby_27c_kVA": 38.5,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -4442,7 +4507,8 @@
     "stdby_40c_kVA": 41.5,
     "stdby_27c_kVA": 43,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -4455,7 +4521,8 @@
     "stdby_40c_kVA": 45.5,
     "stdby_27c_kVA": 47.5,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -4468,7 +4535,8 @@
     "stdby_40c_kVA": 55,
     "stdby_27c_kVA": 57,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -4481,7 +4549,8 @@
     "stdby_40c_kVA": 67,
     "stdby_27c_kVA": 69,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -4494,7 +4563,8 @@
     "stdby_40c_kVA": 76,
     "stdby_27c_kVA": 79,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -4507,7 +4577,8 @@
     "stdby_40c_kVA": 86,
     "stdby_27c_kVA": 89,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -4520,7 +4591,8 @@
     "stdby_40c_kVA": 95,
     "stdby_27c_kVA": 99,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -4533,7 +4605,8 @@
     "stdby_40c_kVA": 120,
     "stdby_27c_kVA": 124,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -4546,7 +4619,8 @@
     "stdby_40c_kVA": 129,
     "stdby_27c_kVA": 134,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -4559,7 +4633,8 @@
     "stdby_40c_kVA": 143,
     "stdby_27c_kVA": 149,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -4572,7 +4647,8 @@
     "stdby_40c_kVA": 150,
     "stdby_27c_kVA": 157,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -4585,7 +4661,8 @@
     "stdby_40c_kVA": 181,
     "stdby_27c_kVA": 188,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -4598,7 +4675,8 @@
     "stdby_40c_kVA": 204,
     "stdby_27c_kVA": 211,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -4611,7 +4689,8 @@
     "stdby_40c_kVA": 232,
     "stdby_27c_kVA": 240,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -4624,7 +4703,8 @@
     "stdby_40c_kVA": 252,
     "stdby_27c_kVA": 261,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -4637,7 +4717,8 @@
     "stdby_40c_kVA": 277,
     "stdby_27c_kVA": 287,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -4650,7 +4731,8 @@
     "stdby_40c_kVA": 302,
     "stdby_27c_kVA": 313,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -4663,7 +4745,8 @@
     "stdby_40c_kVA": 327,
     "stdby_27c_kVA": 340,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -4676,7 +4759,8 @@
     "stdby_40c_kVA": 368,
     "stdby_27c_kVA": 380,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -4689,7 +4773,8 @@
     "stdby_40c_kVA": 424,
     "stdby_27c_kVA": 440,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -4702,7 +4787,8 @@
     "stdby_40c_kVA": 472,
     "stdby_27c_kVA": 490,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -4715,7 +4801,8 @@
     "stdby_40c_kVA": 519,
     "stdby_27c_kVA": 539,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -4728,7 +4815,8 @@
     "stdby_40c_kVA": 572,
     "stdby_27c_kVA": 594,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -4741,7 +4829,8 @@
     "stdby_40c_kVA": 530,
     "stdby_27c_kVA": 550,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -4754,7 +4843,8 @@
     "stdby_40c_kVA": 668,
     "stdby_27c_kVA": 693,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -4767,7 +4857,8 @@
     "stdby_40c_kVA": 730,
     "stdby_27c_kVA": 765,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -4780,7 +4871,8 @@
     "stdby_40c_kVA": 885,
     "stdby_27c_kVA": 925,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -4793,7 +4885,8 @@
     "stdby_40c_kVA": 920,
     "stdby_27c_kVA": 965,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -4806,7 +4899,8 @@
     "stdby_40c_kVA": 1030,
     "stdby_27c_kVA": 1080,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -4819,7 +4913,8 @@
     "stdby_40c_kVA": 1275,
     "stdby_27c_kVA": 1330,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -4832,7 +4927,8 @@
     "stdby_40c_kVA": 1365,
     "stdby_27c_kVA": 1425,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -4845,7 +4941,8 @@
     "stdby_40c_kVA": 1555,
     "stdby_27c_kVA": 1625,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -4858,7 +4955,8 @@
     "stdby_40c_kVA": 1670,
     "stdby_27c_kVA": 1730,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -4871,7 +4969,8 @@
     "stdby_40c_kVA": 780,
     "stdby_27c_kVA": 810,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -4884,7 +4983,8 @@
     "stdby_40c_kVA": 910,
     "stdby_27c_kVA": 945,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -4897,7 +4997,8 @@
     "stdby_40c_kVA": 1000,
     "stdby_27c_kVA": 1020,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -4910,7 +5011,8 @@
     "stdby_40c_kVA": 1085,
     "stdby_27c_kVA": 1130,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -4923,7 +5025,8 @@
     "stdby_40c_kVA": 1140,
     "stdby_27c_kVA": 1140,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -4936,7 +5039,8 @@
     "stdby_40c_kVA": 1350,
     "stdby_27c_kVA": 1350,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -4949,7 +5053,8 @@
     "stdby_40c_kVA": 730,
     "stdby_27c_kVA": 765,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -4962,7 +5067,8 @@
     "stdby_40c_kVA": 885,
     "stdby_27c_kVA": 925,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -4975,7 +5081,8 @@
     "stdby_40c_kVA": 920,
     "stdby_27c_kVA": 965,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -4988,7 +5095,8 @@
     "stdby_40c_kVA": 1030,
     "stdby_27c_kVA": 1080,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -5001,7 +5109,8 @@
     "stdby_40c_kVA": 1210,
     "stdby_27c_kVA": 1210,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -5014,7 +5123,8 @@
     "stdby_40c_kVA": 1430,
     "stdby_27c_kVA": 1430,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -5027,7 +5137,8 @@
     "stdby_40c_kVA": 10.6,
     "stdby_27c_kVA": 11,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -5040,7 +5151,8 @@
     "stdby_40c_kVA": 13.5,
     "stdby_27c_kVA": 14,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -5053,7 +5165,8 @@
     "stdby_40c_kVA": 16,
     "stdby_27c_kVA": 16.5,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -5066,7 +5179,8 @@
     "stdby_40c_kVA": 18.6,
     "stdby_27c_kVA": 19.5,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -5079,7 +5193,8 @@
     "stdby_40c_kVA": 21.2,
     "stdby_27c_kVA": 22,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -5092,7 +5207,8 @@
     "stdby_40c_kVA": 26.5,
     "stdby_27c_kVA": 27.5,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -5105,7 +5221,8 @@
     "stdby_40c_kVA": 28.5,
     "stdby_27c_kVA": 29.5,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -5118,7 +5235,8 @@
     "stdby_40c_kVA": 34,
     "stdby_27c_kVA": 35,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -5131,7 +5249,8 @@
     "stdby_40c_kVA": 37,
     "stdby_27c_kVA": 38.5,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -5144,7 +5263,8 @@
     "stdby_40c_kVA": 42.5,
     "stdby_27c_kVA": 44,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -5157,7 +5277,8 @@
     "stdby_40c_kVA": 47.5,
     "stdby_27c_kVA": 49.5,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -5170,7 +5291,8 @@
     "stdby_40c_kVA": 53,
     "stdby_27c_kVA": 55,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -5183,7 +5305,8 @@
     "stdby_40c_kVA": 64,
     "stdby_27c_kVA": 66,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -5196,7 +5319,8 @@
     "stdby_40c_kVA": 74,
     "stdby_27c_kVA": 77,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -5209,7 +5333,8 @@
     "stdby_40c_kVA": 85,
     "stdby_27c_kVA": 88,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -5222,7 +5347,8 @@
     "stdby_40c_kVA": 95,
     "stdby_27c_kVA": 99,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -5235,7 +5361,8 @@
     "stdby_40c_kVA": 106,
     "stdby_27c_kVA": 110,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -5248,7 +5375,8 @@
     "stdby_40c_kVA": 133,
     "stdby_27c_kVA": 138,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -5261,7 +5389,8 @@
     "stdby_40c_kVA": 143,
     "stdby_27c_kVA": 149,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -5274,7 +5403,8 @@
     "stdby_40c_kVA": 159,
     "stdby_27c_kVA": 165,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -5287,7 +5417,8 @@
     "stdby_40c_kVA": 175,
     "stdby_27c_kVA": 182,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -5300,7 +5431,8 @@
     "stdby_40c_kVA": 191,
     "stdby_27c_kVA": 198,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -5313,7 +5445,8 @@
     "stdby_40c_kVA": 204,
     "stdby_27c_kVA": 211,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -5326,7 +5459,8 @@
     "stdby_40c_kVA": 239,
     "stdby_27c_kVA": 248,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -5339,7 +5473,8 @@
     "stdby_40c_kVA": 254,
     "stdby_27c_kVA": 264,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -5352,7 +5487,8 @@
     "stdby_40c_kVA": 276,
     "stdby_27c_kVA": 286,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -5365,7 +5501,8 @@
     "stdby_40c_kVA": 297,
     "stdby_27c_kVA": 308,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -5378,7 +5515,8 @@
     "stdby_40c_kVA": 318,
     "stdby_27c_kVA": 330,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -5391,7 +5529,8 @@
     "stdby_40c_kVA": 345,
     "stdby_27c_kVA": 358,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -5404,7 +5543,8 @@
     "stdby_40c_kVA": 435,
     "stdby_27c_kVA": 451,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -5417,7 +5557,8 @@
     "stdby_40c_kVA": 636,
     "stdby_27c_kVA": 660,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -5430,7 +5571,8 @@
     "stdby_40c_kVA": 774,
     "stdby_27c_kVA": 803,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -5443,7 +5585,8 @@
     "stdby_40c_kVA": 832,
     "stdby_27c_kVA": 864,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -5456,7 +5599,8 @@
     "stdby_40c_kVA": 901,
     "stdby_27c_kVA": 935,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -5469,7 +5613,8 @@
     "stdby_40c_kVA": 954,
     "stdby_27c_kVA": 990,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -5482,7 +5627,8 @@
     "stdby_40c_kVA": 1008,
     "stdby_27c_kVA": 1056,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -5495,7 +5641,8 @@
     "stdby_40c_kVA": 1176,
     "stdby_27c_kVA": 1235,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -5508,7 +5655,8 @@
     "stdby_40c_kVA": 1391,
     "stdby_27c_kVA": 1460,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -5521,7 +5669,8 @@
     "stdby_40c_kVA": 1440,
     "stdby_27c_kVA": 1510,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -5534,7 +5683,8 @@
     "stdby_40c_kVA": 1596,
     "stdby_27c_kVA": 1672,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -5547,7 +5697,8 @@
     "stdby_40c_kVA": 1953,
     "stdby_27c_kVA": 2046,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -5560,7 +5711,8 @@
     "stdby_40c_kVA": 2100,
     "stdby_27c_kVA": 2200,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -5573,7 +5725,8 @@
     "stdby_40c_kVA": 2205,
     "stdby_27c_kVA": 2310,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -5586,7 +5739,8 @@
     "stdby_40c_kVA": 2310,
     "stdby_27c_kVA": 2420,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -5599,7 +5753,8 @@
     "stdby_40c_kVA": 2625,
     "stdby_27c_kVA": 2750,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -5612,7 +5767,8 @@
     "stdby_40c_kVA": 2888,
     "stdby_27c_kVA": 3025,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -5625,7 +5781,8 @@
     "stdby_40c_kVA": 3150,
     "stdby_27c_kVA": 3300,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -5638,7 +5795,8 @@
     "stdby_40c_kVA": 3255,
     "stdby_27c_kVA": 3410,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -5651,7 +5809,8 @@
     "stdby_40c_kVA": 4305,
     "stdby_27c_kVA": 4510,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -5664,7 +5823,8 @@
     "stdby_40c_kVA": 23,
     "stdby_27c_kVA": 23.5,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -5677,7 +5837,8 @@
     "stdby_40c_kVA": 24.5,
     "stdby_27c_kVA": 25.5,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -5690,7 +5851,8 @@
     "stdby_40c_kVA": 28.5,
     "stdby_27c_kVA": 29.5,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -5703,7 +5865,8 @@
     "stdby_40c_kVA": 32,
     "stdby_27c_kVA": 33,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -5716,7 +5879,8 @@
     "stdby_40c_kVA": 36,
     "stdby_27c_kVA": 37.5,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -5729,7 +5893,8 @@
     "stdby_40c_kVA": 41,
     "stdby_27c_kVA": 42.5,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -5742,7 +5907,8 @@
     "stdby_40c_kVA": 45,
     "stdby_27c_kVA": 47,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -5755,7 +5921,8 @@
     "stdby_40c_kVA": 54,
     "stdby_27c_kVA": 56,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -5768,7 +5935,8 @@
     "stdby_40c_kVA": 71,
     "stdby_27c_kVA": 74,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -5781,7 +5949,8 @@
     "stdby_40c_kVA": 81,
     "stdby_27c_kVA": 84,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -5794,7 +5963,8 @@
     "stdby_40c_kVA": 90,
     "stdby_27c_kVA": 94,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -5807,7 +5977,8 @@
     "stdby_40c_kVA": 100,
     "stdby_27c_kVA": 103,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -5820,7 +5991,8 @@
     "stdby_40c_kVA": 111,
     "stdby_27c_kVA": 116,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -5833,7 +6005,8 @@
     "stdby_40c_kVA": 117,
     "stdby_27c_kVA": 121,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -5846,7 +6019,8 @@
     "stdby_40c_kVA": 136,
     "stdby_27c_kVA": 141,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -5859,7 +6033,8 @@
     "stdby_40c_kVA": 148,
     "stdby_27c_kVA": 154,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -5872,7 +6047,8 @@
     "stdby_40c_kVA": 164,
     "stdby_27c_kVA": 171,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -5885,7 +6061,8 @@
     "stdby_40c_kVA": 189,
     "stdby_27c_kVA": 196,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -5898,7 +6075,8 @@
     "stdby_40c_kVA": 223,
     "stdby_27c_kVA": 231,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -5911,7 +6089,8 @@
     "stdby_40c_kVA": 237,
     "stdby_27c_kVA": 246,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -5924,7 +6103,8 @@
     "stdby_40c_kVA": 244,
     "stdby_27c_kVA": 253,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -5937,7 +6117,8 @@
     "stdby_40c_kVA": 265,
     "stdby_27c_kVA": 275,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -5950,7 +6131,8 @@
     "stdby_40c_kVA": 276,
     "stdby_27c_kVA": 286,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -5963,7 +6145,8 @@
     "stdby_40c_kVA": 307,
     "stdby_27c_kVA": 319,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -5976,7 +6159,8 @@
     "stdby_40c_kVA": 403,
     "stdby_27c_kVA": 418,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -5989,7 +6173,8 @@
     "stdby_40c_kVA": 424,
     "stdby_27c_kVA": 440,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -6002,7 +6187,8 @@
     "stdby_40c_kVA": 451,
     "stdby_27c_kVA": 468,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -6015,7 +6201,8 @@
     "stdby_40c_kVA": 477,
     "stdby_27c_kVA": 495,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -6028,7 +6215,8 @@
     "stdby_40c_kVA": 530,
     "stdby_27c_kVA": 550,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -6041,7 +6229,8 @@
     "stdby_40c_kVA": 632,
     "stdby_27c_kVA": 656,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -6054,7 +6243,8 @@
     "stdby_40c_kVA": 689,
     "stdby_27c_kVA": 715,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -6067,7 +6257,8 @@
     "stdby_40c_kVA": 763,
     "stdby_27c_kVA": 792,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -6080,7 +6271,8 @@
     "stdby_40c_kVA": 912,
     "stdby_27c_kVA": 946,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -6093,7 +6285,8 @@
     "stdby_40c_kVA": 1000,
     "stdby_27c_kVA": 1045,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -6106,7 +6299,8 @@
     "stdby_40c_kVA": 1135,
     "stdby_27c_kVA": 1190,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -6119,7 +6313,8 @@
     "stdby_40c_kVA": 1290,
     "stdby_27c_kVA": 1355,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -6132,7 +6327,8 @@
     "stdby_40c_kVA": 1480,
     "stdby_27c_kVA": 1550,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -6145,7 +6341,8 @@
     "stdby_40c_kVA": 23,
     "stdby_27c_kVA": 23.5,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -6158,7 +6355,8 @@
     "stdby_40c_kVA": 24.5,
     "stdby_27c_kVA": 25.5,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -6171,7 +6369,8 @@
     "stdby_40c_kVA": 28.5,
     "stdby_27c_kVA": 29.5,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -6184,7 +6383,8 @@
     "stdby_40c_kVA": 32,
     "stdby_27c_kVA": 33,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -6197,7 +6397,8 @@
     "stdby_40c_kVA": 36,
     "stdby_27c_kVA": 37.5,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -6210,7 +6411,8 @@
     "stdby_40c_kVA": 41,
     "stdby_27c_kVA": 42.5,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -6223,7 +6425,8 @@
     "stdby_40c_kVA": 45,
     "stdby_27c_kVA": 47,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -6236,7 +6439,8 @@
     "stdby_40c_kVA": 54,
     "stdby_27c_kVA": 56,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -6249,7 +6453,8 @@
     "stdby_40c_kVA": 74,
     "stdby_27c_kVA": 77,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -6262,7 +6467,8 @@
     "stdby_40c_kVA": 82,
     "stdby_27c_kVA": 85,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -6275,7 +6481,8 @@
     "stdby_40c_kVA": 87,
     "stdby_27c_kVA": 90,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -6288,7 +6495,8 @@
     "stdby_40c_kVA": 96,
     "stdby_27c_kVA": 100,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -6301,7 +6509,8 @@
     "stdby_40c_kVA": 106,
     "stdby_27c_kVA": 110,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -6314,7 +6523,8 @@
     "stdby_40c_kVA": 122,
     "stdby_27c_kVA": 127,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -6327,7 +6537,8 @@
     "stdby_40c_kVA": 127,
     "stdby_27c_kVA": 132,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -6340,7 +6551,8 @@
     "stdby_40c_kVA": 138,
     "stdby_27c_kVA": 143,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -6353,7 +6565,8 @@
     "stdby_40c_kVA": 178,
     "stdby_27c_kVA": 185,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -6366,7 +6579,8 @@
     "stdby_40c_kVA": 189,
     "stdby_27c_kVA": 196,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -6379,7 +6593,8 @@
     "stdby_40c_kVA": 217,
     "stdby_27c_kVA": 226,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -6392,7 +6607,8 @@
     "stdby_40c_kVA": 228,
     "stdby_27c_kVA": 237,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -6405,7 +6621,8 @@
     "stdby_40c_kVA": 239,
     "stdby_27c_kVA": 248,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -6418,7 +6635,8 @@
     "stdby_40c_kVA": 254,
     "stdby_27c_kVA": 264,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -6431,7 +6649,8 @@
     "stdby_40c_kVA": 297,
     "stdby_27c_kVA": 308,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -6444,7 +6663,8 @@
     "stdby_40c_kVA": 334,
     "stdby_27c_kVA": 347,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -6457,7 +6677,8 @@
     "stdby_40c_kVA": 424,
     "stdby_27c_kVA": 440,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -6470,7 +6691,8 @@
     "stdby_40c_kVA": 451,
     "stdby_27c_kVA": 468,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -6483,7 +6705,8 @@
     "stdby_40c_kVA": 477,
     "stdby_27c_kVA": 495,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -6496,7 +6719,8 @@
     "stdby_40c_kVA": 504,
     "stdby_27c_kVA": 523,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -6509,7 +6733,8 @@
     "stdby_40c_kVA": 543,
     "stdby_27c_kVA": 563,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -6522,7 +6747,8 @@
     "stdby_40c_kVA": 620,
     "stdby_27c_kVA": 644,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -6535,7 +6761,8 @@
     "stdby_40c_kVA": 742,
     "stdby_27c_kVA": 770,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -6548,7 +6775,8 @@
     "stdby_40c_kVA": 795,
     "stdby_27c_kVA": 825,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -6561,7 +6789,8 @@
     "stdby_40c_kVA": 848,
     "stdby_27c_kVA": 880,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -6574,7 +6803,8 @@
     "stdby_40c_kVA": 922,
     "stdby_27c_kVA": 957,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -6587,7 +6817,8 @@
     "stdby_40c_kVA": 1030,
     "stdby_27c_kVA": 1080,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -6600,7 +6831,8 @@
     "stdby_40c_kVA": 1197,
     "stdby_27c_kVA": 1254,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -6613,7 +6845,8 @@
     "stdby_40c_kVA": 1271,
     "stdby_27c_kVA": 1331,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -6626,7 +6859,8 @@
     "stdby_40c_kVA": 1418,
     "stdby_27c_kVA": 1485,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -6639,7 +6873,8 @@
     "stdby_40c_kVA": 1575,
     "stdby_27c_kVA": 1650,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -6652,7 +6887,8 @@
     "stdby_40c_kVA": 1785,
     "stdby_27c_kVA": 1870,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -6665,7 +6901,8 @@
     "stdby_40c_kVA": 1995,
     "stdby_27c_kVA": 2090,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -6678,7 +6915,8 @@
     "stdby_40c_kVA": 2100,
     "stdby_27c_kVA": 2200,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -6691,7 +6929,8 @@
     "stdby_40c_kVA": 2258,
     "stdby_27c_kVA": 2365,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -6704,7 +6943,8 @@
     "stdby_40c_kVA": 2468,
     "stdby_27c_kVA": 2816,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -6717,7 +6957,8 @@
     "stdby_40c_kVA": 2573,
     "stdby_27c_kVA": 2695,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -6730,7 +6971,8 @@
     "stdby_40c_kVA": 2888,
     "stdby_27c_kVA": 3025,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -6743,7 +6985,8 @@
     "stdby_40c_kVA": 3255,
     "stdby_27c_kVA": 3410,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -6756,7 +6999,8 @@
     "stdby_40c_kVA": 3675,
     "stdby_27c_kVA": 3850,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -6769,7 +7013,8 @@
     "stdby_40c_kVA": 23,
     "stdby_27c_kVA": 23.5,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -6782,7 +7027,8 @@
     "stdby_40c_kVA": 24.5,
     "stdby_27c_kVA": 25.5,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -6795,7 +7041,8 @@
     "stdby_40c_kVA": 28.5,
     "stdby_27c_kVA": 29.5,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -6808,7 +7055,8 @@
     "stdby_40c_kVA": 32,
     "stdby_27c_kVA": 33,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -6821,7 +7069,8 @@
     "stdby_40c_kVA": 36,
     "stdby_27c_kVA": 37.5,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -6834,7 +7083,8 @@
     "stdby_40c_kVA": 41,
     "stdby_27c_kVA": 42.5,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -6847,7 +7097,8 @@
     "stdby_40c_kVA": 45,
     "stdby_27c_kVA": 47,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -6860,7 +7111,8 @@
     "stdby_40c_kVA": 54,
     "stdby_27c_kVA": 56,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -6873,7 +7125,8 @@
     "stdby_40c_kVA": 74,
     "stdby_27c_kVA": 77,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -6886,7 +7139,8 @@
     "stdby_40c_kVA": 85,
     "stdby_27c_kVA": 88,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -6899,7 +7153,8 @@
     "stdby_40c_kVA": 90,
     "stdby_27c_kVA": 94,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -6912,7 +7167,8 @@
     "stdby_40c_kVA": 98,
     "stdby_27c_kVA": 101,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -6925,7 +7181,8 @@
     "stdby_40c_kVA": 106,
     "stdby_27c_kVA": 110,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -6938,7 +7195,8 @@
     "stdby_40c_kVA": 122,
     "stdby_27c_kVA": 127,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -6951,7 +7209,8 @@
     "stdby_40c_kVA": 140,
     "stdby_27c_kVA": 145,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -6964,7 +7223,8 @@
     "stdby_40c_kVA": 154,
     "stdby_27c_kVA": 160,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -6977,7 +7237,8 @@
     "stdby_40c_kVA": 178,
     "stdby_27c_kVA": 185,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -6990,7 +7251,8 @@
     "stdby_40c_kVA": 189,
     "stdby_27c_kVA": 196,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -7003,7 +7265,8 @@
     "stdby_40c_kVA": 228,
     "stdby_27c_kVA": 237,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -7016,7 +7279,8 @@
     "stdby_40c_kVA": 242,
     "stdby_27c_kVA": 251,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -7029,7 +7293,8 @@
     "stdby_40c_kVA": 268,
     "stdby_27c_kVA": 278,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -7042,7 +7307,8 @@
     "stdby_40c_kVA": 292,
     "stdby_27c_kVA": 303,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -7055,7 +7321,8 @@
     "stdby_40c_kVA": 302,
     "stdby_27c_kVA": 314,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -7068,7 +7335,8 @@
     "stdby_40c_kVA": 323,
     "stdby_27c_kVA": 336,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -7081,7 +7349,8 @@
     "stdby_40c_kVA": 371,
     "stdby_27c_kVA": 385,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -7094,7 +7363,8 @@
     "stdby_40c_kVA": 424,
     "stdby_27c_kVA": 440,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -7107,7 +7377,8 @@
     "stdby_40c_kVA": 477,
     "stdby_27c_kVA": 495,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -7120,7 +7391,8 @@
     "stdby_40c_kVA": 504,
     "stdby_27c_kVA": 523,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -7133,7 +7405,8 @@
     "stdby_40c_kVA": 583,
     "stdby_27c_kVA": 605,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -7146,7 +7419,8 @@
     "stdby_40c_kVA": 631,
     "stdby_27c_kVA": 655,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -7159,7 +7433,8 @@
     "stdby_40c_kVA": 663,
     "stdby_27c_kVA": 688,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -7172,7 +7447,8 @@
     "stdby_40c_kVA": 721,
     "stdby_27c_kVA": 748,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -7185,7 +7461,8 @@
     "stdby_40c_kVA": 774,
     "stdby_27c_kVA": 803,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -7198,7 +7475,8 @@
     "stdby_40c_kVA": 848,
     "stdby_27c_kVA": 880,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -7211,7 +7489,8 @@
     "stdby_40c_kVA": 901,
     "stdby_27c_kVA": 935,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -7224,7 +7503,8 @@
     "stdby_40c_kVA": 1030,
     "stdby_27c_kVA": 1080,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -7237,7 +7517,8 @@
     "stdby_40c_kVA": 1155,
     "stdby_27c_kVA": 1210,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -7250,7 +7531,8 @@
     "stdby_40c_kVA": 1270,
     "stdby_27c_kVA": 1330,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -7263,7 +7545,8 @@
     "stdby_40c_kVA": 1405,
     "stdby_27c_kVA": 1475,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -7276,7 +7559,8 @@
     "stdby_40c_kVA": 1575,
     "stdby_27c_kVA": 1650,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -7289,7 +7573,8 @@
     "stdby_40c_kVA": 1838,
     "stdby_27c_kVA": 1925,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -7302,7 +7587,8 @@
     "stdby_40c_kVA": 2074,
     "stdby_27c_kVA": 2173,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -7315,7 +7601,8 @@
     "stdby_40c_kVA": 2205,
     "stdby_27c_kVA": 2310,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -7328,7 +7615,8 @@
     "stdby_40c_kVA": 2541,
     "stdby_27c_kVA": 2662,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -7341,7 +7629,8 @@
     "stdby_40c_kVA": 2625,
     "stdby_27c_kVA": 2750,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -7354,7 +7643,8 @@
     "stdby_40c_kVA": 2730,
     "stdby_27c_kVA": 2860,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -7367,7 +7657,8 @@
     "stdby_40c_kVA": 3024,
     "stdby_27c_kVA": 3168,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -7380,7 +7671,8 @@
     "stdby_40c_kVA": 3203,
     "stdby_27c_kVA": 3355,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -7393,7 +7685,8 @@
     "stdby_40c_kVA": 11,
     "stdby_27c_kVA": 11.5,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -7406,7 +7699,8 @@
     "stdby_40c_kVA": 13.5,
     "stdby_27c_kVA": 14,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -7419,7 +7713,8 @@
     "stdby_40c_kVA": 16,
     "stdby_27c_kVA": 17,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -7432,7 +7727,8 @@
     "stdby_40c_kVA": 19,
     "stdby_27c_kVA": 19.5,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -7445,7 +7741,8 @@
     "stdby_40c_kVA": 21.5,
     "stdby_27c_kVA": 22,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -7458,7 +7755,8 @@
     "stdby_40c_kVA": 24,
     "stdby_27c_kVA": 24.5,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -7471,7 +7769,8 @@
     "stdby_40c_kVA": 30.5,
     "stdby_27c_kVA": 32,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -7484,7 +7783,8 @@
     "stdby_40c_kVA": 32,
     "stdby_27c_kVA": 33,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -7497,7 +7797,8 @@
     "stdby_40c_kVA": 36.5,
     "stdby_27c_kVA": 38,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -7510,7 +7811,8 @@
     "stdby_40c_kVA": 40,
     "stdby_27c_kVA": 41.5,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -7523,7 +7825,8 @@
     "stdby_40c_kVA": 44.5,
     "stdby_27c_kVA": 46,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -7536,7 +7839,8 @@
     "stdby_40c_kVA": 49,
     "stdby_27c_kVA": 51,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -7549,7 +7853,8 @@
     "stdby_40c_kVA": 55,
     "stdby_27c_kVA": 57,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -7562,7 +7867,8 @@
     "stdby_40c_kVA": 63,
     "stdby_27c_kVA": 65,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -7575,7 +7881,8 @@
     "stdby_40c_kVA": 73,
     "stdby_27c_kVA": 76,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -7588,7 +7895,8 @@
     "stdby_40c_kVA": 84,
     "stdby_27c_kVA": 87,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -7601,7 +7909,8 @@
     "stdby_40c_kVA": 94,
     "stdby_27c_kVA": 98,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -7614,7 +7923,8 @@
     "stdby_40c_kVA": 105,
     "stdby_27c_kVA": 109,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -7627,7 +7937,8 @@
     "stdby_40c_kVA": 131,
     "stdby_27c_kVA": 136,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -7640,7 +7951,8 @@
     "stdby_40c_kVA": 142,
     "stdby_27c_kVA": 147,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -7653,7 +7965,8 @@
     "stdby_40c_kVA": 157,
     "stdby_27c_kVA": 163,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -7666,7 +7979,8 @@
     "stdby_40c_kVA": 175,
     "stdby_27c_kVA": 182,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -7679,7 +7993,8 @@
     "stdby_40c_kVA": 191,
     "stdby_27c_kVA": 200,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -7692,7 +8007,8 @@
     "stdby_40c_kVA": 212,
     "stdby_27c_kVA": 220,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -7705,7 +8021,8 @@
     "stdby_40c_kVA": 240,
     "stdby_27c_kVA": 250,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -7718,7 +8035,8 @@
     "stdby_40c_kVA": 260,
     "stdby_27c_kVA": 270,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -7731,7 +8049,8 @@
     "stdby_40c_kVA": 292,
     "stdby_27c_kVA": 303,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -7744,7 +8063,8 @@
     "stdby_40c_kVA": 307,
     "stdby_27c_kVA": 319,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -7757,7 +8077,8 @@
     "stdby_40c_kVA": 334,
     "stdby_27c_kVA": 347,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -7770,7 +8091,8 @@
     "stdby_40c_kVA": 382,
     "stdby_27c_kVA": 396,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -7783,7 +8105,8 @@
     "stdby_40c_kVA": 475,
     "stdby_27c_kVA": 500,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -7796,7 +8119,8 @@
     "stdby_40c_kVA": 505,
     "stdby_27c_kVA": 527,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -7809,7 +8133,8 @@
     "stdby_40c_kVA": 600,
     "stdby_27c_kVA": 625,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -7822,7 +8147,8 @@
     "stdby_40c_kVA": 600,
     "stdby_27c_kVA": 625,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -7835,7 +8161,8 @@
     "stdby_40c_kVA": 643,
     "stdby_27c_kVA": 667,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -7848,7 +8175,8 @@
     "stdby_40c_kVA": 690,
     "stdby_27c_kVA": 720,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -7861,7 +8189,8 @@
     "stdby_40c_kVA": 770,
     "stdby_27c_kVA": 800,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -7874,7 +8203,8 @@
     "stdby_40c_kVA": 865,
     "stdby_27c_kVA": 895,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -7887,7 +8217,8 @@
     "stdby_40c_kVA": 960,
     "stdby_27c_kVA": 1000,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -7900,7 +8231,8 @@
     "stdby_40c_kVA": 1049,
     "stdby_27c_kVA": 1089,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -7913,7 +8245,8 @@
     "stdby_40c_kVA": 1350,
     "stdby_27c_kVA": 1410,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -7926,7 +8259,8 @@
     "stdby_40c_kVA": 1440,
     "stdby_27c_kVA": 1510,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -7939,7 +8273,8 @@
     "stdby_40c_kVA": 1560,
     "stdby_27c_kVA": 1630,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -7952,7 +8287,8 @@
     "stdby_40c_kVA": 1715,
     "stdby_27c_kVA": 1800,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -7965,7 +8301,8 @@
     "stdby_40c_kVA": 13.5,
     "stdby_27c_kVA": 14,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -7978,7 +8315,8 @@
     "stdby_40c_kVA": 16.5,
     "stdby_27c_kVA": 17,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -7991,7 +8329,8 @@
     "stdby_40c_kVA": 20,
     "stdby_27c_kVA": 21,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -8004,7 +8343,8 @@
     "stdby_40c_kVA": 23.5,
     "stdby_27c_kVA": 24.5,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -8017,7 +8357,8 @@
     "stdby_40c_kVA": 27,
     "stdby_27c_kVA": 27.5,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -8030,7 +8371,8 @@
     "stdby_40c_kVA": 30,
     "stdby_27c_kVA": 31,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -8043,7 +8385,8 @@
     "stdby_40c_kVA": 33.5,
     "stdby_27c_kVA": 34.5,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -8056,7 +8399,8 @@
     "stdby_40c_kVA": 36,
     "stdby_27c_kVA": 37.5,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -8069,7 +8413,8 @@
     "stdby_40c_kVA": 42.5,
     "stdby_27c_kVA": 44,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -8082,7 +8427,8 @@
     "stdby_40c_kVA": 46.5,
     "stdby_27c_kVA": 48.5,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -8095,7 +8441,8 @@
     "stdby_40c_kVA": 53,
     "stdby_27c_kVA": 55,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -8108,7 +8455,8 @@
     "stdby_40c_kVA": 60,
     "stdby_27c_kVA": 62.5,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -8121,7 +8469,8 @@
     "stdby_40c_kVA": 66.5,
     "stdby_27c_kVA": 69,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -8134,7 +8483,8 @@
     "stdby_40c_kVA": 80,
     "stdby_27c_kVA": 82.5,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -8147,7 +8497,8 @@
     "stdby_40c_kVA": 93,
     "stdby_27c_kVA": 97,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -8160,7 +8511,8 @@
     "stdby_40c_kVA": 106,
     "stdby_27c_kVA": 110,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -8173,7 +8525,8 @@
     "stdby_40c_kVA": 120,
     "stdby_27c_kVA": 124,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -8186,7 +8539,8 @@
     "stdby_40c_kVA": 133,
     "stdby_27c_kVA": 138,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -8199,7 +8553,8 @@
     "stdby_40c_kVA": 165,
     "stdby_27c_kVA": 172,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -8212,7 +8567,8 @@
     "stdby_40c_kVA": 179,
     "stdby_27c_kVA": 186,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -8225,7 +8581,8 @@
     "stdby_40c_kVA": 199,
     "stdby_27c_kVA": 207,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -8238,7 +8595,8 @@
     "stdby_40c_kVA": 218,
     "stdby_27c_kVA": 227,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -8251,7 +8609,8 @@
     "stdby_40c_kVA": 239,
     "stdby_27c_kVA": 250,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -8264,7 +8623,8 @@
     "stdby_40c_kVA": 265,
     "stdby_27c_kVA": 275,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -8277,7 +8637,8 @@
     "stdby_40c_kVA": 305,
     "stdby_27c_kVA": 316,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -8290,7 +8651,8 @@
     "stdby_40c_kVA": 331,
     "stdby_27c_kVA": 344,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -8303,7 +8665,8 @@
     "stdby_40c_kVA": 364,
     "stdby_27c_kVA": 378,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -8316,7 +8679,8 @@
     "stdby_40c_kVA": 382,
     "stdby_27c_kVA": 400,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -8329,7 +8693,8 @@
     "stdby_40c_kVA": 431,
     "stdby_27c_kVA": 447,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -8342,7 +8707,8 @@
     "stdby_40c_kVA": 483,
     "stdby_27c_kVA": 502,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -8355,7 +8721,8 @@
     "stdby_40c_kVA": 550,
     "stdby_27c_kVA": 581,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -8368,7 +8735,8 @@
     "stdby_40c_kVA": 592,
     "stdby_27c_kVA": 625,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -8381,7 +8749,8 @@
     "stdby_40c_kVA": 680,
     "stdby_27c_kVA": 700,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -8394,7 +8763,8 @@
     "stdby_40c_kVA": 730,
     "stdby_27c_kVA": 750,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -8407,7 +8777,8 @@
     "stdby_40c_kVA": 795,
     "stdby_27c_kVA": 825,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -8420,7 +8791,8 @@
     "stdby_40c_kVA": 875,
     "stdby_27c_kVA": 910,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -8433,7 +8805,8 @@
     "stdby_40c_kVA": 970,
     "stdby_27c_kVA": 1005,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -8446,7 +8819,8 @@
     "stdby_40c_kVA": 1090,
     "stdby_27c_kVA": 1130,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -8459,7 +8833,8 @@
     "stdby_40c_kVA": 1210,
     "stdby_27c_kVA": 1255,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -8472,7 +8847,8 @@
     "stdby_40c_kVA": 1325,
     "stdby_27c_kVA": 1375,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -8485,7 +8861,8 @@
     "stdby_40c_kVA": 1640,
     "stdby_27c_kVA": 1720,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -8498,7 +8875,8 @@
     "stdby_40c_kVA": 1765,
     "stdby_27c_kVA": 1850,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -8511,7 +8889,8 @@
     "stdby_40c_kVA": 1965,
     "stdby_27c_kVA": 2060,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -8524,7 +8903,8 @@
     "stdby_40c_kVA": 2100,
     "stdby_27c_kVA": 2200,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -8537,7 +8917,8 @@
     "stdby_40c_kVA": 2344,
     "stdby_27c_kVA": 2455,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -8550,7 +8931,8 @@
     "stdby_40c_kVA": 2520,
     "stdby_27c_kVA": 2640,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -8563,7 +8945,8 @@
     "stdby_40c_kVA": 2772,
     "stdby_27c_kVA": 2904,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -8576,7 +8959,8 @@
     "stdby_40c_kVA": 2974,
     "stdby_27c_kVA": 3115,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -8589,7 +8973,8 @@
     "stdby_40c_kVA": 3413,
     "stdby_27c_kVA": 3575,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -8602,7 +8987,8 @@
     "stdby_40c_kVA": 3570,
     "stdby_27c_kVA": 3740,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -8615,7 +9001,8 @@
     "stdby_40c_kVA": 3780,
     "stdby_27c_kVA": 3960,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -8628,7 +9015,8 @@
     "stdby_40c_kVA": 4095,
     "stdby_27c_kVA": 4290,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -8641,7 +9029,8 @@
     "stdby_40c_kVA": 4253,
     "stdby_27c_kVA": 4455,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -8654,7 +9043,8 @@
     "stdby_40c_kVA": 5387,
     "stdby_27c_kVA": 5643,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -8667,7 +9057,8 @@
     "stdby_40c_kVA": 845,
     "stdby_27c_kVA": 875,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -8680,7 +9071,8 @@
     "stdby_40c_kVA": 945,
     "stdby_27c_kVA": 980,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -8693,7 +9085,8 @@
     "stdby_40c_kVA": 1050,
     "stdby_27c_kVA": 1090,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -8706,7 +9099,8 @@
     "stdby_40c_kVA": 1148,
     "stdby_27c_kVA": 1192,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -8719,7 +9113,8 @@
     "stdby_40c_kVA": 1080,
     "stdby_27c_kVA": 1080,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -8732,7 +9127,8 @@
     "stdby_40c_kVA": 1320,
     "stdby_27c_kVA": 1320,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -8745,7 +9141,8 @@
     "stdby_40c_kVA": 1565,
     "stdby_27c_kVA": 1565,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -8758,7 +9155,8 @@
     "stdby_40c_kVA": 970,
     "stdby_27c_kVA": 1005,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -8771,7 +9169,8 @@
     "stdby_40c_kVA": 1090,
     "stdby_27c_kVA": 1130,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -8784,7 +9183,8 @@
     "stdby_40c_kVA": 1210,
     "stdby_27c_kVA": 1255,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -8797,7 +9197,8 @@
     "stdby_40c_kVA": 1325,
     "stdby_27c_kVA": 1375,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -8810,7 +9211,8 @@
     "stdby_40c_kVA": 1250,
     "stdby_27c_kVA": 1250,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -8823,7 +9225,8 @@
     "stdby_40c_kVA": 1525,
     "stdby_27c_kVA": 1525,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -8836,7 +9239,8 @@
     "stdby_40c_kVA": 1800,
     "stdby_27c_kVA": 1800,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -8849,7 +9253,8 @@
     "stdby_40c_kVA": 13.5,
     "stdby_27c_kVA": 14,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -8862,7 +9267,8 @@
     "stdby_40c_kVA": 16.5,
     "stdby_27c_kVA": 17,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -8875,7 +9281,8 @@
     "stdby_40c_kVA": 20,
     "stdby_27c_kVA": 21,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -8888,7 +9295,8 @@
     "stdby_40c_kVA": 23.5,
     "stdby_27c_kVA": 24,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -8901,7 +9309,8 @@
     "stdby_40c_kVA": 26.5,
     "stdby_27c_kVA": 27.5,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -8914,7 +9323,8 @@
     "stdby_40c_kVA": 32,
     "stdby_27c_kVA": 33,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -8927,7 +9337,8 @@
     "stdby_40c_kVA": 34,
     "stdby_27c_kVA": 35,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -8940,7 +9351,8 @@
     "stdby_40c_kVA": 40.5,
     "stdby_27c_kVA": 42,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -8953,7 +9365,8 @@
     "stdby_40c_kVA": 44,
     "stdby_27c_kVA": 45.5,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -8966,7 +9379,8 @@
     "stdby_40c_kVA": 50,
     "stdby_27c_kVA": 52,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -8979,7 +9393,8 @@
     "stdby_40c_kVA": 57,
     "stdby_27c_kVA": 59,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -8992,7 +9407,8 @@
     "stdby_40c_kVA": 63,
     "stdby_27c_kVA": 65,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -9005,7 +9421,8 @@
     "stdby_40c_kVA": 75,
     "stdby_27c_kVA": 78,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -9018,7 +9435,8 @@
     "stdby_40c_kVA": 93,
     "stdby_27c_kVA": 97,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -9031,7 +9449,8 @@
     "stdby_40c_kVA": 106,
     "stdby_27c_kVA": 110,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -9044,7 +9463,8 @@
     "stdby_40c_kVA": 120,
     "stdby_27c_kVA": 124,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -9057,7 +9477,8 @@
     "stdby_40c_kVA": 133,
     "stdby_27c_kVA": 138,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -9070,7 +9491,8 @@
     "stdby_40c_kVA": 162,
     "stdby_27c_kVA": 168,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -9083,7 +9505,8 @@
     "stdby_40c_kVA": 179,
     "stdby_27c_kVA": 186,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -9096,7 +9519,8 @@
     "stdby_40c_kVA": 199,
     "stdby_27c_kVA": 207,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -9109,7 +9533,8 @@
     "stdby_40c_kVA": 212,
     "stdby_27c_kVA": 220,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -9122,7 +9547,8 @@
     "stdby_40c_kVA": 239,
     "stdby_27c_kVA": 248,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -9135,7 +9561,8 @@
     "stdby_40c_kVA": 260,
     "stdby_27c_kVA": 270,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -9148,7 +9575,8 @@
     "stdby_40c_kVA": 307,
     "stdby_27c_kVA": 319,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -9161,7 +9589,8 @@
     "stdby_40c_kVA": 334,
     "stdby_27c_kVA": 347,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -9174,7 +9603,8 @@
     "stdby_40c_kVA": 350,
     "stdby_27c_kVA": 363,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -9187,7 +9617,8 @@
     "stdby_40c_kVA": 382,
     "stdby_27c_kVA": 396,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -9200,7 +9631,8 @@
     "stdby_40c_kVA": 398,
     "stdby_27c_kVA": 413,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -9213,7 +9645,8 @@
     "stdby_40c_kVA": 466,
     "stdby_27c_kVA": 484,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -9226,7 +9659,8 @@
     "stdby_40c_kVA": 530,
     "stdby_27c_kVA": 550,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -9239,7 +9673,8 @@
     "stdby_40c_kVA": 562,
     "stdby_27c_kVA": 583,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -9252,7 +9687,8 @@
     "stdby_40c_kVA": 610,
     "stdby_27c_kVA": 633,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -9265,7 +9701,8 @@
     "stdby_40c_kVA": 636,
     "stdby_27c_kVA": 660,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -9278,7 +9715,8 @@
     "stdby_40c_kVA": 716,
     "stdby_27c_kVA": 743,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -9291,7 +9729,8 @@
     "stdby_40c_kVA": 758,
     "stdby_27c_kVA": 787,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -9304,7 +9743,8 @@
     "stdby_40c_kVA": 822,
     "stdby_27c_kVA": 853,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -9317,7 +9757,8 @@
     "stdby_40c_kVA": 970,
     "stdby_27c_kVA": 1007,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -9330,7 +9771,8 @@
     "stdby_40c_kVA": 1087,
     "stdby_27c_kVA": 1128,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -9343,7 +9785,8 @@
     "stdby_40c_kVA": 1208,
     "stdby_27c_kVA": 1254,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -9356,7 +9799,8 @@
     "stdby_40c_kVA": 1283,
     "stdby_27c_kVA": 1331,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -9369,7 +9813,8 @@
     "stdby_40c_kVA": 1325,
     "stdby_27c_kVA": 1390,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -9382,7 +9827,8 @@
     "stdby_40c_kVA": 1520,
     "stdby_27c_kVA": 1595,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -9395,7 +9841,8 @@
     "stdby_40c_kVA": 1628,
     "stdby_27c_kVA": 1705,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -9408,7 +9855,8 @@
     "stdby_40c_kVA": 1840,
     "stdby_27c_kVA": 1925,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -9421,7 +9869,8 @@
     "stdby_40c_kVA": 1995,
     "stdby_27c_kVA": 2090,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -9434,7 +9883,8 @@
     "stdby_40c_kVA": 2415,
     "stdby_27c_kVA": 2530,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -9447,7 +9897,8 @@
     "stdby_40c_kVA": 2625,
     "stdby_27c_kVA": 2750,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -9460,7 +9911,8 @@
     "stdby_40c_kVA": 2835,
     "stdby_27c_kVA": 2970,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -9473,7 +9925,8 @@
     "stdby_40c_kVA": 3150,
     "stdby_27c_kVA": 3300,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -9486,7 +9939,8 @@
     "stdby_40c_kVA": 3360,
     "stdby_27c_kVA": 3520,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -9499,7 +9953,8 @@
     "stdby_40c_kVA": 3570,
     "stdby_27c_kVA": 3740,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -9512,7 +9967,8 @@
     "stdby_40c_kVA": 3938,
     "stdby_27c_kVA": 4125,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -9525,7 +9981,8 @@
     "stdby_40c_kVA": 3990,
     "stdby_27c_kVA": 4180,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -9538,7 +9995,8 @@
     "stdby_40c_kVA": 13.5,
     "stdby_27c_kVA": 14,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -9551,7 +10009,8 @@
     "stdby_40c_kVA": 16.5,
     "stdby_27c_kVA": 17,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -9564,7 +10023,8 @@
     "stdby_40c_kVA": 20,
     "stdby_27c_kVA": 21,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -9577,7 +10037,8 @@
     "stdby_40c_kVA": 23.5,
     "stdby_27c_kVA": 25,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -9590,7 +10051,8 @@
     "stdby_40c_kVA": 26.5,
     "stdby_27c_kVA": 27.5,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -9603,7 +10065,8 @@
     "stdby_40c_kVA": 32,
     "stdby_27c_kVA": 33,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -9616,7 +10079,8 @@
     "stdby_40c_kVA": 34,
     "stdby_27c_kVA": 35,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -9629,7 +10093,8 @@
     "stdby_40c_kVA": 40.5,
     "stdby_27c_kVA": 42,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -9642,7 +10107,8 @@
     "stdby_40c_kVA": 44,
     "stdby_27c_kVA": 45.5,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -9655,7 +10121,8 @@
     "stdby_40c_kVA": 50,
     "stdby_27c_kVA": 52,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -9668,7 +10135,8 @@
     "stdby_40c_kVA": 57,
     "stdby_27c_kVA": 59,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -9681,7 +10149,8 @@
     "stdby_40c_kVA": 63,
     "stdby_27c_kVA": 65,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -9694,7 +10163,8 @@
     "stdby_40c_kVA": 75,
     "stdby_27c_kVA": 78,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -9707,7 +10177,8 @@
     "stdby_40c_kVA": 93,
     "stdby_27c_kVA": 97,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -9720,7 +10191,8 @@
     "stdby_40c_kVA": 106,
     "stdby_27c_kVA": 110,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -9733,7 +10205,8 @@
     "stdby_40c_kVA": 120,
     "stdby_27c_kVA": 124,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -9746,7 +10219,8 @@
     "stdby_40c_kVA": 133,
     "stdby_27c_kVA": 138,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -9759,7 +10233,8 @@
     "stdby_40c_kVA": 165,
     "stdby_27c_kVA": 172,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -9772,7 +10247,8 @@
     "stdby_40c_kVA": 179,
     "stdby_27c_kVA": 186,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -9785,7 +10261,8 @@
     "stdby_40c_kVA": 199,
     "stdby_27c_kVA": 207,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -9798,7 +10275,8 @@
     "stdby_40c_kVA": 217,
     "stdby_27c_kVA": 226,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -9811,7 +10289,8 @@
     "stdby_40c_kVA": 239,
     "stdby_27c_kVA": 248,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -9824,7 +10303,8 @@
     "stdby_40c_kVA": 246,
     "stdby_27c_kVA": 255,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -9837,7 +10317,8 @@
     "stdby_40c_kVA": 289,
     "stdby_27c_kVA": 300,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -9850,7 +10331,8 @@
     "stdby_40c_kVA": 307,
     "stdby_27c_kVA": 319,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -9863,7 +10345,8 @@
     "stdby_40c_kVA": 363,
     "stdby_27c_kVA": 376,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -9876,7 +10359,8 @@
     "stdby_40c_kVA": 394,
     "stdby_27c_kVA": 409,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -9889,7 +10373,8 @@
     "stdby_40c_kVA": 413,
     "stdby_27c_kVA": 429,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -9902,7 +10387,8 @@
     "stdby_40c_kVA": 451,
     "stdby_27c_kVA": 468,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -9915,7 +10401,8 @@
     "stdby_40c_kVA": 543,
     "stdby_27c_kVA": 563,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -9928,7 +10415,8 @@
     "stdby_40c_kVA": 604,
     "stdby_27c_kVA": 627,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -9941,7 +10429,8 @@
     "stdby_40c_kVA": 663,
     "stdby_27c_kVA": 688,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -9954,7 +10443,8 @@
     "stdby_40c_kVA": 716,
     "stdby_27c_kVA": 743,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -9967,7 +10457,8 @@
     "stdby_40c_kVA": 769,
     "stdby_27c_kVA": 798,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -9980,7 +10471,8 @@
     "stdby_40c_kVA": 806,
     "stdby_27c_kVA": 836,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -9993,7 +10485,8 @@
     "stdby_40c_kVA": 928,
     "stdby_27c_kVA": 963,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -10006,7 +10499,8 @@
     "stdby_40c_kVA": 1012,
     "stdby_27c_kVA": 1051,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -10019,7 +10513,8 @@
     "stdby_40c_kVA": 1060,
     "stdby_27c_kVA": 1100,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -10032,7 +10527,8 @@
     "stdby_40c_kVA": 1166,
     "stdby_27c_kVA": 1210,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -10045,7 +10541,8 @@
     "stdby_40c_kVA": 1490,
     "stdby_27c_kVA": 1562,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -10058,7 +10555,8 @@
     "stdby_40c_kVA": 1680,
     "stdby_27c_kVA": 1760,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -10071,7 +10569,8 @@
     "stdby_40c_kVA": 1853,
     "stdby_27c_kVA": 1940,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -10084,7 +10583,8 @@
     "stdby_40c_kVA": 2205,
     "stdby_27c_kVA": 2310,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -10097,7 +10597,8 @@
     "stdby_40c_kVA": 2363,
     "stdby_27c_kVA": 2475,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -10110,7 +10611,8 @@
     "stdby_40c_kVA": 2473,
     "stdby_27c_kVA": 2591,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -10123,7 +10625,8 @@
     "stdby_40c_kVA": 2625,
     "stdby_27c_kVA": 2750,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -10136,7 +10639,8 @@
     "stdby_40c_kVA": 3203,
     "stdby_27c_kVA": 3355,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -10149,7 +10653,8 @@
     "stdby_40c_kVA": 3465,
     "stdby_27c_kVA": 3630,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -10162,7 +10667,8 @@
     "stdby_40c_kVA": 3518,
     "stdby_27c_kVA": 3685,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -10175,7 +10681,8 @@
     "stdby_40c_kVA": 4305,
     "stdby_27c_kVA": 4510,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -10188,7 +10695,8 @@
     "stdby_40c_kVA": 29.5,
     "stdby_27c_kVA": 31,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -10201,7 +10709,8 @@
     "stdby_40c_kVA": 32,
     "stdby_27c_kVA": 33,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -10214,7 +10723,8 @@
     "stdby_40c_kVA": 37,
     "stdby_27c_kVA": 39,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -10227,7 +10737,8 @@
     "stdby_40c_kVA": 42.5,
     "stdby_27c_kVA": 44,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -10240,7 +10751,8 @@
     "stdby_40c_kVA": 48,
     "stdby_27c_kVA": 50,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -10253,7 +10765,8 @@
     "stdby_40c_kVA": 51,
     "stdby_27c_kVA": 53,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -10266,7 +10779,8 @@
     "stdby_40c_kVA": 56,
     "stdby_27c_kVA": 58,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -10279,7 +10793,8 @@
     "stdby_40c_kVA": 65,
     "stdby_27c_kVA": 67,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -10292,7 +10807,8 @@
     "stdby_40c_kVA": 80,
     "stdby_27c_kVA": 83,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -10305,7 +10821,8 @@
     "stdby_40c_kVA": 100,
     "stdby_27c_kVA": 103,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -10318,7 +10835,8 @@
     "stdby_40c_kVA": 104,
     "stdby_27c_kVA": 108,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -10331,7 +10849,8 @@
     "stdby_40c_kVA": 122,
     "stdby_27c_kVA": 127,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -10344,7 +10863,8 @@
     "stdby_40c_kVA": 138,
     "stdby_27c_kVA": 143,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -10357,7 +10877,8 @@
     "stdby_40c_kVA": 143,
     "stdby_27c_kVA": 150,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -10370,7 +10891,8 @@
     "stdby_40c_kVA": 170,
     "stdby_27c_kVA": 176,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -10383,7 +10905,8 @@
     "stdby_40c_kVA": 180,
     "stdby_27c_kVA": 187,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -10396,7 +10919,8 @@
     "stdby_40c_kVA": 207,
     "stdby_27c_kVA": 215,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -10409,7 +10933,8 @@
     "stdby_40c_kVA": 239,
     "stdby_27c_kVA": 248,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -10422,7 +10947,8 @@
     "stdby_40c_kVA": 279,
     "stdby_27c_kVA": 289,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -10435,7 +10961,8 @@
     "stdby_40c_kVA": 295,
     "stdby_27c_kVA": 306,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -10448,7 +10975,8 @@
     "stdby_40c_kVA": 307,
     "stdby_27c_kVA": 319,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -10461,7 +10989,8 @@
     "stdby_40c_kVA": 334,
     "stdby_27c_kVA": 347,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -10474,7 +11003,8 @@
     "stdby_40c_kVA": 350,
     "stdby_27c_kVA": 363,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -10487,7 +11017,8 @@
     "stdby_40c_kVA": 382,
     "stdby_27c_kVA": 396,
     "exc_std": "SHUNT",
-    "exc_opt": "AREP / PMG"
+    "exc_opt": "AREP / PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -10500,7 +11031,8 @@
     "stdby_40c_kVA": 477,
     "stdby_27c_kVA": 495,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -10513,7 +11045,8 @@
     "stdby_40c_kVA": 530,
     "stdby_27c_kVA": 550,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -10526,7 +11059,8 @@
     "stdby_40c_kVA": 583,
     "stdby_27c_kVA": 605,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -10539,7 +11073,8 @@
     "stdby_40c_kVA": 610,
     "stdby_27c_kVA": 633,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -10552,7 +11087,8 @@
     "stdby_40c_kVA": 663,
     "stdby_27c_kVA": 688,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -10565,7 +11101,8 @@
     "stdby_40c_kVA": 731,
     "stdby_27c_kVA": 759,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -10578,7 +11115,8 @@
     "stdby_40c_kVA": 816,
     "stdby_27c_kVA": 847,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -10591,7 +11129,8 @@
     "stdby_40c_kVA": 901,
     "stdby_27c_kVA": 935,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -10604,7 +11143,8 @@
     "stdby_40c_kVA": 996,
     "stdby_27c_kVA": 1034,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -10617,7 +11157,8 @@
     "stdby_40c_kVA": 1108,
     "stdby_27c_kVA": 1150,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -10630,7 +11171,8 @@
     "stdby_40c_kVA": 1378,
     "stdby_27c_kVA": 1430,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -10643,7 +11185,8 @@
     "stdby_40c_kVA": 1590,
     "stdby_27c_kVA": 1650,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -10656,7 +11199,8 @@
     "stdby_40c_kVA": 1802,
     "stdby_27c_kVA": 1870,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -10669,7 +11213,8 @@
     "stdby_40c_kVA": 2037,
     "stdby_27c_kVA": 2134,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -10682,7 +11227,8 @@
     "stdby_40c_kVA": 2363,
     "stdby_27c_kVA": 2475,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -10695,7 +11241,8 @@
     "stdby_40c_kVA": 2415,
     "stdby_27c_kVA": 2530,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -10708,7 +11255,8 @@
     "stdby_40c_kVA": 2625,
     "stdby_27c_kVA": 2750,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -10721,7 +11269,8 @@
     "stdby_40c_kVA": 3045,
     "stdby_27c_kVA": 3190,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -10734,7 +11283,8 @@
     "stdby_40c_kVA": 3150,
     "stdby_27c_kVA": 3300,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -10747,7 +11297,8 @@
     "stdby_40c_kVA": 3591,
     "stdby_27c_kVA": 3762,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
@@ -10760,7 +11311,8 @@
     "stdby_40c_kVA": 4536,
     "stdby_27c_kVA": 4752,
     "exc_std": "AREP",
-    "exc_opt": "PMG"
+    "exc_opt": "PMG",
+    "pf": 0.8
   },
   {
     "type": "generator",
