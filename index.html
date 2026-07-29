@@ -123,7 +123,7 @@ tr:hover{background:#f8fafc}
 <option value="talson">利莱森玛 TAL</option>
 </select>
 </div>
-<div class="form-group">
+<div class="form-group" id="genWindingGroup">
 <label>额定电压</label>
 <select id="genWinding">
 <optgroup label="50Hz 标准绕组" class="freq-50hz">
@@ -160,7 +160,13 @@ tr:hover{background:#f8fafc}
 <option value="1ph-230">ΔΔ 230V</option>
 </optgroup>
 <optgroup label="TAL 60Hz 三相" class="brand-tal freq-60hz" data-phase="3" style="display:none">
+<option value="6-380">Y 380V / Δ 220V / YY 190V</option>
+<option value="6-416">Y 416V / Δ 240V / YY 208V</option>
+<option value="6-440">Y 440V / Δ 254V / YY 220V</option>
 <option value="6-480">Y 480V / Δ 277V / YY 240V</option>
+</optgroup>
+<optgroup label="TAL 60Hz 单相" class="brand-tal freq-60hz" data-phase="1" style="display:none">
+<option value="1ph-240">ΔΔ 240V</option>
 </optgroup>
 </select>
 </div>
