@@ -11503,5 +11503,70 @@
     "stdby_27c_kVA": 27.5,
     "exc_std": "SHUNT",
     "exc_opt": "AREP+ / PMG"
+  },
+  {
+    "type": "generator",
+    "brand": "talson",
+    "model": "TAL-A40-C",
+    "frequency": "50Hz",
+    "winding_code": "1ph-230",
+    "cont_h_kVA": 7,
+    "cont_f_kVA": 6,
+    "stdby_40c_kVA": 7.5,
+    "stdby_27c_kVA": 8,
+    "exc_std": "SHUNT",
+    "exc_opt": "AREP+ / PMG"
+  },
+  {
+    "type": "generator",
+    "brand": "talson",
+    "model": "TAL-A40-D",
+    "frequency": "50Hz",
+    "winding_code": "1ph-230",
+    "cont_h_kVA": 9,
+    "cont_f_kVA": 8,
+    "stdby_40c_kVA": 9.5,
+    "stdby_27c_kVA": 10.3,
+    "exc_std": "SHUNT",
+    "exc_opt": "AREP+ / PMG"
+  },
+  {
+    "type": "generator",
+    "brand": "talson",
+    "model": "TAL-A40-E",
+    "frequency": "50Hz",
+    "winding_code": "1ph-230",
+    "cont_h_kVA": 10.5,
+    "cont_f_kVA": 9.5,
+    "stdby_40c_kVA": 11,
+    "stdby_27c_kVA": 12,
+    "exc_std": "SHUNT",
+    "exc_opt": "AREP+ / PMG"
+  },
+  {
+    "type": "generator",
+    "brand": "talson",
+    "model": "TAL-A40-F",
+    "frequency": "50Hz",
+    "winding_code": "1ph-230",
+    "cont_h_kVA": 12,
+    "cont_f_kVA": 11,
+    "stdby_40c_kVA": 12.5,
+    "stdby_27c_kVA": 13.4,
+    "exc_std": "SHUNT",
+    "exc_opt": "AREP+ / PMG"
+  },
+  {
+    "type": "generator",
+    "brand": "talson",
+    "model": "TAL-A40-G",
+    "frequency": "50Hz",
+    "winding_code": "1ph-230",
+    "cont_h_kVA": 15,
+    "cont_f_kVA": 13.5,
+    "stdby_40c_kVA": 16,
+    "stdby_27c_kVA": 16.6,
+    "exc_std": "SHUNT",
+    "exc_opt": "AREP+ / PMG"
   }
 ]
