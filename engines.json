@@ -2238,7 +2238,9 @@
     "cont_h_kVA": 10,
     "cont_f_kVA": 9,
     "stdby_40c_kVA": 10.5,
-    "stdby_27c_kVA": 11
+    "stdby_27c_kVA": 11,
+    "type": "generator",
+    "pf": 0.8
   },
   {
     "brand": "leroy_somer",
@@ -2250,7 +2252,9 @@
     "cont_h_kVA": 12.5,
     "cont_f_kVA": 11.5,
     "stdby_40c_kVA": 13.5,
-    "stdby_27c_kVA": 14
+    "stdby_27c_kVA": 14,
+    "type": "generator",
+    "pf": 0.8
   },
   {
     "brand": "leroy_somer",
@@ -2262,7 +2266,9 @@
     "cont_h_kVA": 15,
     "cont_f_kVA": 14,
     "stdby_40c_kVA": 16,
-    "stdby_27c_kVA": 16.5
+    "stdby_27c_kVA": 16.5,
+    "type": "generator",
+    "pf": 0.8
   },
   {
     "brand": "leroy_somer",
@@ -2274,7 +2280,9 @@
     "cont_h_kVA": 17.5,
     "cont_f_kVA": 16,
     "stdby_40c_kVA": 19,
-    "stdby_27c_kVA": 19.5
+    "stdby_27c_kVA": 19.5,
+    "type": "generator",
+    "pf": 0.8
   },
   {
     "brand": "leroy_somer",
@@ -2286,7 +2294,9 @@
     "cont_h_kVA": 20,
     "cont_f_kVA": 18.5,
     "stdby_40c_kVA": 21.5,
-    "stdby_27c_kVA": 22
+    "stdby_27c_kVA": 22,
+    "type": "generator",
+    "pf": 0.8
   },
   {
     "brand": "leroy_somer",
@@ -2298,7 +2308,9 @@
     "cont_h_kVA": 23,
     "cont_f_kVA": 20,
     "stdby_40c_kVA": 24,
-    "stdby_27c_kVA": 25
+    "stdby_27c_kVA": 25,
+    "type": "generator",
+    "pf": 0.8
   },
   {
     "brand": "leroy_somer",
@@ -2310,7 +2322,9 @@
     "cont_h_kVA": 25,
     "cont_f_kVA": 23,
     "stdby_40c_kVA": 26.5,
-    "stdby_27c_kVA": 27.5
+    "stdby_27c_kVA": 27.5,
+    "type": "generator",
+    "pf": 0.8
   },
   {
     "brand": "leroy_somer",
@@ -2322,7 +2336,9 @@
     "cont_h_kVA": 27,
     "cont_f_kVA": 24.5,
     "stdby_40c_kVA": 28.5,
-    "stdby_27c_kVA": 30
+    "stdby_27c_kVA": 30,
+    "type": "generator",
+    "pf": 0.8
   },
   {
     "brand": "leroy_somer",
@@ -2334,7 +2350,9 @@
     "cont_h_kVA": 32,
     "cont_f_kVA": 29,
     "stdby_40c_kVA": 34,
-    "stdby_27c_kVA": 35
+    "stdby_27c_kVA": 35,
+    "type": "generator",
+    "pf": 0.8
   },
   {
     "brand": "leroy_somer",
@@ -2346,7 +2364,9 @@
     "cont_h_kVA": 35,
     "cont_f_kVA": 32,
     "stdby_40c_kVA": 37,
-    "stdby_27c_kVA": 38.5
+    "stdby_27c_kVA": 38.5,
+    "type": "generator",
+    "pf": 0.8
   },
   {
     "brand": "leroy_somer",
@@ -2358,7 +2378,9 @@
     "cont_h_kVA": 40,
     "cont_f_kVA": 36.5,
     "stdby_40c_kVA": 42.5,
-    "stdby_27c_kVA": 45
+    "stdby_27c_kVA": 45,
+    "type": "generator",
+    "pf": 0.8
   },
   {
     "brand": "leroy_somer",
@@ -2370,7 +2392,9 @@
     "cont_h_kVA": 45,
     "cont_f_kVA": 41,
     "stdby_40c_kVA": 48,
-    "stdby_27c_kVA": 50
+    "stdby_27c_kVA": 50,
+    "type": "generator",
+    "pf": 0.8
   },
   {
     "brand": "leroy_somer",
@@ -2382,7 +2406,9 @@
     "cont_h_kVA": 50,
     "cont_f_kVA": 45.5,
     "stdby_40c_kVA": 53,
-    "stdby_27c_kVA": 55
+    "stdby_27c_kVA": 55,
+    "type": "generator",
+    "pf": 0.8
   },
   {
     "brand": "leroy_somer",
@@ -2394,7 +2420,9 @@
     "cont_h_kVA": 60,
     "cont_f_kVA": 55,
     "stdby_40c_kVA": 64,
-    "stdby_27c_kVA": 66
+    "stdby_27c_kVA": 66,
+    "type": "generator",
+    "pf": 0.8
   },
   {
     "brand": "leroy_somer",
@@ -2406,7 +2434,9 @@
     "cont_h_kVA": 70,
     "cont_f_kVA": 64,
     "stdby_40c_kVA": 74,
-    "stdby_27c_kVA": 77
+    "stdby_27c_kVA": 77,
+    "type": "generator",
+    "pf": 0.8
   },
   {
     "brand": "leroy_somer",
@@ -2418,7 +2448,9 @@
     "cont_h_kVA": 80,
     "cont_f_kVA": 73,
     "stdby_40c_kVA": 85,
-    "stdby_27c_kVA": 88
+    "stdby_27c_kVA": 88,
+    "type": "generator",
+    "pf": 0.8
   },
   {
     "brand": "leroy_somer",
@@ -2430,7 +2462,9 @@
     "cont_h_kVA": 90,
     "cont_f_kVA": 82,
     "stdby_40c_kVA": 95,
-    "stdby_27c_kVA": 100
+    "stdby_27c_kVA": 100,
+    "type": "generator",
+    "pf": 0.8
   },
   {
     "brand": "leroy_somer",
@@ -2442,7 +2476,9 @@
     "cont_h_kVA": 100,
     "cont_f_kVA": 91,
     "stdby_40c_kVA": 106,
-    "stdby_27c_kVA": 110
+    "stdby_27c_kVA": 110,
+    "type": "generator",
+    "pf": 0.8
   },
   {
     "brand": "leroy_somer",
@@ -2454,7 +2490,9 @@
     "cont_h_kVA": 125,
     "cont_f_kVA": 114,
     "stdby_40c_kVA": 133,
-    "stdby_27c_kVA": 138
+    "stdby_27c_kVA": 138,
+    "type": "generator",
+    "pf": 0.8
   },
   {
     "brand": "leroy_somer",
@@ -2466,7 +2504,9 @@
     "cont_h_kVA": 135,
     "cont_f_kVA": 123,
     "stdby_40c_kVA": 143,
-    "stdby_27c_kVA": 150
+    "stdby_27c_kVA": 150,
+    "type": "generator",
+    "pf": 0.8
   },
   {
     "brand": "leroy_somer",
@@ -2478,7 +2518,9 @@
     "cont_h_kVA": 150,
     "cont_f_kVA": 137,
     "stdby_40c_kVA": 159,
-    "stdby_27c_kVA": 165
+    "stdby_27c_kVA": 165,
+    "type": "generator",
+    "pf": 0.8
   },
   {
     "brand": "leroy_somer",
@@ -2490,7 +2532,9 @@
     "cont_h_kVA": 165,
     "cont_f_kVA": 150,
     "stdby_40c_kVA": 175,
-    "stdby_27c_kVA": 182
+    "stdby_27c_kVA": 182,
+    "type": "generator",
+    "pf": 0.8
   },
   {
     "brand": "leroy_somer",
@@ -2502,7 +2546,9 @@
     "cont_h_kVA": 180,
     "cont_f_kVA": 164,
     "stdby_40c_kVA": 191,
-    "stdby_27c_kVA": 200
+    "stdby_27c_kVA": 200,
+    "type": "generator",
+    "pf": 0.8
   },
   {
     "brand": "leroy_somer",
@@ -2514,7 +2560,9 @@
     "cont_h_kVA": 200,
     "cont_f_kVA": 182,
     "stdby_40c_kVA": 212,
-    "stdby_27c_kVA": 220
+    "stdby_27c_kVA": 220,
+    "type": "generator",
+    "pf": 0.8
   },
   {
     "brand": "leroy_somer",
@@ -2526,7 +2574,9 @@
     "cont_h_kVA": 230,
     "cont_f_kVA": 209,
     "stdby_40c_kVA": 244,
-    "stdby_27c_kVA": 253
+    "stdby_27c_kVA": 253,
+    "type": "generator",
+    "pf": 0.8
   },
   {
     "brand": "leroy_somer",
@@ -2538,7 +2588,9 @@
     "cont_h_kVA": 250,
     "cont_f_kVA": 228,
     "stdby_40c_kVA": 265,
-    "stdby_27c_kVA": 275
+    "stdby_27c_kVA": 275,
+    "type": "generator",
+    "pf": 0.8
   },
   {
     "brand": "leroy_somer",
@@ -2550,7 +2602,9 @@
     "cont_h_kVA": 275,
     "cont_f_kVA": 250,
     "stdby_40c_kVA": 292,
-    "stdby_27c_kVA": 303
+    "stdby_27c_kVA": 303,
+    "type": "generator",
+    "pf": 0.8
   },
   {
     "brand": "leroy_somer",
@@ -2562,7 +2616,9 @@
     "cont_h_kVA": 300,
     "cont_f_kVA": 273,
     "stdby_40c_kVA": 318,
-    "stdby_27c_kVA": 330
+    "stdby_27c_kVA": 330,
+    "type": "generator",
+    "pf": 0.8
   },
   {
     "brand": "leroy_somer",
@@ -2574,7 +2630,9 @@
     "cont_h_kVA": 325,
     "cont_f_kVA": 300,
     "stdby_40c_kVA": 345,
-    "stdby_27c_kVA": 358
+    "stdby_27c_kVA": 358,
+    "type": "generator",
+    "pf": 0.8
   },
   {
     "brand": "leroy_somer",
@@ -2586,7 +2644,9 @@
     "cont_h_kVA": 365,
     "cont_f_kVA": 332,
     "stdby_40c_kVA": 387,
-    "stdby_27c_kVA": 400
+    "stdby_27c_kVA": 400,
+    "type": "generator",
+    "pf": 0.8
   },
   {
     "brand": "leroy_somer",
@@ -2598,7 +2658,9 @@
     "cont_h_kVA": 410,
     "cont_f_kVA": 375,
     "stdby_40c_kVA": 435,
-    "stdby_27c_kVA": 450
+    "stdby_27c_kVA": 450,
+    "type": "generator",
+    "pf": 0.8
   },
   {
     "brand": "leroy_somer",
@@ -2610,7 +2672,9 @@
     "cont_h_kVA": 455,
     "cont_f_kVA": 415,
     "stdby_40c_kVA": 480,
-    "stdby_27c_kVA": 500
+    "stdby_27c_kVA": 500,
+    "type": "generator",
+    "pf": 0.8
   },
   {
     "brand": "leroy_somer",
@@ -2622,7 +2686,9 @@
     "cont_h_kVA": 500,
     "cont_f_kVA": 465,
     "stdby_40c_kVA": 550,
-    "stdby_27c_kVA": 570
+    "stdby_27c_kVA": 570,
+    "type": "generator",
+    "pf": 0.8
   },
   {
     "brand": "leroy_somer",
@@ -2634,7 +2700,9 @@
     "cont_h_kVA": 550,
     "cont_f_kVA": 500,
     "stdby_40c_kVA": 585,
-    "stdby_27c_kVA": 600
+    "stdby_27c_kVA": 600,
+    "type": "generator",
+    "pf": 0.8
   },
   {
     "brand": "leroy_somer",
@@ -2646,7 +2714,9 @@
     "cont_h_kVA": 600,
     "cont_f_kVA": 545,
     "stdby_40c_kVA": 635,
-    "stdby_27c_kVA": 660
+    "stdby_27c_kVA": 660,
+    "type": "generator",
+    "pf": 0.8
   },
   {
     "brand": "leroy_somer",
@@ -2658,7 +2728,9 @@
     "cont_h_kVA": 645,
     "cont_f_kVA": 587,
     "stdby_40c_kVA": 684,
-    "stdby_27c_kVA": 710
+    "stdby_27c_kVA": 710,
+    "type": "generator",
+    "pf": 0.8
   },
   {
     "brand": "leroy_somer",
@@ -2670,7 +2742,9 @@
     "cont_h_kVA": 730,
     "cont_f_kVA": 660,
     "stdby_40c_kVA": 780,
-    "stdby_27c_kVA": 810
+    "stdby_27c_kVA": 810,
+    "type": "generator",
+    "pf": 0.8
   },
   {
     "brand": "leroy_somer",
@@ -2682,7 +2756,9 @@
     "cont_h_kVA": 820,
     "cont_f_kVA": 760,
     "stdby_40c_kVA": 910,
-    "stdby_27c_kVA": 945
+    "stdby_27c_kVA": 945,
+    "type": "generator",
+    "pf": 0.8
   },
   {
     "brand": "leroy_somer",
@@ -2694,7 +2770,9 @@
     "cont_h_kVA": 910,
     "cont_f_kVA": 820,
     "stdby_40c_kVA": 1000,
-    "stdby_27c_kVA": 1020
+    "stdby_27c_kVA": 1020,
+    "type": "generator",
+    "pf": 0.8
   },
   {
     "brand": "leroy_somer",
@@ -2706,7 +2784,9 @@
     "cont_h_kVA": 1000,
     "cont_f_kVA": 900,
     "stdby_40c_kVA": 1085,
-    "stdby_27c_kVA": 1130
+    "stdby_27c_kVA": 1130,
+    "type": "generator",
+    "pf": 0.8
   },
   {
     "brand": "leroy_somer",
@@ -2718,7 +2798,9 @@
     "cont_h_kVA": 1250,
     "cont_f_kVA": 1125,
     "stdby_40c_kVA": 1315,
-    "stdby_27c_kVA": 1375
+    "stdby_27c_kVA": 1375,
+    "type": "generator",
+    "pf": 0.8
   },
   {
     "brand": "leroy_somer",
@@ -2730,7 +2812,9 @@
     "cont_h_kVA": 1350,
     "cont_f_kVA": 1215,
     "stdby_40c_kVA": 1420,
-    "stdby_27c_kVA": 1485
+    "stdby_27c_kVA": 1485,
+    "type": "generator",
+    "pf": 0.8
   },
   {
     "brand": "leroy_somer",
@@ -2742,7 +2826,9 @@
     "cont_h_kVA": 1500,
     "cont_f_kVA": 1350,
     "stdby_40c_kVA": 1575,
-    "stdby_27c_kVA": 1650
+    "stdby_27c_kVA": 1650,
+    "type": "generator",
+    "pf": 0.8
   },
   {
     "brand": "leroy_somer",
@@ -2754,7 +2840,9 @@
     "cont_h_kVA": 1640,
     "cont_f_kVA": 1475,
     "stdby_40c_kVA": 1720,
-    "stdby_27c_kVA": 1800
+    "stdby_27c_kVA": 1800,
+    "type": "generator",
+    "pf": 0.8
   },
   {
     "brand": "leroy_somer",
@@ -2766,7 +2854,9 @@
     "cont_h_kVA": 1860,
     "cont_f_kVA": 1696,
     "stdby_40c_kVA": 1953,
-    "stdby_27c_kVA": 2046
+    "stdby_27c_kVA": 2046,
+    "type": "generator",
+    "pf": 0.8
   },
   {
     "brand": "leroy_somer",
@@ -2778,7 +2868,9 @@
     "cont_h_kVA": 2000,
     "cont_f_kVA": 1824,
     "stdby_40c_kVA": 2100,
-    "stdby_27c_kVA": 2200
+    "stdby_27c_kVA": 2200,
+    "type": "generator",
+    "pf": 0.8
   },
   {
     "brand": "leroy_somer",
@@ -2790,7 +2882,9 @@
     "cont_h_kVA": 2200,
     "cont_f_kVA": 2006,
     "stdby_40c_kVA": 2310,
-    "stdby_27c_kVA": 2420
+    "stdby_27c_kVA": 2420,
+    "type": "generator",
+    "pf": 0.8
   },
   {
     "brand": "leroy_somer",
@@ -2802,7 +2896,9 @@
     "cont_h_kVA": 2360,
     "cont_f_kVA": 2152,
     "stdby_40c_kVA": 2478,
-    "stdby_27c_kVA": 2596
+    "stdby_27c_kVA": 2596,
+    "type": "generator",
+    "pf": 0.8
   },
   {
     "brand": "leroy_somer",
@@ -2814,7 +2910,9 @@
     "cont_h_kVA": 2560,
     "cont_f_kVA": 2335,
     "stdby_40c_kVA": 2688,
-    "stdby_27c_kVA": 2816
+    "stdby_27c_kVA": 2816,
+    "type": "generator",
+    "pf": 0.8
   },
   {
     "brand": "leroy_somer",
@@ -2826,7 +2924,9 @@
     "cont_h_kVA": 2750,
     "cont_f_kVA": 2508,
     "stdby_40c_kVA": 2888,
-    "stdby_27c_kVA": 3025
+    "stdby_27c_kVA": 3025,
+    "type": "generator",
+    "pf": 0.8
   },
   {
     "brand": "leroy_somer",
@@ -2838,7 +2938,9 @@
     "cont_h_kVA": 3000,
     "cont_f_kVA": 2736,
     "stdby_40c_kVA": 3180,
-    "stdby_27c_kVA": 3300
+    "stdby_27c_kVA": 3300,
+    "type": "generator",
+    "pf": 0.8
   },
   {
     "brand": "leroy_somer",
@@ -2850,7 +2952,9 @@
     "cont_h_kVA": 3300,
     "cont_f_kVA": 3010,
     "stdby_40c_kVA": 3465,
-    "stdby_27c_kVA": 3630
+    "stdby_27c_kVA": 3630,
+    "type": "generator",
+    "pf": 0.8
   },
   {
     "brand": "leroy_somer",
@@ -2862,7 +2966,9 @@
     "cont_h_kVA": 3420,
     "cont_f_kVA": 3118,
     "stdby_40c_kVA": 3591,
-    "stdby_27c_kVA": 3762
+    "stdby_27c_kVA": 3762,
+    "type": "generator",
+    "pf": 0.8
   },
   {
     "brand": "leroy_somer",
@@ -2874,7 +2980,9 @@
     "cont_h_kVA": 4320,
     "cont_f_kVA": 3938,
     "stdby_40c_kVA": 4536,
-    "stdby_27c_kVA": 4752
+    "stdby_27c_kVA": 4752,
+    "type": "generator",
+    "pf": 0.8
   },
   {
     "brand": "leroy_somer",
@@ -2886,7 +2994,9 @@
     "cont_h_kVA": 11,
     "cont_f_kVA": 10.5,
     "stdby_40c_kVA": 11.5,
-    "stdby_27c_kVA": 12
+    "stdby_27c_kVA": 12,
+    "type": "generator",
+    "pf": 0.8
   },
   {
     "brand": "leroy_somer",
@@ -2898,7 +3008,9 @@
     "cont_h_kVA": 13.5,
     "cont_f_kVA": 12.5,
     "stdby_40c_kVA": 14.5,
-    "stdby_27c_kVA": 15
+    "stdby_27c_kVA": 15,
+    "type": "generator",
+    "pf": 0.8
   },
   {
     "brand": "leroy_somer",
@@ -2910,7 +3022,9 @@
     "cont_h_kVA": 16.5,
     "cont_f_kVA": 15.5,
     "stdby_40c_kVA": 18,
-    "stdby_27c_kVA": 18.5
+    "stdby_27c_kVA": 18.5,
+    "type": "generator",
+    "pf": 0.8
   },
   {
     "brand": "leroy_somer",
@@ -2922,7 +3036,9 @@
     "cont_h_kVA": 19,
     "cont_f_kVA": 18,
     "stdby_40c_kVA": 20.5,
-    "stdby_27c_kVA": 21
+    "stdby_27c_kVA": 21,
+    "type": "generator",
+    "pf": 0.8
   },
   {
     "brand": "leroy_somer",
@@ -2934,7 +3050,9 @@
     "cont_h_kVA": 22,
     "cont_f_kVA": 20.5,
     "stdby_40c_kVA": 23.5,
-    "stdby_27c_kVA": 24.5
+    "stdby_27c_kVA": 24.5,
+    "type": "generator",
+    "pf": 0.8
   },
   {
     "brand": "leroy_somer",
@@ -2946,7 +3064,9 @@
     "cont_h_kVA": 24.5,
     "cont_f_kVA": 23,
     "stdby_40c_kVA": 26,
-    "stdby_27c_kVA": 27
+    "stdby_27c_kVA": 27,
+    "type": "generator",
+    "pf": 0.8
   },
   {
     "brand": "leroy_somer",
@@ -2958,7 +3078,9 @@
     "cont_h_kVA": 31.5,
     "cont_f_kVA": 28.5,
     "stdby_40c_kVA": 33.5,
-    "stdby_27c_kVA": 34.5
+    "stdby_27c_kVA": 34.5,
+    "type": "generator",
+    "pf": 0.8
   },
   {
     "brand": "leroy_somer",
@@ -2970,7 +3092,9 @@
     "cont_h_kVA": 32,
     "cont_f_kVA": 29,
     "stdby_40c_kVA": 34,
-    "stdby_27c_kVA": 35
+    "stdby_27c_kVA": 35,
+    "type": "generator",
+    "pf": 0.8
   },
   {
     "brand": "leroy_somer",
@@ -2982,7 +3106,9 @@
     "cont_h_kVA": 38,
     "cont_f_kVA": 34.5,
     "stdby_40c_kVA": 40.5,
-    "stdby_27c_kVA": 42
+    "stdby_27c_kVA": 42,
+    "type": "generator",
+    "pf": 0.8
   },
   {
     "brand": "leroy_somer",
@@ -2994,7 +3120,9 @@
     "cont_h_kVA": 40.5,
     "cont_f_kVA": 37,
     "stdby_40c_kVA": 43,
-    "stdby_27c_kVA": 44.5
+    "stdby_27c_kVA": 44.5,
+    "type": "generator",
+    "pf": 0.8
   },
   {
     "brand": "leroy_somer",
@@ -3006,7 +3134,9 @@
     "cont_h_kVA": 46,
     "cont_f_kVA": 42,
     "stdby_40c_kVA": 49,
-    "stdby_27c_kVA": 51
+    "stdby_27c_kVA": 51,
+    "type": "generator",
+    "pf": 0.8
   },
   {
     "brand": "leroy_somer",
@@ -3018,7 +3148,9 @@
     "cont_h_kVA": 50,
     "cont_f_kVA": 45.5,
     "stdby_40c_kVA": 53,
-    "stdby_27c_kVA": 55
+    "stdby_27c_kVA": 55,
+    "type": "generator",
+    "pf": 0.8
   },
   {
     "brand": "leroy_somer",
@@ -3030,7 +3162,9 @@
     "cont_h_kVA": 56.5,
     "cont_f_kVA": 51,
     "stdby_40c_kVA": 60,
-    "stdby_27c_kVA": 62.5
+    "stdby_27c_kVA": 62.5,
+    "type": "generator",
+    "pf": 0.8
   },
   {
     "brand": "leroy_somer",
@@ -3042,7 +3176,9 @@
     "cont_h_kVA": 65,
     "cont_f_kVA": 59,
     "stdby_40c_kVA": 69,
-    "stdby_27c_kVA": 72
+    "stdby_27c_kVA": 72,
+    "type": "generator",
+    "pf": 0.8
   },
   {
     "brand": "leroy_somer",
@@ -3054,7 +3190,9 @@
     "cont_h_kVA": 76,
     "cont_f_kVA": 69,
     "stdby_40c_kVA": 81,
-    "stdby_27c_kVA": 84
+    "stdby_27c_kVA": 84,
+    "type": "generator",
+    "pf": 0.8
   },
   {
     "brand": "leroy_somer",
@@ -3066,7 +3204,9 @@
     "cont_h_kVA": 87,
     "cont_f_kVA": 79,
     "stdby_40c_kVA": 92,
-    "stdby_27c_kVA": 96
+    "stdby_27c_kVA": 96,
+    "type": "generator",
+    "pf": 0.8
   },
   {
     "brand": "leroy_somer",
@@ -3078,7 +3218,9 @@
     "cont_h_kVA": 98,
     "cont_f_kVA": 89,
     "stdby_40c_kVA": 104,
-    "stdby_27c_kVA": 108
+    "stdby_27c_kVA": 108,
+    "type": "generator",
+    "pf": 0.8
   },
   {
     "brand": "leroy_somer",
@@ -3090,7 +3232,9 @@
     "cont_h_kVA": 108,
     "cont_f_kVA": 99,
     "stdby_40c_kVA": 114,
-    "stdby_27c_kVA": 119
+    "stdby_27c_kVA": 119,
+    "type": "generator",
+    "pf": 0.8
   },
   {
     "brand": "leroy_somer",
@@ -3102,7 +3246,9 @@
     "cont_h_kVA": 135,
     "cont_f_kVA": 123,
     "stdby_40c_kVA": 143,
-    "stdby_27c_kVA": 149
+    "stdby_27c_kVA": 149,
+    "type": "generator",
+    "pf": 0.8
   },
   {
     "brand": "leroy_somer",
@@ -3114,7 +3260,9 @@
     "cont_h_kVA": 146,
     "cont_f_kVA": 133,
     "stdby_40c_kVA": 155,
-    "stdby_27c_kVA": 161
+    "stdby_27c_kVA": 161,
+    "type": "generator",
+    "pf": 0.8
   },
   {
     "brand": "leroy_somer",
@@ -3126,7 +3274,9 @@
     "cont_h_kVA": 163,
     "cont_f_kVA": 148,
     "stdby_40c_kVA": 173,
-    "stdby_27c_kVA": 179
+    "stdby_27c_kVA": 179,
+    "type": "generator",
+    "pf": 0.8
   },
   {
     "brand": "leroy_somer",
@@ -3138,7 +3288,9 @@
     "cont_h_kVA": 179,
     "cont_f_kVA": 163,
     "stdby_40c_kVA": 190,
-    "stdby_27c_kVA": 197
+    "stdby_27c_kVA": 197,
+    "type": "generator",
+    "pf": 0.8
   },
   {
     "brand": "leroy_somer",
@@ -3150,7 +3302,9 @@
     "cont_h_kVA": 195,
     "cont_f_kVA": 177,
     "stdby_40c_kVA": 207,
-    "stdby_27c_kVA": 215
+    "stdby_27c_kVA": 215,
+    "type": "generator",
+    "pf": 0.8
   },
   {
     "brand": "leroy_somer",
@@ -3162,7 +3316,9 @@
     "cont_h_kVA": 215,
     "cont_f_kVA": 196,
     "stdby_40c_kVA": 228,
-    "stdby_27c_kVA": 237
+    "stdby_27c_kVA": 237,
+    "type": "generator",
+    "pf": 0.8
   },
   {
     "brand": "leroy_somer",
@@ -3174,7 +3330,9 @@
     "cont_h_kVA": 249,
     "cont_f_kVA": 227,
     "stdby_40c_kVA": 264,
-    "stdby_27c_kVA": 274
+    "stdby_27c_kVA": 274,
+    "type": "generator",
+    "pf": 0.8
   },
   {
     "brand": "leroy_somer",
@@ -3186,7 +3344,9 @@
     "cont_h_kVA": 265,
     "cont_f_kVA": 241,
     "stdby_40c_kVA": 281,
-    "stdby_27c_kVA": 292
+    "stdby_27c_kVA": 292,
+    "type": "generator",
+    "pf": 0.8
   },
   {
     "brand": "leroy_somer",
@@ -3198,7 +3358,9 @@
     "cont_h_kVA": 300,
     "cont_f_kVA": 273,
     "stdby_40c_kVA": 318,
-    "stdby_27c_kVA": 330
+    "stdby_27c_kVA": 330,
+    "type": "generator",
+    "pf": 0.8
   },
   {
     "brand": "leroy_somer",
@@ -3210,7 +3372,9 @@
     "cont_h_kVA": 315,
     "cont_f_kVA": 287,
     "stdby_40c_kVA": 334,
-    "stdby_27c_kVA": 347
+    "stdby_27c_kVA": 347,
+    "type": "generator",
+    "pf": 0.8
   },
   {
     "brand": "leroy_somer",
@@ -3222,7 +3386,9 @@
     "cont_h_kVA": 345,
     "cont_f_kVA": 314,
     "stdby_40c_kVA": 366,
-    "stdby_27c_kVA": 380
+    "stdby_27c_kVA": 380,
+    "type": "generator",
+    "pf": 0.8
   },
   {
     "brand": "leroy_somer",
@@ -3234,7 +3400,9 @@
     "cont_h_kVA": 393,
     "cont_f_kVA": 358,
     "stdby_40c_kVA": 417,
-    "stdby_27c_kVA": 432
+    "stdby_27c_kVA": 432,
+    "type": "generator",
+    "pf": 0.8
   },
   {
     "brand": "leroy_somer",
@@ -3246,7 +3414,9 @@
     "cont_h_kVA": 480,
     "cont_f_kVA": 442,
     "stdby_40c_kVA": 513,
-    "stdby_27c_kVA": 530
+    "stdby_27c_kVA": 530,
+    "type": "generator",
+    "pf": 0.8
   },
   {
     "brand": "leroy_somer",
@@ -3258,7 +3428,9 @@
     "cont_h_kVA": 510,
     "cont_f_kVA": 473,
     "stdby_40c_kVA": 543,
-    "stdby_27c_kVA": 562
+    "stdby_27c_kVA": 562,
+    "type": "generator",
+    "pf": 0.8
   },
   {
     "brand": "leroy_somer",
@@ -3270,7 +3442,9 @@
     "cont_h_kVA": 610,
     "cont_f_kVA": 566,
     "stdby_40c_kVA": 651,
-    "stdby_27c_kVA": 668
+    "stdby_27c_kVA": 668,
+    "type": "generator",
+    "pf": 0.8
   },
   {
     "brand": "leroy_somer",
@@ -3282,7 +3456,9 @@
     "cont_h_kVA": 661,
     "cont_f_kVA": 609,
     "stdby_40c_kVA": 707,
-    "stdby_27c_kVA": 728
+    "stdby_27c_kVA": 728,
+    "type": "generator",
+    "pf": 0.8
   },
   {
     "brand": "leroy_somer",
@@ -3294,7 +3470,9 @@
     "cont_h_kVA": 715,
     "cont_f_kVA": 650,
     "stdby_40c_kVA": 760,
-    "stdby_27c_kVA": 785
+    "stdby_27c_kVA": 785,
+    "type": "generator",
+    "pf": 0.8
   },
   {
     "brand": "leroy_somer",
@@ -3306,7 +3484,9 @@
     "cont_h_kVA": 795,
     "cont_f_kVA": 715,
     "stdby_40c_kVA": 845,
-    "stdby_27c_kVA": 875
+    "stdby_27c_kVA": 875,
+    "type": "generator",
+    "pf": 0.8
   },
   {
     "brand": "leroy_somer",
@@ -3318,7 +3498,9 @@
     "cont_h_kVA": 890,
     "cont_f_kVA": 805,
     "stdby_40c_kVA": 945,
-    "stdby_27c_kVA": 980
+    "stdby_27c_kVA": 980,
+    "type": "generator",
+    "pf": 0.8
   },
   {
     "brand": "leroy_somer",
@@ -3330,7 +3512,9 @@
     "cont_h_kVA": 990,
     "cont_f_kVA": 895,
     "stdby_40c_kVA": 1050,
-    "stdby_27c_kVA": 1090
+    "stdby_27c_kVA": 1090,
+    "type": "generator",
+    "pf": 0.8
   },
   {
     "brand": "leroy_somer",
@@ -3342,7 +3526,9 @@
     "cont_h_kVA": 1083,
     "cont_f_kVA": 975,
     "stdby_40c_kVA": 1148,
-    "stdby_27c_kVA": 1192
+    "stdby_27c_kVA": 1192,
+    "type": "generator",
+    "pf": 0.8
   },
   {
     "brand": "leroy_somer",
@@ -3354,7 +3540,9 @@
     "cont_h_kVA": 1405,
     "cont_f_kVA": 1265,
     "stdby_40c_kVA": 1475,
-    "stdby_27c_kVA": 1545
+    "stdby_27c_kVA": 1545,
+    "type": "generator",
+    "pf": 0.8
   },
   {
     "brand": "leroy_somer",
@@ -3366,7 +3554,9 @@
     "cont_h_kVA": 1500,
     "cont_f_kVA": 1350,
     "stdby_40c_kVA": 1575,
-    "stdby_27c_kVA": 1650
+    "stdby_27c_kVA": 1650,
+    "type": "generator",
+    "pf": 0.8
   },
   {
     "brand": "leroy_somer",
@@ -3378,7 +3568,9 @@
     "cont_h_kVA": 1625,
     "cont_f_kVA": 1460,
     "stdby_40c_kVA": 1705,
-    "stdby_27c_kVA": 1785
+    "stdby_27c_kVA": 1785,
+    "type": "generator",
+    "pf": 0.8
   },
   {
     "brand": "leroy_somer",
@@ -3390,7 +3582,9 @@
     "cont_h_kVA": 1785,
     "cont_f_kVA": 1605,
     "stdby_40c_kVA": 1875,
-    "stdby_27c_kVA": 1965
+    "stdby_27c_kVA": 1965,
+    "type": "generator",
+    "pf": 0.8
   },
   {
     "type": "generator",
