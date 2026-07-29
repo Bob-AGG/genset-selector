@@ -29,8 +29,6 @@ body{font-family:-apple-system,"Microsoft YaHei",sans-serif;background:#f0f2f5;c
 .btn{background:#1a365d;color:#fff;border:none;padding:8px 18px;border-radius:5px;font-size:14px;cursor:pointer;width:100%;margin-top:2px}
 .btn:hover{background:#2a4a7d}
 .tag{display:inline-block;background:#dbeafe;color:#1e40af;font-size:11px;padding:1px 5px;border-radius:3px}
-
-/* 右上结果区 */
 .calc-box{background:#f8fafc;border:1px solid #e2e8f0;border-radius:6px;padding:10px 12px;font-size:13px;line-height:1.7}
 .calc-row{display:flex;justify-content:space-between;padding:3px 0;border-bottom:1px solid #f0f0f0}
 .calc-row:last-child{border:0}
@@ -41,8 +39,6 @@ body{font-family:-apple-system,"Microsoft YaHei",sans-serif;background:#f0f2f5;c
 .match-card .model{font-size:16px;font-weight:700;margin-bottom:4px}
 .match-card .params{font-size:13px;line-height:1.7}
 .match-card .params span{background:#e8f5e9;padding:1px 5px;border-radius:3px;margin:0 1px}
-
-/* 下方列表 */
 .table-wrap{overflow-x:auto}
 table{width:100%;border-collapse:collapse;font-size:12px}
 th,td{padding:5px 8px;text-align:left;border-bottom:1px solid #e2e8f0;white-space:nowrap}
@@ -61,7 +57,6 @@ tr:hover{background:#f0f2f5}
 <p>发动机 · 发电机</p>
 </div>
 <div class="page">
-<!-- 左上：参数面板 -->
 <div class="card left-area">
 <div class="tabs">
 <button class="tab active" onclick="switchTab('engine')" id="tabEngine">🔧 发动机</button>
@@ -88,14 +83,12 @@ tr:hover{background:#f0f2f5}
 </div>
 </div>
 
-<!-- 右上：修正计算 + 最佳匹配 -->
 <div class="card right-area">
 <h2>📐 修正计算</h2>
 <div id="calcDisplay">选择参数后点击查询</div>
 <div id="matchDisplay"></div>
 </div>
 
-<!-- 下方：全部候选表格 -->
 <div class="card bottom-area">
 <h2>📋 全部候选</h2>
 <div id="listDisplay">查询后显示候选列表</div>
@@ -119,7 +112,6 @@ function switchTab(t){
   if(t==='generator')onGenChange();
 }
 
-// ===== 发动机 =====
 function doEngineSearch(){
   var b=document.getElementById('engBrand').value;
   var f=document.getElementById('engFreq').value;
@@ -128,7 +120,6 @@ function doEngineSearch(){
   var a=Number(document.getElementById('engAlt').value);
   var t=Number(document.getElementById('engTemp').value);
   if(!p||p<1){alert('请输入功率');return;}
-
   var list=[];
   for(var i=0;i<ALL_DATA.length;i++){
     var e=ALL_DATA[i];
@@ -143,14 +134,10 @@ function doEngineSearch(){
     list.push({m:e.model,t:e.turbo,kw:kw,cp:cp,ok:cp>=p,prp:e.prp_kWe,esp:e.esp_kWe,af:af,tf:tf});
   }
   list.sort(function(a,b){if(a.ok!==b.ok)return a.ok?-1:1;return Math.abs(a.cp-p)-Math.abs(b.cp-p);});
-
   var top=null;
   for(var i=0;i<list.length;i++){if(list[i].ok){top=list[i];break;}}
-
   var bn=b==='dcec'?'东康 DCEC':'重庆康明斯 CQCC';
   var un=u==='PRP'?'常用(PRP)':'备用(ESP)';
-
-  // 右上：修正计算
   var ch='<div class="calc-box">';
   ch+='<div class="calc-row"><span class="calc-label">品牌</span><span class="calc-val">'+bn+'</span></div>';
   ch+='<div class="calc-row"><span class="calc-label">频率/用途</span><span class="calc-val">'+f+' / '+un+'</span></div>';
@@ -165,34 +152,28 @@ function doEngineSearch(){
   }
   ch+='<div class="calc-row" style="border:0"><span class="calc-label"><b>综合修正</b></span><span class="calc-val calc-total">×'+(top?Math.round(top.af*top.tf*1000)/1000:'1')+'</span></div>';
   ch+='</div>';
-
-  // 右上：最佳匹配
   var mh='';
   if(top){
     mh+='<div class="match-card"><div class="model">'+top.m+(top.t?' <span class="tag">增压</span>':'')+'</div>';
     mh+='<div class="params"><span>PRP: '+top.prp+'kW</span> <span>ESP: '+top.esp+'kW</span><br>';
     mh+='修正后: <b>'+top.cp+'kW</b> ≥ '+p+'kW ✅</div></div>';
   }
-
-  // 下方：全列表表格
   var lh='';
   if(list.length){
     lh+='<div class="stats">共'+list.length+'款，'+list.filter(function(x){return x.ok;}).length+'款满足需求</div><div class="table-wrap"><table>';
     lh+='<tr><th>#</th><th>型号</th><th>增压</th><th>PRP(kW)</th><th>ESP(kW)</th><th>修正(kW)</th><th>需求(kW)</th><th>判断</th></tr>';
     for(var i=0;i<list.length;i++){
       var x=list[i];
-      var rank=(list[i].ok?list.filter(function(y,idx){return idx<i&&y.ok;}).length+1:'-');
+      var rank=(x.ok?list.filter(function(y,idx){return idx<i&&y.ok;}).length+1:'-');
       lh+='<tr class="'+(x.ok?'ok':'fail')+'"><td class="rank">'+(x.ok?rank:'✗')+'</td><td><b>'+x.m+'</b></td><td>'+(x.t?'增压':'—')+'</td><td>'+x.prp+'</td><td>'+x.esp+'</td><td><b>'+x.cp+'</b></td><td>'+p+'</td><td>'+(x.ok?'✅':'❌')+'</td></tr>';
     }
     lh+='</table></div>';
   }
-
   document.getElementById('calcDisplay').innerHTML=ch;
   document.getElementById('matchDisplay').innerHTML=mh;
   document.getElementById('listDisplay').innerHTML=lh||'<div>未找到</div>';
 }
 
-// ===== 发电机 =====
 function onGenChange(){
   var ws=document.getElementById('genWinding');
   var f=document.getElementById('genFreq').value;
@@ -220,7 +201,6 @@ function doGenSearch(){
   var t=Number(document.getElementById('genTemp').value);
   if(!w){alert('请选电压');return;}
   if(!p||p<1){alert('请输入功率');return;}
-
   var af=getAF(a);
   var tf=t<=40?1:0.8;
   var tot=Math.round(af*tf*1000)/1000;
@@ -231,20 +211,13 @@ function doGenSearch(){
     var r=u==='PRIME'?g.cont_h_kVA:g.stdby_27c_kVA;
     if(!r||r<=0) continue;
     var cp=Math.round(r*tot*10)/10;
-    list.push({
-      m:g.model, ch:g.cont_h_kVA, cl:g.cont_f_kVA||'-', s40:g.stdby_40c_kVA||'-', st:g.stdby_27c_kVA,
-      pf:g.pf, exc:g.exc_std||'', cp:cp, ok:cp>=p, af:af, tf:tf
-    });
+    list.push({m:g.model,ch:g.cont_h_kVA,cl:g.cont_f_kVA||'-',s40:g.stdby_40c_kVA||'-',st:g.stdby_27c_kVA,exc:g.exc_std||'',cp:cp,ok:cp>=p,af:af,tf:tf});
   }
   list.sort(function(a,b){if(a.ok!==b.ok)return a.ok?-1:1;return Math.abs(a.cp-p)-Math.abs(b.cp-p);});
-
   var top=null;
   for(var i=0;i<list.length;i++){if(list[i].ok){top=list[i];break;}}
-
   var bn=b==='leroysomer'?'利莱森玛 LSA':'利莱森玛 TAL';
   var un=u==='PRIME'?'主用':'备用';
-
-  // 右上：修正计算
   var ch='<div class="calc-box">';
   ch+='<div class="calc-row"><span class="calc-label">品牌</span><span class="calc-val">'+bn+'</span></div>';
   ch+='<div class="calc-row"><span class="calc-label">频率/用途</span><span class="calc-val">'+f+' / '+un+'</span></div>';
@@ -255,28 +228,23 @@ function doGenSearch(){
   if(t>40){ch+='<div class="calc-row"><span class="calc-label">🌡 温度</span><span class="calc-val">'+t+'°C ×'+tf+'</span></div>';}
   ch+='<div class="calc-row" style="border:0"><span class="calc-label"><b>综合修正</b></span><span class="calc-val calc-total">×'+tot+'</span></div>';
   ch+='</div>';
-
-  // 右上：最佳匹配
   var mh='';
   if(top){
-    mh+='<div class="match-card"><div class="model">'+top.m+' <span style="font-weight:400;font-size:12px;color:#666">PF='+top.pf+'</span></div>';
+    mh+='<div class="match-card"><div class="model">'+top.m+'</div>';
     mh+='<div class="params"><span>持续H: '+top.ch+'kVA</span> <span>连续F: '+top.cl+'kVA</span> <span>备用40°C: '+top.s40+'kVA</span> <span>备用27°C: '+top.st+'kVA</span><br>';
     mh+='修正后: <b>'+top.cp+'kVA</b> ≥ '+p+'kVA ✅</div></div>';
   }
-
-  // 下方：全候选表格
   var lh='';
   if(list.length){
-    lh+='<div class="stats">共'+list.length+'款，'+list.filter(function(x){return x.ok;}).length+'款满足</div><div class="table-wrap"><table>';
-    lh+='<tr><th>#</th><th>型号</th><th>PF</th><th>持续H(kVA)</th><th>连续F(kVA)</th><th>备用40°C(kVA)</th><th>备用27°C(kVA)</th><th>修正(kVA)</th><th>判断</th></tr>';
+    lh+='<div class="stats">共'+list.length+'款</div><div class="table-wrap"><table>';
+    lh+='<tr><th>#</th><th>型号</th><th>持续H(kVA)</th><th>连续F(kVA)</th><th>备用40°C(kVA)</th><th>备用27°C(kVA)</th><th>修正(kVA)</th><th>判断</th></tr>';
     for(var i=0;i<list.length;i++){
       var x=list[i];
       var rank=(x.ok?list.filter(function(y,idx){return idx<i&&y.ok;}).length+1:'-');
-      lh+='<tr class="'+(x.ok?'ok':'fail')+'"><td class="rank">'+(x.ok?rank:'✗')+'</td><td><b>'+x.m+'</b></td><td>'+x.pf+'</td><td>'+x.ch+'</td><td>'+x.cl+'</td><td>'+x.s40+'</td><td>'+x.st+'</td><td><b>'+x.cp+'</b></td><td>'+(x.ok?'✅':'❌')+'</td></tr>';
+      lh+='<tr class="'+(x.ok?'ok':'fail')+'"><td class="rank">'+(x.ok?rank:'✗')+'</td><td><b>'+x.m+'</b></td><td>'+x.ch+'</td><td>'+x.cl+'</td><td>'+x.s40+'</td><td>'+x.st+'</td><td><b>'+x.cp+'</b></td><td>'+(x.ok?'✅':'❌')+'</td></tr>';
     }
     lh+='</table></div>';
   }
-
   document.getElementById('calcDisplay').innerHTML=ch;
   document.getElementById('matchDisplay').innerHTML=mh;
   document.getElementById('listDisplay').innerHTML=lh||'<div>未找到</div>';
