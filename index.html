@@ -501,7 +501,7 @@ function displayGenResults(candidates, reqPower, corr) {
       h += '<div style="margin-top:12px"><b>其他:</b></div>';
       for (let i=1; i<top.length; i++) {
         const e = top[i];
-        h += '<div class="engine-result"><div class="engine-model">' + e.model + '</div><div class="engine-power"><span>修正后: ' + e.correctedPower + 'kVA</span><span>PF: ' + (e.pf||0.8) + '</span><span>备用27°C: ' + e.stdby_27c_kVA + 'kVA</span><span>×' + corr.total + '</span></div></div>';
+        h += '<div class="engine-result"><div class="engine-model">' + e.model + ' <span style="font-size:0.85em;color:#666">PF=' + (e.pf||0.8) + '</span></div><div class="engine-power"><span>修正后: ' + e.correctedPower + 'kVA</span><span>备用27°C: ' + e.stdby_27c_kVA + 'kVA</span><span>×' + corr.total + '</span></div></div>';
       }
     }
     h += '</div>';
