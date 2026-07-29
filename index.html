@@ -160,9 +160,10 @@ function onGenChange(){
   for(let i=0;i<sel.children.length;i++){
     const og=sel.children[i];
     if(og.tagName!=='OPTGROUP')continue;
-    const sf=og.className.includes('f'+f.substring(0,2));
-    const sb=og.className.includes(gb);
-    const spf=!og.dataset.pf||og.dataset.pf===pf;
+    const sf=og.className.indexOf('f'+f.substring(0,2))>=0;
+    const sb=og.className.indexOf(gb)>=0;
+    const dpf=og.getAttribute('data-pf');
+    const spf=!dpf||dpf===pf;
     og.style.display=(sf&&sb&&spf)?'':'none';
   }
   for(let i=0;i<sel.options.length;i++){if(sel.options[i].parentElement.style.display!=='none'){sel.selectedIndex=i;break;}}
