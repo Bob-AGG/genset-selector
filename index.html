@@ -496,13 +496,13 @@ function displayGenResults(candidates, reqPower, corr) {
     let h = '<div class="result-card pass" style="padding:12px"><div class="result-ok" style="font-size:18px">✅ ' + pass.length + ' 个可用</div>' +
       '<div class="calc-detail"><b>📐 修正计算</b><br>🏔 ' + corr.altDesc + '<br>🌡 ' + corr.tempDesc + '<br>⚡ ' + corr.pfDesc + '<br><strong>综合修正: ×' + corr.total + '</strong></div>' +
       '<div class="engine-result" style="background:#f0fdf4;border-radius:6px;padding:10px;margin-top:10px"><div class="engine-model">🏆 ' + b.model + '</div>' +
-      '<div class="engine-power"><span>连续(H级): ' + b.cont_h_kVA + 'kVA</span><span>连续(F级): ' + b.cont_f_kVA + 'kVA</span><span>备用27°C: ' + b.stdby_27c_kVA + 'kVA</span></div>' +
+      '<div class="engine-power"><span>连续(H级): ' + b.cont_h_kVA + 'kVA</span><span>连续(F级): ' + (b.cont_f_kVA||'-') + 'kVA</span><span>备用27°C: ' + b.stdby_27c_kVA + 'kVA</span><span>PF: ' + (b.pf||0.8) + '</span></div>' +
       '<div class="engine-power" style="font-weight:600"><span class="result-ok">修正后: ' + b.correctedPower + 'kVA ≥ ' + reqPower + 'kVA ✅</span></div></div>';
     if (top.length > 1) {
       h += '<div style="margin-top:12px"><b>其他:</b></div>';
       for (let i=1; i<top.length; i++) {
         const e = top[i];
-        h += '<div class="engine-result"><div class="engine-model">' + e.model + '</div><div class="engine-power"><span>修正后: ' + e.correctedPower + 'kVA</span><span>备用27°C: ' + e.stdby_27c_kVA + 'kVA</span><span>×' + corr.total + '</span></div></div>';
+        h += '<div class="engine-result"><div class="engine-model">' + e.model + '</div><div class="engine-power"><span>修正后: ' + e.correctedPower + 'kVA</span><span>PF: ' + (e.pf||0.8) + '</span><span>备用27°C: ' + e.stdby_27c_kVA + 'kVA</span><span>×' + corr.total + '</span></div></div>';
       }
     }
     h += '</div>';
@@ -510,11 +510,11 @@ function displayGenResults(candidates, reqPower, corr) {
   }
 
   let d = '<div class="stats">共' + candidates.length + '个，' + pass.length + '个满足 | 综合修正: ×' + corr.total + '</div>';
-  d += '<table><tr><th>型号</th><th>标配励磁</th><th>可选励磁</th><th>连续H(kVA)</th><th>连续F(kVA)</th><th>备用27°C</th><th>修正后</th><th>结果</th></tr>';
+  d += '<table><tr><th>型号</th><th>PF</th><th>标配励磁</th><th>可选励磁</th><th>连续H(kVA)</th><th>连续F(kVA)</th><th>备用27°C</th><th>修正后</th><th>结果</th></tr>';
   for (const e of candidates) {
     const cls = e.meets ? ' style="background:#f0fdf4"' : '';
-    d += '<tr' + cls + '><td><b>' + e.model + '</b></td><td>' + (e.exc_std||'-') + '</td><td>' + (e.exc_opt||'-') + '</td>' +
-      '<td>' + e.cont_h_kVA + '</td><td>' + e.cont_f_kVA + '</td><td>' + e.stdby_27c_kVA + '</td>' +
+    d += '<tr' + cls + '><td><b>' + e.model + '</b></td><td>' + (e.pf||0.8) + '</td><td>' + (e.exc_std||'-') + '</td><td>' + (e.exc_opt||'-') + '</td>' +
+      '<td>' + e.cont_h_kVA + '</td><td>' + (e.cont_f_kVA||'-') + '</td><td>' + e.stdby_27c_kVA + '</td>' +
       '<td><b>' + e.correctedPower + '</b></td><td>' + (e.meets ? '✅' : '❌') + '</td></tr>';
   }
   d += '</table>';
