@@ -10,10 +10,12 @@ body{font-family:-apple-system,"Microsoft YaHei",sans-serif;background:#f0f2f5;c
 .header{background:#1a365d;color:#fff;padding:20px 40px}
 .header h1{font-size:22px}
 .header p{font-size:13px;opacity:.7;margin-top:4px}
-.container{max-width:1200px;margin:0 auto;padding:20px;display:grid;gap:20px;grid-template-columns:1fr 1fr}
+.container{max-width:1200px;margin:0 auto;padding:20px;display:grid;gap:20px;grid-template-columns:380px 1fr;align-items:start}
+.left-col{min-width:0}
+.right-col{min-width:0}
 .card{background:#fff;border-radius:8px;padding:24px;box-shadow:0 1px 3px rgba(0,0,0,.1)}
 .card h2{font-size:16px;margin-bottom:16px;padding-bottom:8px;border-bottom:2px solid #e2e8f0}
-.card.full{grid-column:1/-1}
+
 .tabs{display:flex;gap:0;margin-bottom:16px;border-bottom:2px solid #e2e8f0}
 .tab{padding:10px 24px;cursor:pointer;font-size:14px;border:none;background:none;color:#666;border-bottom:2px solid transparent;margin-bottom:-2px}
 .tab:hover{color:#1a365d}
@@ -55,6 +57,7 @@ body{font-family:-apple-system,"Microsoft YaHei",sans-serif;background:#f0f2f5;c
 <p>发动机 · 发电机</p>
 </div>
 <div class="container">
+<div class="left-col">
 <div class="card">
 <div class="tabs">
 <button class="tab active" onclick="switchTab('engine')" id="tabEngine">🔧 发动机</button>
@@ -86,9 +89,12 @@ body{font-family:-apple-system,"Microsoft YaHei",sans-serif;background:#f0f2f5;c
 </div>
 </div>
 
-<div class="card full">
+<div class="right-col">
+<div class="card">
 <h2>📊 选型结果</h2>
 <div id="engineResults" style="font-size:13px;color:#888">输入参数后点击查询</div>
+</div>
+</div>
 </div>
 </div>
 
