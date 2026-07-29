@@ -210,8 +210,7 @@ function doGenSearch(){
   var b=document.getElementById('genBrand').value;
   var f=document.getElementById('genFreq').value;
   var w=document.getElementById('genWinding').value;
-  var sgl=(w.indexOf('1ph')>=0);
-  var pf=sgl?1.0:0.8;
+  var pf=0.8;
   var u=document.querySelector('input[name="genPurpose"]:checked').value;
   var p=Number(document.getElementById('genPower').value);
   var a=Number(document.getElementById('genAlt').value);
@@ -225,7 +224,7 @@ function doGenSearch(){
   var list=[];
   for(var i=0;i<ALL_DATA.length;i++){
     var g=ALL_DATA[i];
-    if(g.type!=='generator'||g.brand!==b||g.frequency!==f||g.winding_code!==w||g.pf!==pf) continue;
+    if(g.type!=='generator'||g.brand!==b||g.frequency!==f||g.winding_code!==w) continue;
     var r=u==='PRIME'?g.cont_h_kVA:g.stdby_27c_kVA;
     if(!r||r<=0) continue;
     var cp=Math.round(r*tot*10)/10;
@@ -244,6 +243,7 @@ function doGenSearch(){
   h += '<div class="result-section"><h3>📐 修正过程</h3><div class="calc-box">';
   h += '<div class="calc-row"><span class="calc-label">品牌</span><span class="calc-val">'+brandName+'</span></div>';
   
+  h += '<div class="calc-row"><span class="calc-label">功率因数</span><span class="calc-val">PF=0.8（S系列专用单相机PF=1.0）</span></div>';
   h += '<div class="calc-row"><span class="calc-label">用途 / 基准</span><span class="calc-val">'+usageName+' → '+(top?top.ch:'?')+'kVA</span></div>';
   if(a>1000){h += '<div class="calc-row"><span class="calc-label">🏔 海拔修正</span><span class="calc-val">'+a+'m ×'+af+'</span></div>';}
   if(t>40){h += '<div class="calc-row"><span class="calc-label">🌡 温度修正</span><span class="calc-val">'+t+'°C ×'+tf+'</span></div>';}
