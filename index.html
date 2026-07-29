@@ -15,11 +15,13 @@ body{font-family:-apple-system,"Microsoft YaHei",sans-serif;background:#f0f2f5;c
 .card h2{font-size:16px;margin-bottom:16px;padding-bottom:8px;border-bottom:2px solid #e2e8f0}
 .card.full{grid-column:1/-1}
 .tabs{display:flex;gap:0;margin-bottom:16px;border-bottom:2px solid #e2e8f0}
-.tab{padding:10px 24px;cursor:pointer;font-size:14px;border:none;background:none;color:#666;border-bottom:2px solid transparent;margin-bottom:-2px}
+.tab{padding:10px 24px;cursor:pointer;font-size:14px;border:none;background:none;color:#666;border-bottom:2px solid transparent;margin-bottom:-2px;transition:all .2s}
+.tab:hover{color:#1a365d}
 .tab.active{color:#1a365d;font-weight:700;border-bottom-color:#1a365d}
 .form-group{margin-bottom:14px}
 .form-group label{display:block;font-size:13px;font-weight:600;margin-bottom:4px;color:#4a5568}
 .form-group input,.form-group select{width:100%;padding:8px 12px;border:1px solid #d1d5db;border-radius:6px;font-size:14px}
+.form-group input:focus,.form-group select:focus{outline:none;border-color:#1a365d;box-shadow:0 0 0 2px rgba(26,54,93,.2)}
 .radio-group{display:flex;gap:16px}
 .radio-group label{font-weight:400;font-size:14px;display:flex;align-items:center;gap:6px;cursor:pointer}
 .radio-group input[type=radio]{width:auto;cursor:pointer}
@@ -28,18 +30,17 @@ body{font-family:-apple-system,"Microsoft YaHei",sans-serif;background:#f0f2f5;c
 .result-card{border-left:4px solid #e2e8f0;padding:12px;margin-bottom:10px;border-radius:0 6px 6px 0}
 .result-card.pass{border-left-color:#22c55e}
 .result-card.fail{border-left-color:#ef4444}
-.engine-result{padding:12px 0;border-bottom:1px solid #f0f0f0}
 .engine-model{font-size:16px;font-weight:700}
 .engine-power{display:flex;gap:20px;margin-top:6px;font-size:13px}
 .engine-power span{background:#f8fafc;padding:2px 8px;border-radius:4px}
 .calc-detail{background:#f8fafc;border-radius:6px;padding:12px;margin-top:8px;font-size:13px;line-height:1.6}
 .stats{font-size:13px;color:#666;margin-bottom:12px}
-table{width:100%;border-collapse:collapse;font-size:12px}
-th,td{padding:6px 8px;text-align:left;border-bottom:1px solid #e2e8f0}
-th{background:#f8fafc;font-weight:600}
 .rule-box{background:#f0f9ff;border:1px solid #bae6fd;border-radius:6px;padding:10px;font-size:12px;line-height:1.7;margin-bottom:12px}
 .hidden{display:none}
 .tag-turbo{display:inline-block;background:#dbeafe;color:#1e40af;font-size:11px;padding:1px 6px;border-radius:3px}
+table{width:100%;border-collapse:collapse;font-size:12px}
+th,td{padding:6px 8px;text-align:left;border-bottom:1px solid #e2e8f0}
+th{background:#f8fafc;font-weight:600}
 </style>
 </head>
 <body>
@@ -54,123 +55,35 @@ th{background:#f8fafc;font-weight:600}
 <button class="tab" onclick="switchTab('generator')" id="tabGenerator">⚡ 发电机</button>
 </div>
 
-<!-- 发动机 -->
 <div id="engineTab">
 <div id="engineRuleDesc" class="rule-box">加载中...</div>
-<div class="form-group">
-<label>品牌</label>
-<select id="engBrand" onchange="onEngBrandChange()">
-<option value="dcec">东康 DCEC</option>
-<option value="cqc">重庆康明斯 CQCC</option>
-</select>
-</div>
-<div class="form-group">
-<label>频率</label>
-<select id="engFreq"><option value="50Hz">50 Hz</option><option value="60Hz">60 Hz</option></select>
-</div>
-<div class="form-group">
-<label>额定功率 (kW)</label>
-<input type="number" id="engPower" value="400" min="10" max="5000" step="5">
-</div>
-<div class="form-group">
-<label>用途</label>
-<div class="radio-group">
-<label><input type="radio" name="engPurpose" value="ESP" checked> 备用 (ESP)</label>
-<label><input type="radio" name="engPurpose" value="PRP"> 常用 (PRP)</label>
-</div>
-</div>
-<div class="form-group">
-<label>安装海拔 (m)</label>
-<input type="number" id="engAlt" value="0" min="0" max="5000" step="50">
-</div>
-<div class="form-group">
-<label>环境温度 (°C)</label>
-<input type="number" id="engTemp" value="25" min="-10" max="60" step="1">
-</div>
+<div class="form-group"><label>品牌</label><select id="engBrand" onchange="onEngBrandChange()"><option value="dcec">东康 DCEC</option><option value="cqc">重庆康明斯 CQCC</option></select></div>
+<div class="form-group"><label>频率</label><select id="engFreq"><option value="50Hz">50 Hz</option><option value="60Hz">60 Hz</option></select></div>
+<div class="form-group"><label>额定功率 (kW)</label><input type="number" id="engPower" value="400" min="10" max="5000" step="5"></div>
+<div class="form-group"><label>用途</label><div class="radio-group"><label><input type="radio" name="engPurpose" value="ESP" checked> 备用 (ESP)</label><label><input type="radio" name="engPurpose" value="PRP"> 常用 (PRP)</label></div></div>
+<div class="form-group"><label>安装海拔 (m)</label><input type="number" id="engAlt" value="0" min="0" max="5000" step="50"></div>
+<div class="form-group"><label>环境温度 (°C)</label><input type="number" id="engTemp" value="25" min="-10" max="60" step="1"></div>
 <button class="btn" onclick="doEngineSearch()">🔍 查询</button>
 </div>
 
-<!-- 发电机 -->
 <div id="genTab" class="hidden">
-<div id="genRuleDesc" class="rule-box">发电机修正规则：🏔 海拔查表修正，🌡 温度>40°C降额，⚡ PF纯筛选</div>
-<div class="form-group">
-<label>品牌/系列</label>
-<select id="genBrand" onchange="onGenFreqChange()">
-<option value="leroysomer">利莱森玛 LSA</option>
-<option value="talson">利莱森玛 TAL</option>
-</select>
-</div>
-<div class="form-group" id="genWindingGroup">
-<label>额定电压</label>
-<select id="genWinding">
-<optgroup label="50Hz 标准" class="freq-50hz brand-lsa">
-<option value="6-380-400-415">6号 380/400/415V</option>
-<option value="6-220-440">6号 220/440V</option>
-<option value="6-12-380-400-415">6/12号 380/400/415V</option>
-<option value="6-12-220-440">6/12号 220/440V</option>
-</optgroup>
-<optgroup label="50Hz 特殊" class="freq-50hz brand-lsa">
-<option value="7-415-440">7号 415/440V</option>
-<option value="9-500-525">9号 500/525V</option>
-<option value="22-23-550">22/23号 550V</option>
-<option value="22-23-600">22/23号 600V</option>
-<option value="10-52-660-690">10/52号 660/690V</option>
-</optgroup>
-<optgroup label="60Hz 标准" class="freq-60hz brand-lsa">
-<option value="6-380-416-440-480">6号 380/416/440/480V</option>
-<option value="6-220-240-254-277">6号 220/240/254/277V</option>
-<option value="6-12-380-416-440-480">6/12号 380/416/440/480V</option>
-<option value="6-12-220-240-254-277">6/12号 220/240/254/277V</option>
-</optgroup>
-<optgroup label="60Hz 特殊" class="freq-60hz brand-lsa">
-<option value="7-480">7号 480V</option>
-<option value="9-600">9号 600V</option>
-</optgroup>
-<optgroup label="TAL 50Hz 三相" class="freq-50hz brand-tal" data-pf="0.8" style="display:none">
-<option value="6-380">Y 380V/Δ 220V/YY 190V</option>
-<option value="6-400">Y 400V/Δ 230V/YY 200V</option>
-<option value="6-415">Y 415V/Δ 240V/YY 208V</option>
-</optgroup>
-<optgroup label="TAL 50Hz 单相" class="freq-50hz brand-tal" data-pf="1.0" style="display:none">
-<option value="1ph-230">ΔΔ 230V(含单相专用机)</option>
-</optgroup>
-<optgroup label="TAL 60Hz 三相" class="freq-60hz brand-tal" data-pf="0.8" style="display:none">
-<option value="6-380">Y 380V/Δ 220V/YY 190V</option>
-<option value="6-416">Y 416V/Δ 240V/YY 208V</option>
-<option value="6-440">Y 440V/Δ 254V/YY 220V</option>
-<option value="6-480">Y 480V/Δ 277V/YY 240V</option>
-</optgroup>
-<optgroup label="TAL 60Hz 单相" class="freq-60hz brand-tal" data-pf="1.0" style="display:none">
-<option value="1ph-240">ΔΔ 240V(含单相专用机)</option>
-</optgroup>
-</select>
-</div>
-<div class="form-group">
-<label>功率因数</label>
-<div class="radio-group">
-<label><input type="radio" name="genPhase" value="0.8" checked onchange="onGenFreqChange()"> PF=0.8</label>
-<label><input type="radio" name="genPhase" value="1.0" onchange="onGenFreqChange()"> PF=1.0</label>
-</div>
-</div>
-<div class="form-group">
-<label>用途</label>
-<div class="radio-group">
-<label><input type="radio" name="genPurpose" value="PRIME" checked> 主用</label>
-<label><input type="radio" name="genPurpose" value="STANDBY"> 备用</label>
-</div>
-</div>
-<div class="form-group">
-<label>额定功率 (kVA)</label>
-<input type="number" id="genPower" value="100" min="5" max="500" step="5">
-</div>
-<div class="form-group">
-<label>安装海拔 (m)</label>
-<input type="number" id="genAlt" value="0" min="0" max="4000" step="100">
-</div>
-<div class="form-group">
-<label>环境温度 (°C)</label>
-<input type="number" id="genTemp" value="25" min="0" max="60" step="1">
-</div>
+<div id="genRuleDesc" class="rule-box">发电机修正：🏔 海拔查表，🌡 温度>40°C降额，⚡ PF筛选</div>
+<div class="form-group"><label>品牌/系列</label><select id="genBrand" onchange="onGenChange()"><option value="leroysomer">利莱森玛 LSA</option><option value="talson">利莱森玛 TAL</option></select></div>
+<div class="form-group"><label>额定电压</label><select id="genWinding">
+<optgroup label="50Hz 标准" class="f50 g-lsa"><option value="6-380-400-415">6号 380/400/415V</option><option value="6-220-440">6号 220/440V</option><option value="6-12-380-400-415">6/12号 380/400/415V</option><option value="6-12-220-440">6/12号 220/440V</option></optgroup>
+<optgroup label="50Hz 特殊" class="f50 g-lsa"><option value="7-415-440">7号 415/440V</option><option value="9-500-525">9号 500/525V</option><option value="22-23-550">22/23号 550V</option><option value="22-23-600">22/23号 600V</option><option value="10-52-660-690">10/52号 660/690V</option></optgroup>
+<optgroup label="60Hz 标准" class="f60 g-lsa"><option value="6-380-416-440-480">6号 380/416/440/480V</option><option value="6-220-240-254-277">6号 220/240/254/277V</option><option value="6-12-380-416-440-480">6/12号 380/416/440/480V</option><option value="6-12-220-240-254-277">6/12号 220/240/254/277V</option></optgroup>
+<optgroup label="60Hz 特殊" class="f60 g-lsa"><option value="7-480">7号 480V</option><option value="9-600">9号 600V</option></optgroup>
+<optgroup label="TAL 50Hz 三相" class="f50 g-tal" data-pf="0.8" style="display:none"><option value="6-380">Y 380/Δ 220/YY 190V</option><option value="6-400">Y 400/Δ 230/YY 200V</option><option value="6-415">Y 415/Δ 240/YY 208V</option></optgroup>
+<optgroup label="TAL 50Hz 单相" class="f50 g-tal" data-pf="1.0" style="display:none"><option value="1ph-230">ΔΔ 230V(含单相专用机)</option></optgroup>
+<optgroup label="TAL 60Hz 三相" class="f60 g-tal" data-pf="0.8" style="display:none"><option value="6-380">Y 380/Δ 220/YY 190V</option><option value="6-416">Y 416/Δ 240/YY 208V</option><option value="6-440">Y 440/Δ 254/YY 220V</option><option value="6-480">Y 480/Δ 277/YY 240V</option></optgroup>
+<optgroup label="TAL 60Hz 单相" class="f60 g-tal" data-pf="1.0" style="display:none"><option value="1ph-240">ΔΔ 240V(含单相专用机)</option></optgroup>
+</select></div>
+<div class="form-group"><label>功率因数</label><div class="radio-group"><label><input type="radio" name="genPF" value="0.8" checked onchange="onGenChange()"> PF=0.8</label><label><input type="radio" name="genPF" value="1.0" onchange="onGenChange()"> PF=1.0</label></div></div>
+<div class="form-group"><label>用途</label><div class="radio-group"><label><input type="radio" name="genPurpose" value="PRIME" checked> 主用</label><label><input type="radio" name="genPurpose" value="STANDBY"> 备用</label></div></div>
+<div class="form-group"><label>额定功率 (kVA)</label><input type="number" id="genPower" value="100" min="5" max="500" step="5"></div>
+<div class="form-group"><label>安装海拔 (m)</label><input type="number" id="genAlt" value="0" min="0" max="4000" step="100"></div>
+<div class="form-group"><label>环境温度 (°C)</label><input type="number" id="genTemp" value="25" min="0" max="60" step="1"></div>
 <button class="btn" onclick="doGenSearch()">🔍 查询</button>
 </div>
 </div>
@@ -183,170 +96,108 @@ th{background:#f8fafc;font-weight:600}
 
 <script>
 let ALL_DATA = [];
-let DATA_LOADED = false;
 let currentTab = 'engine';
 
-const ENG_ALT_FACTOR = {0:1,1000:1,1500:0.975,2000:0.949,2500:0.922,3000:0.894,3500:0.866,4000:0.837};
-const GEN_TEMP_FACTOR = {40:1,50:0.9,60:0.8};
-
-const BRAND_DESC = {
+const ENG_ALT = {0:1,1000:1,1500:0.975,2000:0.949,2500:0.922,3000:0.894,3500:0.866,4000:0.837};
+const BRANDS = {
   dcec:{name:'东康 DCEC',rule:'海拔>2000m每300m降4%，温度>40°C每10°C降3%，NA不修正'},
-  cqc:{name:'重庆康明斯 CQCC',rule:'海拔查表修正，温度>40°C每10°C降3%'}
+  cqc:{name:'重庆康明斯 CQCC',rule:'海拔查表，温度>40°C每10°C降3%'}
 };
 
-function switchTab(t) {
-  currentTab = t;
-  document.getElementById('tabEngine').className = 'tab' + (t==='engine'?' active':'');
-  document.getElementById('tabGenerator').className = 'tab' + (t==='generator'?' active':'');
-  document.getElementById('engineTab').style.display = t==='engine'?'':'none';
-  document.getElementById('genTab').style.display = t==='generator'?'':'none';
-  if(t==='generator') onGenFreqChange();
-}
-
-// ===== Generator =====
-function onGenFreqChange() {
-  const freq = document.getElementById('genFreq').value;
-  const brand = document.getElementById('genBrand').value;
-  const pf = document.querySelector('input[name="genPhase"]:checked').value;
-  const sel = document.getElementById('genWinding');
-  for(let i=0;i<sel.children.length;i++){
-    const og=sel.children[i];
-    if(og.tagName!=='OPTGROUP') continue;
-    const showFreq = og.className.includes('freq-'+freq.toLowerCase());
-    const showBrand = og.className.includes('brand-'+brand.replace('leroysomer','lsa'));
-    const showPF = !og.dataset.pf || og.dataset.pf===pf;
-    og.style.display = (showFreq&&showBrand&&showPF)?'':'none';
-  }
-  for(let i=0;i<sel.options.length;i++){
-    if(sel.options[i].parentElement.style.display!=='none'){
-      sel.selectedIndex=i; break;
-    }
-  }
-}
-
-function getGenFactor(alt) {
-  const keys = Object.keys(ENG_ALT_FACTOR).map(Number).sort((a,b)=>a-b);
-  let r=1;
-  for(const k of keys){if(alt<=k)return ENG_ALT_FACTOR[k];r=ENG_ALT_FACTOR[k];}
-  return r;
-}
-
-function doGenSearch() {
-  const power = parseFloat(document.getElementById('genPower').value);
-  const freq = document.getElementById('genFreq').value;
-  const winding = document.getElementById('genWinding').value;
-  const brand = document.getElementById('genBrand').value;
-  const purpose = document.querySelector('input[name="genPurpose"]:checked').value;
-  const pf = parseFloat(document.querySelector('input[name="genPhase"]:checked').value);
-  const alt = parseFloat(document.getElementById('genAlt').value);
-  const temp = parseFloat(document.getElementById('genTemp').value);
-  if(!power||power<1){alert('请输入功率');return;}
-
-  let filtered = ALL_DATA.filter(e=>e.type==='generator'&&e.brand===brand&&e.frequency===freq&&e.winding_code===winding&&e.pf===pf);
-  const af = getGenFactor(alt);
-  const tempKeys = Object.keys(GEN_TEMP_FACTOR).map(Number).sort((a,b)=>a-b);
-  let tf=1;
-  for(const k of tempKeys){if(temp<=k){tf=GEN_TEMP_FACTOR[k];break;}tf=GEN_TEMP_FACTOR[k];}
-  const total = Math.round(af*tf*1000)/1000;
-
-  let candidates = [];
-  for(const g of filtered){
-    let r = purpose==='PRIME'?g.cont_h_kVA:g.stdby_27c_kVA;
-    if(!r||r<=0) continue;
-    const cp = Math.round(r*total*10)/10;
-    candidates.push({...g,rated:r,cp,meets:cp>=power,total,af,tf});
-  }
-  candidates.sort((a,b)=>{if(a.meets!==b.meets)return a.meets?-1:1;return Math.abs(a.cp-power)-Math.abs(b.cp-power);});
-  
-  let h='';
-  const top = candidates.find(e=>e.meets);
-  if(top){
-    h+='<div class="stats">找到 '+candidates.filter(e=>e.meets).length+' 款 (PF='+top.pf+')</div>';
-    h+='<div class="result-card pass"><div class="engine-model">'+top.model+'</div>';
-    h+='<div class="engine-power"><span>连续(H): '+top.cont_h_kVA+'kVA</span><span>连续(F): '+(top.cont_f_kVA||'-')+'kVA</span><span>备用27°C: '+top.stdby_27c_kVA+'kVA</span></div>';
-    h+='<div class="engine-power" style="font-weight:600"><span class="result-ok">修正后: '+top.cp+'kVA ≥ '+power+'kVA ✅</span></div>';
-    h+='</div>';
-  }
-  if(candidates.length){
-    h+='<div class="stats">全部 '+candidates.length+' 款</div>';
-    for(const e of candidates){
-      h+='<div class="result-card '+(e.meets?'pass':'fail')+'"><div class="engine-model">'+e.model+'</div>';
-      h+='<div class="engine-power"><span>持续(H): '+e.cont_h_kVA+'kVA</span>';
-      h+='<span>备用27°C: '+e.stdby_27c_kVA+'kVA</span>';
-      h+='<span>'+(e.meets?'✅':'修正 '+e.cp+'<'+power)+'</span></div></div>';
-    }
-  }
-  if(!h) h='<div class="result-card fail">未找到匹配机型</div>';
-  document.getElementById('engineResults').innerHTML = h;
-}
-
-// ===== Engine =====
-function getAltFactor(alt){
-  const keys=Object.keys(ENG_ALT_FACTOR).map(Number).sort((a,b)=>a-b);
-  let r=1;
-  for(const k of keys){if(alt<=k)return ENG_ALT_FACTOR[k];r=ENG_ALT_FACTOR[k];}
-  return r;
-}
-function getAltDCEC(alt){
-  if(alt<=2000)return getAltFactor(alt);
-  return Math.round((1-Math.floor((alt-2000)/300)*0.04)*1000)/1000;
-}
-function getTempF(temp,turbo){
-  if(temp<=40)return 1;
-  return turbo?Math.round((1-((temp-40)/10)*0.03)*1000)/1000:1;
-}
-
-function doEngineSearch() {
-  const power=parseFloat(document.getElementById('engPower').value);
-  const freq=document.getElementById('engFreq').value;
-  const brand=document.getElementById('engBrand').value;
-  const purpose=document.querySelector('input[name="engPurpose"]:checked').value;
-  const alt=parseFloat(document.getElementById('engAlt').value);
-  const temp=parseFloat(document.getElementById('engTemp').value);
-  if(!power||power<1){alert('请输入功率');return;}
-  
-  let filtered=ALL_DATA.filter(e=>e.type==='engine'&&e.brand===brand&&e.frequency===freq);
-  let cs=[];
-  for(const e of filtered){
-    let af=brand==='dcec'?getAltDCEC(alt):getAltFactor(alt);
-    let tf=getTempF(temp,e.turbo);
-    let kw=purpose==='PRP'?e.prp_b_kW:e.esp_kW;
-    if(!kw||kw<=0)continue;
-    let total=Math.round(af*tf*1000)/1000;
-    let cp=Math.round(kw*total*10)/10;
-    cs.push({...e,af,tf,kw,cp,meets:cp>=power,total});
-  }
-  cs.sort((a,b)=>{if(a.meets!==b.meets)return a.meets?-1:1;return Math.abs(a.cp-power)-Math.abs(b.cp-power);});
-  
-  let h='';
-  const top=cs.find(e=>e.meets);
-  if(top){
-    h+='<div class="stats">找到 '+cs.filter(e=>e.meets).length+' 款</div>';
-    h+='<div class="result-card pass"><div class="engine-model">'+top.model+' <span style="color:#666;font-size:13px">'+BRAND_DESC[top.brand].name+'</span></div>';
-    h+='<div class="engine-power"><span>PRP: '+top.prp_b_kW+'kW</span><span>ESP: '+top.esp_kW+'kW</span>';
-    if(top.turbo)h+='<span class="tag-turbo">增压</span>';
-    h+='</div><div class="engine-power"><span class="result-ok">修正后: '+top.cp+'kW ≥ '+power+'kW ✅</span></div></div>';
-  }
-  if(cs.length){
-    h+='<div class="stats">全部 '+cs.length+' 款</div>';
-    for(const e of cs){
-      h+='<div class="result-card '+(e.meets?'pass':'fail')+'"><div class="engine-model">'+e.model+(e.turbo?' <span class="tag-turbo">增压</span>':'')+'</div>';
-      h+='<div class="engine-power"><span>PRP: '+e.prp_b_kW+'kW</span><span>ESP: '+e.esp_kW+'kW</span>';
-      h+='<span>修正: '+e.cp+'kW</span></div></div>';
-    }
-  }
-  if(!h)h='<div class="result-card fail">未找到</div>';
-  document.getElementById('engineResults').innerHTML=h;
+function switchTab(t){
+  currentTab=t;
+  document.getElementById('tabEngine').className='tab'+(t==='engine'?' active':'');
+  document.getElementById('tabGenerator').className='tab'+(t==='generator'?' active':'');
+  document.getElementById('engineTab').style.display=t==='engine'?'':'none';
+  document.getElementById('genTab').style.display=t==='generator'?'':'none';
+  if(t==='generator')onGenChange();
 }
 
 function onEngBrandChange(){
   const b=document.getElementById('engBrand').value;
-  const d=BRAND_DESC[b];
-  const rule=b==='dcec'?'海拔>2000m每300m降4%':'海拔查表修正';
-  document.getElementById('engineRuleDesc').innerHTML='<b>'+d.name+'</b><br>🏔 '+rule+'<br>🌡 温度>40°C每10°C降3%'+(b==='dcec'?'<br>⚠️ NA不修正':'');
+  document.getElementById('engineRuleDesc').innerHTML='<b>'+BRANDS[b].name+'</b><br>🏔 '+(b==='dcec'?'海拔>2000m每300m降4%':'海拔查表')+'<br>🌡 温度>40°C每10°C降3%'+(b==='dcec'?'<br>⚠️ NA不修正':'');
 }
 
-fetch('engines.json').then(r=>r.json()).then(d=>{ALL_DATA=d;DATA_LOADED=true;onEngBrandChange();onGenFreqChange();});
+function getAF(alt){
+  const ks=Object.keys(ENG_ALT).map(Number).sort((a,b)=>a-b);
+  let r=1;for(const k of ks){if(alt<=k)return ENG_ALT[k];r=ENG_ALT[k];}return r;
+}
+
+function doEngineSearch(){
+  const p=parseFloat(document.getElementById('engPower').value);
+  const f=document.getElementById('engFreq').value;
+  const b=document.getElementById('engBrand').value;
+  const pu=document.querySelector('input[name="engPurpose"]:checked').value;
+  const a=parseFloat(document.getElementById('engAlt').value);
+  const t=parseFloat(document.getElementById('engTemp').value);
+  if(!p||p<1){alert('请输入功率');return;}
+  let fl=ALL_DATA.filter(e=>e.type==='engine'&&e.brand===b&&e.frequency===f);
+  let cs=[];
+  for(const e of fl){
+    let af=b==='dcec'?(a<=2000?getAF(a):Math.round((1-Math.floor((a-2000)/300)*0.04)*1000)/1000):getAF(a);
+    let tf=t<=40?1:(e.turbo?Math.round((1-((t-40)/10)*0.03)*1000)/1000:1);
+    let kw=pu==='PRP'?e.prp_b_kW:e.esp_kW;
+    if(!kw||kw<=0)continue;
+    let tot=Math.round(af*tf*1000)/1000;
+    let cp=Math.round(kw*tot*10)/10;
+    cs.push({...e,af,tf,kw,cp,meets:cp>=p,tot});
+  }
+  cs.sort((a,b)=>{if(a.meets!==b.meets)return a.meets?-1:1;return Math.abs(a.cp-p)-Math.abs(b.cp-p);});
+  let h='';const top=cs.find(e=>e.meets);
+  if(top){h+='<div class="stats">满足 '+cs.filter(e=>e.meets).length+' 款</div><div class="result-card pass"><div class="engine-model">'+top.model+'<span style="color:#666;font-size:13px;margin-left:8px">'+BRANDS[b].name+'</span></div><div class="engine-power"><span>PRP: '+top.prp_b_kW+'kW</span><span>ESP: '+top.esp_kW+'kW</span>'+(top.turbo?'<span class="tag-turbo">增压</span>':'')+'</div><div class="engine-power"><span class="result-ok">修正后: '+top.cp+'kW ≥ '+p+'kW ✅</span></div></div>';}
+  for(const e of cs){h+='<div class="result-card '+(e.meets?'pass':'fail')+'"><div class="engine-model">'+e.model+(e.turbo?' <span class="tag-turbo">增压</span>':'')+'</div><div class="engine-power"><span>PRP: '+e.prp_b_kW+'kW</span><span>ESP: '+e.esp_kW+'kW</span><span>修正: '+e.cp+'kW</span><span>'+(e.meets?'✅':'❌')+'</span></div></div>';}
+  if(!h)h='<div class="result-card fail">未找到</div>';
+  document.getElementById('engineResults').innerHTML=h;
+}
+
+// ===== 发电机 =====
+function onGenChange(){
+  const f=document.getElementById('genFreq').value;
+  const b=document.getElementById('genBrand').value;
+  const pf=document.querySelector('input[name="genPF"]:checked').value;
+  const gb=(b==='leroysomer'?'g-lsa':'g-tal');
+  const sel=document.getElementById('genWinding');
+  for(let i=0;i<sel.children.length;i++){
+    const og=sel.children[i];
+    if(og.tagName!=='OPTGROUP')continue;
+    const sf=og.className.includes('f'+f.substring(0,2));
+    const sb=og.className.includes(gb);
+    const spf=!og.dataset.pf||og.dataset.pf===pf;
+    og.style.display=(sf&&sb&&spf)?'':'none';
+  }
+  for(let i=0;i<sel.options.length;i++){if(sel.options[i].parentElement.style.display!=='none'){sel.selectedIndex=i;break;}}
+}
+
+function doGenSearch(){
+  const p=parseFloat(document.getElementById('genPower').value);
+  const f=document.getElementById('genFreq').value;
+  const w=document.getElementById('genWinding').value;
+  const b=document.getElementById('genBrand').value;
+  const pu=document.querySelector('input[name="genPurpose"]:checked').value;
+  const pf=parseFloat(document.querySelector('input[name="genPF"]:checked').value);
+  const a=parseFloat(document.getElementById('genAlt').value);
+  const t=parseFloat(document.getElementById('genTemp').value);
+  if(!p||p<1){alert('请输入功率');return;}
+  let fl=ALL_DATA.filter(e=>e.type==='generator'&&e.brand===b&&e.frequency===f&&(e.winding_code||e.winding)===w&&e.pf===pf);
+  // If no results, try without winding match (for extra records)
+  if(fl.length===0)fl=ALL_DATA.filter(e=>e.type==='generator'&&e.brand===b&&e.frequency===f&&e.pf===pf&&(e.winding_code||e.winding)===w);
+  const af=getAF(a);const tf=t<=40?1:0.8;const tot=Math.round(af*tf*1000)/1000;
+  let cs=[];
+  for(const g of fl){
+    let r=pu==='PRIME'?g.cont_h_kVA:g.stdby_27c_kVA;
+    if(!r||r<=0){r=pu==='PRIME'?g.cont_h_kVA:g.stdby_27c_kVA;if(!r)continue;}
+    const cp=Math.round(r*tot*10)/10;
+    cs.push({...g,rated:r,cp,meets:cp>=p,tot,af,tf});
+  }
+  cs.sort((a,b)=>{if(a.meets!==b.meets)return a.meets?-1:1;return Math.abs(a.cp-p)-Math.abs(b.cp-p);});
+  let h='';const top=cs.find(e=>e.meets);
+  if(top){h+='<div class="stats">满足 '+cs.filter(e=>e.meets).length+' 款 (PF='+top.pf+')</div><div class="result-card pass"><div class="engine-model">'+top.model+'</div><div class="engine-power"><span>持续H: '+top.cont_h_kVA+'kVA</span><span>连续F: '+(top.cont_f_kVA||'-')+'kVA</span><span>备用27°C: '+top.stdby_27c_kVA+'kVA</span></div><div class="engine-power"><span class="result-ok">修正后: '+top.cp+'kVA ≥ '+p+'kVA ✅</span></div></div>';}
+  for(const e of cs){h+='<div class="result-card '+(e.meets?'pass':'fail')+'"><div class="engine-model">'+e.model+'</div><div class="engine-power"><span>持续H: '+e.cont_h_kVA+'kVA</span><span>备用27°C: '+e.stdby_27c_kVA+'kVA</span><span>'+(e.meets?'✅':'修正 '+e.cp+'<'+p)+'</span></div></div>';}
+  if(!h)h='<div class="result-card fail">未找到匹配机型</div>';
+  document.getElementById('engineResults').innerHTML=h;
+}
+
+fetch('engines.json').then(r=>r.json()).then(d=>{ALL_DATA=d;onEngBrandChange();onGenChange();});
 </script>
 </body>
 </html>
