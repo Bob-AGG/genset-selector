@@ -88,11 +88,11 @@ function es(){
       af=getAltFactor(a);
     }
     if(t<=40||!e.turbo){tf=1;}else{tf=Math.round((1-((t-40)/10)*0.03)*1000)/1000;}
-    var kw=u==='PRP'?e.prp_b_kW:e.esp_kW;
+    var kw=u==='PRP'?e.prp_kWe:e.esp_kWe;
     if(!kw||kw<=0)continue;
     var cp=Math.round(kw*af*tf*10)/10;
     var ok=cp>=p?'<span class="ok-icon">✅</span>':'<span class="fail-icon">❌</span>'+cp+'<'+p;
-    html+='<div class="r '+(cp>=p?'ok':'fail')+'"><span class="b">'+e.model+'</span>'+(e.turbo?' <span style="color:#1e40af;font-size:11px;background:#dbeafe;padding:1px 5px;border-radius:3px">增压</span>':'')+'<br>PRP:'+e.prp_b_kW+' ESP:'+e.esp_kW+' 修正后:'+cp+'kW '+ok+'</div>';
+    html+='<div class="r '+(cp>=p?'ok':'fail')+'"><span class="b">'+e.model+'</span>'+(e.turbo?' <span style="color:#1e40af;font-size:11px;background:#dbeafe;padding:1px 5px;border-radius:3px">增压</span>':'')+'<br>PRP:'+e.prp_kWe+'kW ESP:'+e.esp_kWe+'kW 修正后:'+cp+'kW '+ok+'</div>';
   }
   if(!html)html='<div class="r fail">没找到 ('+count+'款发动机未匹配条件)</div>';
   document.getElementById('er').innerHTML='<div class="stats">共'+count+'款</div>'+html;
