@@ -68,6 +68,7 @@ body{font-family:-apple-system,"Microsoft YaHei",sans-serif;background:#f0f2f5;c
 <div id="genTab" style="display:none">
 <div id="genRuleDesc" class="rule-box">发电机修正：🏔 海拔查表，🌡 温度>40°C降额，⚡ PF筛选</div>
 <div class="form-group"><label>品牌/系列</label><select id="genBrand" onchange="onGenChange()"><option value="leroysomer">利莱森玛 LSA</option><option value="talson">利莱森玛 TAL</option></select></div>
+<div class="form-group"><label>频率</label><select id="genFreq" onchange="onGenChange()"><option value="50Hz">50 Hz</option><option value="60Hz">60 Hz</option></select></div>
 <div class="form-group"><label>额定电压</label><select id="genWinding"></select></div>
 <div class="form-group"><label>功率因数</label><div class="radio-group"><label><input type="radio" name="genPF" value="0.8" checked onchange="onGenChange()"> PF=0.8</label><label><input type="radio" name="genPF" value="1.0" onchange="onGenChange()"> PF=1.0</label></div></div>
 <div class="form-group"><label>用途</label><div class="radio-group"><label><input type="radio" name="genPurpose" value="PRIME" checked> 主用</label><label><input type="radio" name="genPurpose" value="STANDBY"> 备用</label></div></div>
