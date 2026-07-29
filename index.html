@@ -151,41 +151,17 @@ tr:hover{background:#f8fafc}
 <option value="22-23-660-690">22/23号绕组 660/690V</option>
 </optgroup>
 <!-- TAL 50Hz -->
-<optgroup label="TAL 50Hz" class="brand-tal freq-50hz" style="display:none">
+<optgroup label="TAL 50Hz 三相" class="brand-tal freq-50hz" data-phase="3" style="display:none">
 <option value="6-380">Y 380V / Δ 220V / YY 190V（三相）</option>
 <option value="6-400">Y 400V / Δ 230V / YY 200V（三相）</option>
 <option value="6-415">Y 415V / Δ 240V / YY 208V（三相）</option>
 <option value="1ph-230">ΔΔ 230V（单相）</option>
 </optgroup>
-<optgroup label="TAL 50Hz 单相专用机" class="brand-tal freq-50hz" style="display:none">
-<option value="1ph-230-S">A40-C-S 230V</option>
-<option value="1ph-230-C1-S">A40-C1-S 230V</option>
-<option value="1ph-230-D-S">A40-D-S 230V</option>
-<option value="1ph-230-E-S">A40-E-S 230V</option>
-<option value="1ph-230-F-S">A40-F-S 230V</option>
-<option value="1ph-240-C-S">A40-C-S 240V</option>
-<option value="1ph-240-C1-S">A40-C1-S 240V</option>
-<option value="1ph-240-D-S">A40-D-S 240V</option>
-<option value="1ph-240-E-S">A40-E-S 240V</option>
-<option value="1ph-240-F-S">A40-F-S 240V</option>
-<option value="1ph-230-A42-A-S">A42-A-S 230V</option>
-<option value="1ph-230-A42-B-S">A42-B-S 230V</option>
-<option value="1ph-230-A42-C-S">A42-C-S 230V</option>
-<option value="1ph-230-A42-D-S">A42-D-S 230V</option>
-<option value="1ph-230-A42-E-S">A42-E-S 230V</option>
-<option value="1ph-230-A42-F-S">A42-F-S 230V</option>
-<option value="1ph-230-A42-G-S">A42-G-S 230V</option>
-<option value="1ph-230-A42-H-S">A42-H-S 230V</option>
-<option value="1ph-240-A42-A-S">A42-A-S 240V</option>
-<option value="1ph-240-A42-B-S">A42-B-S 240V</option>
-<option value="1ph-240-A42-C-S">A42-C-S 240V</option>
-<option value="1ph-240-A42-D-S">A42-D-S 240V</option>
-<option value="1ph-240-A42-E-S">A42-E-S 240V</option>
-<option value="1ph-240-A42-F-S">A42-F-S 240V</option>
-<option value="1ph-240-A42-G-S">A42-G-S 240V</option>
-<option value="1ph-240-A42-H-S">A42-H-S 240V</option>
+<optgroup label="TAL 50Hz 单相" class="brand-tal freq-50hz" data-phase="1" style="display:none">
+<option value="1ph-230">ΔΔ 230V（含单相专用机）</option>
+<option value="1ph-240">ΔΔ 240V（含单相专用机）</option>
 </optgroup>
-<optgroup label="TAL 60Hz" class="brand-tal freq-60hz" style="display:none">
+<optgroup label="TAL 60Hz 三相" class="brand-tal freq-60hz" data-phase="3" style="display:none">
 <option value="6-380">Y 380V / Δ 220V / YY 190V（三相）</option>
 <option value="6-416">Y 416V / Δ 240V / YY 208V（三相）</option>
 <option value="6-440">Y 440V / Δ 254V / YY 220V（三相）</option>
@@ -199,6 +175,13 @@ tr:hover{background:#f8fafc}
 <input type="number" id="genPower" value="500" min="5" max="5000" step="5">
 </div>
 
+<div class="form-group">
+<label>相数</label>
+<div class="radio-group">
+<label><input type="radio" name="genPhase" value="3" checked onchange="onGenFreqChange()"> 三相</label>
+<label><input type="radio" name="genPhase" value="1" onchange="onGenFreqChange()"> 单相</label>
+</div>
+</div>
 <div class="form-group">
 <label>用途</label>
 <div class="radio-group">
@@ -478,42 +461,7 @@ function doGenSearch() {
   const temp = parseFloat(document.getElementById('genTemp').value);
   if (!power || power < 1) { alert('请输入有效功率'); return; }
 
-  // Map S series winding codes to model + winding
-  let filterWinding = winding;
-  let filterModel = '';
-  const sMap = {
-    '1ph-230-S': {model:'TAL-A40-C-S', wc:'1ph-230'},
-    '1ph-230-C1-S': {model:'TAL-A40-C1-S', wc:'1ph-230'},
-    '1ph-230-D-S': {model:'TAL-A40-D-S', wc:'1ph-230'},
-    '1ph-230-E-S': {model:'TAL-A40-E-S', wc:'1ph-230'},
-    '1ph-230-F-S': {model:'TAL-A40-F-S', wc:'1ph-230'},
-    '1ph-240-C-S': {model:'TAL-A40-C-S', wc:'1ph-240'},
-    '1ph-240-C1-S': {model:'TAL-A40-C1-S', wc:'1ph-240'},
-    '1ph-240-D-S': {model:'TAL-A40-D-S', wc:'1ph-240'},
-    '1ph-240-E-S': {model:'TAL-A40-E-S', wc:'1ph-240'},
-    '1ph-240-F-S': {model:'TAL-A40-F-S', wc:'1ph-240'},
-    '1ph-230-A42-A-S': {model:'TAL-A42-A-S', wc:'1ph-230'},
-    '1ph-230-A42-B-S': {model:'TAL-A42-B-S', wc:'1ph-230'},
-    '1ph-230-A42-C-S': {model:'TAL-A42-C-S', wc:'1ph-230'},
-    '1ph-230-A42-D-S': {model:'TAL-A42-D-S', wc:'1ph-230'},
-    '1ph-230-A42-E-S': {model:'TAL-A42-E-S', wc:'1ph-230'},
-    '1ph-230-A42-F-S': {model:'TAL-A42-F-S', wc:'1ph-230'},
-    '1ph-230-A42-G-S': {model:'TAL-A42-G-S', wc:'1ph-230'},
-    '1ph-230-A42-H-S': {model:'TAL-A42-H-S', wc:'1ph-230'},
-    '1ph-240-A42-A-S': {model:'TAL-A42-A-S', wc:'1ph-240'},
-    '1ph-240-A42-B-S': {model:'TAL-A42-B-S', wc:'1ph-240'},
-    '1ph-240-A42-C-S': {model:'TAL-A42-C-S', wc:'1ph-240'},
-    '1ph-240-A42-D-S': {model:'TAL-A42-D-S', wc:'1ph-240'},
-    '1ph-240-A42-E-S': {model:'TAL-A42-E-S', wc:'1ph-240'},
-    '1ph-240-A42-F-S': {model:'TAL-A42-F-S', wc:'1ph-240'},
-    '1ph-240-A42-G-S': {model:'TAL-A42-G-S', wc:'1ph-240'},
-    '1ph-240-A42-H-S': {model:'TAL-A42-H-S', wc:'1ph-240'},
-  };
-  if (sMap[winding]) {
-    filterModel = sMap[winding].model;
-    filterWinding = sMap[winding].wc;
-  }
-  const filtered = ALL_DATA.filter(e => e.type === 'generator' && e.brand === brand && e.frequency === freq && e.winding_code === filterWinding && (!filterModel || e.model === filterModel));
+  const filtered = ALL_DATA.filter(e => e.type === 'generator' && e.brand === brand && e.frequency === freq && e.winding_code === winding);
   const corr = calcGenCorrection(alt, temp, pf);
   const candidates = [];
 
