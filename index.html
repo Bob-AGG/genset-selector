@@ -190,10 +190,43 @@ function onParamChange(){
   }
 }
 
+// 利莱森玛 LSA 海拔修正系数（底层逻辑，不可变）
+var ALT_FACTOR=[
+  {max:1000,val:1},{max:1500,val:0.975},{max:2000,val:0.949},
+  {max:2500,val:0.922},{max:3000,val:0.894},{max:3500,val:0.866},{max:4000,val:0.837}
+];
+function getTempFactor(t,grade){
+  var tbl={'H':TEMP_FACTOR_H,'F':TEMP_FACTOR_F,'B':TEMP_FACTOR_B}[grade]||TEMP_FACTOR_H;
+  if(t<=0)return tbl[tbl.length-1].val;
+  for(var i=0;i<tbl.length;i++){if(t<=tbl[i].max)return tbl[i].val;}
+  return tbl[tbl.length-1].val;
+}
 function getAF(a){
-  if(a<=0)return 1;if(a<=1000)return 1;if(a<=1500)return 0.975;
-  if(a<=2000)return 0.949;if(a<=2500)return 0.922;if(a<=3000)return 0.894;
-  if(a<=3500)return 0.866;if(a<=4000)return 0.837;return 0.837;
+  if(a<=0)return 1;
+  for(var i=0;i<ALT_FACTOR.length;i++){if(a<=ALT_FACTOR[i].max)return ALT_FACTOR[i].val;}
+  return 0.837;
+}
+
+// 利莱森玛 LSA 温度修正系数表（底层逻辑，不可变）
+// 40°C 基准，按温升等级查表
+var TEMP_FACTOR_H=[  // H级
+  {max:25,val:1.076},{max:40,val:1},{max:45,val:0.973},{max:50,val:0.946},
+  {max:55,val:0.918},{max:60,val:0.889}
+];
+var TEMP_FACTOR_F=[  // F级
+  {max:25,val:1.095},{max:40,val:1},{max:45,val:0.966},{max:50,val:0.931},
+  {max:55,val:0.894},{max:60,val:0.856}
+];
+var TEMP_FACTOR_B=[  // B级
+  {max:25,val:1.14},{max:40,val:1},{max:45,val:0.949},{max:50,val:0.894},
+  {max:55,val:0.837},{max:60,val:0.775}
+];
+
+// 滞后功率因数修正系数（底层逻辑，不可变）
+function getPFFactor(pf){
+  if(pf<=0.6)return 0.86;
+  if(pf<=0.7)return 0.93;
+  return 1;
 }
 
 function doSearch(){
@@ -222,12 +255,12 @@ function doSearch(){
   ch+='<div class="calc-row"><span class="calc-label">功率因数 PF</span><span class="calc-val">'+pfUser+'</span></div>';
   ch+='<div class="calc-row"><span class="calc-label">目标 kVA</span><span class="calc-val">'+targetKVA+' kVA</span></div></div>';
 
-  // 步骤2：温度修正
-  var tf=t<=40?1:0.8;
-  ch+='<div class="step-header" onclick="toggleStep(this)"><span><span class="step-num">步骤2</span>温度修正</span><span class="step-desc">'+t+'℃ → 修正系数</span><span class="step-result">×'+tf+'</span><span class="arrow">▼</span></div>';
+  // 步骤2：温度修正（H级温升，40°C基准）
+  var tf=getTempFactor(t,'H');
+  ch+='<div class="step-header" onclick="toggleStep(this)"><span><span class="step-num">步骤2</span>温度修正</span><span class="step-desc">'+t+'℃ → H级修正系数</span><span class="step-result">×'+tf+'</span><span class="arrow">▼</span></div>';
   ch+='<div class="step-body"><div class="calc-row"><span class="calc-label">安装温度</span><span class="calc-val">'+t+'℃</span></div>';
   ch+='<div class="calc-row"><span class="calc-label">基准温度</span><span class="calc-val">40℃</span></div>';
-  ch+='<div class="calc-row"><span class="calc-label">修正系数</span><span class="calc-val">×'+tf+'</span></div></div>';
+  ch+='<div class="calc-row"><span class="calc-label">修正系数（H级）</span><span class="calc-val">×'+tf+'</span></div></div>';
 
   // 步骤3：海拔修正
   var af=getAF(a);
