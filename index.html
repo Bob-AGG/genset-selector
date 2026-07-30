@@ -180,12 +180,19 @@ function onParamChange(){
     return;
   }
   ws.innerHTML='<option value="">请选择电压</option>';
+  var added={};
   for(var i=0;i<windings.length;i++){
     var w=windings[i];
+    if(added[w]) continue;
+    added[w]=true;
+    // 从数据中找第一条记录获取 winding_label
     var label=w;
-    if(w.indexOf('6-')===0)label='Y-'+w.substr(2)+'V';
-    else if(w.indexOf('1ph-')===0)label='单相 '+w.substr(4)+'V';
-    else label=w+'V';
+    for(var j=0;j<records.length;j++){
+      if(records[j].winding_code===w && records[j].winding_label){
+        label=records[j].winding_label;
+        break;
+      }
+    }
     ws.innerHTML+='<option value="'+w+'">'+label+'</option>';
   }
 }
