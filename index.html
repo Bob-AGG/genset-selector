@@ -370,29 +370,52 @@ function toggleStep(el){
   if(body)body.classList.toggle('open');
 }
 
-fetch('engines.json').then(function(r){return r.json();}).then(function(d){
-  // 按品牌分组
-  for(var i=0;i<d.length;i++){
-    var r=d[i];
-    if(r.type!=='generator') continue;
-    var b=r.brand||'unknown';
-    if(!ALL_DATA[b]) ALL_DATA[b]=[];
-    ALL_DATA[b].push(r);
+// 品牌数据文件列表：每个品牌独立文件
+var BRAND_FILES = {
+  'leroysomer': 'leroysomer.json',
+  'talson': 'talson.json'
+};
+
+function loadBrandData(callback){
+  var brands=Object.keys(BRAND_FILES);
+  var loaded=0;
+  ALL_DATA={};
+  for(var i=0;i<brands.length;i++){
+    (function(b){
+      fetch(BRAND_FILES[b]).then(function(r){return r.json();}).then(function(d){
+        for(var j=0;j<d.length;j++){
+          var rec=d[j];
+          if(rec.type!=='generator') continue;
+          if(!ALL_DATA[b]) ALL_DATA[b]=[];
+          ALL_DATA[b].push(rec);
+        }
+        loaded++;
+        if(loaded===brands.length && callback) callback();
+      }).catch(function(){
+        loaded++;
+        if(loaded===brands.length && callback) callback();
+      });
+    })(brands[i]);
   }
-  // 填充品牌下拉
+}
+
+function fillBrandDropdown(){
   var brands=Object.keys(ALL_DATA);
   var sel=document.getElementById('genBrand');
   sel.innerHTML='<option value="">请选择品牌</option>';
   for(var i=0;i<brands.length;i++){
     var label=brands[i];
     if(label==='leroysomer')label='利莱森玛 LSA';
-    else if(label==='talson')label='利莱森玛 TAL';
+    else if(label==='talson')label='TAL A40/A42/A44';
     sel.innerHTML+='<option value="'+brands[i]+'">'+label+'</option>';
   }
+}
+
+loadBrandData(function(){
+  fillBrandDropdown();
+  var sel=document.getElementById('genBrand');
   sel.onchange=onParamChange;
   onParamChange();
-}).catch(function(e){
-  // 无数据，空状态
 });
 </script>
 </body>
