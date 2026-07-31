@@ -286,6 +286,8 @@ function doSearch(){
 
   var records=ALL_DATA[brand]||[];
   var is1ph=w.indexOf('1ph-')===0;
+  // 中高压品牌：不适用海拔/温度修正，按默认海拔(≤1000m→af=1)和默认温度(40℃→tf=1)选型，忽略用户输入的数值
+  var isHV=(brand==='利莱森玛 LSA 中高压');
   var targetKVA=unit==='kW'?Math.round(p/pfUser*10)/10:p;
 
   // 步骤1：解析
@@ -295,18 +297,18 @@ function doSearch(){
   ch+='<div class="calc-row"><span class="calc-label">功率因数 PF</span><span class="calc-val">'+pfUser+'</span></div>';
   ch+='<div class="calc-row"><span class="calc-label">目标 kVA</span><span class="calc-val">'+targetKVA+' kVA</span></div></div>';
 
-  // 步骤2：温度修正（按品牌选系数源。LSA用原有H级40°C基准；斯坦福用官方表，40°C及以下不降额、40-45°C按45°C档）
+  // 步骤2：温度修正（按品牌选系数源。LSA用原有H级40°C基准；斯坦福用官方表；中高压不适用，按默认40°C选型）
   var isStanford = (brand==='斯坦福');
-  var tf = isStanford ? getStanfordTemp(t) : getTempFactor(t,'H');
-  ch+='<div class="step-header" onclick="toggleStep(this)"><span><span class="step-num">步骤2</span>温度修正</span><span class="step-desc">'+t+'℃ → '+(isStanford?'斯坦福':'H级')+'修正系数</span><span class="step-result">×'+tf+'</span><span class="arrow">▼</span></div>';
-  ch+='<div class="step-body"><div class="calc-row"><span class="calc-label">安装温度</span><span class="calc-val">'+t+'℃</span></div>';
-  ch+='<div class="calc-row"><span class="calc-label">基准温度</span><span class="calc-val">'+(isStanford?(t<=40?'40℃(以下不降额)':'40℃(40-45℃按45℃档)'):'40℃')+'</span></div>';
-  ch+='<div class="calc-row"><span class="calc-label">修正系数'+(isStanford?'':'（H级）')+'</span><span class="calc-val">×'+tf+'</span></div></div>';
+  var tf = isHV ? 1 : (isStanford ? getStanfordTemp(t) : getTempFactor(t,'H'));
+  ch+='<div class="step-header" onclick="toggleStep(this)"><span><span class="step-num">步骤2</span>温度修正</span><span class="step-desc">'+(isHV?'中高压不适用（按默认40℃选型）':(t+'℃ → '+(isStanford?'斯坦福':'H级')+'修正系数'))+'</span><span class="step-result">×'+tf+'</span><span class="arrow">▼</span></div>';
+  ch+='<div class="step-body"><div class="calc-row"><span class="calc-label">安装温度</span><span class="calc-val">'+(isHV?'中高压不适用（界面输入不生效）':t+'℃')+'</span></div>';
+  ch+='<div class="calc-row"><span class="calc-label">基准温度</span><span class="calc-val">'+(isHV?'默认40℃（中高压不降额）':(isStanford?(t<=40?'40℃(以下不降额)':'40℃(40-45℃按45℃档)'):'40℃'))+'</span></div>';
+  ch+='<div class="calc-row"><span class="calc-label">修正系数'+(isHV?'':(isStanford?'':'（H级）'))+'</span><span class="calc-val">×'+tf+'</span></div></div>';
 
-  // 步骤3：海拔修正（斯坦福仅低压<690V；已推送斯坦福全低压；LSA用原有表）
-  var af = isStanford ? getStanfordAF(a) : getAF(a);
-  ch+='<div class="step-header" onclick="toggleStep(this)"><span><span class="step-num">步骤3</span>海拔温升修正</span><span class="step-desc">'+a+'m → 降额系数</span><span class="step-result">×'+af+'</span><span class="arrow">▼</span></div>';
-  ch+='<div class="step-body"><div class="calc-row"><span class="calc-label">安装海拔</span><span class="calc-val">'+a+'m</span></div>';
+  // 步骤3：海拔修正（斯坦福仅低压<690V；已推送斯坦福全低压；LSA用原有表；中高压不适用，按默认≤1000m选型）
+  var af = isHV ? 1 : (isStanford ? getStanfordAF(a) : getAF(a));
+  ch+='<div class="step-header" onclick="toggleStep(this)"><span><span class="step-num">步骤3</span>海拔温升修正</span><span class="step-desc">'+(isHV?'中高压不适用（按默认≤1000m选型）':(a+'m → 降额系数'))+'</span><span class="step-result">×'+af+'</span><span class="arrow">▼</span></div>';
+  ch+='<div class="step-body"><div class="calc-row"><span class="calc-label">安装海拔</span><span class="calc-val">'+(isHV?'中高压不适用（界面输入不生效）':a+'m')+'</span></div>';
   ch+='<div class="calc-row"><span class="calc-label">降额系数</span><span class="calc-val">×'+af+'</span></div>';
   ch+='<div class="calc-row"><span class="calc-label">综合修正</span><span class="calc-val calc-total">'+af+'×'+tf+' = ×'+Math.round(af*tf*1000)/1000+'</span></div></div>';
 
@@ -320,7 +322,7 @@ function doSearch(){
     var r=duty==='PRP'?g['cont_h_'+uKey]:g['stdby_27c_'+uKey];
     if(!r||r<=0) continue;
     var cp=Math.round(r*tot*10)/10;
-    list.push({m:g.model,ch:g['cont_h_'+uKey],cl:g['cont_f_'+uKey]||0,s40:g['stdby_40c_'+uKey]||0,st:g['stdby_27c_'+uKey],cp:cp,ok:cp>=targetKVA,af:af,tf:tf,pf:g.pf,uk:uKey,exc:g.exc_std||''});
+    list.push({m:g.model,ch:g['cont_h_'+uKey],cl:g['cont_f_'+uKey]||0,s40:g['stdby_40c_'+uKey]||0,st:g['stdby_27c_'+uKey],cp:cp,ok:cp>=targetKVA,af:af,tf:tf,pf:g.pf,uk:uKey,exc:g.exc_std||'',grade:g.temp_grade||''});
   }
 
   // 步骤4-5：温升校核 + 备用换算（在列表结果中显示）
@@ -334,8 +336,12 @@ function doSearch(){
   ch+='<div class="step-body"><div class="calc-row"><span class="calc-label">工作制</span><span class="calc-val">'+duty+'</span></div>';
   ch+='<div class="calc-row"><span class="calc-label">基准功率取值</span><span class="calc-val">'+(duty==='PRP'?'持续H / 125K':'备用27℃ / 163K')+'</span></div></div>';
 
-  // 排序
+  // 排序：中高压 → 先F级在前、H级在后（按温升等级），同级内再按ok优先+接近度；其它品牌 → 保持原逻辑
   list.sort(function(a,b){
+    if(isHV){
+      var ga=(a.grade==='F'?0:1), gb=(b.grade==='F'?0:1);
+      if(ga!==gb) return ga-gb;
+    }
     if(a.ok!==b.ok) return a.ok?-1:1;
     return Math.abs(a.cp-targetKVA)-Math.abs(b.cp-targetKVA);
   });
@@ -347,9 +353,9 @@ function doSearch(){
   ch+='<div class="step-header '+(top?'':'')+'" onclick="toggleStep(this)"><span><span class="step-num">步骤6</span>综合判定</span><span class="step-desc">'+(top?'✅ 推荐 '+top.m:'❌ 无匹配')+'</span><span class="step-result">'+(top?top.cp+top.uk+'/'+targetKVA+'kVA':'-')+'</span><span class="arrow">▼</span></div>';
   ch+='<div class="step-body">';
   if(top){
-    ch+='<div class="calc-row"><span class="calc-label">最佳型号</span><span class="calc-val"><b>'+top.m+'</b></span></div>';
-    ch+='<div class="calc-row"><span class="calc-label">基准功率</span><span class="calc-val">'+top.ch+top.uk+'</span></div>';
-    ch+='<div class="calc-row"><span class="calc-label">修正后功率</span><span class="calc-val calc-total">'+top.ch+' × '+tot+' = <b>'+top.cp+top.uk+'</b></span></div>';
+    ch+='<div class="calc-row"><span class="calc-label">最佳型号</span><span class="calc-val"><b>'+top.m+(isHV&&top.grade?'（'+top.grade+'级温升）':'')+'</b></span></div>';
+    ch+='<div class="calc-row"><span class="calc-label">基准功率</span><span class="calc-val">'+top.ch+top.uk+(isHV&&top.grade?'（'+top.grade+'级）':'')+'</span></div>';
+    ch+='<div class="calc-row"><span class="calc-label">修正后功率</span><span class="calc-val calc-total">'+top.ch+' × '+tot+' = <b>'+top.cp+top.uk+'</b>'+(isHV?'（中高压无修正）':'')+'</span></div>';
     ch+='<div class="calc-row"><span class="calc-label">需求功率</span><span class="calc-val">'+targetKVA+' kVA</span></div>';
     ch+='<div class="calc-row"><span class="calc-label">判定</span><span class="calc-val" style="color:green">✅ 满足</span></div>';
   } else {
@@ -363,15 +369,15 @@ function doSearch(){
   var ux=is1ph?'kW':'kVA';
   var mh='';
   if(top){
-    mh+='<div class="match-card"><div class="model">'+top.m+' <span class="badge">推荐</span></div>';
+    mh+='<div class="match-card"><div class="model">'+top.m+(isHV&&top.grade?' <span class="badge">'+top.grade+'级</span>':' <span class="badge">推荐</span>')+'</div>';
     mh+='<div class="params">';
+    if(isHV) mh+='<span class="tag">温升: '+top.grade+'级（'+top.grade+'级温升选型）</span> ';
     mh+='<span class="tag">PF='+top.pf+'</span> ';
-    mh+='<span class="tag">持续H: '+top.ch+ux+'</span> ';
-    mh+='<span class="tag">连续F: '+top.cl+ux+'</span> ';
+    mh+='<span class="tag">持续'+(isHV?top.grade:'H')+': '+top.ch+ux+'</span> ';
     mh+='<span class="tag">备用40℃: '+top.s40+ux+'</span> ';
     mh+='<span class="tag">备用27℃: '+top.st+ux+'</span> ';
     mh+='<span class="tag">励磁: '+top.exc+'</span><br>';
-    mh+='<div style="margin-top:8px"><b>修正后: '+top.cp+ux+'</b> ≥ '+targetKVA+'kVA ✅</div>';
+    mh+='<div style="margin-top:8px"><b>修正后: '+top.cp+ux+'</b> ≥ '+targetKVA+'kVA ✅'+(isHV?'（无海拔/温度修正）':'')+'</div>';
     mh+='<div style="margin-top:8px;display:flex;gap:6px">';
     mh+='<button class="btn-secondary" onclick="alert(\'导出功能待实现\')">📄 导出PDF</button>';
     mh+='<button class="btn-secondary" onclick="location.reload()">🔄 新建查询</button>';
@@ -386,12 +392,12 @@ function doSearch(){
   var lh='';
   if(list.length){
     var okCnt=list.filter(function(x){return x.ok;}).length;
-    lh+='<div class="stats">共'+list.length+'款，'+okCnt+'款满足</div><div class="table-wrap"><table>';
-    lh+='<tr><th>#</th><th>型号</th><th>持续H('+ux+')</th><th>连续F('+ux+')</th><th>备用40℃('+ux+')</th><th>备用27℃('+ux+')</th><th>PF</th><th>判断</th></tr>';
+    lh+='<div class="stats">共'+list.length+'款，'+okCnt+'款满足'+(isHV?'（F级温升在前）':'')+'</div><div class="table-wrap"><table>';
+    lh+='<tr><th>#</th><th>型号</th>'+(isHV?'<th>温升</th>':'')+'<th>持续'+(isHV?'(主档)':'H')+'('+ux+')</th><th>连续F('+ux+')</th><th>备用40℃('+ux+')</th><th>备用27℃('+ux+')</th><th>PF</th><th>判断</th></tr>';
     for(var i=0;i<list.length;i++){
       var x=list[i];
       var rank=(x.ok?list.filter(function(y,idx){return idx<i&&y.ok;}).length+1:'-');
-      lh+='<tr class="'+(x.ok?'ok':'fail')+'"><td>'+(x.ok?rank:'✗')+'</td><td><b>'+x.m+'</b></td><td>'+x.ch+'</td><td>'+x.cl+'</td><td>'+x.s40+'</td><td>'+x.st+'</td><td>'+x.pf+'</td><td>'+(x.ok?'✅':'❌')+'</td></tr>';
+      lh+='<tr class="'+(x.ok?'ok':'fail')+'"><td>'+(x.ok?rank:'✗')+'</td><td><b>'+x.m+'</b></td>'+(isHV?'<td><span class="badge">'+x.grade+'</span></td>':'')+'<td>'+x.ch+'</td><td>'+x.cl+'</td><td>'+x.s40+'</td><td>'+x.st+'</td><td>'+x.pf+'</td><td>'+(x.ok?'✅':'❌')+'</td></tr>';
     }
     lh+='</table></div>';
   }
@@ -409,7 +415,8 @@ var BRAND_FILES = {
   'leroysomer': 'leroysomer.json',
   'talson': 'talson.json',
   'TAL-A46/A473/A49': 'tal-a46.json',
-  '斯坦福': 'stanford.json'
+  '斯坦福': 'stanford.json',
+  '利莱森玛 LSA 中高压': 'leroysomer-hv.json'
 };
 
 function loadBrandData(callback){
