@@ -188,7 +188,7 @@ function onParamChange(){
     // 从数据中找第一条记录获取 winding_label
     var label=w;
     for(var j=0;j<records.length;j++){
-      if(records[j].winding_code===w && records[j].winding_label){
+      if(records[j].frequency===freq && records[j].winding_code===w && records[j].winding_label){
         label=records[j].winding_label;
         break;
       }
