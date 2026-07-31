@@ -1891,13 +1891,13 @@
   "exc_std": "AREP",
   "exc_opt": "",
   "cont_h_kVA": 18,
-  "cont_h_kW": null,
+  "cont_h_kW": 18,
   "cont_f_kVA": 16.5,
-  "cont_f_kW": null,
+  "cont_f_kW": 16.5,
   "stdby_40c_kVA": 19,
-  "stdby_40c_kW": null,
+  "stdby_40c_kW": 19,
   "stdby_27c_kVA": 20,
-  "stdby_27c_kW": null
+  "stdby_27c_kW": 20
  },
  {
   "type": "generator",
@@ -1911,13 +1911,13 @@
   "exc_std": "AREP",
   "exc_opt": "",
   "cont_h_kVA": 20.5,
-  "cont_h_kW": null,
+  "cont_h_kW": 20.5,
   "cont_f_kVA": 18.5,
-  "cont_f_kW": null,
+  "cont_f_kW": 18.5,
   "stdby_40c_kVA": 21.5,
-  "stdby_40c_kW": null,
+  "stdby_40c_kW": 21.5,
   "stdby_27c_kVA": 22.5,
-  "stdby_27c_kW": null
+  "stdby_27c_kW": 22.5
  },
  {
   "type": "generator",
@@ -1931,13 +1931,13 @@
   "exc_std": "AREP",
   "exc_opt": "",
   "cont_h_kVA": 22.5,
-  "cont_h_kW": null,
+  "cont_h_kW": 22.5,
   "cont_f_kVA": 20.5,
-  "cont_f_kW": null,
+  "cont_f_kW": 20.5,
   "stdby_40c_kVA": 24,
-  "stdby_40c_kW": null,
+  "stdby_40c_kW": 24,
   "stdby_27c_kVA": 25,
-  "stdby_27c_kW": null
+  "stdby_27c_kW": 25
  },
  {
   "type": "generator",
@@ -1951,13 +1951,13 @@
   "exc_std": "AREP",
   "exc_opt": "",
   "cont_h_kVA": 25,
-  "cont_h_kW": null,
+  "cont_h_kW": 25,
   "cont_f_kVA": 23,
-  "cont_f_kW": null,
+  "cont_f_kW": 23,
   "stdby_40c_kVA": 26.5,
-  "stdby_40c_kW": null,
+  "stdby_40c_kW": 26.5,
   "stdby_27c_kVA": 27.5,
-  "stdby_27c_kW": null
+  "stdby_27c_kW": 27.5
  },
  {
   "type": "generator",
@@ -1971,13 +1971,13 @@
   "exc_std": "AREP",
   "exc_opt": "",
   "cont_h_kVA": 28,
-  "cont_h_kW": null,
+  "cont_h_kW": 28,
   "cont_f_kVA": 25.5,
-  "cont_f_kW": null,
+  "cont_f_kW": 25.5,
   "stdby_40c_kVA": 29.5,
-  "stdby_40c_kW": null,
+  "stdby_40c_kW": 29.5,
   "stdby_27c_kVA": 31,
-  "stdby_27c_kW": null
+  "stdby_27c_kW": 31
  },
  {
   "type": "generator",
@@ -1991,13 +1991,13 @@
   "exc_std": "AREP",
   "exc_opt": "",
   "cont_h_kVA": 31.5,
-  "cont_h_kW": null,
+  "cont_h_kW": 31.5,
   "cont_f_kVA": 28.5,
-  "cont_f_kW": null,
+  "cont_f_kW": 28.5,
   "stdby_40c_kVA": 33.5,
-  "stdby_40c_kW": null,
+  "stdby_40c_kW": 33.5,
   "stdby_27c_kVA": 34.5,
-  "stdby_27c_kW": null
+  "stdby_27c_kW": 34.5
  },
  {
   "type": "generator",
@@ -2011,13 +2011,13 @@
   "exc_std": "AREP",
   "exc_opt": "",
   "cont_h_kVA": 35,
-  "cont_h_kW": null,
+  "cont_h_kW": 35,
   "cont_f_kVA": 32,
-  "cont_f_kW": null,
+  "cont_f_kW": 32,
   "stdby_40c_kVA": 37,
-  "stdby_40c_kW": null,
+  "stdby_40c_kW": 37,
   "stdby_27c_kVA": 38.5,
-  "stdby_27c_kW": null
+  "stdby_27c_kW": 38.5
  },
  {
   "type": "generator",
@@ -2031,13 +2031,13 @@
   "exc_std": "AREP",
   "exc_opt": "",
   "cont_h_kVA": 42,
-  "cont_h_kW": null,
+  "cont_h_kW": 42,
   "cont_f_kVA": 38,
-  "cont_f_kW": null,
+  "cont_f_kW": 38,
   "stdby_40c_kVA": 44.5,
-  "stdby_40c_kW": null,
+  "stdby_40c_kW": 44.5,
   "stdby_27c_kVA": 46,
-  "stdby_27c_kW": null
+  "stdby_27c_kW": 46
  },
  {
   "type": "generator",
@@ -2551,13 +2551,13 @@
   "exc_std": "AREP",
   "exc_opt": "",
   "cont_h_kVA": 23,
-  "cont_h_kW": null,
+  "cont_h_kW": 23,
   "cont_f_kVA": 21,
-  "cont_f_kW": null,
+  "cont_f_kW": 21,
   "stdby_40c_kVA": 24.5,
-  "stdby_40c_kW": null,
+  "stdby_40c_kW": 24.5,
   "stdby_27c_kVA": 25.5,
-  "stdby_27c_kW": null
+  "stdby_27c_kW": 25.5
  },
  {
   "type": "generator",
@@ -2571,13 +2571,13 @@
   "exc_std": "AREP",
   "exc_opt": "",
   "cont_h_kVA": 26,
-  "cont_h_kW": null,
+  "cont_h_kW": 26,
   "cont_f_kVA": 23.5,
-  "cont_f_kW": null,
+  "cont_f_kW": 23.5,
   "stdby_40c_kVA": 27.5,
-  "stdby_40c_kW": null,
+  "stdby_40c_kW": 27.5,
   "stdby_27c_kVA": 28.5,
-  "stdby_27c_kW": null
+  "stdby_27c_kW": 28.5
  },
  {
   "type": "generator",
@@ -2591,13 +2591,13 @@
   "exc_std": "AREP",
   "exc_opt": "",
   "cont_h_kVA": 29,
-  "cont_h_kW": null,
+  "cont_h_kW": 29,
   "cont_f_kVA": 26,
-  "cont_f_kW": null,
+  "cont_f_kW": 26,
   "stdby_40c_kVA": 30.5,
-  "stdby_40c_kW": null,
+  "stdby_40c_kW": 30.5,
   "stdby_27c_kVA": 32,
-  "stdby_27c_kW": null
+  "stdby_27c_kW": 32
  },
  {
   "type": "generator",
@@ -2611,13 +2611,13 @@
   "exc_std": "AREP",
   "exc_opt": "",
   "cont_h_kVA": 31.5,
-  "cont_h_kW": null,
+  "cont_h_kW": 31.5,
   "cont_f_kVA": 28.5,
-  "cont_f_kW": null,
+  "cont_f_kW": 28.5,
   "stdby_40c_kVA": 33.5,
-  "stdby_40c_kW": null,
+  "stdby_40c_kW": 33.5,
   "stdby_27c_kVA": 34.5,
-  "stdby_27c_kW": null
+  "stdby_27c_kW": 34.5
  },
  {
   "type": "generator",
@@ -2631,13 +2631,13 @@
   "exc_std": "AREP",
   "exc_opt": "",
   "cont_h_kVA": 36,
-  "cont_h_kW": null,
+  "cont_h_kW": 36,
   "cont_f_kVA": 33,
-  "cont_f_kW": null,
+  "cont_f_kW": 33,
   "stdby_40c_kVA": 38,
-  "stdby_40c_kW": null,
+  "stdby_40c_kW": 38,
   "stdby_27c_kVA": 39.5,
-  "stdby_27c_kW": null
+  "stdby_27c_kW": 39.5
  },
  {
   "type": "generator",
@@ -2651,13 +2651,13 @@
   "exc_std": "AREP",
   "exc_opt": "",
   "cont_h_kVA": 40,
-  "cont_h_kW": null,
+  "cont_h_kW": 40,
   "cont_f_kVA": 36.5,
-  "cont_f_kW": null,
+  "cont_f_kW": 36.5,
   "stdby_40c_kVA": 42.5,
-  "stdby_40c_kW": null,
+  "stdby_40c_kW": 42.5,
   "stdby_27c_kVA": 44,
-  "stdby_27c_kW": null
+  "stdby_27c_kW": 44
  },
  {
   "type": "generator",
@@ -2671,13 +2671,13 @@
   "exc_std": "AREP",
   "exc_opt": "",
   "cont_h_kVA": 47,
-  "cont_h_kW": null,
+  "cont_h_kW": 47,
   "cont_f_kVA": 43,
-  "cont_f_kW": null,
+  "cont_f_kW": 43,
   "stdby_40c_kVA": 50,
-  "stdby_40c_kW": null,
+  "stdby_40c_kW": 50,
   "stdby_27c_kVA": 51,
-  "stdby_27c_kW": null
+  "stdby_27c_kW": 51
  },
  {
   "type": "generator",
@@ -2691,13 +2691,13 @@
   "exc_std": "AREP",
   "exc_opt": "",
   "cont_h_kVA": 53,
-  "cont_h_kW": null,
+  "cont_h_kW": 53,
   "cont_f_kVA": 48,
-  "cont_f_kW": null,
+  "cont_f_kW": 48,
   "stdby_40c_kVA": 56,
-  "stdby_40c_kW": null,
+  "stdby_40c_kW": 56,
   "stdby_27c_kVA": 58,
-  "stdby_27c_kW": null
+  "stdby_27c_kW": 58
  },
  {
   "type": "generator",
@@ -3111,13 +3111,13 @@
   "exc_std": "AREP",
   "exc_opt": "",
   "cont_h_kVA": 10.5,
-  "cont_h_kW": null,
+  "cont_h_kW": 10.5,
   "cont_f_kVA": 9.5,
-  "cont_f_kW": null,
+  "cont_f_kW": 9.5,
   "stdby_40c_kVA": 11,
-  "stdby_40c_kW": null,
+  "stdby_40c_kW": 11,
   "stdby_27c_kVA": 11.5,
-  "stdby_27c_kW": null
+  "stdby_27c_kW": 11.5
  },
  {
   "type": "generator",
@@ -3131,13 +3131,13 @@
   "exc_std": "AREP",
   "exc_opt": "",
   "cont_h_kVA": 12,
-  "cont_h_kW": null,
+  "cont_h_kW": 12,
   "cont_f_kVA": 11,
-  "cont_f_kW": null,
+  "cont_f_kW": 11,
   "stdby_40c_kVA": 12.5,
-  "stdby_40c_kW": null,
+  "stdby_40c_kW": 12.5,
   "stdby_27c_kVA": 13,
-  "stdby_27c_kW": null
+  "stdby_27c_kW": 13
  },
  {
   "type": "generator",
@@ -3151,13 +3151,13 @@
   "exc_std": "AREP",
   "exc_opt": "",
   "cont_h_kVA": 13,
-  "cont_h_kW": null,
+  "cont_h_kW": 13,
   "cont_f_kVA": 12,
-  "cont_f_kW": null,
+  "cont_f_kW": 12,
   "stdby_40c_kVA": 14,
-  "stdby_40c_kW": null,
+  "stdby_40c_kW": 14,
   "stdby_27c_kVA": 14.5,
-  "stdby_27c_kW": null
+  "stdby_27c_kW": 14.5
  },
  {
   "type": "generator",
@@ -3171,13 +3171,13 @@
   "exc_std": "AREP",
   "exc_opt": "",
   "cont_h_kVA": 14.5,
-  "cont_h_kW": null,
+  "cont_h_kW": 14.5,
   "cont_f_kVA": 13,
-  "cont_f_kW": null,
+  "cont_f_kW": 13,
   "stdby_40c_kVA": 15.5,
-  "stdby_40c_kW": null,
+  "stdby_40c_kW": 15.5,
   "stdby_27c_kVA": 16,
-  "stdby_27c_kW": null
+  "stdby_27c_kW": 16
  },
  {
   "type": "generator",
@@ -3191,13 +3191,13 @@
   "exc_std": "AREP",
   "exc_opt": "",
   "cont_h_kVA": 16,
-  "cont_h_kW": null,
+  "cont_h_kW": 16,
   "cont_f_kVA": 14.5,
-  "cont_f_kW": null,
+  "cont_f_kW": 14.5,
   "stdby_40c_kVA": 17,
-  "stdby_40c_kW": null,
+  "stdby_40c_kW": 17,
   "stdby_27c_kVA": 17.5,
-  "stdby_27c_kW": null
+  "stdby_27c_kW": 17.5
  },
  {
   "type": "generator",
@@ -3711,13 +3711,13 @@
   "exc_std": "AREP",
   "exc_opt": "",
   "cont_h_kVA": 11.5,
-  "cont_h_kW": null,
+  "cont_h_kW": 11.5,
   "cont_f_kVA": 10.5,
-  "cont_f_kW": null,
+  "cont_f_kW": 10.5,
   "stdby_40c_kVA": 12,
-  "stdby_40c_kW": null,
+  "stdby_40c_kW": 12,
   "stdby_27c_kVA": 12.5,
-  "stdby_27c_kW": null
+  "stdby_27c_kW": 12.5
  },
  {
   "type": "generator",
@@ -3731,13 +3731,13 @@
   "exc_std": "AREP",
   "exc_opt": "",
   "cont_h_kVA": 13.5,
-  "cont_h_kW": null,
+  "cont_h_kW": 13.5,
   "cont_f_kVA": 12.5,
-  "cont_f_kW": null,
+  "cont_f_kW": 12.5,
   "stdby_40c_kVA": 14.5,
-  "stdby_40c_kW": null,
+  "stdby_40c_kW": 14.5,
   "stdby_27c_kVA": 15,
-  "stdby_27c_kW": null
+  "stdby_27c_kW": 15
  },
  {
   "type": "generator",
@@ -3751,13 +3751,13 @@
   "exc_std": "AREP",
   "exc_opt": "",
   "cont_h_kVA": 14.5,
-  "cont_h_kW": null,
+  "cont_h_kW": 14.5,
   "cont_f_kVA": 13,
-  "cont_f_kW": null,
+  "cont_f_kW": 13,
   "stdby_40c_kVA": 15.5,
-  "stdby_40c_kW": null,
+  "stdby_40c_kW": 15.5,
   "stdby_27c_kVA": 16,
-  "stdby_27c_kW": null
+  "stdby_27c_kW": 16
  },
  {
   "type": "generator",
@@ -3771,13 +3771,13 @@
   "exc_std": "AREP",
   "exc_opt": "",
   "cont_h_kVA": 16,
-  "cont_h_kW": null,
+  "cont_h_kW": 16,
   "cont_f_kVA": 14.5,
-  "cont_f_kW": null,
+  "cont_f_kW": 14.5,
   "stdby_40c_kVA": 17,
-  "stdby_40c_kW": null,
+  "stdby_40c_kW": 17,
   "stdby_27c_kVA": 17.5,
-  "stdby_27c_kW": null
+  "stdby_27c_kW": 17.5
  },
  {
   "type": "generator",
@@ -3791,12 +3791,12 @@
   "exc_std": "AREP",
   "exc_opt": "",
   "cont_h_kVA": 17.5,
-  "cont_h_kW": null,
+  "cont_h_kW": 17.5,
   "cont_f_kVA": 16,
-  "cont_f_kW": null,
+  "cont_f_kW": 16,
   "stdby_40c_kVA": 18.5,
-  "stdby_40c_kW": null,
+  "stdby_40c_kW": 18.5,
   "stdby_27c_kVA": 19.5,
-  "stdby_27c_kW": null
+  "stdby_27c_kW": 19.5
  }
 ]
