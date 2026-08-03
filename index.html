@@ -349,13 +349,14 @@ function doSearch(){
   // 步骤6：最佳匹配
   var top=null;
   for(var i=0;i<list.length;i++){if(list[i].ok){top=list[i];break;}}
+  var basePw=top?(duty==='PRP'?top.ch:top.st):0; // 主用取持续H、备用取备用27℃，与候选取同源
 
   ch+='<div class="step-header '+(top?'':'')+'" onclick="toggleStep(this)"><span><span class="step-num">步骤6</span>综合判定</span><span class="step-desc">'+(top?'✅ 推荐 '+top.m:'❌ 无匹配')+'</span><span class="step-result">'+(top?top.cp+top.uk+'/'+targetKVA+'kVA':'-')+'</span><span class="arrow">▼</span></div>';
   ch+='<div class="step-body">';
   if(top){
     ch+='<div class="calc-row"><span class="calc-label">最佳型号</span><span class="calc-val"><b>'+top.m+(isHV&&top.grade?'（'+top.grade+'级温升）':'')+'</b></span></div>';
-    ch+='<div class="calc-row"><span class="calc-label">基准功率</span><span class="calc-val">'+top.ch+top.uk+(isHV&&top.grade?'（'+top.grade+'级）':'')+'</span></div>';
-    ch+='<div class="calc-row"><span class="calc-label">修正后功率</span><span class="calc-val calc-total">'+top.ch+' × '+tot+' = <b>'+top.cp+top.uk+'</b>'+(isHV?'（中高压无修正）':'')+'</span></div>';
+    ch+='<div class="calc-row"><span class="calc-label">基准功率'+(duty==='LTP'?'(备用27℃)':'')+'</span><span class="calc-val">'+basePw+top.uk+(isHV&&top.grade?'（'+top.grade+'级）':'')+'</span></div>';
+    ch+='<div class="calc-row"><span class="calc-label">修正后功率</span><span class="calc-val calc-total">'+basePw+' × '+tot+' = <b>'+top.cp+top.uk+'</b>'+(isHV?'（中高压无修正）':'')+'</span></div>';
     ch+='<div class="calc-row"><span class="calc-label">需求功率</span><span class="calc-val">'+targetKVA+' kVA</span></div>';
     ch+='<div class="calc-row"><span class="calc-label">判定</span><span class="calc-val" style="color:green">✅ 满足</span></div>';
   } else {
