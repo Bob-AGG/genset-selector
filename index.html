@@ -49,6 +49,31 @@ body{font-family:-apple-system,"Microsoft YaHei",sans-serif;background:#f0f2f5;c
 .match-card.no-match{background:#fff5f5;border-color:#fecaca}
 .match-card.no-match .model{color:#dc2626}
 
+/* ---- AI 售前工程师窗口 ---- */
+.ai-panel{margin-top:20px;border:1px solid #e2e8f0;border-radius:8px;background:#fff;overflow:hidden}
+.ai-header{display:flex;align-items:center;gap:6px;padding:9px 12px;background:#1a365d;color:#fff;font-size:13px;font-weight:600}
+.ai-dot{width:8px;height:8px;border-radius:50%;background:#22c55e;animation:aiPulse 1.6s infinite}
+@keyframes aiPulse{0%,100%{opacity:1}50%{opacity:.4}}
+.ai-badge{margin-left:auto;font-size:10px;font-weight:500;background:rgba(255,255,255,.18);padding:1px 8px;border-radius:10px}
+.ai-chat{padding:12px;background:#f8fafc;max-height:340px;overflow-y:auto;display:flex;flex-direction:column;gap:10px}
+.ai-msg{display:flex;gap:8px;max-width:96%}
+.ai-bot{align-self:flex-start}
+.ai-user{align-self:flex-end;flex-direction:row-reverse}
+.ai-avatar{width:26px;height:26px;border-radius:50%;background:#e2e8f0;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0}
+.ai-user .ai-avatar{background:#dbeafe}
+.ai-bubble{padding:8px 11px;border-radius:10px;font-size:13px;line-height:1.7;background:#fff;border:1px solid #e2e8f0;white-space:pre-wrap;word-break:break-word}
+.ai-user .ai-bubble{background:#1a365d;color:#fff;border:none}
+.ai-bubble.typing{color:#94a3b8}
+.ai-typing .ai-bubble::after{content:"▍";animation:blink 1s infinite}
+@keyframes blink{50%{opacity:0}}
+.ai-input-row{display:flex;gap:8px;padding:10px 12px;border-top:1px solid #e2e8f0;align-items:flex-end}
+.ai-input{flex:1;resize:none;border:1px solid #cbd5e1;border-radius:6px;padding:8px 10px;font-size:13px;font-family:inherit;line-height:1.5}
+.ai-input:focus{outline:none;border-color:#1a365d}
+.ai-send{padding:8px 16px;background:#1a365d;color:#fff;border:none;border-radius:6px;font-size:13px;cursor:pointer;flex-shrink:0}
+.ai-send:hover{background:#2c5282}
+.ai-send:disabled{opacity:.5;cursor:not-allowed}
+.ai-hint{padding:6px 12px 9px;font-size:11px;color:#94a3b8;background:#fff;border-top:1px solid #f1f5f9}
+
 .step-panel{margin-top:8px}
 .step-header{display:flex;justify-content:space-between;align-items:center;padding:8px 10px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:5px;cursor:pointer;font-size:13px;margin-bottom:4px}
 .step-header:hover{background:#f1f5f9}
@@ -114,6 +139,24 @@ tr:hover{background:#f0f2f5}
 <div class="card right-area">
 <h2>🏆 最佳匹配</h2>
 <div id="matchDisplay"><div class="landing"><div class="icon">🔍</div><p>填写左侧参数后点击「查询」<br>系统将自动计算并推荐最佳匹配电机</p></div></div>
+
+<div class="ai-panel" id="aiPanel">
+  <div class="ai-header">
+    <span class="ai-dot"></span> AI 售前工程师
+    <span class="ai-badge" id="aiModeBadge">演示模式</span>
+  </div>
+  <div class="ai-chat" id="aiChat">
+    <div class="ai-msg ai-bot">
+      <div class="ai-avatar">🤖</div>
+      <div class="ai-bubble">您好，我是 AI 售前工程师。您可以告诉我客户的需求，例如：<br>“客户需要一台 400kW、380V、50Hz 的备用机组，用于工厂，海拔1500米”<br>我会帮您推荐品牌与型号方向。当前为<strong>演示模式</strong>，接入后端后即可真实对话。</div>
+    </div>
+  </div>
+  <div class="ai-input-row">
+    <textarea id="aiInput" class="ai-input" rows="2" placeholder="用大白话描述客户需求，如：需要一台备用机组，380V，50Hz，200kW，沿海工厂用…"></textarea>
+    <button class="ai-send" id="aiSendBtn" onclick="aiAsk()">发送</button>
+  </div>
+  <div class="ai-hint">💡 支持多轮追问：例如“这个型号能在高原用吗”“备用和主用怎么选”</div>
+</div>
 </div>
 
 <div class="card bottom-area">
@@ -461,6 +504,71 @@ loadBrandData(function(){
   sel.onchange=onParamChange;
   onParamChange();
 });
+
+/* ================= AI 售前工程师窗口 ================= */
+// ⚙️ 后端配置（预留）：接入真实对话时填写
+var AI_API = {
+  enabled: false,          // 置 true 即启用真实后端对话（演示模式关闭）
+  endpoint: "https://your-server.example.com/api/ai-sales",  // ⬅️ 后端代理地址
+  apiKey: "",             // ⬅️ DeepSeek / 大模型 API key（存后端，勿放前端正式环境）
+  model: "deepseek-chat"  // 模型名
+};
+
+function aiAsk(){
+  var input=document.getElementById('aiInput');
+  var text=input.value.trim();
+  if(!text) return;
+  var chat=document.getElementById('aiChat');
+  var sendBtn=document.getElementById('aiSendBtn');
+  // 用户消息
+  chat.innerHTML+='<div class="ai-msg ai-user"><div class="ai-avatar">👤</div><div class="ai-bubble">'+esc(text)+'</div></div>';
+  input.value='';
+  sendBtn.disabled=true;
+  // 打字占位
+  chat.innerHTML+='<div class="ai-msg ai-bot ai-typing" id="aiTyping"><div class="ai-avatar">🤖</div><div class="ai-bubble typing">正在思考</div></div>';
+  chat.scrollTop=chat.scrollHeight;
+
+  if(AI_API.enabled){
+    aiRealCall(text);
+  } else {
+    // 演示模式：本地规则回复，方便预览 UI
+    setTimeout(function(){
+      var t=document.getElementById('aiTyping')
+      if(t)t.remove();
+      chat.innerHTML+='<div class="ai-msg ai-bot"><div class="ai-avatar">🤖</div><div class="ai-bubble">'+demoReply(text)+'</div></div>';
+      chat.scrollTop=chat.scrollHeight;
+      sendBtn.disabled=false;
+    }, 700);
+  }
+}
+
+// 演示模式回复（基于关键词给示例话术，仅预览用）
+function demoReply(text){
+  var p=text.toLowerCase();
+  var brand='利莱森玛 LSA（也推荐对比斯坦福）', unit='备用', kw='200', vol='380V', freq='50Hz';
+  var m=p.match(/(\d+)\s*(kw|千瓦|千伏安|kva)/i);
+  if(m) kw=m[1];
+  if(/主用|常行|prp/i.test(p)) unit='主用';
+  if(/高压|3\.3|6\.3|10kv|13\.8|3\.3kv|中高压/i.test(p)) vol='3.3kV—13.8kV';
+  if(/60/i.test(p)) freq='60Hz';
+  var r='根据您的描述，初步推荐：\n\n';
+  r+='🏷️ 品牌方向：<b>'+brand+'</b>\n';
+  r+='⚙️ 参考选型：'+unit+'模式，'+vol+'，'+freq+'，约 '+kw+'kW\n\n';
+  r+='📌 建议：请确认机组用途（主用需按持续功率选，备用可对应备用功率）、安装海拔与环境温度（影响降额）。\n\n';
+  r+='<span style="color:#94a3b8">⚠️ 当前为演示模式，接入后端（AI_API.enabled=true）后将给出真实品牌与型号推荐。</span>';
+  return r;
+}
+
+// 真实后端调用（预留）——接入时实现：fetch(AI_API.endpoint, {POST 用户问题+上下文})  → 把返回的 AI 回复渲染
+function aiRealCall(text){
+  // TODO: 接入后端代理后实现真实请求
+  // fetch(AI_API.endpoint, {
+  //   method:'POST', headers:{'Content-Type':'application/json'},
+  //   body: JSON.stringify({question:text, apiKey:AI_API.apiKey, model:AI_API.model})
+  // }).then(r=>r.json()).then(d=>{ 渲染 d.reply })
+}
+
+function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
 </script>
 </body>
 </html>
