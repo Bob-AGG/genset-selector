@@ -74,6 +74,31 @@ body{font-family:-apple-system,"Microsoft YaHei",sans-serif;background:#f0f2f5;c
 .ai-send:disabled{opacity:.5;cursor:not-allowed}
 .ai-hint{padding:6px 12px 9px;font-size:11px;color:#94a3b8;background:#fff;border-top:1px solid #f1f5f9}
 
+/* ---- 产品库 ---- */
+.browse-bar{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:16px;align-items:flex-end}
+.browse-bar .form-group{display:flex;flex-direction:column;gap:4px;min-width:160px}
+.browse-bar select,.browse-bar input{padding:7px 10px;font-size:13px;border:1px solid #cbd5e1;border-radius:6px;font-family:inherit}
+.browse-bar select:focus,.browse-bar input:focus{outline:none;border-color:#1a365d}
+.browse-list{display:flex;flex-direction:column;gap:12px}
+.browse-group{border:1px solid #e2e8f0;border-radius:8px;overflow:hidden}
+.browse-group-title{padding:9px 14px;background:#f8fafc;font-weight:600;font-size:14px;color:#1a365d;border-bottom:1px solid #e2e8f0}
+.browse-model{display:flex;justify-content:space-between;align-items:center;padding:9px 14px;border-bottom:1px solid #f1f5f9;cursor:pointer;transition:background .15s}
+.browse-model:last-child{border-bottom:none}
+.browse-model:hover{background:#f1f5f9}
+.browse-model .bm-left{display:flex;align-items:center;gap:8px;font-size:14px;font-weight:500}
+.browse-model .bm-left .chev{transition:transform .2s;color:#94a3b8;font-size:11px}
+.browse-model.open .chev{transform:rotate(90deg)}
+.browse-model .bm-right{font-size:12px;color:#64748b;display:flex;gap:12px;flex-wrap:wrap}
+.browse-model .bm-right span{background:#f1f5f9;padding:1px 8px;border-radius:10px}
+.browse-detail{display:none;padding:10px 14px;background:#fbfdff;border-top:1px solid #eef2f7}
+.browse-detail.open{display:block}
+.browse-table{width:100%;border-collapse:collapse;font-size:12px}
+.browse-table th,.browse-table td{border:1px solid #e2e8f0;padding:5px 8px;text-align:center}
+.browse-table th{background:#f8fafc;font-weight:600;color:#334155}
+.browse-table td{color:#334155}
+.browse-table .freq-col{font-weight:600;background:#f8fafc;color:#1a365d;white-space:nowrap}
+.browse-count{font-size:12px;color:#64748b;margin-bottom:4px}
+
 .step-panel{margin-top:8px}
 .step-header{display:flex;justify-content:space-between;align-items:center;padding:8px 10px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:5px;cursor:pointer;font-size:13px;margin-bottom:4px}
 .step-header:hover{background:#f1f5f9}
@@ -170,7 +195,12 @@ tr:hover{background:#f0f2f5}
 <div class="page" id="browseView" style="display:none">
 <div class="card" style="grid-column:1/-1">
 <h2>📦 产品库</h2>
-<div class="landing"><div class="icon">📦</div><p>品牌产品数据接入后可在此浏览</p></div>
+<div class="browse-bar">
+  <div class="form-group"><label>选择品牌</label><select id="browseBrand"><option value="">请选择品牌</option></select></div>
+  <div class="form-group"><label>搜索型号</label><input type="text" id="browseSearch" placeholder="输入型号关键字筛选…" oninput="renderBrowseList()"></div>
+  <div class="form-group"><label>频率</label><select id="browseFreq" onchange="renderBrowseList()"><option value="">全部</option><option value="50Hz">50Hz</option><option value="60Hz">60Hz</option></select></div>
+</div>
+<div id="browseList" class="browse-list"><div class="landing"><div class="icon">📦</div><p>请选择上方品牌，浏览其全部产品型号</p></div></div>
 </div>
 </div>
 
@@ -486,15 +516,21 @@ function loadBrandData(callback){
   }
 }
 
+// 品牌显示名公共映射（选型下拉 & 产品库共用）
+function brandLabel(k){
+  var l=k;
+  if(l==='leroysomer')l='利莱森玛 LSA';
+  else if(l==='talson')l='利莱森玛 TAL A40-A44';
+  else if(l==='TAL-A46/A473/A49')l='利莱森玛 A46-A49';
+  return l;
+}
+
 function fillBrandDropdown(){
   var brands=Object.keys(ALL_DATA);
   var sel=document.getElementById('genBrand');
   sel.innerHTML='<option value="">请选择品牌</option>';
   for(var i=0;i<brands.length;i++){
-    var label=brands[i];
-    if(label==='leroysomer')label='利莱森玛 LSA';
-    else if(label==='talson')label='利莱森玛 TAL A40-A44';
-    else if(label==='TAL-A46/A473/A49')label='利莱森玛 A46-A49';
+    var label=brandLabel(brands[i]);
     sel.innerHTML+='<option value="'+brands[i]+'">'+label+'</option>';
   }
 }
@@ -570,6 +606,114 @@ function aiRealCall(text){
 }
 
 function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+
+/* ================= 产品库 ================= */
+function fillBrowseBrand(){
+  var brands=Object.keys(ALL_DATA);
+  var sel=document.getElementById('browseBrand');
+  sel.innerHTML='<option value="">请选择品牌</option>';
+  for(var i=0;i<brands.length;i++){
+    sel.innerHTML+='<option value="'+brands[i]+'">'+brandLabel(brands[i])+'</option>';
+  }
+  sel.onchange=function(){document.getElementById('browseSearch').value='';renderBrowseList();};
+}
+
+function renderBrowseList(){
+  var brand=document.getElementById('browseBrand').value;
+  var kw=document.getElementById('browseSearch').value.trim().toLowerCase();
+  var freq=document.getElementById('browseFreq').value;
+  var box=document.getElementById('browseList');
+  if(!brand){ box.innerHTML='<div class="landing"><div class="icon">📦</div><p>请选择上方品牌，浏览其全部产品型号</p></div>'; return; }
+  var recs=ALL_DATA[brand]||[];
+  // 按频率过滤
+  if(freq) recs=recs.filter(function(r){return r.frequency===freq;});
+  // 合并同一型号(忽略电压档差异, 便于列表展示)
+  var models={};
+  var order=[];
+  recs.forEach(function(r){
+    var key=r.model;
+    if(kw && key.toLowerCase().indexOf(kw)<0) return;
+    if(!models[key]){ models[key]=[]; order.push(key); }
+    models[key].push(r);
+  });
+  order.sort();
+  if(!order.length){ box.innerHTML='<div class="landing"><div class="icon">🔍</div><p>没有匹配的型号</p></div>'; return; }
+
+  var html='<div class="browse-count">共 '+order.length+order.length+' 个型号（'+brandLabel(brand)+'）</div>';
+  order.forEach(function(key){
+    var rs=models[key];
+    // 该型号功率范围(备用27℃ kVA, 取非空最小~最大)
+    var vs=rs.map(function(r){return r.stdby_27c_kVA||r.cont_h_kVA||0;}).filter(function(v){return v;});
+    var range='';
+    if(vs.length){ var mn=Math.min.apply(null,vs), mx=Math.max.apply(null,vs); range=(mn===mx)?(mn+' kVA'):(mn+'–'+mx+' kVA'); }
+    var freqSet={}, volSet={};
+    rs.forEach(function(r){ freqSet[r.frequency]=1; volSet[r.winding_label]=1; });
+    html+='<div class="browse-group">'
+      +'<div class="browse-model" onclick="toggleBrowseModel(this,'+encodeURIComponent(JSON.stringify(key))+')">'
+      +'  <div class="bm-left"><span class="chev">▶</span><b>'+esc(key)+'</b></div>'
+      +'  <div class="bm-right">'
+      +'    <span>🔌 '+Object.keys(volSet).length+' 电压档</span>'
+      +'    <span>🔁 '+Object.keys(freqSet).join('/')+'</span>'
+      +'    <span>⚡ '+range+'</span>'
+      +'  </div>'
+      +'</div>'
+      +'<div class="browse-detail" id="bd-'+key.replace(/\W/g,'')+'"></div>'
+      +'</div>';
+  });
+  box.innerHTML=html;
+}
+
+function toggleBrowseModel(el, keyEnc){
+  var key=JSON.parse(decodeURIComponent(keyEnc));
+  var brand=document.getElementById('browseBrand').value;
+  var open=el.classList.toggle('open');
+  var detail=document.getElementById('bd-'+key.replace(/\W/g,''));
+  if(detail) detail.classList.toggle('open', open);
+  if(open && !detail.innerHTML) renderBrowseDetail(brand, key, detail);
+}
+
+function renderBrowseDetail(brand, model, el){
+  var recs=(ALL_DATA[brand]||[]).filter(function(r){return r.model===model;});
+  // 去重: 同一 (frequency, winding_code, temp_grade) 只取一条
+  var seen={}, rows=[];
+  recs.forEach(function(r){
+    var k=r.frequency+'|'+r.winding_code+'|'+(r.temp_grade||'');
+    if(seen[k]) return;
+    seen[k]=1;
+    rows.push(r);
+  });
+  if(!rows.length){ el.innerHTML='<div class="landing"><p>无数据</p></div>'; return; }
+  var isHV=(brand==='利莱森玛 LSA 中高压');
+  var isStan=(brand==='斯坦福');
+  var cols=['频率','电压(绕组)'];
+  if(isHV) cols.push('温升');
+  if(isStan) cols.push('极数');
+  cols=cols.concat(['PF','持续H(kVA)','连续F(kVA)','备用40℃(kVA)','备用27℃(kVA)']);
+  var h='<table class="browse-table"><tr>'+cols.map(function(c){return '<th>'+c+'</th>';}).join('')+'</tr>';
+  rows.forEach(function(r){
+    var tds='<td class="freq-col">'+r.frequency+'</td><td>'+esc(r.winding_label||r.winding_code)+'</td>';
+    if(isHV) tds+='<td>'+(r.temp_grade||'')+'</td>';
+    if(isStan) tds+='<td>'+(r.poles||'')+'</td>';
+    tds+='<td>'+(r.pf||'')+'</td>'
+      +'<td>'+(r.cont_h_kVA||'-')+'</td>'
+      +'<td>'+(r.cont_f_kVA||'-')+'</td>'
+      +'<td>'+(r.stdby_40c_kVA||'-')+'</td>'
+      +'<td>'+(r.stdby_27c_kVA||'-')+'</td>';
+    h+='<tr>'+tds+'</tr>';
+  });
+  h+='</table>';
+  // 预留位置: 励磁/其他字段(待更完善数据补充)
+  h+='<div class="browse-extra-placeholder" style="font-size:11px;color:#94a3b8;margin-top:6px">📌 励磁等更多参数预留，待数据补充</div>';
+  el.innerHTML=h;
+}
+
+loadBrandData(function(){
+  fillBrandDropdown();
+  fillBrowseBrand();
+  var sel=document.getElementById('genBrand');
+  sel.onchange=onParamChange;
+  onParamChange();
+});
 </script>
 </body>
 </html>
