@@ -135,6 +135,13 @@ tr:hover{background:#f0f2f5}
 .half-card{flex:1;min-width:280px;background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:1.2rem 1rem;box-shadow:0 1px 3px rgba(0,0,0,.05)}
 .input-field{width:100%;padding:7px 11px;font-size:13px;border:1px solid #d1d5db;border-radius:6px;background:#fff;font-family:inherit}
 .input-field:focus{outline:none;border-color:#1a365d;box-shadow:0 0 0 2px rgba(26,54,93,.15)}
+/* ===== 帮助页通知公告(只读显示) ===== */
+.notice-list{margin-top:4px}
+.notice-item{background:#f8fafc;border:1px solid #e2e8f0;border-left:4px solid #1a365d;border-radius:6px;padding:10px 14px;margin-bottom:10px}
+.notice-item .n-title{font-weight:600;font-size:14px;color:#1a365d;display:flex;justify-content:space-between;align-items:center}
+.notice-item .n-ts{font-size:11px;color:#94a3b8;font-weight:400}
+.notice-item .n-content{font-size:13px;color:#475569;margin-top:6px;line-height:1.7;white-space:pre-wrap}
+.notice-empty{text-align:center;padding:24px;color:#94a3b8;font-size:13px;border:1px dashed #e2e8f0;border-radius:6px}
 .tool-err{font-size:.75rem;color:#e67e22;background:#fef2e6;border-radius:6px;padding:2px 8px;display:inline-block;margin-top:4px}
 .tool-subtab{flex:1;text-align:center;padding:8px 0;border-radius:32px;font-weight:600;cursor:pointer;transition:.15s;background:transparent;color:#2c5a44;border:none;font-size:14px}
 .tool-subtab.active{background:#fff;box-shadow:0 2px 6px rgba(0,0,0,.08);color:#1a365d;border:1px solid #cbd5e1}
@@ -344,6 +351,11 @@ tr:hover{background:#f0f2f5}
 <div class="card" style="grid-column:1/-1">
 <h2>❓ 帮助文档</h2>
 <div class="landing"><div class="icon">❓</div><p>选型指南 · 常见问题 · 技术标准</p></div>
+</div>
+
+<div class="card" style="grid-column:1/-1">
+<h2 style="border-color:#1a365d">📢 通知公告</h2>
+<div id="noticeList"><div class="notice-empty">加载中…</div></div>
 </div>
 </div>
 
@@ -1111,6 +1123,36 @@ if(document.readyState==='loading'){
   document.addEventListener('DOMContentLoaded',initFuelTools);
 }else{
   initFuelTools();
+}
+
+/* ================= 帮助页通知公告(只读) ================= */
+function loadHelpNotices(){
+  var box=document.getElementById('noticeList');
+  if(!box) return;
+  fetch('help_notices.json?t='+Date.now()).then(function(r){
+    if(!r.ok) throw new Error('no file');
+    return r.json();
+  }).then(function(data){
+    var arr=Array.isArray(data)?data:[];
+    if(!arr.length){ box.innerHTML='<div class="notice-empty">暂无通知</div>'; return; }
+    var h='<div class="notice-list">';
+    // 最新的在前面
+    arr.slice().reverse().forEach(function(n){
+      h+='<div class="notice-item">'
+        +'<div class="n-title">'+esc(n.title||'')+'<span class="n-ts">'+esc(n.ts||'')+'</span></div>'
+        +'<div class="n-content">'+esc(n.content||'')+'</div>'
+        +'</div>';
+    });
+    h+='</div>';
+    box.innerHTML=h;
+  }).catch(function(){
+    box.innerHTML='<div class="notice-empty">暂无通知</div>';
+  });
+}
+if(document.readyState==='loading'){
+  document.addEventListener('DOMContentLoaded',loadHelpNotices);
+}else{
+  loadHelpNotices();
 }
 </script>
 </body>
