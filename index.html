@@ -124,6 +124,26 @@ tr:hover{background:#f0f2f5}
 .landing p{font-size:14px;line-height:1.8}
 
 @media(max-width:800px){.page{grid-template-columns:1fr;grid-template-areas:"left" "right" "bottom"}.header{flex-direction:column;gap:10px}.nav{flex-wrap:wrap;justify-content:center}}
+
+/* ================= 工具页：油耗转换工具 ================= */
+.tool-tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+.tool-tab{background:#eef2f7;border:1px solid #e2e8f0;color:#334155;padding:8px 18px;border-radius:6px;font-size:14px;font-weight:600;cursor:pointer;transition:.15s}
+.tool-tab.active{background:#1a365d;color:#fff;border-color:#1a365d}
+.tool-tab:hover{background:#cbd5e1}.tool-tab.active:hover{background:#2a4a7d}
+.tool-panel{animation:toolFade .2s}
+@keyframes toolFade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+.half-card{flex:1;min-width:280px;background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:1.2rem 1rem;box-shadow:0 1px 3px rgba(0,0,0,.05)}
+.input-field{width:100%;padding:7px 11px;font-size:13px;border:1px solid #d1d5db;border-radius:6px;background:#fff;font-family:inherit}
+.input-field:focus{outline:none;border-color:#1a365d;box-shadow:0 0 0 2px rgba(26,54,93,.15)}
+.tool-err{font-size:.75rem;color:#e67e22;background:#fef2e6;border-radius:6px;padding:2px 8px;display:inline-block;margin-top:4px}
+.tool-subtab{flex:1;text-align:center;padding:8px 0;border-radius:32px;font-weight:600;cursor:pointer;transition:.15s;background:transparent;color:#2c5a44;border:none;font-size:14px}
+.tool-subtab.active{background:#fff;box-shadow:0 2px 6px rgba(0,0,0,.08);color:#1a365d;border:1px solid #cbd5e1}
+.power-value{font-weight:600;color:#e67e22;background:#fef5e8;padding:2px 8px;border-radius:20px;display:inline-block;font-size:13px}
+#loadTable td input{width:100%;padding:5px 8px;border:1px solid #e2e8f0;border-radius:5px;font-size:13px}
+#loadTable td input:focus{outline:none;border-color:#1a365d}
+#loadTable th{text-align:center}
+#loadTable td{text-align:center}
+.load-percent-cell{font-weight:700}
 </style>
 </head>
 <body>
@@ -207,7 +227,116 @@ tr:hover{background:#f0f2f5}
 <div class="page" id="toolsView" style="display:none">
 <div class="card" style="grid-column:1/-1">
 <h2>🔧 工具</h2>
-<div class="landing"><div class="icon">🔧</div><p>功率换算 · 环境修正 · 接线方式说明 · 排放标准速查</p></div>
+<!-- 工具子选项卡导航 -->
+<div class="tool-tabs">
+<button class="tool-tab active" onclick="switchToolTab(this,'fuelcalc')">⛽ 发动机油耗计算器</button>
+<button class="tool-tab" onclick="switchToolTab(this,'fuelconv')">🔁 柴油流量换算</button>
+</div>
+
+<!-- 子工具 1：发动机油耗计算器（L/h ↔ g/kWh + 多工况） -->
+<div id="tool-fuelcalc" class="tool-panel">
+  <!-- 基础换算卡片 -->
+  <div class="cards-grid" style="display:flex;flex-wrap:wrap;gap:1.5rem;margin-bottom:1.5rem">
+    <div class="half-card">
+      <div class="card-title" style="font-size:1.15rem;font-weight:700;border-left:4px solid #1a365d;padding-left:.7rem;margin-bottom:1rem;color:#1e2f3e">🔽 体积油耗 → 燃油消耗率</div>
+      <div style="font-size:.78rem;color:#5f7f9e;margin-bottom:1rem">输入发动机毛功率(kW或BHP)和体积油耗(L/h)</div>
+      <div class="form-group"><label>发动机毛功率</label>
+        <div style="display:flex;gap:.5rem">
+          <input type="number" id="power_lh_kw" class="input-field" placeholder="kW (如150)" step="any">
+          <input type="number" id="power_lh_bhp" class="input-field" placeholder="BHP (如201)" step="any">
+        </div>
+        <div style="font-size:.72rem;color:#1a365d;margin-top:2px">⇄ 自动换算 (1 BHP = 0.7457 kW)</div>
+      </div>
+      <div class="form-group"><label>体积油耗 <span style="font-weight:normal">L/h</span></label><input type="number" id="vol_flow" class="input-field" placeholder="例如 25.5" step="any"></div>
+      <div class="calc-box">
+        <div class="calc-row"><span class="calc-label">燃油消耗率 (BSFC)</span><span class="calc-val" id="bsfcValue">—</span></div>
+        <div style="font-size:.7rem;color:#888;text-align:right">g/kWh</div>
+        <div id="bsfcError" class="tool-err" style="display:none"></div>
+        <div id="bsfcFormulaDetail" style="font-size:.7rem;font-family:monospace;color:#94a3b8;margin-top:4px"></div>
+      </div>
+      <div style="font-size:.72rem;color:#94a3b8;margin-top:.5rem">📐 g/kWh = (L/h × 850) ÷ 毛功率(kW)</div>
+    </div>
+
+    <div class="half-card">
+      <div class="card-title" style="font-size:1.15rem;font-weight:700;border-left:4px solid #1a365d;padding-left:.7rem;margin-bottom:1rem;color:#1e2f3e">🔼 燃油消耗率 → 体积油耗</div>
+      <div style="font-size:.78rem;color:#5f7f9e;margin-bottom:1rem">输入发动机毛功率(kW或BHP)和燃油消耗率(g/kWh)</div>
+      <div class="form-group"><label>发动机毛功率</label>
+        <div style="display:flex;gap:.5rem">
+          <input type="number" id="power_bsfc_kw" class="input-field" placeholder="kW (如200)" step="any">
+          <input type="number" id="power_bsfc_bhp" class="input-field" placeholder="BHP (如268)" step="any">
+        </div>
+        <div style="font-size:.72rem;color:#1a365d;margin-top:2px">⇄ 自动换算 (1 BHP = 0.7457 kW)</div>
+      </div>
+      <div class="form-group"><label>燃油消耗率 <span style="font-weight:normal">g/kWh</span></label><input type="number" id="bsfc_input" class="input-field" placeholder="例如 195" step="any"></div>
+      <div class="calc-box">
+        <div class="calc-row"><span class="calc-label">体积油耗</span><span class="calc-val" id="volFlowValue">—</span></div>
+        <div style="font-size:.7rem;color:#888;text-align:right">L/h</div>
+        <div id="volFlowError" class="tool-err" style="display:none"></div>
+        <div id="volFlowFormulaDetail" style="font-size:.7rem;font-family:monospace;color:#94a3b8;margin-top:4px"></div>
+      </div>
+      <div style="font-size:.72rem;color:#94a3b8;margin-top:.5rem">📐 L/h = (g/kWh × kW) ÷ 850</div>
+    </div>
+  </div>
+
+  <!-- 多工况负载表 -->
+  <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;padding:1rem;margin-top:.5rem">
+    <div style="font-size:1.2rem;font-weight:700;margin-bottom:.2rem;display:flex;align-items:center;gap:8px;color:#1f3b4c;border-left:5px solid #e67e22;padding-left:.8rem">📊 多工况负载油耗换算表</div>
+    <div style="color:#5f7f9e;margin-bottom:1rem;font-size:.82rem;padding-left:.8rem">基于毛功率基准(PRP/ESP)，负载系数 × 基准功率 = 实际毛功率</div>
+
+    <div style="display:flex;flex-wrap:wrap;gap:1rem;background:#fff;padding:.8rem 1rem;border-radius:8px;margin-bottom:1rem;align-items:flex-end">
+      <div class="form-group" style="flex:1;min-width:200px"><label>🔧 PRP 毛功率</label>
+        <div style="display:flex;gap:.5rem">
+          <input type="number" id="prp_power_kw" class="input-field" placeholder="kW" value="300" step="any">
+          <input type="number" id="prp_power_bhp" class="input-field" placeholder="BHP" step="any">
+        </div>
+      </div>
+      <div class="form-group" style="flex:1;min-width:200px"><label>⚡ ESP 毛功率</label>
+        <div style="display:flex;gap:.5rem">
+          <input type="number" id="esp_power_kw" class="input-field" placeholder="kW" value="330" step="any">
+          <input type="number" id="esp_power_bhp" class="input-field" placeholder="BHP" step="any">
+        </div>
+      </div>
+      <div class="form-group" style="flex:1;min-width:180px"><label>🎯 功率基准</label>
+        <div class="radio-group">
+          <label><input type="radio" name="powerRef" value="prp" checked> PRP</label>
+          <label><input type="radio" name="powerRef" value="esp"> ESP</label>
+        </div>
+      </div>
+    </div>
+
+    <div class="table-wrap">
+      <table class="browse-table" id="loadTable">
+        <tr><th>负载百分比</th><th>实际毛功率(kW)</th><th>体积油耗 L/h <span style="font-weight:normal">(⬅输入任一)</span></th><th>燃油消耗率 g/kWh <span style="font-weight:normal">(自动换算)</span></th></tr>
+      </table>
+    </div>
+    <div style="font-size:.72rem;color:#94a3b8;margin-top:.6rem">💡 g/kWh=(L/h×850)÷毛功率 | L/h=(g/kWh×毛功率)÷850 | 柴油密度0.85kg/L=850g/L | 功率为飞轮端毛功率</div>
+  </div>
+</div>
+
+<!-- 子工具 2：柴油流量换算（LB/H ↔ L/H） -->
+<div id="tool-fuelconv" class="tool-panel" style="display:none">
+  <div style="font-size:1.2rem;font-weight:700;border-left:5px solid #1a365d;padding-left:.8rem;margin-bottom:.2rem;color:#1f3b4c">⛽ 柴油流量换算 <span style="font-size:.75rem;font-weight:400;color:#64748b">LB/H ↔ L/H · 基于密度(kg/L)</span></div>
+  <div style="color:#5f7f9e;margin-bottom:1.2rem;font-size:.82rem">质量流量 ⇄ 体积流量 · 密度可调(典型0#柴油15-25℃: 0.82~0.85)</div>
+
+  <div style="display:flex;gap:.6rem;background:#eef2f7;padding:.4rem;border-radius:40px;margin-bottom:1.2rem;max-width:420px">
+    <button class="tool-subtab active" onclick="setFuelDir(this,'toL')">➡️ LB/H → L/H</button>
+    <button class="tool-subtab" onclick="setFuelDir(this,'toLB')">⬅️ L/H → LB/H</button>
+  </div>
+
+  <div class="form-group"><label id="fuelConvInputLabel">📥 输入流量 (LB/H) <span style="font-weight:normal">磅/小时</span></label><input type="number" id="fuelConvInput" class="input-field" step="any" placeholder="例如 1000"></div>
+
+  <div style="display:flex;gap:1rem;align-items:flex-end;flex-wrap:wrap">
+    <div class="form-group" style="flex:2;min-width:200px"><label>⛽ 柴油密度 <span style="font-weight:normal">(kg/L)</span></label><input type="number" id="fuelDensity" class="input-field" step="0.001" value="0.840" placeholder="例如 0.840"></div>
+    <div style="flex:1;min-width:150px;font-size:.75rem;color:#6a7c6e;background:#f5f9f2;padding:8px 10px;border-radius:12px;text-align:center">🌡️ 典型0#柴油<br>15~25°C: 0.82~0.85</div>
+  </div>
+
+  <button class="btn" style="max-width:200px;margin-top:12px" onclick="fuelPerformConversion()">⟳ 立即换算</button>
+
+  <div class="calc-box" style="margin-top:14px">
+    <div class="calc-row"><span class="calc-label" id="fuelResultLabel">换算结果</span><span class="calc-val" id="fuelResultValue">—</span></div>
+  </div>
+  <div style="font-size:.72rem;color:#94a3b8;margin-top:.6rem">📐 L/H=(LB/H×0.45359237)÷密度 | LB/H=(L/H×密度)÷0.45359237 ⚠️ 体积受温度影响，请用工况实际密度</div>
+</div>
 </div>
 </div>
 
@@ -714,6 +843,262 @@ loadBrandData(function(){
   sel.onchange=onParamChange;
   onParamChange();
 });
+
+/* ================= 工具页：油耗转换工具 ================= */
+// ---- 子选项卡切换 ----
+function switchToolTab(btn, name){
+  var tabs=btn.parentNode.querySelectorAll('.tool-tab');
+  for(var i=0;i<tabs.length;i++){tabs[i].classList.remove('active');}
+  btn.classList.add('active');
+  var panels=['fuelcalc','fuelconv'];
+  for(var j=0;j<panels.length;j++){
+    var el=document.getElementById('tool-'+panels[j]);
+    if(el) el.style.display=(panels[j]===name)?'block':'none';
+  }
+}
+
+// ===== 发动机油耗计算器 =====
+// 精确常数
+var FUEL_DENSITY_G_PER_L=850;      // 0.85 kg/L = 850 g/L
+var BHP_TO_KW=0.7457;
+
+function fuelFormat(value,decimals){
+  decimals=decimals===undefined?3:decimals;
+  if(value===null||isNaN(value)||!isFinite(value))return null;
+  var r=Math.round(value*Math.pow(10,decimals))/Math.pow(10,decimals);
+  if(r===-0)r=0;
+  return r.toFixed(decimals);
+}
+
+// 获取有效毛功率(kW)：优先kW，其次BHP
+function fuelGetPowerKw(kwEl,bhpEl){
+  var kv=kwEl.value.trim();
+  if(kv!==''){var k=parseFloat(kv);if(!isNaN(k))return k;}
+  var bv=bhpEl.value.trim();
+  if(bv!==''){var b=parseFloat(bv);if(!isNaN(b))return b*BHP_TO_KW;}
+  return null;
+}
+// 单向同步：另一框为空时写入换算值（不覆盖用户正在输入的值）
+function fuelSyncKtoB(kwEl,bhpEl){
+  var kv=kwEl.value.trim();
+  if(kv!==''){
+    var k=parseFloat(kv);
+    if(!isNaN(k)&&bhpEl.value.trim()===''){
+      var f=fuelFormat(k/BHP_TO_KW,3);
+      if(f!==null)bhpEl.value=f;
+    }
+  }
+}
+function fuelSyncBtoK(kwEl,bhpEl){
+  var bv=bhpEl.value.trim();
+  if(bv!==''){
+    var b=parseFloat(bv);
+    if(!isNaN(b)&&kwEl.value.trim()===''){
+      var f=fuelFormat(b*BHP_TO_KW,3);
+      if(f!==null)kwEl.value=f;
+    }
+  }
+}
+
+function fuelShowErr(el,msg,valEl){
+  el.textContent=msg;el.style.display='inline-block';
+  valEl.textContent='—';valEl.style.color='#e67e22';
+}
+function fuelHideErr(el,valEl){el.style.display='none';if(valEl)valEl.style.color='#1f3b4c';}
+
+// 卡片1：L/h → g/kWh
+function fuelUpdateBsfc(){
+  var err=document.getElementById('bsfcError');
+  var val=document.getElementById('bsfcValue');
+  var det=document.getElementById('bsfcFormulaDetail');
+  var kw=document.getElementById('power_lh_kw');
+  var bhp=document.getElementById('power_lh_bhp');
+  var volEl=document.getElementById('vol_flow');
+  var pk=fuelGetPowerKw(kw,bhp);
+  var vr=volEl.value.trim();
+  if((pk===null||isNaN(pk))&&vr===''){val.textContent='—';det.innerHTML='';return;}
+  if(pk===null||isNaN(pk)||pk<=0){fuelShowErr(err,'请输入有效毛功率(>0)',val);det.innerHTML='';return;}
+  var vol=parseFloat(vr);
+  if(isNaN(vol)){fuelShowErr(err,'请输入体积油耗(L/h)',val);det.innerHTML='';return;}
+  if(vol<0){fuelShowErr(err,'油耗不能为负数',val);det.innerHTML='';return;}
+  var bsfc=(vol*FUEL_DENSITY_G_PER_L)/pk;
+  var f=fuelFormat(Math.max(0,bsfc),3);
+  if(f!==null){val.textContent=f;fuelHideErr(err,val);det.innerHTML='📐 '+vol+' L/h × 850 ÷ '+fuelFormat(pk,3)+' kW = '+f+' g/kWh';}
+  else fuelShowErr(err,'计算超范围',val);
+}
+// 卡片2：g/kWh → L/h
+function fuelUpdateVolFlow(){
+  var err=document.getElementById('volFlowError');
+  var val=document.getElementById('volFlowValue');
+  var det=document.getElementById('volFlowFormulaDetail');
+  var kw=document.getElementById('power_bsfc_kw');
+  var bhp=document.getElementById('power_bsfc_bhp');
+  var bfEl=document.getElementById('bsfc_input');
+  var pk=fuelGetPowerKw(kw,bhp);
+  var br=bfEl.value.trim();
+  if((pk===null||isNaN(pk))&&br===''){val.textContent='—';det.innerHTML='';return;}
+  if(pk===null||isNaN(pk)||pk<=0){fuelShowErr(err,'请输入有效毛功率(>0)',val);det.innerHTML='';return;}
+  var bf=parseFloat(br);
+  if(isNaN(bf)){fuelShowErr(err,'请输入燃油消耗率(g/kWh)',val);det.innerHTML='';return;}
+  if(bf<0){fuelShowErr(err,'消耗率不能为负数',val);det.innerHTML='';return;}
+  var vf=(bf*pk)/FUEL_DENSITY_G_PER_L;
+  var f=fuelFormat(Math.max(0,vf),3);
+  if(f!==null){val.textContent=f;fuelHideErr(err,val);det.innerHTML='📐 '+bf+' g/kWh × '+fuelFormat(pk,3)+' kW ÷ 850 = '+f+' L/h';}
+  else fuelShowErr(err,'计算超范围',val);
+}
+
+// 多工况负载表
+var FUEL_LOAD_LEVELS=[
+  {percent:'110%',factor:1.10},{percent:'100%',factor:1.00},
+  {percent:'75%',factor:0.75},{percent:'50%',factor:0.50},{percent:'25%',factor:0.25}
+];
+var fuelLoadRows=[];
+
+function fuelGetBasePowerKw(){
+  var isPrp=document.querySelector('input[name="powerRef"]:checked').value==='prp';
+  var kwEl=isPrp?document.getElementById('prp_power_kw'):document.getElementById('esp_power_kw');
+  var bhpEl=isPrp?document.getElementById('prp_power_bhp'):document.getElementById('esp_power_bhp');
+  return fuelGetPowerKw(kwEl,bhpEl);
+}
+
+function fuelUpdateActualPower(){
+  var base=fuelGetBasePowerKw();
+  for(var i=0;i<fuelLoadRows.length;i++){
+    var row=fuelLoadRows[i];
+    var actual=(base!==null&&base>0)?base*row.factor:null;
+    if(actual!==null&&isFinite(actual)&&actual>0){row.powerEl.textContent=fuelFormat(actual,3)+' kW';row.actualPower=actual;}
+    else{row.powerEl.textContent='⚠️ 无效毛功率';row.actualPower=null;}
+  }
+}
+
+function fuelRowCalc(row,which){
+  if(!row.actualPower||row.actualPower<=0){return;}
+  if(which==='lh'){
+    var l=parseFloat(row.lhInput.value);
+    if(isNaN(l)||l<0)return;
+    var g=(l*FUEL_DENSITY_G_PER_L)/row.actualPower;
+    var f=fuelFormat(Math.max(0,g),3);
+    if(f!==null)row.gkwhInput.value=f;
+  }else{
+    var g=parseFloat(row.gkwhInput.value);
+    if(isNaN(g)||g<0)return;
+    var l=(g*row.actualPower)/FUEL_DENSITY_G_PER_L;
+    var f=fuelFormat(Math.max(0,l),3);
+    if(f!==null)row.lhInput.value=f;
+  }
+}
+
+function fuelRefreshAll(){
+  fuelUpdateActualPower();
+  for(var i=0;i<fuelLoadRows.length;i++){
+    var row=fuelLoadRows[i];
+    if(!row.actualPower||row.actualPower<=0)continue;
+    var lhVal=row.lhInput.value.trim(), gkVal=row.gkwhInput.value.trim();
+    var lhOk=lhVal!==''&&!isNaN(parseFloat(lhVal))&&parseFloat(lhVal)>=0;
+    var gkOk=gkVal!==''&&!isNaN(parseFloat(gkVal))&&parseFloat(gkVal)>=0;
+    if(lhOk)fuelRowCalc(row,'lh');
+    else if(gkOk)fuelRowCalc(row,'gkwh');
+  }
+}
+
+function fuelBuildLoadTable(){
+  var table=document.getElementById('loadTable');
+  table.innerHTML='<tr><th>负载百分比</th><th>实际毛功率(kW)</th><th>体积油耗 L/h (⬅输入任一)</th><th>燃油消耗率 g/kWh (自动换算)</th></tr>';
+  fuelLoadRows=[];
+  for(var i=0;i<FUEL_LOAD_LEVELS.length;i++){
+    var lv=FUEL_LOAD_LEVELS[i];
+    var tr=document.createElement('tr');
+    tr.innerHTML='<td class="load-percent-cell">'+lv.percent+'<br><span style="font-weight:normal;font-size:11px;color:#94a3b8">系数 '+lv.factor+'</span></td>'
+      +'<td><span class="power-value">— kW</span></td>'
+      +'<td><input type="number" class="fuel-lh-input" step="any" placeholder="L/h"></td>'
+      +'<td><input type="number" class="fuel-gkwh-input" step="any" placeholder="g/kWh"></td>';
+    table.appendChild(tr);
+    var row={factor:lv.factor,actualPower:null,powerEl:tr.querySelector('.power-value'),lhInput:tr.querySelector('.fuel-lh-input'),gkwhInput:tr.querySelector('.fuel-gkwh-input')};
+    row.lhInput.addEventListener('input',(function(r){return function(){fuelRowCalc(r,'lh');};})(row));
+    row.gkwhInput.addEventListener('input',(function(r){return function(){fuelRowCalc(r,'gkwh');};})(row));
+    fuelLoadRows.push(row);
+  }
+  fuelRefreshAll();
+}
+
+// ===== 柴油流量换算 (LB/H ↔ L/H) =====
+var FUEL_LB_TO_KG=0.45359237;
+var fuelCurrentDir='toL';
+
+function fuelSetDir(btn,dir){
+  fuelCurrentDir=dir;
+  var btns=btn.parentNode.querySelectorAll('.tool-subtab');
+  for(var i=0;i<btns.length;i++)btns[i].classList.remove('active');
+  btn.classList.add('active');
+  var lbl=document.getElementById('fuelConvInputLabel');
+  var input=document.getElementById('fuelConvInput');
+  var ph=dir==='toL'?'LB/H':'L/H';
+  lbl.innerHTML=dir==='toL'?'📥 输入流量 (LB/H) <span style="font-weight:normal">磅/小时</span>':'📤 输入流量 (L/H) <span style="font-weight:normal">升/小时</span>';
+  input.placeholder='例如 '+(dir==='toL'?'1000':'540');
+  fuelPerformConversion();
+}
+
+function fuelPerformConversion(){
+  var resEl=document.getElementById('fuelResultValue');
+  var lblEl=document.getElementById('fuelResultLabel');
+  var density=parseFloat(document.getElementById('fuelDensity').value);
+  if(isNaN(density)||density<=0){resEl.textContent='⚠️ 密度无效(须>0)';return;}
+  var ie=document.getElementById('fuelConvInput');
+  var val=parseFloat(ie.value);
+  if(isNaN(val)){resEl.textContent='—';lblEl.textContent='请输入有效数字';return;}
+  if(val<0){resEl.textContent='⚠️ 流量不能为负数';return;}
+  var res,unit;
+  if(fuelCurrentDir==='toL'){
+    res=(val*FUEL_LB_TO_KG)/density;unit='L/H';
+    lblEl.textContent='🔁 '+val+' LB/H =';
+  }else{
+    res=(val*density)/FUEL_LB_TO_KG;unit='LB/H';
+    lblEl.textContent='🔁 '+val+' L/H =';
+  }
+  resEl.innerHTML=res.toFixed(4)+' <span style="font-size:.9rem;color:#64748b">'+unit+'</span>';
+}
+
+// ---- 工具页初始化：绑定油耗转换器事件 ----
+function initFuelTools(){
+  // 卡片1
+  var pl1=document.getElementById('power_lh_kw'),pb1=document.getElementById('power_lh_bhp');
+  pl1.addEventListener('input',function(){fuelSyncKtoB(pl1,pb1);fuelUpdateBsfc();});
+  pb1.addEventListener('input',function(){fuelSyncBtoK(pl1,pb1);fuelUpdateBsfc();});
+  document.getElementById('vol_flow').addEventListener('input',fuelUpdateBsfc);
+  // 卡片2
+  var pl2=document.getElementById('power_bsfc_kw'),pb2=document.getElementById('power_bsfc_bhp');
+  pl2.addEventListener('input',function(){fuelSyncKtoB(pl2,pb2);fuelUpdateVolFlow();});
+  pb2.addEventListener('input',function(){fuelSyncBtoK(pl2,pb2);fuelUpdateVolFlow();});
+  document.getElementById('bsfc_input').addEventListener('input',fuelUpdateVolFlow);
+  // 多工况 PRP/ESP
+  var pks=['prp_power_kw','prp_power_bhp','esp_power_kw','esp_power_bhp'];
+  var pksMap={prp_power_kw:['prp_power_kw','prp_power_bhp'],prp_power_bhp:['prp_power_kw','prp_power_bhp'],esp_power_kw:['esp_power_kw','esp_power_bhp'],esp_power_bhp:['esp_power_kw','esp_power_bhp']};
+  for(var id in pksMap){
+    (function(kid,bid){
+      var ke=document.getElementById(kid),be=document.getElementById(bid);
+      ke.addEventListener('input',function(){fuelSyncKtoB(ke,be);fuelRefreshAll();});
+      be.addEventListener('input',function(){fuelSyncBtoK(ke,be);fuelRefreshAll();});
+    })(pksMap[id][0],pksMap[id][1]);
+  }
+  var radios=document.querySelectorAll('input[name="powerRef"]');
+  for(var r=0;r<radios.length;r++)radios[r].addEventListener('change',fuelRefreshAll);
+  // 初始同步默认值 + 建表
+  fuelSyncKtoB(document.getElementById('prp_power_kw'),document.getElementById('prp_power_bhp'));
+  fuelSyncKtoB(document.getElementById('esp_power_kw'),document.getElementById('esp_power_bhp'));
+  fuelBuildLoadTable();
+  // 柴油流量换算
+  var fi=document.getElementById('fuelConvInput');fi.value='1000';
+  document.getElementById('fuelDensity').addEventListener('input',fuelPerformConversion);
+  fi.addEventListener('input',fuelPerformConversion);
+  fuelPerformConversion();
+}
+
+// 页面加载完成后初始化工具页（无论当前是否显示都绑定好，避免切换时无功能）
+if(document.readyState==='loading'){
+  document.addEventListener('DOMContentLoaded',initFuelTools);
+}else{
+  initFuelTools();
+}
 </script>
 </body>
 </html>

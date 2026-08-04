@@ -1,0 +1,14 @@
+# 临时备份
+backup/
+
+# 数据源 PDF / 原始提取文本
+stanford_pdf/
+lsa_hv_raw.txt
+
+# 中间产物 / 原始提取 JSON（可再生）
+_*.json
+std_*_raw.json
+talson_a44_60hz.json
+
+# 开发临时页面
+live-index.html
