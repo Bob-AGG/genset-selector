@@ -778,7 +778,7 @@ function renderBrowseList(){
     var freqSet={}, volSet={};
     rs.forEach(function(r){ freqSet[r.frequency]=1; volSet[r.winding_label]=1; });
     html+='<div class="browse-group">'
-      +'<div class="browse-model" onclick="toggleBrowseModel(this,'+encodeURIComponent(JSON.stringify(key))+')">'
+      +'<div class="browse-model" data-model="'+escAttr(key)+'">'
       +'  <div class="bm-left"><span class="chev">▶</span><b>'+esc(key)+'</b></div>'
       +'  <div class="bm-right">'
       +'    <span>🔌 '+Object.keys(volSet).length+' 电压档</span>'
@@ -790,10 +790,23 @@ function renderBrowseList(){
       +'</div>';
   });
   box.innerHTML=html;
+  // 事件委托: 点击任意 .browse-model 行 → 展开/收起详情
+  // 用 box 作为委托容器, 每次渲染覆盖 onclicks 避免重复绑定
+  box.onclick=function(ev){
+    var t=ev.target;
+    while(t && t!==box && !(t.classList && t.classList.contains('browse-model'))){ t=t.parentNode; }
+    if(t && t!==box && t.getAttribute('data-model')){ toggleBrowseModel(t); }
+  };
 }
 
-function toggleBrowseModel(el, keyEnc){
-  var key=JSON.parse(decodeURIComponent(keyEnc));
+function escAttr(s){
+  s=String(s);
+  return s.replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/'/g,'&#39;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+function toggleBrowseModel(el){
+  var key=el.getAttribute('data-model');
+  if(!key) return;
   var brand=document.getElementById('browseBrand').value;
   var open=el.classList.toggle('open');
   var detail=document.getElementById('bd-'+key.replace(/\W/g,''));
