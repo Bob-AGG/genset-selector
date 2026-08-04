@@ -1025,7 +1025,7 @@ function fuelBuildLoadTable(){
 var FUEL_LB_TO_KG=0.45359237;
 var fuelCurrentDir='toL';
 
-function fuelSetDir(btn,dir){
+function setFuelDir(btn,dir){
   fuelCurrentDir=dir;
   var btns=btn.parentNode.querySelectorAll('.tool-subtab');
   for(var i=0;i<btns.length;i++)btns[i].classList.remove('active');
