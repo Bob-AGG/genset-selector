@@ -175,7 +175,7 @@ tr:hover{background:#f0f2f5}
 </div></div>
 <div class="form-group"><label>用途</label><div class="radio-group">
 <label><input type="radio" name="genDuty" value="PRP" checked> 主用 PRP</label>
-<label><input type="radio" name="genDuty" value="LTP"> 备用 LTP</label>
+<label><input type="radio" name="genDuty" value="ESP"> 备用 ESP</label>
 </div></div>
 <div class="form-group"><label>额定功率</label><input type="number" id="genPower" value="100" min="1" max="99999" step="5">
 <div class="radio-group" style="margin-top:3px">
@@ -569,7 +569,7 @@ function doSearch(){
   ch+='<div class="step-body">';
   if(top){
     ch+='<div class="calc-row"><span class="calc-label">最佳型号</span><span class="calc-val"><b>'+top.m+(isHV&&top.grade?'（'+top.grade+'级温升）':'')+'</b></span></div>';
-    ch+='<div class="calc-row"><span class="calc-label">基准功率'+(duty==='LTP'?'(备用27℃)':'')+'</span><span class="calc-val">'+basePw+top.uk+(isHV&&top.grade?'（'+top.grade+'级）':'')+'</span></div>';
+    ch+='<div class="calc-row"><span class="calc-label">基准功率'+(duty==='ESP'?'(备用27℃)':'')+'</span><span class="calc-val">'+basePw+top.uk+(isHV&&top.grade?'（'+top.grade+'级）':'')+'</span></div>';
     ch+='<div class="calc-row"><span class="calc-label">修正后功率</span><span class="calc-val calc-total">'+basePw+' × '+tot+' = <b>'+top.cp+top.uk+'</b>'+(isHV?'（中高压无修正）':'')+'</span></div>';
     ch+='<div class="calc-row"><span class="calc-label">需求功率</span><span class="calc-val">'+targetKVA+' kVA</span></div>';
     ch+='<div class="calc-row"><span class="calc-label">判定</span><span class="calc-val" style="color:green">✅ 满足</span></div>';
