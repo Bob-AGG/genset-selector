@@ -449,7 +449,7 @@ var ST_TEMP_PF_H=[
 function getStanfordTemp(t){
   if(t<=40) return 1;
   if(t<45) return 0.97;      // 40-45°C 区间：按 45°C 档
-  if(t<50) return 0.97;
+  if(t<50) return 0.94;      // 45-50°C：按 50°C 档（修正笔误，原重复0.97）
   if(t<55) return 0.94;
   if(t<60) return 0.91;
   return 0.88;               // ≥60°C（最高档）
