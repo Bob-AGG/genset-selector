@@ -418,7 +418,7 @@ var ALT_FACTOR=[
 ];
 function getTempFactor(t,grade){
   var tbl={'H':TEMP_FACTOR_H,'F':TEMP_FACTOR_F,'B':TEMP_FACTOR_B}[grade]||TEMP_FACTOR_H;
-  if(t<=0)return tbl[tbl.length-1].val;
+  if(t<=tbl[0].max)return tbl[0].val; // 低于(含)25℃按最低修正点25℃档(增容)，不接60℃末档
   for(var i=0;i<tbl.length;i++){if(t<=tbl[i].max)return tbl[i].val;}
   return tbl[tbl.length-1].val;
 }
