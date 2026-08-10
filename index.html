@@ -97,6 +97,7 @@ body{font-family:-apple-system,"Microsoft YaHei",sans-serif;background:#f0f2f5;c
 .browse-table th{background:#f8fafc;font-weight:600;color:#334155}
 .browse-table td{color:#334155}
 .browse-table .freq-col{font-weight:600;background:#f8fafc;color:#1a365d;white-space:nowrap}
+.browse-table .wconn{font-size:10px;color:#64748b;margin-top:2px}
 .browse-count{font-size:12px;color:#64748b;margin-bottom:4px}
 
 .step-panel{margin-top:8px}
@@ -399,15 +400,16 @@ function onParamChange(){
     var w=windings[i];
     if(added[w]) continue;
     added[w]=true;
-    // 从数据中找第一条记录获取 winding_label
-    var label=w;
+    // 从数据中找第一条记录获取 winding_label 和接线方式
+    var label=w, conn='';
     for(var j=0;j<records.length;j++){
       if(records[j].frequency===freq && records[j].winding_code===w && records[j].winding_label){
         label=records[j].winding_label;
+        conn=records[j].winding_conn||'';
         break;
       }
     }
-    ws.innerHTML+='<option value="'+w+'">'+label+'</option>';
+    ws.innerHTML+='<option value="'+w+'">'+esc(label)+(conn?'（'+esc(conn)+'）':'')+'</option>';
   }
 }
 
@@ -626,12 +628,13 @@ function toggleStep(el){
 }
 
 // 品牌数据文件列表：每个品牌独立文件
+// 顺序即选型下拉的展示顺序（同品牌族群连在一起，避免穿插）
 var BRAND_FILES = {
   'leroysomer': 'leroysomer.json',
   'talson': 'talson.json',
   'TAL-A46/A473/A49': 'tal-a46.json',
-  '斯坦福': 'stanford.json',
   '利莱森玛 LSA 中高压': 'leroysomer-hv.json',
+  '斯坦福': 'stanford.json',
   'AGG KI系列': 'agg-ki.json',
   'AGG KK系列': 'agg-kk.json'
 };
@@ -671,10 +674,12 @@ function brandLabel(k){
 }
 
 function fillBrandDropdown(){
-  var brands=Object.keys(ALL_DATA);
+  // 固定按 BRAND_FILES 定义顺序展示（已按品牌族群分组），不随异步加载顺序变化
+  var brands=Object.keys(BRAND_FILES);
   var sel=document.getElementById('genBrand');
   sel.innerHTML='<option value="">请选择品牌</option>';
   for(var i=0;i<brands.length;i++){
+    if(!ALL_DATA[brands[i]]) continue;  // 该品牌数据未加载则不显示
     var label=brandLabel(brands[i]);
     sel.innerHTML+='<option value="'+brands[i]+'">'+label+'</option>';
   }
@@ -754,10 +759,12 @@ function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g
 
 /* ================= 产品库 ================= */
 function fillBrowseBrand(){
-  var brands=Object.keys(ALL_DATA);
+  // 固定按 BRAND_FILES 定义顺序展示（与选型下拉一致，按品牌族群分组）
+  var brands=Object.keys(BRAND_FILES);
   var sel=document.getElementById('browseBrand');
   sel.innerHTML='<option value="">请选择品牌</option>';
   for(var i=0;i<brands.length;i++){
+    if(!ALL_DATA[brands[i]]) continue;  // 该品牌数据未加载则不显示
     sel.innerHTML+='<option value="'+brands[i]+'">'+brandLabel(brands[i])+'</option>';
   }
   sel.onchange=function(){document.getElementById('browseSearch').value='';renderBrowseList();};
@@ -849,7 +856,7 @@ function renderBrowseDetail(brand, model, el){
   cols=cols.concat(['PF','持续H(kVA)','连续F(kVA)','备用40℃(kVA)','备用27℃(kVA)']);
   var h='<table class="browse-table"><tr>'+cols.map(function(c){return '<th>'+c+'</th>';}).join('')+'</tr>';
   rows.forEach(function(r){
-    var tds='<td class="freq-col">'+r.frequency+'</td><td>'+esc(r.winding_label||r.winding_code)+'</td>';
+    var tds='<td class="freq-col">'+r.frequency+'</td><td>'+esc(r.winding_label||r.winding_code)+(r.winding_conn?'<div class="wconn">'+esc(r.winding_conn)+'</div>':'')+'</td>';
     if(isHV) tds+='<td>'+(r.temp_grade||'')+'</td>';
     if(isStan) tds+='<td>'+(r.poles||'')+'</td>';
     tds+='<td>'+(r.pf||'')+'</td>'
