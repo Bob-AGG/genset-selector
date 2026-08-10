@@ -631,7 +631,9 @@ var BRAND_FILES = {
   'talson': 'talson.json',
   'TAL-A46/A473/A49': 'tal-a46.json',
   '斯坦福': 'stanford.json',
-  '利莱森玛 LSA 中高压': 'leroysomer-hv.json'
+  '利莱森玛 LSA 中高压': 'leroysomer-hv.json',
+  'AGG KI系列': 'agg-ki.json',
+  'AGG KK系列': 'agg-kk.json'
 };
 
 function loadBrandData(callback){
@@ -663,6 +665,8 @@ function brandLabel(k){
   if(l==='leroysomer')l='利莱森玛 LSA';
   else if(l==='talson')l='利莱森玛 TAL A40-A44';
   else if(l==='TAL-A46/A473/A49')l='利莱森玛 TAL A46-A49';
+  else if(l==='AGG KI系列')l='AGG KI系列';
+  else if(l==='AGG KK系列')l='AGG KK系列';
   return l;
 }
 
@@ -780,7 +784,7 @@ function renderBrowseList(){
   order.sort();
   if(!order.length){ box.innerHTML='<div class="landing"><div class="icon">🔍</div><p>没有匹配的型号</p></div>'; return; }
 
-  var html='<div class="browse-count">共 '+order.length+order.length+' 个型号（'+brandLabel(brand)+'）</div>';
+  var html='<div class="browse-count">共 '+order.length+' 个型号（'+brandLabel(brand)+'）</div>';
   order.forEach(function(key){
     var rs=models[key];
     // 该型号功率范围(备用27℃ kVA, 取非空最小~最大)
