@@ -491,6 +491,33 @@ function getAggAF(a){
   return 0.79;
 }
 
+// ===== 美奥迪(Mecc Alte) 修正规则（底层逻辑，不可变；手册 Ratings Book 第06页 二维表）=====
+// 手册为 海拔×环境温度 二维表。沿袭 AGG 拆法：
+//   af（海拔系数）= 40℃ 基准列（纯海拔降额）
+//   tf（温度系数）= 最低海拔 ≤1000m 行（纯温度降额）
+// 基准：40℃ / ≤1000m → 综合 1.00；低于 40℃ 增容（25℃档 = 1.07）
+var MECC_ALT_FACTOR=[
+  {max:1000,val:1.00},{max:1500,val:0.96},{max:2000,val:0.91},
+  {max:3000,val:0.85},{max:4000,val:0.78},{max:5000,val:0.72},{max:6000,val:0.65}
+];
+var MECC_TEMP_FACTOR=[  // 低海拔(≤1000m)行温度系数
+  {max:25,val:1.07},{max:40,val:1.00},{max:45,val:0.96},
+  {max:50,val:0.93},{max:55,val:0.91},{max:60,val:0.89},
+  {max:65,val:0.85},{max:70,val:0.82}
+];
+// 美奥迪温度系数：≤25℃ 按 25℃ 档(增容 1.07)；逐档降额；>70℃ 取末档
+function getMeccTemp(t){
+  if(t<=MECC_TEMP_FACTOR[0].max) return MECC_TEMP_FACTOR[0].val;
+  for(var i=0;i<MECC_TEMP_FACTOR.length;i++){if(t<=MECC_TEMP_FACTOR[i].max)return MECC_TEMP_FACTOR[i].val;}
+  return MECC_TEMP_FACTOR[MECC_TEMP_FACTOR.length-1].val;
+}
+// 美奥迪海拔系数：40℃基准列；超 6000m 取末档
+function getMeccAF(a){
+  if(a<=0) return 1;
+  for(var i=0;i<MECC_ALT_FACTOR.length;i++){if(a<=MECC_ALT_FACTOR[i].max)return MECC_ALT_FACTOR[i].val;}
+  return 0.65;
+}
+
 // 利莱森玛 LSA 温度修正系数表（底层逻辑，不可变）
 // 40°C 基准，按温升等级查表
 var TEMP_FACTOR_H=[  // H级
@@ -534,6 +561,8 @@ function doSearch(){
   var isHV=(brand==='利莱森玛 LSA 中高压');
   // AGG (KI/KK)：走 AGG 手册功率修正表（海拔×温度二维修正，拆成 af×tf 两个独立系数相乘）
   var isAGG=(brand==='AGG KI系列'||brand==='AGG KK系列');
+  // 美奥迪(Mecc Alte)：走美奥迪手册 海拔×温度 二维表（拆成 af×tf，与 AGG 同法）
+  var isMecc=(brand==='美奥迪 Mecc Alte');
   var targetKVA=unit==='kW'?Math.round(p/pfUser*10)/10:p;
 
   // 步骤1：解析
@@ -545,15 +574,15 @@ function doSearch(){
 
   // 步骤2：温度修正（按品牌选系数源。LSA用原有H级40°C基准；斯坦福用官方表；AGG用手册低海拔温度系数；中高压不适用，按默认40°C选型）
   var isStanford = (brand==='斯坦福');
-  var tf = isHV ? 1 : (isAGG ? getAggTemp(t) : (isStanford ? getStanfordTemp(t) : getTempFactor(t,'H')));
-  ch+='<div class="step-header" onclick="toggleStep(this)"><span><span class="step-num">步骤2</span>温度修正</span><span class="step-desc">'+(isHV?'中高压不适用（按默认40℃选型）':(t+'℃ → '+(isAGG?'AGG手册':(isStanford?'斯坦福':'H级'))+'修正系数'))+'</span><span class="step-result">×'+tf+'</span><span class="arrow">▼</span></div>';
+  var tf = isHV ? 1 : (isAGG ? getAggTemp(t) : (isMecc ? getMeccTemp(t) : (isStanford ? getStanfordTemp(t) : getTempFactor(t,'H'))));
+  ch+='<div class="step-header" onclick="toggleStep(this)"><span><span class="step-num">步骤2</span>温度修正</span><span class="step-desc">'+(isHV?'中高压不适用（按默认40℃选型）':(t+'℃ → '+(isAGG?'AGG手册':(isMecc?'美奥迪手册':(isStanford?'斯坦福':'H级')))+'修正系数'))+'</span><span class="step-result">×'+tf+'</span><span class="arrow">▼</span></div>';
   ch+='<div class="step-body"><div class="calc-row"><span class="calc-label">安装温度</span><span class="calc-val">'+(isHV?'中高压不适用（界面输入不生效）':t+'℃')+'</span></div>';
   ch+='<div class="calc-row"><span class="calc-label">基准温度</span><span class="calc-val">'+(isHV?'默认40℃（中高压不降额）':(isStanford?(t<=40?'40℃(以下不降额)':'40℃(40-45℃按45℃档)'):'40℃'))+'</span></div>';
-  ch+='<div class="calc-row"><span class="calc-label">修正系数'+(isHV?'':(isAGG?'（AGG手册）':(isStanford?'':'（H级）')))+'</span><span class="calc-val">×'+tf+'</span></div></div>';
+  ch+='<div class="calc-row"><span class="calc-label">修正系数'+(isHV?'':((isAGG||isMecc)?(isAGG?'（AGG手册）':'（美奥迪手册）'):(isStanford?'':'（H级）')))+'</span><span class="calc-val">×'+tf+'</span></div></div>';
 
   // 步骤3：海拔修正（斯坦福仅低压<690V；已推送斯坦福全低压；LSA用原有表；AGG用手册40℃基准海拔列；中高压不适用，按默认≤1000m选型）
-  var af = isHV ? 1 : (isAGG ? getAggAF(a) : (isStanford ? getStanfordAF(a) : getAF(a)));
-  ch+='<div class="step-header" onclick="toggleStep(this)"><span><span class="step-num">步骤3</span>海拔温升修正</span><span class="step-desc">'+(isHV?'中高压不适用（按默认≤1000m选型）':(a+'m → '+(isAGG?'AGG手册':'降额系数')))+'</span><span class="step-result">×'+af+'</span><span class="arrow">▼</span></div>';
+  var af = isHV ? 1 : (isAGG ? getAggAF(a) : (isMecc ? getMeccAF(a) : (isStanford ? getStanfordAF(a) : getAF(a))));
+  ch+='<div class="step-header" onclick="toggleStep(this)"><span><span class="step-num">步骤3</span>海拔温升修正</span><span class="step-desc">'+(isHV?'中高压不适用（按默认≤1000m选型）':(a+'m → '+(isAGG||isMecc?'手册':'降额系数')))+'</span><span class="step-result">×'+af+'</span><span class="arrow">▼</span></div>';
   ch+='<div class="step-body"><div class="calc-row"><span class="calc-label">安装海拔</span><span class="calc-val">'+(isHV?'中高压不适用（界面输入不生效）':a+'m')+'</span></div>';
   ch+='<div class="calc-row"><span class="calc-label">降额系数</span><span class="calc-val">×'+af+'</span></div>';
   ch+='<div class="calc-row"><span class="calc-label">综合修正</span><span class="calc-val calc-total">'+af+'×'+tf+' = ×'+Math.round(af*tf*1000)/1000+'</span></div></div>';
