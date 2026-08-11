@@ -155,6 +155,7 @@ tr:hover{background:#f0f2f5}
 </style>
 </head>
 <body>
+<div id="loadWarn" style="display:none;background:#fff4e5;color:#c2410c;padding:8px 16px;font-size:13px;border-bottom:1px solid #f0c9a5;"></div>
 <div class="header">
 <div><h1 onclick="switchView('home')">⚡ 发电机选型工具</h1></div>
 <div class="nav">
@@ -563,6 +564,7 @@ function doSearch(){
   var isAGG=(brand==='AGG KI系列'||brand==='AGG KK系列');
   // 美奥迪(Mecc Alte)：走美奥迪手册 海拔×温度 二维表（拆成 af×tf，与 AGG 同法）
   var isMecc=(brand==='美奥迪 Mecc Alte');
+  if(!isFinite(pfUser)||pfUser<=0) pfUser=0.8; // 除零防御：PF无效时按默认0.8
   var targetKVA=unit==='kW'?Math.round(p/pfUser*10)/10:p;
 
   // 步骤1：解析
@@ -626,10 +628,14 @@ function doSearch(){
   for(var i=0;i<list.length;i++){if(list[i].ok){top=list[i];break;}}
   var basePw=top?(duty==='PRP'?top.ch:top.st):0; // 主用取持续H、备用取备用27℃，与候选取同源
 
-  ch+='<div class="step-header '+(top?'':'')+'" onclick="toggleStep(this)"><span><span class="step-num">步骤6</span>综合判定</span><span class="step-desc">'+(top?'✅ 推荐 '+top.m:'❌ 无匹配')+'</span><span class="step-result">'+(top?top.cp+top.uk+'/'+targetKVA+'kVA':'-')+'</span><span class="arrow">▼</span></div>';
+  // 型号等数据字段统一转义后再拼HTML（防御数据污染导致XSS）
+  function escM(x){return esc(x.m);}function escG(x){return esc(x.grade||'');}function escE(x){return esc(x.exc||'');}
+  var topM=top?escM(top):'';
+
+  ch+='<div class="step-header '+(top?'':'')+'" onclick="toggleStep(this)"><span><span class="step-num">步骤6</span>综合判定</span><span class="step-desc">'+(top?'✅ 推荐 '+topM:'❌ 无匹配')+'</span><span class="step-result">'+(top?top.cp+top.uk+'/'+targetKVA+'kVA':'-')+'</span><span class="arrow">▼</span></div>';
   ch+='<div class="step-body">';
   if(top){
-    ch+='<div class="calc-row"><span class="calc-label">最佳型号</span><span class="calc-val"><b>'+top.m+(isHV&&top.grade?'（'+top.grade+'级温升）':'')+'</b></span></div>';
+    ch+='<div class="calc-row"><span class="calc-label">最佳型号</span><span class="calc-val"><b>'+topM+(isHV&&top.grade?'（'+escG(top)+'级温升）':'')+'</b></span></div>';
     ch+='<div class="calc-row"><span class="calc-label">基准功率'+(duty==='ESP'?'(备用27℃)':'')+'</span><span class="calc-val">'+basePw+top.uk+(isHV&&top.grade?'（'+top.grade+'级）':'')+'</span></div>';
     ch+='<div class="calc-row"><span class="calc-label">修正后功率</span><span class="calc-val calc-total">'+basePw+' × '+tot+' = <b>'+top.cp+top.uk+'</b>'+(isHV?'（中高压无修正）':'')+'</span></div>';
     ch+='<div class="calc-row"><span class="calc-label">需求功率</span><span class="calc-val">'+targetKVA+' kVA</span></div>';
@@ -645,14 +651,14 @@ function doSearch(){
   var ux=is1ph?'kW':'kVA';
   var mh='';
   if(top){
-    mh+='<div class="match-card"><div class="model">'+top.m+(isHV&&top.grade?' <span class="badge">'+top.grade+'级</span>':' <span class="badge">推荐</span>')+'</div>';
+    mh+='<div class="match-card"><div class="model">'+topM+(isHV&&top.grade?' <span class="badge">'+escG(top)+'级</span>':' <span class="badge">推荐</span>')+'</div>';
     mh+='<div class="params">';
     if(isHV) mh+='<span class="tag">温升: '+top.grade+'级（'+top.grade+'级温升选型）</span> ';
     mh+='<span class="tag">PF='+top.pf+'</span> ';
     mh+='<span class="tag">持续'+(isHV?top.grade:'H')+': '+top.ch+ux+'</span> ';
     mh+='<span class="tag">备用40℃: '+top.s40+ux+'</span> ';
     mh+='<span class="tag">备用27℃: '+top.st+ux+'</span> ';
-    mh+='<span class="tag">励磁: '+top.exc+'</span><br>';
+    mh+='<span class="tag">励磁: '+escE(top)+'</span><br>';
     mh+='<div style="margin-top:8px"><b>修正后: '+top.cp+ux+'</b> ≥ '+targetKVA+'kVA ✅'+(isHV?'（无海拔/温度修正）':'')+'</div>';
     mh+='<div style="margin-top:8px;display:flex;gap:6px">';
     mh+='<button class="btn-secondary" onclick="alert(\'导出功能待实现\')">📄 导出PDF</button>';
@@ -673,7 +679,7 @@ function doSearch(){
     for(var i=0;i<list.length;i++){
       var x=list[i];
       var rank=(x.ok?list.filter(function(y,idx){return idx<i&&y.ok;}).length+1:'-');
-      lh+='<tr class="'+(x.ok?'ok':'fail')+'"><td>'+(x.ok?rank:'✗')+'</td><td><b>'+x.m+'</b></td>'+(isHV?'<td><span class="badge">'+x.grade+'</span></td>':'')+'<td>'+x.ch+'</td><td>'+x.cl+'</td><td>'+x.s40+'</td><td>'+x.st+'</td><td>'+x.pf+'</td><td>'+(x.ok?'✅':'❌')+'</td></tr>';
+      lh+='<tr class="'+(x.ok?'ok':'fail')+'"><td>'+(x.ok?rank:'✗')+'</td><td><b>'+esc(x.m)+'</b></td>'+(isHV?'<td><span class="badge">'+escG(x)+'</span></td>':'')+'<td>'+x.ch+'</td><td>'+x.cl+'</td><td>'+x.s40+'</td><td>'+x.st+'</td><td>'+x.pf+'</td><td>'+(x.ok?'✅':'❌')+'</td></tr>';
     }
     lh+='</table></div>';
   }
@@ -702,21 +708,41 @@ var BRAND_FILES = {
 function loadBrandData(callback){
   var brands=Object.keys(BRAND_FILES);
   var loaded=0;
+  var failed=[];
   ALL_DATA={};
+  var genBrandSel=document.getElementById('genBrand');
+  if(genBrandSel) genBrandSel.innerHTML='<option value="">数据加载中…</option>';
+  var done=function(){
+    if(loaded!==brands.length) return;
+    // 若有加载失败的品牌，显示顶部提示条
+    if(failed.length && document.getElementById('loadWarn')){
+      var w=document.getElementById('loadWarn');
+      w.style.display='block';
+      w.textContent='⚠️ 部分数据加载失败：'+failed.join('、')+'，相关品牌将被隐藏，请检查数据文件。';
+    }
+    if(callback) callback(failed);
+  };
   for(var i=0;i<brands.length;i++){
     (function(b){
-      fetch(BRAND_FILES[b]).then(function(r){return r.json();}).then(function(d){
-        for(var j=0;j<d.length;j++){
-          var rec=d[j];
+      fetch(BRAND_FILES[b]).then(function(r){
+        if(!r.ok) throw new Error('HTTP '+r.status);
+        return r.json();
+      }).then(function(d){
+        var arr=Array.isArray(d)?d:[];
+        for(var j=0;j<arr.length;j++){
+          var rec=arr[j];
           if(rec.type!=='generator') continue;
           if(!ALL_DATA[b]) ALL_DATA[b]=[];
           ALL_DATA[b].push(rec);
         }
-        loaded++;
-        if(loaded===brands.length && callback) callback();
+        if(!ALL_DATA[b]) ALL_DATA[b]=[]; // 确保空品牌也有占位
+        ALL_DATA[b]._loaded=true;
+        loaded++; done();
       }).catch(function(){
-        loaded++;
-        if(loaded===brands.length && callback) callback();
+        failed.push(b);
+        if(!ALL_DATA[b]) ALL_DATA[b]=[]; // 失败品牌占位（下拉不显示，但避免 undefined 报错）
+        ALL_DATA[b]._loaded=false;
+        loaded++; done();
       });
     })(brands[i]);
   }
@@ -740,7 +766,7 @@ function fillBrandDropdown(){
   var sel=document.getElementById('genBrand');
   sel.innerHTML='<option value="">请选择品牌</option>';
   for(var i=0;i<brands.length;i++){
-    if(!ALL_DATA[brands[i]]) continue;  // 该品牌数据未加载则不显示
+    if(!ALL_DATA[brands[i]]||ALL_DATA[brands[i]]._loaded===false) continue;  // 该品牌数据未加载/失败则不显示
     var label=brandLabel(brands[i]);
     sel.innerHTML+='<option value="'+brands[i]+'">'+label+'</option>';
   }
@@ -825,7 +851,7 @@ function fillBrowseBrand(){
   var sel=document.getElementById('browseBrand');
   sel.innerHTML='<option value="">请选择品牌</option>';
   for(var i=0;i<brands.length;i++){
-    if(!ALL_DATA[brands[i]]) continue;  // 该品牌数据未加载则不显示
+    if(!ALL_DATA[brands[i]]||ALL_DATA[brands[i]]._loaded===false) continue;  // 该品牌数据未加载/失败则不显示
     sel.innerHTML+='<option value="'+brands[i]+'">'+brandLabel(brands[i])+'</option>';
   }
   sel.onchange=function(){document.getElementById('browseSearch').value='';renderBrowseList();};
