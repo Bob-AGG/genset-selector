@@ -410,8 +410,19 @@ function onParamChange(){
         break;
       }
     }
-    ws.innerHTML+='<option value="'+w+'">'+esc(label)+(conn?'（'+esc(conn)+'）':'')+'</option>';
+    // 三相/单相前缀标注
+    var prefix = isSinglePhase(w, label) ? '单相 · ' : '三相 · ';
+    ws.innerHTML+='<option value="'+w+'">'+prefix+esc(label)+(conn?'（'+esc(conn)+'）':'')+'</option>';
   }
+
+// 判定电压接线相数：统一以 winding_code 前缀 1ph- 表示单相
+// 特例：AGG 等形如 D51-1ph-230 的单相 code（1ph- 不在开头，但按约定也归单相）
+function isSinglePhase(w, label){
+  if(w.indexOf('1ph-')===0) return true;                          // 前缀 1ph- = 单相（leroysomer/talson/TAL/斯坦福/美奥迪）
+  if(/^[A-Z]+\d+-1ph-/.test(w)) return true;                     // AGG 特例：D51-1ph-230 / D61-1ph-240 等
+  if(/(单相|1ph)/i.test(label||'')) return true;                  // label 兜底（如个别品牌 label 标注单相）
+  return false;
+}
 }
 
 // 利莱森玛 LSA 海拔修正系数（底层逻辑，不可变）
