@@ -396,24 +396,40 @@ function onParamChange(){
     return;
   }
   ws.innerHTML='<option value="">请选择电压</option>';
-  var added={};
-  for(var i=0;i<windings.length;i++){
-    var w=windings[i];
-    if(added[w]) continue;
-    added[w]=true;
-    // 从数据中找第一条记录获取 winding_label 和接线方式
-    var label=w, conn='';
-    for(var j=0;j<records.length;j++){
-      if(records[j].frequency===freq && records[j].winding_code===w && records[j].winding_label){
-        label=records[j].winding_label;
-        conn=records[j].winding_conn||'';
-        break;
+  // 按官方绕组章节分组展示电压选项（仅AGG系列有明确分组，其它品牌平铺）
+  ws.setAttribute('data-grouped', isAGG(brand) ? '1' : '0');
+  var groups = isAGG(brand) ? aggVoltageGroups(freq, windings) : null;
+  if(groups){
+    // 分组输出：每组内电压仍按数据顺序
+    for(var gi=0; gi<groups.length; gi++){
+      var g=groups[gi];
+      var opts='';
+      for(var wi=0; wi<g.codes.length; wi++){
+        var w2=g.codes[wi];
+        var lbl2 = aggWindingLabel(records, freq, w2);
+        opts+='<option value="'+w2+'">'+lbl2+'</option>';
       }
+      ws.innerHTML+='<optgroup label="'+esc(g.name)+'">'+opts+'</optgroup>';
     }
-    // 三相/单相前缀标注
-    var prefix = isSinglePhase(w, label) ? '单相 · ' : '三相 · ';
-    ws.innerHTML+='<option value="'+w+'">'+prefix+esc(label)+(conn?'（'+esc(conn)+'）':'')+'</option>';
+  } else {
+    var added={};
+    for(var i=0;i<windings.length;i++){
+      var w=windings[i];
+      if(added[w]) continue;
+      added[w]=true;
+      var label=w, conn='';
+      for(var j=0;j<records.length;j++){
+        if(records[j].frequency===freq && records[j].winding_code===w && records[j].winding_label){
+          label=records[j].winding_label;
+          conn=records[j].winding_conn||'';
+          break;
+        }
+      }
+      var prefix = isSinglePhase(w, label) ? '单相 · ' : '三相 · ';
+      ws.innerHTML+='<option value="'+w+'">'+prefix+esc(label)+(conn?'（'+esc(conn)+'）':'')+'</option>';
+    }
   }
+}
 
 // 判定电压接线相数：统一以 winding_code 前缀 1ph- 表示单相
 // 特例：AGG 等形如 D51-1ph-230 的单相 code（1ph- 不在开头，但按约定也归单相）
@@ -423,6 +439,55 @@ function isSinglePhase(w, label){
   if(/(单相|1ph)/i.test(label||'')) return true;                  // label 兜底（如个别品牌 label 标注单相）
   return false;
 }
+
+// 品牌是否为 AGG 系列（KI/KK），用于电压选项分组
+function isAGG(brand){
+  return (brand==='AGG KI系列'||brand==='AGG KK系列');
+}
+
+// 取该 voltage code 在数据中的显示名（label）
+function aggWindingLabel(records, freq, w){
+  for(var j=0;j<records.length;j++){
+    if(records[j].frequency===freq && records[j].winding_code===w && records[j].winding_label){
+      var prefix = isSinglePhase(w, records[j].winding_label) ? '单相 · ' : '三相 · ';
+      var conn = records[j].winding_conn||'';
+      return prefix+esc(records[j].winding_label)+(conn?'（'+esc(conn)+'）':'');
+    }
+  }
+  return w;
+}
+
+// AGG 电压选项按官方手册绕组章节分组
+// 顺序即下拉展示顺序（标准低压 → 特殊中压 → 高压 → 单相）
+function aggVoltageGroups(freq, windings){
+  var groups=[];
+  var order=[];
+  if(freq==='50Hz'){
+    order=[
+      {name:'B31 标准三相（380/400/415/440V）', match:function(c){return c==='B31-400'||c==='B31-440'||c==='B31-380'||c==='B31-415';}},
+      {name:'B31 三相改单相（220-240V）', match:function(c){return c==='B31-240';}},
+      {name:'D51 单相（230V）', match:function(c){return c==='D51-1ph-230';}},
+      {name:'T44 特殊（415-440V / 240-254V）', match:function(c){return c==='T44-415'||c==='T44-240';}},
+      {name:'T50/T52 特殊（500-525V）', match:function(c){return c==='T50/T52-500'||c==='T50/T52-525';}},
+      {name:'T55/T60 高压（550-600V）', match:function(c){return c.indexOf('T55/T60')===0;}},
+      {name:'T66/T69 高压（660-690V）', match:function(c){return c.indexOf('T66/T69')===0;}}
+    ];
+  } else {
+    order=[
+      {name:'B31 标准三相（380-400/416/440/480V）', match:function(c){return c==='B31-400'||c==='B31-416'||c==='B31-440'||c==='B31-480';}},
+      {name:'B31 三相改单相（220-240V）', match:function(c){return c==='B31-240';}},
+      {name:'D61 单相（230V）', match:function(c){return c==='D61-1ph-230';}},
+      {name:'T38 特殊（380-416V）', match:function(c){return c==='T38-380'||c==='T38-416';}},
+      {name:'T22 特殊（220/440V）', match:function(c){return c==='T22-440';}},
+      {name:'T50 特殊（347/600V）', match:function(c){return c==='T50-347'||c==='T50-600';}},
+      {name:'T55 高压（660-690V）', match:function(c){return c==='T55-660'||c==='T55-690';}}
+    ];
+  }
+  for(var i=0;i<order.length;i++){
+    var codes=windings.filter(order[i].match);
+    if(codes.length) groups.push({name:order[i].name, codes:codes});
+  }
+  return groups;
 }
 
 // 利莱森玛 LSA 海拔修正系数（底层逻辑，不可变）
