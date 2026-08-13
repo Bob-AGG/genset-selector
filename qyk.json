@@ -15,7 +15,8 @@
   "stdby_40c_kVA": 8.6,
   "stdby_40c_kW": 6.9,
   "stdby_27c_kVA": 8.9,
-  "stdby_27c_kW": 7.1
+  "stdby_27c_kW": 7.1,
+  "winding_conn": "Δ/Y"
  },
  {
   "type": "generator",
@@ -33,7 +34,8 @@
   "stdby_40c_kVA": 8.6,
   "stdby_40c_kW": 6.9,
   "stdby_27c_kVA": 8.9,
-  "stdby_27c_kW": 7.1
+  "stdby_27c_kW": 7.1,
+  "winding_conn": "Δ/Y"
  },
  {
   "type": "generator",
@@ -51,7 +53,8 @@
   "stdby_40c_kVA": 8.6,
   "stdby_40c_kW": 6.9,
   "stdby_27c_kVA": 8.9,
-  "stdby_27c_kW": 7.1
+  "stdby_27c_kW": 7.1,
+  "winding_conn": "Δ/Y"
  },
  {
   "type": "generator",
@@ -69,7 +72,8 @@
   "stdby_40c_kVA": 9.4,
   "stdby_40c_kW": 7.6,
   "stdby_27c_kVA": 9.8,
-  "stdby_27c_kW": 7.8
+  "stdby_27c_kW": 7.8,
+  "winding_conn": "YY,Δ/Y"
  },
  {
   "type": "generator",
@@ -87,7 +91,8 @@
   "stdby_40c_kVA": 9.9,
   "stdby_40c_kW": 7.9,
   "stdby_27c_kVA": 10.2,
-  "stdby_27c_kW": 8.2
+  "stdby_27c_kW": 8.2,
+  "winding_conn": "YY,Δ/Y"
  },
  {
   "type": "generator",
@@ -105,7 +110,8 @@
   "stdby_40c_kVA": 10.3,
   "stdby_40c_kW": 8.2,
   "stdby_27c_kVA": 10.7,
-  "stdby_27c_kW": 8.6
+  "stdby_27c_kW": 8.6,
+  "winding_conn": "YY,Δ/Y"
  },
  {
   "type": "generator",
@@ -123,7 +129,8 @@
   "stdby_40c_kVA": 11.7,
   "stdby_40c_kW": 9.3,
   "stdby_27c_kVA": 12.1,
-  "stdby_27c_kW": 9.7
+  "stdby_27c_kW": 9.7,
+  "winding_conn": "Δ/Y"
  },
  {
   "type": "generator",
@@ -141,7 +148,8 @@
   "stdby_40c_kVA": 11.7,
   "stdby_40c_kW": 9.3,
   "stdby_27c_kVA": 12.1,
-  "stdby_27c_kW": 9.7
+  "stdby_27c_kW": 9.7,
+  "winding_conn": "Δ/Y"
  },
  {
   "type": "generator",
@@ -159,7 +167,8 @@
   "stdby_40c_kVA": 11.7,
   "stdby_40c_kW": 9.3,
   "stdby_27c_kVA": 12.1,
-  "stdby_27c_kW": 9.7
+  "stdby_27c_kW": 9.7,
+  "winding_conn": "Δ/Y"
  },
  {
   "type": "generator",
@@ -177,7 +186,8 @@
   "stdby_40c_kVA": 12.8,
   "stdby_40c_kW": 10.3,
   "stdby_27c_kVA": 13.3,
-  "stdby_27c_kW": 10.6
+  "stdby_27c_kW": 10.6,
+  "winding_conn": "YY,Δ/Y"
  },
  {
   "type": "generator",
@@ -195,7 +205,8 @@
   "stdby_40c_kVA": 13.4,
   "stdby_40c_kW": 10.7,
   "stdby_27c_kVA": 13.9,
-  "stdby_27c_kW": 11.1
+  "stdby_27c_kW": 11.1,
+  "winding_conn": "YY,Δ/Y"
  },
  {
   "type": "generator",
@@ -213,7 +224,8 @@
   "stdby_40c_kVA": 14.0,
   "stdby_40c_kW": 11.2,
   "stdby_27c_kVA": 14.5,
-  "stdby_27c_kW": 11.6
+  "stdby_27c_kW": 11.6,
+  "winding_conn": "YY,Δ/Y"
  },
  {
   "type": "generator",
@@ -231,7 +243,8 @@
   "stdby_40c_kVA": 14.3,
   "stdby_40c_kW": 11.4,
   "stdby_27c_kVA": 14.9,
-  "stdby_27c_kW": 11.9
+  "stdby_27c_kW": 11.9,
+  "winding_conn": "Δ/Y"
  },
  {
   "type": "generator",
@@ -249,7 +262,8 @@
   "stdby_40c_kVA": 14.3,
   "stdby_40c_kW": 11.4,
   "stdby_27c_kVA": 14.9,
-  "stdby_27c_kW": 11.9
+  "stdby_27c_kW": 11.9,
+  "winding_conn": "Δ/Y"
  },
  {
   "type": "generator",
@@ -267,7 +281,8 @@
   "stdby_40c_kVA": 14.3,
   "stdby_40c_kW": 11.4,
   "stdby_27c_kVA": 14.9,
-  "stdby_27c_kW": 11.9
+  "stdby_27c_kW": 11.9,
+  "winding_conn": "Δ/Y"
  },
  {
   "type": "generator",
@@ -285,7 +300,8 @@
   "stdby_40c_kVA": 15.7,
   "stdby_40c_kW": 12.6,
   "stdby_27c_kVA": 16.3,
-  "stdby_27c_kW": 13.1
+  "stdby_27c_kW": 13.1,
+  "winding_conn": "YY,Δ/Y"
  },
  {
   "type": "generator",
@@ -303,7 +319,8 @@
   "stdby_40c_kVA": 16.5,
   "stdby_40c_kW": 13.2,
   "stdby_27c_kVA": 17.1,
-  "stdby_27c_kW": 13.7
+  "stdby_27c_kW": 13.7,
+  "winding_conn": "YY,Δ/Y"
  },
  {
   "type": "generator",
@@ -321,7 +338,8 @@
   "stdby_40c_kVA": 17.2,
   "stdby_40c_kW": 13.7,
   "stdby_27c_kVA": 17.8,
-  "stdby_27c_kW": 14.3
+  "stdby_27c_kW": 14.3,
+  "winding_conn": "YY,Δ/Y"
  },
  {
   "type": "generator",
@@ -339,7 +357,8 @@
   "stdby_40c_kVA": 17.0,
   "stdby_40c_kW": 13.6,
   "stdby_27c_kVA": 17.6,
-  "stdby_27c_kW": 14.1
+  "stdby_27c_kW": 14.1,
+  "winding_conn": "Δ/Y"
  },
  {
   "type": "generator",
@@ -357,7 +376,8 @@
   "stdby_40c_kVA": 17.0,
   "stdby_40c_kW": 13.6,
   "stdby_27c_kVA": 17.6,
-  "stdby_27c_kW": 14.1
+  "stdby_27c_kW": 14.1,
+  "winding_conn": "Δ/Y"
  },
  {
   "type": "generator",
@@ -375,7 +395,8 @@
   "stdby_40c_kVA": 17.0,
   "stdby_40c_kW": 13.6,
   "stdby_27c_kVA": 17.6,
-  "stdby_27c_kW": 14.1
+  "stdby_27c_kW": 14.1,
+  "winding_conn": "Δ/Y"
  },
  {
   "type": "generator",
@@ -393,7 +414,8 @@
   "stdby_40c_kVA": 18.7,
   "stdby_40c_kW": 14.9,
   "stdby_27c_kVA": 19.4,
-  "stdby_27c_kW": 15.5
+  "stdby_27c_kW": 15.5,
+  "winding_conn": "YY,Δ/Y"
  },
  {
   "type": "generator",
@@ -411,7 +433,8 @@
   "stdby_40c_kVA": 19.5,
   "stdby_40c_kW": 15.6,
   "stdby_27c_kVA": 20.2,
-  "stdby_27c_kW": 16.2
+  "stdby_27c_kW": 16.2,
+  "winding_conn": "YY,Δ/Y"
  },
  {
   "type": "generator",
@@ -429,7 +452,8 @@
   "stdby_40c_kVA": 20.4,
   "stdby_40c_kW": 16.3,
   "stdby_27c_kVA": 21.1,
-  "stdby_27c_kW": 16.9
+  "stdby_27c_kW": 16.9,
+  "winding_conn": "YY,Δ/Y"
  },
  {
   "type": "generator",
@@ -447,7 +471,8 @@
   "stdby_40c_kVA": 21.2,
   "stdby_40c_kW": 17.0,
   "stdby_27c_kVA": 22.0,
-  "stdby_27c_kW": 17.6
+  "stdby_27c_kW": 17.6,
+  "winding_conn": "Δ/Y"
  },
  {
   "type": "generator",
@@ -465,7 +490,8 @@
   "stdby_40c_kVA": 21.2,
   "stdby_40c_kW": 17.0,
   "stdby_27c_kVA": 22.0,
-  "stdby_27c_kW": 17.6
+  "stdby_27c_kW": 17.6,
+  "winding_conn": "Δ/Y"
  },
  {
   "type": "generator",
@@ -483,7 +509,8 @@
   "stdby_40c_kVA": 21.2,
   "stdby_40c_kW": 17.0,
   "stdby_27c_kVA": 22.0,
-  "stdby_27c_kW": 17.6
+  "stdby_27c_kW": 17.6,
+  "winding_conn": "Δ/Y"
  },
  {
   "type": "generator",
@@ -501,7 +528,8 @@
   "stdby_40c_kVA": 23.3,
   "stdby_40c_kW": 18.7,
   "stdby_27c_kVA": 24.2,
-  "stdby_27c_kW": 19.4
+  "stdby_27c_kW": 19.4,
+  "winding_conn": "YY,Δ/Y"
  },
  {
   "type": "generator",
@@ -519,7 +547,8 @@
   "stdby_40c_kVA": 24.4,
   "stdby_40c_kW": 19.5,
   "stdby_27c_kVA": 25.3,
-  "stdby_27c_kW": 20.2
+  "stdby_27c_kW": 20.2,
+  "winding_conn": "YY,Δ/Y"
  },
  {
   "type": "generator",
@@ -537,7 +566,8 @@
   "stdby_40c_kVA": 25.4,
   "stdby_40c_kW": 20.4,
   "stdby_27c_kVA": 26.4,
-  "stdby_27c_kW": 21.1
+  "stdby_27c_kW": 21.1,
+  "winding_conn": "YY,Δ/Y"
  },
  {
   "type": "generator",
@@ -555,7 +585,8 @@
   "stdby_40c_kVA": 23.9,
   "stdby_40c_kW": 19.1,
   "stdby_27c_kVA": 24.8,
-  "stdby_27c_kW": 19.8
+  "stdby_27c_kW": 19.8,
+  "winding_conn": "Δ/Y"
  },
  {
   "type": "generator",
@@ -573,7 +604,8 @@
   "stdby_40c_kVA": 23.9,
   "stdby_40c_kW": 19.1,
   "stdby_27c_kVA": 24.8,
-  "stdby_27c_kW": 19.8
+  "stdby_27c_kW": 19.8,
+  "winding_conn": "Δ/Y"
  },
  {
   "type": "generator",
@@ -591,7 +623,8 @@
   "stdby_40c_kVA": 23.9,
   "stdby_40c_kW": 19.1,
   "stdby_27c_kVA": 24.8,
-  "stdby_27c_kW": 19.8
+  "stdby_27c_kW": 19.8,
+  "winding_conn": "Δ/Y"
  },
  {
   "type": "generator",
@@ -609,7 +642,8 @@
   "stdby_40c_kVA": 26.2,
   "stdby_40c_kW": 21.0,
   "stdby_27c_kVA": 27.2,
-  "stdby_27c_kW": 21.8
+  "stdby_27c_kW": 21.8,
+  "winding_conn": "YY,Δ/Y"
  },
  {
   "type": "generator",
@@ -627,7 +661,8 @@
   "stdby_40c_kVA": 27.4,
   "stdby_40c_kW": 21.9,
   "stdby_27c_kVA": 28.5,
-  "stdby_27c_kW": 22.8
+  "stdby_27c_kW": 22.8,
+  "winding_conn": "YY,Δ/Y"
  },
  {
   "type": "generator",
@@ -645,7 +680,8 @@
   "stdby_40c_kVA": 28.6,
   "stdby_40c_kW": 22.9,
   "stdby_27c_kVA": 29.7,
-  "stdby_27c_kW": 23.8
+  "stdby_27c_kW": 23.8,
+  "winding_conn": "YY,Δ/Y"
  },
  {
   "type": "generator",
@@ -663,7 +699,8 @@
   "stdby_40c_kVA": 26.5,
   "stdby_40c_kW": 21.2,
   "stdby_27c_kVA": 27.5,
-  "stdby_27c_kW": 22.0
+  "stdby_27c_kW": 22.0,
+  "winding_conn": "Δ/Y"
  },
  {
   "type": "generator",
@@ -681,7 +718,8 @@
   "stdby_40c_kVA": 26.5,
   "stdby_40c_kW": 21.2,
   "stdby_27c_kVA": 27.5,
-  "stdby_27c_kW": 22.0
+  "stdby_27c_kW": 22.0,
+  "winding_conn": "Δ/Y"
  },
  {
   "type": "generator",
@@ -699,7 +737,8 @@
   "stdby_40c_kVA": 26.5,
   "stdby_40c_kW": 21.2,
   "stdby_27c_kVA": 27.5,
-  "stdby_27c_kW": 22.0
+  "stdby_27c_kW": 22.0,
+  "winding_conn": "Δ/Y"
  },
  {
   "type": "generator",
@@ -717,7 +756,8 @@
   "stdby_40c_kVA": 29.2,
   "stdby_40c_kW": 23.3,
   "stdby_27c_kVA": 30.3,
-  "stdby_27c_kW": 24.2
+  "stdby_27c_kW": 24.2,
+  "winding_conn": "YY,Δ/Y"
  },
  {
   "type": "generator",
@@ -735,7 +775,8 @@
   "stdby_40c_kVA": 30.5,
   "stdby_40c_kW": 24.4,
   "stdby_27c_kVA": 31.6,
-  "stdby_27c_kW": 25.3
+  "stdby_27c_kW": 25.3,
+  "winding_conn": "YY,Δ/Y"
  },
  {
   "type": "generator",
@@ -753,7 +794,8 @@
   "stdby_40c_kVA": 31.8,
   "stdby_40c_kW": 25.4,
   "stdby_27c_kVA": 33.0,
-  "stdby_27c_kW": 26.4
+  "stdby_27c_kW": 26.4,
+  "winding_conn": "YY,Δ/Y"
  },
  {
   "type": "generator",
@@ -771,7 +813,8 @@
   "stdby_40c_kVA": 29.2,
   "stdby_40c_kW": 23.3,
   "stdby_27c_kVA": 30.3,
-  "stdby_27c_kW": 24.2
+  "stdby_27c_kW": 24.2,
+  "winding_conn": "Δ/Y"
  },
  {
   "type": "generator",
@@ -789,7 +832,8 @@
   "stdby_40c_kVA": 29.2,
   "stdby_40c_kW": 23.3,
   "stdby_27c_kVA": 30.3,
-  "stdby_27c_kW": 24.2
+  "stdby_27c_kW": 24.2,
+  "winding_conn": "Δ/Y"
  },
  {
   "type": "generator",
@@ -807,7 +851,8 @@
   "stdby_40c_kVA": 29.2,
   "stdby_40c_kW": 23.3,
   "stdby_27c_kVA": 30.3,
-  "stdby_27c_kW": 24.2
+  "stdby_27c_kW": 24.2,
+  "winding_conn": "Δ/Y"
  },
  {
   "type": "generator",
@@ -825,7 +870,8 @@
   "stdby_40c_kVA": 32.1,
   "stdby_40c_kW": 25.7,
   "stdby_27c_kVA": 33.3,
-  "stdby_27c_kW": 26.6
+  "stdby_27c_kW": 26.6,
+  "winding_conn": "YY,Δ/Y"
  },
  {
   "type": "generator",
@@ -843,7 +889,8 @@
   "stdby_40c_kVA": 33.5,
   "stdby_40c_kW": 26.8,
   "stdby_27c_kVA": 34.8,
-  "stdby_27c_kW": 27.8
+  "stdby_27c_kW": 27.8,
+  "winding_conn": "YY,Δ/Y"
  },
  {
   "type": "generator",
@@ -861,7 +908,8 @@
   "stdby_40c_kVA": 35.0,
   "stdby_40c_kW": 28.0,
   "stdby_27c_kVA": 36.3,
-  "stdby_27c_kW": 29.0
+  "stdby_27c_kW": 29.0,
+  "winding_conn": "YY,Δ/Y"
  },
  {
   "type": "generator",
@@ -879,7 +927,8 @@
   "stdby_40c_kVA": 33.2,
   "stdby_40c_kW": 26.5,
   "stdby_27c_kVA": 34.4,
-  "stdby_27c_kW": 27.5
+  "stdby_27c_kW": 27.5,
+  "winding_conn": "Δ/Y"
  },
  {
   "type": "generator",
@@ -897,7 +946,8 @@
   "stdby_40c_kVA": 33.2,
   "stdby_40c_kW": 26.5,
   "stdby_27c_kVA": 34.4,
-  "stdby_27c_kW": 27.5
+  "stdby_27c_kW": 27.5,
+  "winding_conn": "Δ/Y"
  },
  {
   "type": "generator",
@@ -915,7 +965,8 @@
   "stdby_40c_kVA": 33.2,
   "stdby_40c_kW": 26.5,
   "stdby_27c_kVA": 34.4,
-  "stdby_27c_kW": 27.5
+  "stdby_27c_kW": 27.5,
+  "winding_conn": "Δ/Y"
  },
  {
   "type": "generator",
@@ -933,7 +984,8 @@
   "stdby_40c_kVA": 36.5,
   "stdby_40c_kW": 29.2,
   "stdby_27c_kVA": 37.9,
-  "stdby_27c_kW": 30.3
+  "stdby_27c_kW": 30.3,
+  "winding_conn": "YY,Δ/Y"
  },
  {
   "type": "generator",
@@ -951,7 +1003,8 @@
   "stdby_40c_kVA": 38.2,
   "stdby_40c_kW": 30.5,
   "stdby_27c_kVA": 39.6,
-  "stdby_27c_kW": 31.7
+  "stdby_27c_kW": 31.7,
+  "winding_conn": "YY,Δ/Y"
  },
  {
   "type": "generator",
@@ -969,7 +1022,8 @@
   "stdby_40c_kVA": 39.8,
   "stdby_40c_kW": 31.9,
   "stdby_27c_kVA": 41.3,
-  "stdby_27c_kW": 33.1
+  "stdby_27c_kW": 33.1,
+  "winding_conn": "YY,Δ/Y"
  },
  {
   "type": "generator",
@@ -987,7 +1041,8 @@
   "stdby_40c_kVA": 35.8,
   "stdby_40c_kW": 28.6,
   "stdby_27c_kVA": 37.1,
-  "stdby_27c_kW": 29.7
+  "stdby_27c_kW": 29.7,
+  "winding_conn": "Δ/Y"
  },
  {
   "type": "generator",
@@ -1005,7 +1060,8 @@
   "stdby_40c_kVA": 35.8,
   "stdby_40c_kW": 28.6,
   "stdby_27c_kVA": 37.1,
-  "stdby_27c_kW": 29.7
+  "stdby_27c_kW": 29.7,
+  "winding_conn": "Δ/Y"
  },
  {
   "type": "generator",
@@ -1023,7 +1079,8 @@
   "stdby_40c_kVA": 35.8,
   "stdby_40c_kW": 28.6,
   "stdby_27c_kVA": 37.1,
-  "stdby_27c_kW": 29.7
+  "stdby_27c_kW": 29.7,
+  "winding_conn": "Δ/Y"
  },
  {
   "type": "generator",
@@ -1041,7 +1098,8 @@
   "stdby_40c_kVA": 39.4,
   "stdby_40c_kW": 31.5,
   "stdby_27c_kVA": 40.8,
-  "stdby_27c_kW": 32.7
+  "stdby_27c_kW": 32.7,
+  "winding_conn": "YY,Δ/Y"
  },
  {
   "type": "generator",
@@ -1059,7 +1117,8 @@
   "stdby_40c_kVA": 41.1,
   "stdby_40c_kW": 32.9,
   "stdby_27c_kVA": 42.7,
-  "stdby_27c_kW": 34.2
+  "stdby_27c_kW": 34.2,
+  "winding_conn": "YY,Δ/Y"
  },
  {
   "type": "generator",
@@ -1077,7 +1136,8 @@
   "stdby_40c_kVA": 42.9,
   "stdby_40c_kW": 34.3,
   "stdby_27c_kVA": 44.6,
-  "stdby_27c_kW": 35.6
+  "stdby_27c_kW": 35.6,
+  "winding_conn": "YY,Δ/Y"
  },
  {
   "type": "generator",
@@ -1095,7 +1155,8 @@
   "stdby_40c_kVA": 39.8,
   "stdby_40c_kW": 31.8,
   "stdby_27c_kVA": 41.3,
-  "stdby_27c_kW": 33.0
+  "stdby_27c_kW": 33.0,
+  "winding_conn": "Δ/Y"
  },
  {
   "type": "generator",
@@ -1113,7 +1174,8 @@
   "stdby_40c_kVA": 39.8,
   "stdby_40c_kW": 31.8,
   "stdby_27c_kVA": 41.3,
-  "stdby_27c_kW": 33.0
+  "stdby_27c_kW": 33.0,
+  "winding_conn": "Δ/Y"
  },
  {
   "type": "generator",
@@ -1131,7 +1193,8 @@
   "stdby_40c_kVA": 39.8,
   "stdby_40c_kW": 31.8,
   "stdby_27c_kVA": 41.3,
-  "stdby_27c_kW": 33.0
+  "stdby_27c_kW": 33.0,
+  "winding_conn": "Δ/Y"
  },
  {
   "type": "generator",
@@ -1149,7 +1212,8 @@
   "stdby_40c_kVA": 43.7,
   "stdby_40c_kW": 35.0,
   "stdby_27c_kVA": 45.4,
-  "stdby_27c_kW": 36.3
+  "stdby_27c_kW": 36.3,
+  "winding_conn": "YY,Δ/Y"
  },
  {
   "type": "generator",
@@ -1167,7 +1231,8 @@
   "stdby_40c_kVA": 45.7,
   "stdby_40c_kW": 36.6,
   "stdby_27c_kVA": 47.4,
-  "stdby_27c_kW": 38.0
+  "stdby_27c_kW": 38.0,
+  "winding_conn": "YY,Δ/Y"
  },
  {
   "type": "generator",
@@ -1185,7 +1250,8 @@
   "stdby_40c_kVA": 47.7,
   "stdby_40c_kW": 38.2,
   "stdby_27c_kVA": 49.5,
-  "stdby_27c_kW": 39.6
+  "stdby_27c_kW": 39.6,
+  "winding_conn": "YY,Δ/Y"
  },
  {
   "type": "generator",
@@ -1203,7 +1269,8 @@
   "stdby_40c_kVA": 42.4,
   "stdby_40c_kW": 33.9,
   "stdby_27c_kVA": 44.0,
-  "stdby_27c_kW": 35.2
+  "stdby_27c_kW": 35.2,
+  "winding_conn": "Δ/Y"
  },
  {
   "type": "generator",
@@ -1221,7 +1288,8 @@
   "stdby_40c_kVA": 42.4,
   "stdby_40c_kW": 33.9,
   "stdby_27c_kVA": 44.0,
-  "stdby_27c_kW": 35.2
+  "stdby_27c_kW": 35.2,
+  "winding_conn": "Δ/Y"
  },
  {
   "type": "generator",
@@ -1239,7 +1307,8 @@
   "stdby_40c_kVA": 42.4,
   "stdby_40c_kW": 33.9,
   "stdby_27c_kVA": 44.0,
-  "stdby_27c_kW": 35.2
+  "stdby_27c_kW": 35.2,
+  "winding_conn": "Δ/Y"
  },
  {
   "type": "generator",
@@ -1257,7 +1326,8 @@
   "stdby_40c_kVA": 46.6,
   "stdby_40c_kW": 37.3,
   "stdby_27c_kVA": 48.4,
-  "stdby_27c_kW": 38.7
+  "stdby_27c_kW": 38.7,
+  "winding_conn": "YY,Δ/Y"
  },
  {
   "type": "generator",
@@ -1275,7 +1345,8 @@
   "stdby_40c_kVA": 48.8,
   "stdby_40c_kW": 39.0,
   "stdby_27c_kVA": 50.6,
-  "stdby_27c_kW": 40.5
+  "stdby_27c_kW": 40.5,
+  "winding_conn": "YY,Δ/Y"
  },
  {
   "type": "generator",
@@ -1293,7 +1364,8 @@
   "stdby_40c_kVA": 50.9,
   "stdby_40c_kW": 40.7,
   "stdby_27c_kVA": 52.8,
-  "stdby_27c_kW": 42.2
+  "stdby_27c_kW": 42.2,
+  "winding_conn": "YY,Δ/Y"
  },
  {
   "type": "generator",
@@ -1311,7 +1383,8 @@
   "stdby_40c_kVA": 45.1,
   "stdby_40c_kW": 36.0,
   "stdby_27c_kVA": 46.8,
-  "stdby_27c_kW": 37.4
+  "stdby_27c_kW": 37.4,
+  "winding_conn": "Δ/Y"
  },
  {
   "type": "generator",
@@ -1329,7 +1402,8 @@
   "stdby_40c_kVA": 45.1,
   "stdby_40c_kW": 36.0,
   "stdby_27c_kVA": 46.8,
-  "stdby_27c_kW": 37.4
+  "stdby_27c_kW": 37.4,
+  "winding_conn": "Δ/Y"
  },
  {
   "type": "generator",
@@ -1347,7 +1421,8 @@
   "stdby_40c_kVA": 45.1,
   "stdby_40c_kW": 36.0,
   "stdby_27c_kVA": 46.8,
-  "stdby_27c_kW": 37.4
+  "stdby_27c_kW": 37.4,
+  "winding_conn": "Δ/Y"
  },
  {
   "type": "generator",
@@ -1365,7 +1440,8 @@
   "stdby_40c_kVA": 49.6,
   "stdby_40c_kW": 39.6,
   "stdby_27c_kVA": 51.4,
-  "stdby_27c_kW": 41.1
+  "stdby_27c_kW": 41.1,
+  "winding_conn": "YY,Δ/Y"
  },
  {
   "type": "generator",
@@ -1383,7 +1459,8 @@
   "stdby_40c_kVA": 51.8,
   "stdby_40c_kW": 41.4,
   "stdby_27c_kVA": 53.8,
-  "stdby_27c_kW": 43.0
+  "stdby_27c_kW": 43.0,
+  "winding_conn": "YY,Δ/Y"
  },
  {
   "type": "generator",
@@ -1401,7 +1478,8 @@
   "stdby_40c_kVA": 54.1,
   "stdby_40c_kW": 43.2,
   "stdby_27c_kVA": 56.1,
-  "stdby_27c_kW": 44.9
+  "stdby_27c_kW": 44.9,
+  "winding_conn": "YY,Δ/Y"
  },
  {
   "type": "generator",
@@ -1419,7 +1497,8 @@
   "stdby_40c_kVA": 47.7,
   "stdby_40c_kW": 38.2,
   "stdby_27c_kVA": 49.5,
-  "stdby_27c_kW": 39.6
+  "stdby_27c_kW": 39.6,
+  "winding_conn": "Δ/Y"
  },
  {
   "type": "generator",
@@ -1437,7 +1516,8 @@
   "stdby_40c_kVA": 47.7,
   "stdby_40c_kW": 38.2,
   "stdby_27c_kVA": 49.5,
-  "stdby_27c_kW": 39.6
+  "stdby_27c_kW": 39.6,
+  "winding_conn": "Δ/Y"
  },
  {
   "type": "generator",
@@ -1455,7 +1535,8 @@
   "stdby_40c_kVA": 47.7,
   "stdby_40c_kW": 38.2,
   "stdby_27c_kVA": 49.5,
-  "stdby_27c_kW": 39.6
+  "stdby_27c_kW": 39.6,
+  "winding_conn": "Δ/Y"
  },
  {
   "type": "generator",
@@ -1473,7 +1554,8 @@
   "stdby_40c_kVA": 52.5,
   "stdby_40c_kW": 42.0,
   "stdby_27c_kVA": 54.5,
-  "stdby_27c_kW": 43.6
+  "stdby_27c_kW": 43.6,
+  "winding_conn": "YY,Δ/Y"
  },
  {
   "type": "generator",
@@ -1491,7 +1573,8 @@
   "stdby_40c_kVA": 54.9,
   "stdby_40c_kW": 43.9,
   "stdby_27c_kVA": 56.9,
-  "stdby_27c_kW": 45.5
+  "stdby_27c_kW": 45.5,
+  "winding_conn": "YY,Δ/Y"
  },
  {
   "type": "generator",
@@ -1509,7 +1592,8 @@
   "stdby_40c_kVA": 57.2,
   "stdby_40c_kW": 45.8,
   "stdby_27c_kVA": 59.4,
-  "stdby_27c_kW": 47.5
+  "stdby_27c_kW": 47.5,
+  "winding_conn": "YY,Δ/Y"
  },
  {
   "type": "generator",
@@ -1527,7 +1611,8 @@
   "stdby_40c_kVA": 53.0,
   "stdby_40c_kW": 42.4,
   "stdby_27c_kVA": 55.0,
-  "stdby_27c_kW": 44.0
+  "stdby_27c_kW": 44.0,
+  "winding_conn": "Δ/Y"
  },
  {
   "type": "generator",
@@ -1545,7 +1630,8 @@
   "stdby_40c_kVA": 53.0,
   "stdby_40c_kW": 42.4,
   "stdby_27c_kVA": 55.0,
-  "stdby_27c_kW": 44.0
+  "stdby_27c_kW": 44.0,
+  "winding_conn": "Δ/Y"
  },
  {
   "type": "generator",
@@ -1563,7 +1649,8 @@
   "stdby_40c_kVA": 53.0,
   "stdby_40c_kW": 42.4,
   "stdby_27c_kVA": 55.0,
-  "stdby_27c_kW": 44.0
+  "stdby_27c_kW": 44.0,
+  "winding_conn": "Δ/Y"
  },
  {
   "type": "generator",
@@ -1581,7 +1668,8 @@
   "stdby_40c_kVA": 58.3,
   "stdby_40c_kW": 46.6,
   "stdby_27c_kVA": 60.5,
-  "stdby_27c_kW": 48.4
+  "stdby_27c_kW": 48.4,
+  "winding_conn": "YY,Δ/Y"
  },
  {
   "type": "generator",
@@ -1599,7 +1687,8 @@
   "stdby_40c_kVA": 61.0,
   "stdby_40c_kW": 48.8,
   "stdby_27c_kVA": 63.3,
-  "stdby_27c_kW": 50.6
+  "stdby_27c_kW": 50.6,
+  "winding_conn": "YY,Δ/Y"
  },
  {
   "type": "generator",
@@ -1617,7 +1706,8 @@
   "stdby_40c_kVA": 63.6,
   "stdby_40c_kW": 50.9,
   "stdby_27c_kVA": 66.0,
-  "stdby_27c_kW": 52.8
+  "stdby_27c_kW": 52.8,
+  "winding_conn": "YY,Δ/Y"
  },
  {
   "type": "generator",
@@ -1635,7 +1725,8 @@
   "stdby_40c_kVA": 59.6,
   "stdby_40c_kW": 47.7,
   "stdby_27c_kVA": 61.9,
-  "stdby_27c_kW": 49.5
+  "stdby_27c_kW": 49.5,
+  "winding_conn": "Δ/Y"
  },
  {
   "type": "generator",
@@ -1653,7 +1744,8 @@
   "stdby_40c_kVA": 59.6,
   "stdby_40c_kW": 47.7,
   "stdby_27c_kVA": 61.9,
-  "stdby_27c_kW": 49.5
+  "stdby_27c_kW": 49.5,
+  "winding_conn": "Δ/Y"
  },
  {
   "type": "generator",
@@ -1671,7 +1763,8 @@
   "stdby_40c_kVA": 59.6,
   "stdby_40c_kW": 47.7,
   "stdby_27c_kVA": 61.9,
-  "stdby_27c_kW": 49.5
+  "stdby_27c_kW": 49.5,
+  "winding_conn": "Δ/Y"
  },
  {
   "type": "generator",
@@ -1689,7 +1782,8 @@
   "stdby_40c_kVA": 65.6,
   "stdby_40c_kW": 52.5,
   "stdby_27c_kVA": 68.1,
-  "stdby_27c_kW": 54.5
+  "stdby_27c_kW": 54.5,
+  "winding_conn": "YY,Δ/Y"
  },
  {
   "type": "generator",
@@ -1707,7 +1801,8 @@
   "stdby_40c_kVA": 68.6,
   "stdby_40c_kW": 54.9,
   "stdby_27c_kVA": 71.2,
-  "stdby_27c_kW": 56.9
+  "stdby_27c_kW": 56.9,
+  "winding_conn": "YY,Δ/Y"
  },
  {
   "type": "generator",
@@ -1725,7 +1820,8 @@
   "stdby_40c_kVA": 71.6,
   "stdby_40c_kW": 57.2,
   "stdby_27c_kVA": 74.3,
-  "stdby_27c_kW": 59.4
+  "stdby_27c_kW": 59.4,
+  "winding_conn": "YY,Δ/Y"
  },
  {
   "type": "generator",
@@ -1743,7 +1839,8 @@
   "stdby_40c_kVA": 66.3,
   "stdby_40c_kW": 53.0,
   "stdby_27c_kVA": 68.8,
-  "stdby_27c_kW": 55.0
+  "stdby_27c_kW": 55.0,
+  "winding_conn": "Δ/Y"
  },
  {
   "type": "generator",
@@ -1761,7 +1858,8 @@
   "stdby_40c_kVA": 66.3,
   "stdby_40c_kW": 53.0,
   "stdby_27c_kVA": 68.8,
-  "stdby_27c_kW": 55.0
+  "stdby_27c_kW": 55.0,
+  "winding_conn": "Δ/Y"
  },
  {
   "type": "generator",
@@ -1779,7 +1877,8 @@
   "stdby_40c_kVA": 66.3,
   "stdby_40c_kW": 53.0,
   "stdby_27c_kVA": 68.8,
-  "stdby_27c_kW": 55.0
+  "stdby_27c_kW": 55.0,
+  "winding_conn": "Δ/Y"
  },
  {
   "type": "generator",
@@ -1797,7 +1896,8 @@
   "stdby_40c_kVA": 72.9,
   "stdby_40c_kW": 58.3,
   "stdby_27c_kVA": 75.6,
-  "stdby_27c_kW": 60.5
+  "stdby_27c_kW": 60.5,
+  "winding_conn": "YY,Δ/Y"
  },
  {
   "type": "generator",
@@ -1815,7 +1915,8 @@
   "stdby_40c_kVA": 76.2,
   "stdby_40c_kW": 61.0,
   "stdby_27c_kVA": 79.1,
-  "stdby_27c_kW": 63.3
+  "stdby_27c_kW": 63.3,
+  "winding_conn": "YY,Δ/Y"
  },
  {
   "type": "generator",
@@ -1833,7 +1934,8 @@
   "stdby_40c_kVA": 79.5,
   "stdby_40c_kW": 63.6,
   "stdby_27c_kVA": 82.5,
-  "stdby_27c_kW": 66.0
+  "stdby_27c_kW": 66.0,
+  "winding_conn": "YY,Δ/Y"
  },
  {
   "type": "generator",
@@ -1851,7 +1953,8 @@
   "stdby_40c_kVA": 72.9,
   "stdby_40c_kW": 58.3,
   "stdby_27c_kVA": 75.6,
-  "stdby_27c_kW": 60.5
+  "stdby_27c_kW": 60.5,
+  "winding_conn": "Δ/Y"
  },
  {
   "type": "generator",
@@ -1869,7 +1972,8 @@
   "stdby_40c_kVA": 72.9,
   "stdby_40c_kW": 58.3,
   "stdby_27c_kVA": 75.6,
-  "stdby_27c_kW": 60.5
+  "stdby_27c_kW": 60.5,
+  "winding_conn": "Δ/Y"
  },
  {
   "type": "generator",
@@ -1887,7 +1991,8 @@
   "stdby_40c_kVA": 72.9,
   "stdby_40c_kW": 58.3,
   "stdby_27c_kVA": 75.6,
-  "stdby_27c_kW": 60.5
+  "stdby_27c_kW": 60.5,
+  "winding_conn": "Δ/Y"
  },
  {
   "type": "generator",
@@ -1905,7 +2010,8 @@
   "stdby_40c_kVA": 80.2,
   "stdby_40c_kW": 64.1,
   "stdby_27c_kVA": 83.2,
-  "stdby_27c_kW": 66.6
+  "stdby_27c_kW": 66.6,
+  "winding_conn": "YY,Δ/Y"
  },
  {
   "type": "generator",
@@ -1923,7 +2029,8 @@
   "stdby_40c_kVA": 83.8,
   "stdby_40c_kW": 67.0,
   "stdby_27c_kVA": 87.0,
-  "stdby_27c_kW": 69.6
+  "stdby_27c_kW": 69.6,
+  "winding_conn": "YY,Δ/Y"
  },
  {
   "type": "generator",
@@ -1941,7 +2048,8 @@
   "stdby_40c_kVA": 87.5,
   "stdby_40c_kW": 70.0,
   "stdby_27c_kVA": 90.8,
-  "stdby_27c_kW": 72.6
+  "stdby_27c_kW": 72.6,
+  "winding_conn": "YY,Δ/Y"
  },
  {
   "type": "generator",
@@ -1959,7 +2067,8 @@
   "stdby_40c_kVA": 76.9,
   "stdby_40c_kW": 61.5,
   "stdby_27c_kVA": 79.8,
-  "stdby_27c_kW": 63.8
+  "stdby_27c_kW": 63.8,
+  "winding_conn": "Δ/Y"
  },
  {
   "type": "generator",
@@ -1977,7 +2086,8 @@
   "stdby_40c_kVA": 76.9,
   "stdby_40c_kW": 61.5,
   "stdby_27c_kVA": 79.8,
-  "stdby_27c_kW": 63.8
+  "stdby_27c_kW": 63.8,
+  "winding_conn": "Δ/Y"
  },
  {
   "type": "generator",
@@ -1995,7 +2105,8 @@
   "stdby_40c_kVA": 76.9,
   "stdby_40c_kW": 61.5,
   "stdby_27c_kVA": 79.8,
-  "stdby_27c_kW": 63.8
+  "stdby_27c_kW": 63.8,
+  "winding_conn": "Δ/Y"
  },
  {
   "type": "generator",
@@ -2013,7 +2124,8 @@
   "stdby_40c_kVA": 84.5,
   "stdby_40c_kW": 67.6,
   "stdby_27c_kVA": 87.7,
-  "stdby_27c_kW": 70.2
+  "stdby_27c_kW": 70.2,
+  "winding_conn": "YY,Δ/Y"
  },
  {
   "type": "generator",
@@ -2031,7 +2143,8 @@
   "stdby_40c_kVA": 88.4,
   "stdby_40c_kW": 70.7,
   "stdby_27c_kVA": 91.7,
-  "stdby_27c_kW": 73.4
+  "stdby_27c_kW": 73.4,
+  "winding_conn": "YY,Δ/Y"
  },
  {
   "type": "generator",
@@ -2049,7 +2162,8 @@
   "stdby_40c_kVA": 92.2,
   "stdby_40c_kW": 73.8,
   "stdby_27c_kVA": 95.7,
-  "stdby_27c_kW": 76.6
+  "stdby_27c_kW": 76.6,
+  "winding_conn": "YY,Δ/Y"
  },
  {
   "type": "generator",
@@ -2067,7 +2181,8 @@
   "stdby_40c_kVA": 84.8,
   "stdby_40c_kW": 67.8,
   "stdby_27c_kVA": 88.0,
-  "stdby_27c_kW": 70.4
+  "stdby_27c_kW": 70.4,
+  "winding_conn": "Δ/Y"
  },
  {
   "type": "generator",
@@ -2085,7 +2200,8 @@
   "stdby_40c_kVA": 84.8,
   "stdby_40c_kW": 67.8,
   "stdby_27c_kVA": 88.0,
-  "stdby_27c_kW": 70.4
+  "stdby_27c_kW": 70.4,
+  "winding_conn": "Δ/Y"
  },
  {
   "type": "generator",
@@ -2103,7 +2219,8 @@
   "stdby_40c_kVA": 84.8,
   "stdby_40c_kW": 67.8,
   "stdby_27c_kVA": 88.0,
-  "stdby_27c_kW": 70.4
+  "stdby_27c_kW": 70.4,
+  "winding_conn": "Δ/Y"
  },
  {
   "type": "generator",
@@ -2121,7 +2238,8 @@
   "stdby_40c_kVA": 93.3,
   "stdby_40c_kW": 74.6,
   "stdby_27c_kVA": 96.8,
-  "stdby_27c_kW": 77.4
+  "stdby_27c_kW": 77.4,
+  "winding_conn": "YY,Δ/Y"
  },
  {
   "type": "generator",
@@ -2139,7 +2257,8 @@
   "stdby_40c_kVA": 97.5,
   "stdby_40c_kW": 78.0,
   "stdby_27c_kVA": 101.2,
-  "stdby_27c_kW": 81.0
+  "stdby_27c_kW": 81.0,
+  "winding_conn": "YY,Δ/Y"
  },
  {
   "type": "generator",
@@ -2157,7 +2276,8 @@
   "stdby_40c_kVA": 101.8,
   "stdby_40c_kW": 81.4,
   "stdby_27c_kVA": 105.6,
-  "stdby_27c_kW": 84.5
+  "stdby_27c_kW": 84.5,
+  "winding_conn": "YY,Δ/Y"
  },
  {
   "type": "generator",
@@ -2175,7 +2295,8 @@
   "stdby_40c_kVA": 90.1,
   "stdby_40c_kW": 72.1,
   "stdby_27c_kVA": 93.5,
-  "stdby_27c_kW": 74.8
+  "stdby_27c_kW": 74.8,
+  "winding_conn": "Δ/Y"
  },
  {
   "type": "generator",
@@ -2193,7 +2314,8 @@
   "stdby_40c_kVA": 90.1,
   "stdby_40c_kW": 72.1,
   "stdby_27c_kVA": 93.5,
-  "stdby_27c_kW": 74.8
+  "stdby_27c_kW": 74.8,
+  "winding_conn": "Δ/Y"
  },
  {
   "type": "generator",
@@ -2211,7 +2333,8 @@
   "stdby_40c_kVA": 90.1,
   "stdby_40c_kW": 72.1,
   "stdby_27c_kVA": 93.5,
-  "stdby_27c_kW": 74.8
+  "stdby_27c_kW": 74.8,
+  "winding_conn": "Δ/Y"
  },
  {
   "type": "generator",
@@ -2229,7 +2352,8 @@
   "stdby_40c_kVA": 99.1,
   "stdby_40c_kW": 79.3,
   "stdby_27c_kVA": 102.9,
-  "stdby_27c_kW": 82.3
+  "stdby_27c_kW": 82.3,
+  "winding_conn": "YY,Δ/Y"
  },
  {
   "type": "generator",
@@ -2247,7 +2371,8 @@
   "stdby_40c_kVA": 103.6,
   "stdby_40c_kW": 82.9,
   "stdby_27c_kVA": 107.5,
-  "stdby_27c_kW": 86.0
+  "stdby_27c_kW": 86.0,
+  "winding_conn": "YY,Δ/Y"
  },
  {
   "type": "generator",
@@ -2265,7 +2390,8 @@
   "stdby_40c_kVA": 108.1,
   "stdby_40c_kW": 86.5,
   "stdby_27c_kVA": 112.2,
-  "stdby_27c_kW": 89.8
+  "stdby_27c_kW": 89.8,
+  "winding_conn": "YY,Δ/Y"
  },
  {
   "type": "generator",
@@ -2283,7 +2409,8 @@
   "stdby_40c_kVA": 99.4,
   "stdby_40c_kW": 79.5,
   "stdby_27c_kVA": 103.2,
-  "stdby_27c_kW": 82.5
+  "stdby_27c_kW": 82.5,
+  "winding_conn": "Δ/Y"
  },
  {
   "type": "generator",
@@ -2301,7 +2428,8 @@
   "stdby_40c_kVA": 99.4,
   "stdby_40c_kW": 79.5,
   "stdby_27c_kVA": 103.2,
-  "stdby_27c_kW": 82.5
+  "stdby_27c_kW": 82.5,
+  "winding_conn": "Δ/Y"
  },
  {
   "type": "generator",
@@ -2319,7 +2447,8 @@
   "stdby_40c_kVA": 99.4,
   "stdby_40c_kW": 79.5,
   "stdby_27c_kVA": 103.2,
-  "stdby_27c_kW": 82.5
+  "stdby_27c_kW": 82.5,
+  "winding_conn": "Δ/Y"
  },
  {
   "type": "generator",
@@ -2337,7 +2466,8 @@
   "stdby_40c_kVA": 109.4,
   "stdby_40c_kW": 87.5,
   "stdby_27c_kVA": 113.5,
-  "stdby_27c_kW": 90.8
+  "stdby_27c_kW": 90.8,
+  "winding_conn": "YY,Δ/Y"
  },
  {
   "type": "generator",
@@ -2355,7 +2485,8 @@
   "stdby_40c_kVA": 114.3,
   "stdby_40c_kW": 91.5,
   "stdby_27c_kVA": 118.7,
-  "stdby_27c_kW": 94.9
+  "stdby_27c_kW": 94.9,
+  "winding_conn": "YY,Δ/Y"
  },
  {
   "type": "generator",
@@ -2373,7 +2504,8 @@
   "stdby_40c_kVA": 119.3,
   "stdby_40c_kW": 95.5,
   "stdby_27c_kVA": 123.8,
-  "stdby_27c_kW": 99.1
+  "stdby_27c_kW": 99.1,
+  "winding_conn": "YY,Δ/Y"
  },
  {
   "type": "generator",
@@ -2391,7 +2523,8 @@
   "stdby_40c_kVA": 106.0,
   "stdby_40c_kW": 84.8,
   "stdby_27c_kVA": 110.0,
-  "stdby_27c_kW": 88.0
+  "stdby_27c_kW": 88.0,
+  "winding_conn": "Δ/Y"
  },
  {
   "type": "generator",
@@ -2409,7 +2542,8 @@
   "stdby_40c_kVA": 106.0,
   "stdby_40c_kW": 84.8,
   "stdby_27c_kVA": 110.0,
-  "stdby_27c_kW": 88.0
+  "stdby_27c_kW": 88.0,
+  "winding_conn": "Δ/Y"
  },
  {
   "type": "generator",
@@ -2427,7 +2561,8 @@
   "stdby_40c_kVA": 106.0,
   "stdby_40c_kW": 84.8,
   "stdby_27c_kVA": 110.0,
-  "stdby_27c_kW": 88.0
+  "stdby_27c_kW": 88.0,
+  "winding_conn": "Δ/Y"
  },
  {
   "type": "generator",
@@ -2445,7 +2580,8 @@
   "stdby_40c_kVA": 116.6,
   "stdby_40c_kW": 93.3,
   "stdby_27c_kVA": 121.0,
-  "stdby_27c_kW": 96.8
+  "stdby_27c_kW": 96.8,
+  "winding_conn": "YY,Δ/Y"
  },
  {
   "type": "generator",
@@ -2463,7 +2599,8 @@
   "stdby_40c_kVA": 121.9,
   "stdby_40c_kW": 97.5,
   "stdby_27c_kVA": 126.5,
-  "stdby_27c_kW": 101.2
+  "stdby_27c_kW": 101.2,
+  "winding_conn": "YY,Δ/Y"
  },
  {
   "type": "generator",
@@ -2481,7 +2618,8 @@
   "stdby_40c_kVA": 127.2,
   "stdby_40c_kW": 101.8,
   "stdby_27c_kVA": 132.0,
-  "stdby_27c_kW": 105.6
+  "stdby_27c_kW": 105.6,
+  "winding_conn": "YY,Δ/Y"
  },
  {
   "type": "generator",
@@ -2499,7 +2637,8 @@
   "stdby_40c_kVA": 112.6,
   "stdby_40c_kW": 90.1,
   "stdby_27c_kVA": 116.9,
-  "stdby_27c_kW": 93.5
+  "stdby_27c_kW": 93.5,
+  "winding_conn": "Δ/Y"
  },
  {
   "type": "generator",
@@ -2517,7 +2656,8 @@
   "stdby_40c_kVA": 112.6,
   "stdby_40c_kW": 90.1,
   "stdby_27c_kVA": 116.9,
-  "stdby_27c_kW": 93.5
+  "stdby_27c_kW": 93.5,
+  "winding_conn": "Δ/Y"
  },
  {
   "type": "generator",
@@ -2535,7 +2675,8 @@
   "stdby_40c_kVA": 112.6,
   "stdby_40c_kW": 90.1,
   "stdby_27c_kVA": 116.9,
-  "stdby_27c_kW": 93.5
+  "stdby_27c_kW": 93.5,
+  "winding_conn": "Δ/Y"
  },
  {
   "type": "generator",
@@ -2553,7 +2694,8 @@
   "stdby_40c_kVA": 123.9,
   "stdby_40c_kW": 99.1,
   "stdby_27c_kVA": 128.6,
-  "stdby_27c_kW": 102.9
+  "stdby_27c_kW": 102.9,
+  "winding_conn": "YY,Δ/Y"
  },
  {
   "type": "generator",
@@ -2571,7 +2713,8 @@
   "stdby_40c_kVA": 129.5,
   "stdby_40c_kW": 103.6,
   "stdby_27c_kVA": 134.4,
-  "stdby_27c_kW": 107.5
+  "stdby_27c_kW": 107.5,
+  "winding_conn": "YY,Δ/Y"
  },
  {
   "type": "generator",
@@ -2589,7 +2732,8 @@
   "stdby_40c_kVA": 135.2,
   "stdby_40c_kW": 108.1,
   "stdby_27c_kVA": 140.3,
-  "stdby_27c_kW": 112.2
+  "stdby_27c_kW": 112.2,
+  "winding_conn": "YY,Δ/Y"
  },
  {
   "type": "generator",
@@ -2607,7 +2751,8 @@
   "stdby_40c_kVA": 119.3,
   "stdby_40c_kW": 95.4,
   "stdby_27c_kVA": 123.8,
-  "stdby_27c_kW": 99.0
+  "stdby_27c_kW": 99.0,
+  "winding_conn": "Δ/Y"
  },
  {
   "type": "generator",
@@ -2625,7 +2770,8 @@
   "stdby_40c_kVA": 119.3,
   "stdby_40c_kW": 95.4,
   "stdby_27c_kVA": 123.8,
-  "stdby_27c_kW": 99.0
+  "stdby_27c_kW": 99.0,
+  "winding_conn": "Δ/Y"
  },
  {
   "type": "generator",
@@ -2643,7 +2789,8 @@
   "stdby_40c_kVA": 119.3,
   "stdby_40c_kW": 95.4,
   "stdby_27c_kVA": 123.8,
-  "stdby_27c_kW": 99.0
+  "stdby_27c_kW": 99.0,
+  "winding_conn": "Δ/Y"
  },
  {
   "type": "generator",
@@ -2661,7 +2808,8 @@
   "stdby_40c_kVA": 131.2,
   "stdby_40c_kW": 104.9,
   "stdby_27c_kVA": 136.1,
-  "stdby_27c_kW": 108.9
+  "stdby_27c_kW": 108.9,
+  "winding_conn": "YY,Δ/Y"
  },
  {
   "type": "generator",
@@ -2679,7 +2827,8 @@
   "stdby_40c_kVA": 137.1,
   "stdby_40c_kW": 109.7,
   "stdby_27c_kVA": 142.3,
-  "stdby_27c_kW": 113.9
+  "stdby_27c_kW": 113.9,
+  "winding_conn": "YY,Δ/Y"
  },
  {
   "type": "generator",
@@ -2697,7 +2846,8 @@
   "stdby_40c_kVA": 143.1,
   "stdby_40c_kW": 114.5,
   "stdby_27c_kVA": 148.5,
-  "stdby_27c_kW": 118.8
+  "stdby_27c_kW": 118.8,
+  "winding_conn": "YY,Δ/Y"
  },
  {
   "type": "generator",
@@ -2715,7 +2865,8 @@
   "stdby_40c_kVA": 132.5,
   "stdby_40c_kW": 106.0,
   "stdby_27c_kVA": 137.5,
-  "stdby_27c_kW": 110.0
+  "stdby_27c_kW": 110.0,
+  "winding_conn": "Δ/Y"
  },
  {
   "type": "generator",
@@ -2733,7 +2884,8 @@
   "stdby_40c_kVA": 132.5,
   "stdby_40c_kW": 106.0,
   "stdby_27c_kVA": 137.5,
-  "stdby_27c_kW": 110.0
+  "stdby_27c_kW": 110.0,
+  "winding_conn": "Δ/Y"
  },
  {
   "type": "generator",
@@ -2751,7 +2903,8 @@
   "stdby_40c_kVA": 132.5,
   "stdby_40c_kW": 106.0,
   "stdby_27c_kVA": 137.5,
-  "stdby_27c_kW": 110.0
+  "stdby_27c_kW": 110.0,
+  "winding_conn": "Δ/Y"
  },
  {
   "type": "generator",
@@ -2769,7 +2922,8 @@
   "stdby_40c_kVA": 145.8,
   "stdby_40c_kW": 116.6,
   "stdby_27c_kVA": 151.3,
-  "stdby_27c_kW": 121.0
+  "stdby_27c_kW": 121.0,
+  "winding_conn": "YY,Δ/Y"
  },
  {
   "type": "generator",
@@ -2787,7 +2941,8 @@
   "stdby_40c_kVA": 152.4,
   "stdby_40c_kW": 121.9,
   "stdby_27c_kVA": 158.1,
-  "stdby_27c_kW": 126.5
+  "stdby_27c_kW": 126.5,
+  "winding_conn": "YY,Δ/Y"
  },
  {
   "type": "generator",
@@ -2805,7 +2960,8 @@
   "stdby_40c_kVA": 159.0,
   "stdby_40c_kW": 127.2,
   "stdby_27c_kVA": 165.0,
-  "stdby_27c_kW": 132.0
+  "stdby_27c_kW": 132.0,
+  "winding_conn": "YY,Δ/Y"
  },
  {
   "type": "generator",
@@ -2823,7 +2979,8 @@
   "stdby_40c_kVA": 148.4,
   "stdby_40c_kW": 118.7,
   "stdby_27c_kVA": 154.0,
-  "stdby_27c_kW": 123.2
+  "stdby_27c_kW": 123.2,
+  "winding_conn": "Δ/Y"
  },
  {
   "type": "generator",
@@ -2841,7 +2998,8 @@
   "stdby_40c_kVA": 148.4,
   "stdby_40c_kW": 118.7,
   "stdby_27c_kVA": 154.0,
-  "stdby_27c_kW": 123.2
+  "stdby_27c_kW": 123.2,
+  "winding_conn": "Δ/Y"
  },
  {
   "type": "generator",
@@ -2859,7 +3017,8 @@
   "stdby_40c_kVA": 148.4,
   "stdby_40c_kW": 118.7,
   "stdby_27c_kVA": 154.0,
-  "stdby_27c_kW": 123.2
+  "stdby_27c_kW": 123.2,
+  "winding_conn": "Δ/Y"
  },
  {
   "type": "generator",
@@ -2877,7 +3036,8 @@
   "stdby_40c_kVA": 163.2,
   "stdby_40c_kW": 130.6,
   "stdby_27c_kVA": 169.4,
-  "stdby_27c_kW": 135.5
+  "stdby_27c_kW": 135.5,
+  "winding_conn": "YY,Δ/Y"
  },
  {
   "type": "generator",
@@ -2895,7 +3055,8 @@
   "stdby_40c_kVA": 170.7,
   "stdby_40c_kW": 136.5,
   "stdby_27c_kVA": 177.1,
-  "stdby_27c_kW": 141.7
+  "stdby_27c_kW": 141.7,
+  "winding_conn": "YY,Δ/Y"
  },
  {
   "type": "generator",
@@ -2913,7 +3074,8 @@
   "stdby_40c_kVA": 178.1,
   "stdby_40c_kW": 142.5,
   "stdby_27c_kVA": 184.8,
-  "stdby_27c_kW": 147.8
+  "stdby_27c_kW": 147.8,
+  "winding_conn": "YY,Δ/Y"
  },
  {
   "type": "generator",
@@ -2931,7 +3093,8 @@
   "stdby_40c_kVA": 159.0,
   "stdby_40c_kW": 127.2,
   "stdby_27c_kVA": 165.0,
-  "stdby_27c_kW": 132.0
+  "stdby_27c_kW": 132.0,
+  "winding_conn": "Δ/Y"
  },
  {
   "type": "generator",
@@ -2949,7 +3112,8 @@
   "stdby_40c_kVA": 159.0,
   "stdby_40c_kW": 127.2,
   "stdby_27c_kVA": 165.0,
-  "stdby_27c_kW": 132.0
+  "stdby_27c_kW": 132.0,
+  "winding_conn": "Δ/Y"
  },
  {
   "type": "generator",
@@ -2967,7 +3131,8 @@
   "stdby_40c_kVA": 159.0,
   "stdby_40c_kW": 127.2,
   "stdby_27c_kVA": 165.0,
-  "stdby_27c_kW": 132.0
+  "stdby_27c_kW": 132.0,
+  "winding_conn": "Δ/Y"
  },
  {
   "type": "generator",
@@ -2985,7 +3150,8 @@
   "stdby_40c_kVA": 174.9,
   "stdby_40c_kW": 139.9,
   "stdby_27c_kVA": 181.5,
-  "stdby_27c_kW": 145.2
+  "stdby_27c_kW": 145.2,
+  "winding_conn": "YY,Δ/Y"
  },
  {
   "type": "generator",
@@ -3003,7 +3169,8 @@
   "stdby_40c_kVA": 182.9,
   "stdby_40c_kW": 146.3,
   "stdby_27c_kVA": 189.8,
-  "stdby_27c_kW": 151.8
+  "stdby_27c_kW": 151.8,
+  "winding_conn": "YY,Δ/Y"
  },
  {
   "type": "generator",
@@ -3021,7 +3188,8 @@
   "stdby_40c_kVA": 190.8,
   "stdby_40c_kW": 152.6,
   "stdby_27c_kVA": 198.0,
-  "stdby_27c_kW": 158.4
+  "stdby_27c_kW": 158.4,
+  "winding_conn": "YY,Δ/Y"
  },
  {
   "type": "generator",
@@ -3039,7 +3207,8 @@
   "stdby_40c_kVA": 169.6,
   "stdby_40c_kW": 135.7,
   "stdby_27c_kVA": 176.0,
-  "stdby_27c_kW": 140.8
+  "stdby_27c_kW": 140.8,
+  "winding_conn": "Δ/Y"
  },
  {
   "type": "generator",
@@ -3057,7 +3226,8 @@
   "stdby_40c_kVA": 169.6,
   "stdby_40c_kW": 135.7,
   "stdby_27c_kVA": 176.0,
-  "stdby_27c_kW": 140.8
+  "stdby_27c_kW": 140.8,
+  "winding_conn": "Δ/Y"
  },
  {
   "type": "generator",
@@ -3075,7 +3245,8 @@
   "stdby_40c_kVA": 169.6,
   "stdby_40c_kW": 135.7,
   "stdby_27c_kVA": 176.0,
-  "stdby_27c_kW": 140.8
+  "stdby_27c_kW": 140.8,
+  "winding_conn": "Δ/Y"
  },
  {
   "type": "generator",
@@ -3093,7 +3264,8 @@
   "stdby_40c_kVA": 186.6,
   "stdby_40c_kW": 149.2,
   "stdby_27c_kVA": 193.6,
-  "stdby_27c_kW": 154.9
+  "stdby_27c_kW": 154.9,
+  "winding_conn": "YY,Δ/Y"
  },
  {
   "type": "generator",
@@ -3111,7 +3283,8 @@
   "stdby_40c_kVA": 195.0,
   "stdby_40c_kW": 156.0,
   "stdby_27c_kVA": 202.4,
-  "stdby_27c_kW": 161.9
+  "stdby_27c_kW": 161.9,
+  "winding_conn": "YY,Δ/Y"
  },
  {
   "type": "generator",
@@ -3129,7 +3302,8 @@
   "stdby_40c_kVA": 203.5,
   "stdby_40c_kW": 162.8,
   "stdby_27c_kVA": 211.2,
-  "stdby_27c_kW": 169.0
+  "stdby_27c_kW": 169.0,
+  "winding_conn": "YY,Δ/Y"
  },
  {
   "type": "generator",
@@ -3147,7 +3321,8 @@
   "stdby_40c_kVA": 190.8,
   "stdby_40c_kW": 152.6,
   "stdby_27c_kVA": 198.0,
-  "stdby_27c_kW": 158.4
+  "stdby_27c_kW": 158.4,
+  "winding_conn": "Δ/Y"
  },
  {
   "type": "generator",
@@ -3165,7 +3340,8 @@
   "stdby_40c_kVA": 190.8,
   "stdby_40c_kW": 152.6,
   "stdby_27c_kVA": 198.0,
-  "stdby_27c_kW": 158.4
+  "stdby_27c_kW": 158.4,
+  "winding_conn": "Δ/Y"
  },
  {
   "type": "generator",
@@ -3183,7 +3359,8 @@
   "stdby_40c_kVA": 190.8,
   "stdby_40c_kW": 152.6,
   "stdby_27c_kVA": 198.0,
-  "stdby_27c_kW": 158.4
+  "stdby_27c_kW": 158.4,
+  "winding_conn": "Δ/Y"
  },
  {
   "type": "generator",
@@ -3201,7 +3378,8 @@
   "stdby_40c_kVA": 209.9,
   "stdby_40c_kW": 167.9,
   "stdby_27c_kVA": 217.8,
-  "stdby_27c_kW": 174.2
+  "stdby_27c_kW": 174.2,
+  "winding_conn": "YY,Δ/Y"
  },
  {
   "type": "generator",
@@ -3219,7 +3397,8 @@
   "stdby_40c_kVA": 219.4,
   "stdby_40c_kW": 175.5,
   "stdby_27c_kVA": 227.7,
-  "stdby_27c_kW": 182.2
+  "stdby_27c_kW": 182.2,
+  "winding_conn": "YY,Δ/Y"
  },
  {
   "type": "generator",
@@ -3237,7 +3416,8 @@
   "stdby_40c_kVA": 229.0,
   "stdby_40c_kW": 183.2,
   "stdby_27c_kVA": 237.6,
-  "stdby_27c_kW": 190.1
+  "stdby_27c_kW": 190.1,
+  "winding_conn": "YY,Δ/Y"
  },
  {
   "type": "generator",
@@ -3255,7 +3435,8 @@
   "stdby_40c_kVA": 212.0,
   "stdby_40c_kW": 169.6,
   "stdby_27c_kVA": 220.0,
-  "stdby_27c_kW": 176.0
+  "stdby_27c_kW": 176.0,
+  "winding_conn": "Δ/Y"
  },
  {
   "type": "generator",
@@ -3273,7 +3454,8 @@
   "stdby_40c_kVA": 212.0,
   "stdby_40c_kW": 169.6,
   "stdby_27c_kVA": 220.0,
-  "stdby_27c_kW": 176.0
+  "stdby_27c_kW": 176.0,
+  "winding_conn": "Δ/Y"
  },
  {
   "type": "generator",
@@ -3291,7 +3473,8 @@
   "stdby_40c_kVA": 212.0,
   "stdby_40c_kW": 169.6,
   "stdby_27c_kVA": 220.0,
-  "stdby_27c_kW": 176.0
+  "stdby_27c_kW": 176.0,
+  "winding_conn": "Δ/Y"
  },
  {
   "type": "generator",
@@ -3309,7 +3492,8 @@
   "stdby_40c_kVA": 233.2,
   "stdby_40c_kW": 186.6,
   "stdby_27c_kVA": 242.0,
-  "stdby_27c_kW": 193.6
+  "stdby_27c_kW": 193.6,
+  "winding_conn": "YY,Δ/Y"
  },
  {
   "type": "generator",
@@ -3327,7 +3511,8 @@
   "stdby_40c_kVA": 243.8,
   "stdby_40c_kW": 195.0,
   "stdby_27c_kVA": 253.0,
-  "stdby_27c_kW": 202.4
+  "stdby_27c_kW": 202.4,
+  "winding_conn": "YY,Δ/Y"
  },
  {
   "type": "generator",
@@ -3345,7 +3530,8 @@
   "stdby_40c_kVA": 254.4,
   "stdby_40c_kW": 203.5,
   "stdby_27c_kVA": 264.0,
-  "stdby_27c_kW": 211.2
+  "stdby_27c_kW": 211.2,
+  "winding_conn": "YY,Δ/Y"
  },
  {
   "type": "generator",
@@ -3363,7 +3549,8 @@
   "stdby_40c_kVA": 238.5,
   "stdby_40c_kW": 190.8,
   "stdby_27c_kVA": 247.5,
-  "stdby_27c_kW": 198.0
+  "stdby_27c_kW": 198.0,
+  "winding_conn": "Δ/Y"
  },
  {
   "type": "generator",
@@ -3381,7 +3568,8 @@
   "stdby_40c_kVA": 238.5,
   "stdby_40c_kW": 190.8,
   "stdby_27c_kVA": 247.5,
-  "stdby_27c_kW": 198.0
+  "stdby_27c_kW": 198.0,
+  "winding_conn": "Δ/Y"
  },
  {
   "type": "generator",
@@ -3399,7 +3587,8 @@
   "stdby_40c_kVA": 238.5,
   "stdby_40c_kW": 190.8,
   "stdby_27c_kVA": 247.5,
-  "stdby_27c_kW": 198.0
+  "stdby_27c_kW": 198.0,
+  "winding_conn": "Δ/Y"
  },
  {
   "type": "generator",
@@ -3417,7 +3606,8 @@
   "stdby_40c_kVA": 262.4,
   "stdby_40c_kW": 209.9,
   "stdby_27c_kVA": 272.3,
-  "stdby_27c_kW": 217.8
+  "stdby_27c_kW": 217.8,
+  "winding_conn": "YY,Δ/Y"
  },
  {
   "type": "generator",
@@ -3435,7 +3625,8 @@
   "stdby_40c_kVA": 274.3,
   "stdby_40c_kW": 219.4,
   "stdby_27c_kVA": 284.6,
-  "stdby_27c_kW": 227.7
+  "stdby_27c_kW": 227.7,
+  "winding_conn": "YY,Δ/Y"
  },
  {
   "type": "generator",
@@ -3453,7 +3644,8 @@
   "stdby_40c_kVA": 286.2,
   "stdby_40c_kW": 229.0,
   "stdby_27c_kVA": 297.0,
-  "stdby_27c_kW": 237.6
+  "stdby_27c_kW": 237.6,
+  "winding_conn": "YY,Δ/Y"
  },
  {
   "type": "generator",
@@ -3471,7 +3663,8 @@
   "stdby_40c_kVA": 265.0,
   "stdby_40c_kW": 212.0,
   "stdby_27c_kVA": 275.0,
-  "stdby_27c_kW": 220.0
+  "stdby_27c_kW": 220.0,
+  "winding_conn": "Δ/Y"
  },
  {
   "type": "generator",
@@ -3489,7 +3682,8 @@
   "stdby_40c_kVA": 265.0,
   "stdby_40c_kW": 212.0,
   "stdby_27c_kVA": 275.0,
-  "stdby_27c_kW": 220.0
+  "stdby_27c_kW": 220.0,
+  "winding_conn": "Δ/Y"
  },
  {
   "type": "generator",
@@ -3507,7 +3701,8 @@
   "stdby_40c_kVA": 265.0,
   "stdby_40c_kW": 212.0,
   "stdby_27c_kVA": 275.0,
-  "stdby_27c_kW": 220.0
+  "stdby_27c_kW": 220.0,
+  "winding_conn": "Δ/Y"
  },
  {
   "type": "generator",
@@ -3525,7 +3720,8 @@
   "stdby_40c_kVA": 291.5,
   "stdby_40c_kW": 233.2,
   "stdby_27c_kVA": 302.5,
-  "stdby_27c_kW": 242.0
+  "stdby_27c_kW": 242.0,
+  "winding_conn": "YY,Δ/Y"
  },
  {
   "type": "generator",
@@ -3543,7 +3739,8 @@
   "stdby_40c_kVA": 304.8,
   "stdby_40c_kW": 243.8,
   "stdby_27c_kVA": 316.3,
-  "stdby_27c_kW": 253.0
+  "stdby_27c_kW": 253.0,
+  "winding_conn": "YY,Δ/Y"
  },
  {
   "type": "generator",
@@ -3561,7 +3758,8 @@
   "stdby_40c_kVA": 318.0,
   "stdby_40c_kW": 254.4,
   "stdby_27c_kVA": 330.0,
-  "stdby_27c_kW": 264.0
+  "stdby_27c_kW": 264.0,
+  "winding_conn": "YY,Δ/Y"
  },
  {
   "type": "generator",
@@ -3579,7 +3777,8 @@
   "stdby_40c_kVA": 265.0,
   "stdby_40c_kW": 212.0,
   "stdby_27c_kVA": 275.0,
-  "stdby_27c_kW": 220.0
+  "stdby_27c_kW": 220.0,
+  "winding_conn": "Δ/Y"
  },
  {
   "type": "generator",
@@ -3597,7 +3796,8 @@
   "stdby_40c_kVA": 265.0,
   "stdby_40c_kW": 212.0,
   "stdby_27c_kVA": 275.0,
-  "stdby_27c_kW": 220.0
+  "stdby_27c_kW": 220.0,
+  "winding_conn": "Δ/Y"
  },
  {
   "type": "generator",
@@ -3615,7 +3815,8 @@
   "stdby_40c_kVA": 265.0,
   "stdby_40c_kW": 212.0,
   "stdby_27c_kVA": 275.0,
-  "stdby_27c_kW": 220.0
+  "stdby_27c_kW": 220.0,
+  "winding_conn": "Δ/Y"
  },
  {
   "type": "generator",
@@ -3633,7 +3834,8 @@
   "stdby_40c_kVA": 291.5,
   "stdby_40c_kW": 233.2,
   "stdby_27c_kVA": 302.5,
-  "stdby_27c_kW": 242.0
+  "stdby_27c_kW": 242.0,
+  "winding_conn": "YY,Δ/Y"
  },
  {
   "type": "generator",
@@ -3651,7 +3853,8 @@
   "stdby_40c_kVA": 304.8,
   "stdby_40c_kW": 243.8,
   "stdby_27c_kVA": 316.3,
-  "stdby_27c_kW": 253.0
+  "stdby_27c_kW": 253.0,
+  "winding_conn": "YY,Δ/Y"
  },
  {
   "type": "generator",
@@ -3669,7 +3872,8 @@
   "stdby_40c_kVA": 318.0,
   "stdby_40c_kW": 254.4,
   "stdby_27c_kVA": 330.0,
-  "stdby_27c_kW": 264.0
+  "stdby_27c_kW": 264.0,
+  "winding_conn": "YY,Δ/Y"
  },
  {
   "type": "generator",
@@ -3687,7 +3891,8 @@
   "stdby_40c_kVA": 291.5,
   "stdby_40c_kW": 233.2,
   "stdby_27c_kVA": 302.5,
-  "stdby_27c_kW": 242.0
+  "stdby_27c_kW": 242.0,
+  "winding_conn": "Δ/Y"
  },
  {
   "type": "generator",
@@ -3705,7 +3910,8 @@
   "stdby_40c_kVA": 291.5,
   "stdby_40c_kW": 233.2,
   "stdby_27c_kVA": 302.5,
-  "stdby_27c_kW": 242.0
+  "stdby_27c_kW": 242.0,
+  "winding_conn": "Δ/Y"
  },
  {
   "type": "generator",
@@ -3723,7 +3929,8 @@
   "stdby_40c_kVA": 291.5,
   "stdby_40c_kW": 233.2,
   "stdby_27c_kVA": 302.5,
-  "stdby_27c_kW": 242.0
+  "stdby_27c_kW": 242.0,
+  "winding_conn": "Δ/Y"
  },
  {
   "type": "generator",
@@ -3741,7 +3948,8 @@
   "stdby_40c_kVA": 320.7,
   "stdby_40c_kW": 256.5,
   "stdby_27c_kVA": 332.8,
-  "stdby_27c_kW": 266.2
+  "stdby_27c_kW": 266.2,
+  "winding_conn": "YY,Δ/Y"
  },
  {
   "type": "generator",
@@ -3759,7 +3967,8 @@
   "stdby_40c_kVA": 335.2,
   "stdby_40c_kW": 268.2,
   "stdby_27c_kVA": 347.9,
-  "stdby_27c_kW": 278.3
+  "stdby_27c_kW": 278.3,
+  "winding_conn": "YY,Δ/Y"
  },
  {
   "type": "generator",
@@ -3777,7 +3986,8 @@
   "stdby_40c_kVA": 349.8,
   "stdby_40c_kW": 279.8,
   "stdby_27c_kVA": 363.0,
-  "stdby_27c_kW": 290.4
+  "stdby_27c_kW": 290.4,
+  "winding_conn": "YY,Δ/Y"
  },
  {
   "type": "generator",
@@ -3795,7 +4005,8 @@
   "stdby_40c_kVA": 318.0,
   "stdby_40c_kW": 254.4,
   "stdby_27c_kVA": 330.0,
-  "stdby_27c_kW": 264.0
+  "stdby_27c_kW": 264.0,
+  "winding_conn": "Δ/Y"
  },
  {
   "type": "generator",
@@ -3813,7 +4024,8 @@
   "stdby_40c_kVA": 318.0,
   "stdby_40c_kW": 254.4,
   "stdby_27c_kVA": 330.0,
-  "stdby_27c_kW": 264.0
+  "stdby_27c_kW": 264.0,
+  "winding_conn": "Δ/Y"
  },
  {
   "type": "generator",
@@ -3831,7 +4043,8 @@
   "stdby_40c_kVA": 318.0,
   "stdby_40c_kW": 254.4,
   "stdby_27c_kVA": 330.0,
-  "stdby_27c_kW": 264.0
+  "stdby_27c_kW": 264.0,
+  "winding_conn": "Δ/Y"
  },
  {
   "type": "generator",
@@ -3849,7 +4062,8 @@
   "stdby_40c_kVA": 349.8,
   "stdby_40c_kW": 279.8,
   "stdby_27c_kVA": 363.0,
-  "stdby_27c_kW": 290.4
+  "stdby_27c_kW": 290.4,
+  "winding_conn": "YY,Δ/Y"
  },
  {
   "type": "generator",
@@ -3867,7 +4081,8 @@
   "stdby_40c_kVA": 365.7,
   "stdby_40c_kW": 292.6,
   "stdby_27c_kVA": 379.5,
-  "stdby_27c_kW": 303.6
+  "stdby_27c_kW": 303.6,
+  "winding_conn": "YY,Δ/Y"
  },
  {
   "type": "generator",
@@ -3885,7 +4100,8 @@
   "stdby_40c_kVA": 381.6,
   "stdby_40c_kW": 305.3,
   "stdby_27c_kVA": 396.0,
-  "stdby_27c_kW": 316.8
+  "stdby_27c_kW": 316.8,
+  "winding_conn": "YY,Δ/Y"
  },
  {
   "type": "generator",
@@ -3903,7 +4119,8 @@
   "stdby_40c_kVA": 331.3,
   "stdby_40c_kW": 265.0,
   "stdby_27c_kVA": 343.8,
-  "stdby_27c_kW": 275.0
+  "stdby_27c_kW": 275.0,
+  "winding_conn": "Δ/Y"
  },
  {
   "type": "generator",
@@ -3921,7 +4138,8 @@
   "stdby_40c_kVA": 331.3,
   "stdby_40c_kW": 265.0,
   "stdby_27c_kVA": 343.8,
-  "stdby_27c_kW": 275.0
+  "stdby_27c_kW": 275.0,
+  "winding_conn": "Δ/Y"
  },
  {
   "type": "generator",
@@ -3939,7 +4157,8 @@
   "stdby_40c_kVA": 331.3,
   "stdby_40c_kW": 265.0,
   "stdby_27c_kVA": 343.8,
-  "stdby_27c_kW": 275.0
+  "stdby_27c_kW": 275.0,
+  "winding_conn": "Δ/Y"
  },
  {
   "type": "generator",
@@ -3957,7 +4176,8 @@
   "stdby_40c_kVA": 364.4,
   "stdby_40c_kW": 291.5,
   "stdby_27c_kVA": 378.1,
-  "stdby_27c_kW": 302.5
+  "stdby_27c_kW": 302.5,
+  "winding_conn": "YY,Δ/Y"
  },
  {
   "type": "generator",
@@ -3975,7 +4195,8 @@
   "stdby_40c_kVA": 380.9,
   "stdby_40c_kW": 304.8,
   "stdby_27c_kVA": 395.3,
-  "stdby_27c_kW": 316.3
+  "stdby_27c_kW": 316.3,
+  "winding_conn": "YY,Δ/Y"
  },
  {
   "type": "generator",
@@ -3993,7 +4214,8 @@
   "stdby_40c_kVA": 397.5,
   "stdby_40c_kW": 318.0,
   "stdby_27c_kVA": 412.5,
-  "stdby_27c_kW": 330.0
+  "stdby_27c_kW": 330.0,
+  "winding_conn": "YY,Δ/Y"
  },
  {
   "type": "generator",
@@ -4011,7 +4233,8 @@
   "stdby_40c_kVA": 344.5,
   "stdby_40c_kW": 275.6,
   "stdby_27c_kVA": 357.5,
-  "stdby_27c_kW": 286.0
+  "stdby_27c_kW": 286.0,
+  "winding_conn": "Δ/Y"
  },
  {
   "type": "generator",
@@ -4029,7 +4252,8 @@
   "stdby_40c_kVA": 344.5,
   "stdby_40c_kW": 275.6,
   "stdby_27c_kVA": 357.5,
-  "stdby_27c_kW": 286.0
+  "stdby_27c_kW": 286.0,
+  "winding_conn": "Δ/Y"
  },
  {
   "type": "generator",
@@ -4047,7 +4271,8 @@
   "stdby_40c_kVA": 344.5,
   "stdby_40c_kW": 275.6,
   "stdby_27c_kVA": 357.5,
-  "stdby_27c_kW": 286.0
+  "stdby_27c_kW": 286.0,
+  "winding_conn": "Δ/Y"
  },
  {
   "type": "generator",
@@ -4065,7 +4290,8 @@
   "stdby_40c_kVA": 379.0,
   "stdby_40c_kW": 303.2,
   "stdby_27c_kVA": 393.3,
-  "stdby_27c_kW": 314.6
+  "stdby_27c_kW": 314.6,
+  "winding_conn": "YY,Δ/Y"
  },
  {
   "type": "generator",
@@ -4083,7 +4309,8 @@
   "stdby_40c_kVA": 396.2,
   "stdby_40c_kW": 316.9,
   "stdby_27c_kVA": 411.1,
-  "stdby_27c_kW": 328.9
+  "stdby_27c_kW": 328.9,
+  "winding_conn": "YY,Δ/Y"
  },
  {
   "type": "generator",
@@ -4101,7 +4328,8 @@
   "stdby_40c_kVA": 413.4,
   "stdby_40c_kW": 330.7,
   "stdby_27c_kVA": 429.0,
-  "stdby_27c_kW": 343.2
+  "stdby_27c_kW": 343.2,
+  "winding_conn": "YY,Δ/Y"
  },
  {
   "type": "generator",
@@ -4119,7 +4347,8 @@
   "stdby_40c_kVA": 371.0,
   "stdby_40c_kW": 296.8,
   "stdby_27c_kVA": 385.0,
-  "stdby_27c_kW": 308.0
+  "stdby_27c_kW": 308.0,
+  "winding_conn": "Δ/Y"
  },
  {
   "type": "generator",
@@ -4137,7 +4366,8 @@
   "stdby_40c_kVA": 371.0,
   "stdby_40c_kW": 296.8,
   "stdby_27c_kVA": 385.0,
-  "stdby_27c_kW": 308.0
+  "stdby_27c_kW": 308.0,
+  "winding_conn": "Δ/Y"
  },
  {
   "type": "generator",
@@ -4155,7 +4385,8 @@
   "stdby_40c_kVA": 371.0,
   "stdby_40c_kW": 296.8,
   "stdby_27c_kVA": 385.0,
-  "stdby_27c_kW": 308.0
+  "stdby_27c_kW": 308.0,
+  "winding_conn": "Δ/Y"
  },
  {
   "type": "generator",
@@ -4173,7 +4404,8 @@
   "stdby_40c_kVA": 408.1,
   "stdby_40c_kW": 326.5,
   "stdby_27c_kVA": 423.5,
-  "stdby_27c_kW": 338.8
+  "stdby_27c_kW": 338.8,
+  "winding_conn": "YY,Δ/Y"
  },
  {
   "type": "generator",
@@ -4191,7 +4423,8 @@
   "stdby_40c_kVA": 426.7,
   "stdby_40c_kW": 341.3,
   "stdby_27c_kVA": 442.8,
-  "stdby_27c_kW": 354.2
+  "stdby_27c_kW": 354.2,
+  "winding_conn": "YY,Δ/Y"
  },
  {
   "type": "generator",
@@ -4209,7 +4442,8 @@
   "stdby_40c_kVA": 445.2,
   "stdby_40c_kW": 356.2,
   "stdby_27c_kVA": 462.0,
-  "stdby_27c_kW": 369.6
+  "stdby_27c_kW": 369.6,
+  "winding_conn": "YY,Δ/Y"
  },
  {
   "type": "generator",
@@ -4227,7 +4461,8 @@
   "stdby_40c_kVA": 397.5,
   "stdby_40c_kW": 318.0,
   "stdby_27c_kVA": 412.5,
-  "stdby_27c_kW": 330.0
+  "stdby_27c_kW": 330.0,
+  "winding_conn": "Δ/Y"
  },
  {
   "type": "generator",
@@ -4245,7 +4480,8 @@
   "stdby_40c_kVA": 397.5,
   "stdby_40c_kW": 318.0,
   "stdby_27c_kVA": 412.5,
-  "stdby_27c_kW": 330.0
+  "stdby_27c_kW": 330.0,
+  "winding_conn": "Δ/Y"
  },
  {
   "type": "generator",
@@ -4263,7 +4499,8 @@
   "stdby_40c_kVA": 397.5,
   "stdby_40c_kW": 318.0,
   "stdby_27c_kVA": 412.5,
-  "stdby_27c_kW": 330.0
+  "stdby_27c_kW": 330.0,
+  "winding_conn": "Δ/Y"
  },
  {
   "type": "generator",
@@ -4281,7 +4518,8 @@
   "stdby_40c_kVA": 437.3,
   "stdby_40c_kW": 349.8,
   "stdby_27c_kVA": 453.8,
-  "stdby_27c_kW": 363.0
+  "stdby_27c_kW": 363.0,
+  "winding_conn": "YY,Δ/Y"
  },
  {
   "type": "generator",
@@ -4299,7 +4537,8 @@
   "stdby_40c_kVA": 457.1,
   "stdby_40c_kW": 365.7,
   "stdby_27c_kVA": 474.4,
-  "stdby_27c_kW": 379.5
+  "stdby_27c_kW": 379.5,
+  "winding_conn": "YY,Δ/Y"
  },
  {
   "type": "generator",
@@ -4317,7 +4556,8 @@
   "stdby_40c_kVA": 477.0,
   "stdby_40c_kW": 381.6,
   "stdby_27c_kVA": 495.0,
-  "stdby_27c_kW": 396.0
+  "stdby_27c_kW": 396.0,
+  "winding_conn": "YY,Δ/Y"
  },
  {
   "type": "generator",
@@ -4335,7 +4575,8 @@
   "stdby_40c_kVA": 424.0,
   "stdby_40c_kW": 339.2,
   "stdby_27c_kVA": 440.0,
-  "stdby_27c_kW": 352.0
+  "stdby_27c_kW": 352.0,
+  "winding_conn": "Δ/Y"
  },
  {
   "type": "generator",
@@ -4353,7 +4594,8 @@
   "stdby_40c_kVA": 424.0,
   "stdby_40c_kW": 339.2,
   "stdby_27c_kVA": 440.0,
-  "stdby_27c_kW": 352.0
+  "stdby_27c_kW": 352.0,
+  "winding_conn": "Δ/Y"
  },
  {
   "type": "generator",
@@ -4371,7 +4613,8 @@
   "stdby_40c_kVA": 424.0,
   "stdby_40c_kW": 339.2,
   "stdby_27c_kVA": 440.0,
-  "stdby_27c_kW": 352.0
+  "stdby_27c_kW": 352.0,
+  "winding_conn": "Δ/Y"
  },
  {
   "type": "generator",
@@ -4389,7 +4632,8 @@
   "stdby_40c_kVA": 466.4,
   "stdby_40c_kW": 373.1,
   "stdby_27c_kVA": 484.0,
-  "stdby_27c_kW": 387.2
+  "stdby_27c_kW": 387.2,
+  "winding_conn": "YY,Δ/Y"
  },
  {
   "type": "generator",
@@ -4407,7 +4651,8 @@
   "stdby_40c_kVA": 487.6,
   "stdby_40c_kW": 390.1,
   "stdby_27c_kVA": 506.0,
-  "stdby_27c_kW": 404.8
+  "stdby_27c_kW": 404.8,
+  "winding_conn": "YY,Δ/Y"
  },
  {
   "type": "generator",
@@ -4425,7 +4670,8 @@
   "stdby_40c_kVA": 508.8,
   "stdby_40c_kW": 407.0,
   "stdby_27c_kVA": 528.0,
-  "stdby_27c_kW": 422.4
+  "stdby_27c_kW": 422.4,
+  "winding_conn": "YY,Δ/Y"
  },
  {
   "type": "generator",
@@ -4443,7 +4689,8 @@
   "stdby_40c_kVA": 477.0,
   "stdby_40c_kW": 381.6,
   "stdby_27c_kVA": 495.0,
-  "stdby_27c_kW": 396.0
+  "stdby_27c_kW": 396.0,
+  "winding_conn": "Δ/Y"
  },
  {
   "type": "generator",
@@ -4461,7 +4708,8 @@
   "stdby_40c_kVA": 477.0,
   "stdby_40c_kW": 381.6,
   "stdby_27c_kVA": 495.0,
-  "stdby_27c_kW": 396.0
+  "stdby_27c_kW": 396.0,
+  "winding_conn": "Δ/Y"
  },
  {
   "type": "generator",
@@ -4479,7 +4727,8 @@
   "stdby_40c_kVA": 477.0,
   "stdby_40c_kW": 381.6,
   "stdby_27c_kVA": 495.0,
-  "stdby_27c_kW": 396.0
+  "stdby_27c_kW": 396.0,
+  "winding_conn": "Δ/Y"
  },
  {
   "type": "generator",
@@ -4497,7 +4746,8 @@
   "stdby_40c_kVA": 524.7,
   "stdby_40c_kW": 419.8,
   "stdby_27c_kVA": 544.5,
-  "stdby_27c_kW": 435.6
+  "stdby_27c_kW": 435.6,
+  "winding_conn": "YY,Δ/Y"
  },
  {
   "type": "generator",
@@ -4515,7 +4765,8 @@
   "stdby_40c_kVA": 548.6,
   "stdby_40c_kW": 438.8,
   "stdby_27c_kVA": 569.3,
-  "stdby_27c_kW": 455.4
+  "stdby_27c_kW": 455.4,
+  "winding_conn": "YY,Δ/Y"
  },
  {
   "type": "generator",
@@ -4533,7 +4784,8 @@
   "stdby_40c_kVA": 572.4,
   "stdby_40c_kW": 457.9,
   "stdby_27c_kVA": 594.0,
-  "stdby_27c_kW": 475.2
+  "stdby_27c_kW": 475.2,
+  "winding_conn": "YY,Δ/Y"
  },
  {
   "type": "generator",
@@ -4551,7 +4803,8 @@
   "stdby_40c_kVA": 477.0,
   "stdby_40c_kW": 381.6,
   "stdby_27c_kVA": 495.0,
-  "stdby_27c_kW": 396.0
+  "stdby_27c_kW": 396.0,
+  "winding_conn": "Δ/Y"
  },
  {
   "type": "generator",
@@ -4569,7 +4822,8 @@
   "stdby_40c_kVA": 477.0,
   "stdby_40c_kW": 381.6,
   "stdby_27c_kVA": 495.0,
-  "stdby_27c_kW": 396.0
+  "stdby_27c_kW": 396.0,
+  "winding_conn": "Δ/Y"
  },
  {
   "type": "generator",
@@ -4587,7 +4841,8 @@
   "stdby_40c_kVA": 477.0,
   "stdby_40c_kW": 381.6,
   "stdby_27c_kVA": 495.0,
-  "stdby_27c_kW": 396.0
+  "stdby_27c_kW": 396.0,
+  "winding_conn": "Δ/Y"
  },
  {
   "type": "generator",
@@ -4605,7 +4860,8 @@
   "stdby_40c_kVA": 524.7,
   "stdby_40c_kW": 419.8,
   "stdby_27c_kVA": 544.5,
-  "stdby_27c_kW": 435.6
+  "stdby_27c_kW": 435.6,
+  "winding_conn": "YY,Δ/Y"
  },
  {
   "type": "generator",
@@ -4623,7 +4879,8 @@
   "stdby_40c_kVA": 548.6,
   "stdby_40c_kW": 438.8,
   "stdby_27c_kVA": 569.3,
-  "stdby_27c_kW": 455.4
+  "stdby_27c_kW": 455.4,
+  "winding_conn": "YY,Δ/Y"
  },
  {
   "type": "generator",
@@ -4641,7 +4898,8 @@
   "stdby_40c_kVA": 572.4,
   "stdby_40c_kW": 457.9,
   "stdby_27c_kVA": 594.0,
-  "stdby_27c_kW": 475.2
+  "stdby_27c_kW": 475.2,
+  "winding_conn": "YY,Δ/Y"
  },
  {
   "type": "generator",
@@ -4659,7 +4917,8 @@
   "stdby_40c_kVA": 530.0,
   "stdby_40c_kW": 424.0,
   "stdby_27c_kVA": 550.0,
-  "stdby_27c_kW": 440.0
+  "stdby_27c_kW": 440.0,
+  "winding_conn": "Δ/Y"
  },
  {
   "type": "generator",
@@ -4677,7 +4936,8 @@
   "stdby_40c_kVA": 530.0,
   "stdby_40c_kW": 424.0,
   "stdby_27c_kVA": 550.0,
-  "stdby_27c_kW": 440.0
+  "stdby_27c_kW": 440.0,
+  "winding_conn": "Δ/Y"
  },
  {
   "type": "generator",
@@ -4695,7 +4955,8 @@
   "stdby_40c_kVA": 530.0,
   "stdby_40c_kW": 424.0,
   "stdby_27c_kVA": 550.0,
-  "stdby_27c_kW": 440.0
+  "stdby_27c_kW": 440.0,
+  "winding_conn": "Δ/Y"
  },
  {
   "type": "generator",
@@ -4713,7 +4974,8 @@
   "stdby_40c_kVA": 583.0,
   "stdby_40c_kW": 466.4,
   "stdby_27c_kVA": 605.0,
-  "stdby_27c_kW": 484.0
+  "stdby_27c_kW": 484.0,
+  "winding_conn": "YY,Δ/Y"
  },
  {
   "type": "generator",
@@ -4731,7 +4993,8 @@
   "stdby_40c_kVA": 609.5,
   "stdby_40c_kW": 487.6,
   "stdby_27c_kVA": 632.5,
-  "stdby_27c_kW": 506.0
+  "stdby_27c_kW": 506.0,
+  "winding_conn": "YY,Δ/Y"
  },
  {
   "type": "generator",
@@ -4749,7 +5012,8 @@
   "stdby_40c_kVA": 636.0,
   "stdby_40c_kW": 508.8,
   "stdby_27c_kVA": 660.0,
-  "stdby_27c_kW": 528.0
+  "stdby_27c_kW": 528.0,
+  "winding_conn": "YY,Δ/Y"
  },
  {
   "type": "generator",
@@ -4767,7 +5031,8 @@
   "stdby_40c_kVA": 596.8,
   "stdby_40c_kW": 477.4,
   "stdby_27c_kVA": 619.3,
-  "stdby_27c_kW": 495.4
+  "stdby_27c_kW": 495.4,
+  "winding_conn": "Δ/Y"
  },
  {
   "type": "generator",
@@ -4785,7 +5050,8 @@
   "stdby_40c_kVA": 596.8,
   "stdby_40c_kW": 477.4,
   "stdby_27c_kVA": 619.3,
-  "stdby_27c_kW": 495.4
+  "stdby_27c_kW": 495.4,
+  "winding_conn": "Δ/Y"
  },
  {
   "type": "generator",
@@ -4803,7 +5069,8 @@
   "stdby_40c_kVA": 596.8,
   "stdby_40c_kW": 477.4,
   "stdby_27c_kVA": 619.3,
-  "stdby_27c_kW": 495.4
+  "stdby_27c_kW": 495.4,
+  "winding_conn": "Δ/Y"
  },
  {
   "type": "generator",
@@ -4821,7 +5088,8 @@
   "stdby_40c_kVA": 656.5,
   "stdby_40c_kW": 525.2,
   "stdby_27c_kVA": 681.2,
-  "stdby_27c_kW": 545.0
+  "stdby_27c_kW": 545.0,
+  "winding_conn": "YY,Δ/Y"
  },
  {
   "type": "generator",
@@ -4839,7 +5107,8 @@
   "stdby_40c_kVA": 686.3,
   "stdby_40c_kW": 549.0,
   "stdby_27c_kVA": 712.2,
-  "stdby_27c_kW": 569.8
+  "stdby_27c_kW": 569.8,
+  "winding_conn": "YY,Δ/Y"
  },
  {
   "type": "generator",
@@ -4857,7 +5126,8 @@
   "stdby_40c_kVA": 716.1,
   "stdby_40c_kW": 572.9,
   "stdby_27c_kVA": 743.2,
-  "stdby_27c_kW": 594.5
+  "stdby_27c_kW": 594.5,
+  "winding_conn": "YY,Δ/Y"
  },
  {
   "type": "generator",
@@ -4875,7 +5145,8 @@
   "stdby_40c_kVA": 636.0,
   "stdby_40c_kW": 508.8,
   "stdby_27c_kVA": 660.0,
-  "stdby_27c_kW": 528.0
+  "stdby_27c_kW": 528.0,
+  "winding_conn": "Δ/Y"
  },
  {
   "type": "generator",
@@ -4893,7 +5164,8 @@
   "stdby_40c_kVA": 636.0,
   "stdby_40c_kW": 508.8,
   "stdby_27c_kVA": 660.0,
-  "stdby_27c_kW": 528.0
+  "stdby_27c_kW": 528.0,
+  "winding_conn": "Δ/Y"
  },
  {
   "type": "generator",
@@ -4911,7 +5183,8 @@
   "stdby_40c_kVA": 636.0,
   "stdby_40c_kW": 508.8,
   "stdby_27c_kVA": 660.0,
-  "stdby_27c_kW": 528.0
+  "stdby_27c_kW": 528.0,
+  "winding_conn": "Δ/Y"
  },
  {
   "type": "generator",
@@ -4929,7 +5202,8 @@
   "stdby_40c_kVA": 699.6,
   "stdby_40c_kW": 559.7,
   "stdby_27c_kVA": 726.0,
-  "stdby_27c_kW": 580.8
+  "stdby_27c_kW": 580.8,
+  "winding_conn": "YY,Δ/Y"
  },
  {
   "type": "generator",
@@ -4947,7 +5221,8 @@
   "stdby_40c_kVA": 731.4,
   "stdby_40c_kW": 585.1,
   "stdby_27c_kVA": 759.0,
-  "stdby_27c_kW": 607.2
+  "stdby_27c_kW": 607.2,
+  "winding_conn": "YY,Δ/Y"
  },
  {
   "type": "generator",
@@ -4965,7 +5240,8 @@
   "stdby_40c_kVA": 763.2,
   "stdby_40c_kW": 610.6,
   "stdby_27c_kVA": 792.0,
-  "stdby_27c_kW": 633.6
+  "stdby_27c_kW": 633.6,
+  "winding_conn": "YY,Δ/Y"
  },
  {
   "type": "generator",
@@ -4983,7 +5259,8 @@
   "stdby_40c_kVA": 662.5,
   "stdby_40c_kW": 530.0,
   "stdby_27c_kVA": 687.5,
-  "stdby_27c_kW": 550.0
+  "stdby_27c_kW": 550.0,
+  "winding_conn": "Δ/Y"
  },
  {
   "type": "generator",
@@ -5001,7 +5278,8 @@
   "stdby_40c_kVA": 662.5,
   "stdby_40c_kW": 530.0,
   "stdby_27c_kVA": 687.5,
-  "stdby_27c_kW": 550.0
+  "stdby_27c_kW": 550.0,
+  "winding_conn": "Δ/Y"
  },
  {
   "type": "generator",
@@ -5019,7 +5297,8 @@
   "stdby_40c_kVA": 662.5,
   "stdby_40c_kW": 530.0,
   "stdby_27c_kVA": 687.5,
-  "stdby_27c_kW": 550.0
+  "stdby_27c_kW": 550.0,
+  "winding_conn": "Δ/Y"
  },
  {
   "type": "generator",
@@ -5037,7 +5316,8 @@
   "stdby_40c_kVA": 728.8,
   "stdby_40c_kW": 583.0,
   "stdby_27c_kVA": 756.3,
-  "stdby_27c_kW": 605.0
+  "stdby_27c_kW": 605.0,
+  "winding_conn": "YY,Δ/Y"
  },
  {
   "type": "generator",
@@ -5055,7 +5335,8 @@
   "stdby_40c_kVA": 761.9,
   "stdby_40c_kW": 609.5,
   "stdby_27c_kVA": 790.6,
-  "stdby_27c_kW": 632.5
+  "stdby_27c_kW": 632.5,
+  "winding_conn": "YY,Δ/Y"
  },
  {
   "type": "generator",
@@ -5073,7 +5354,8 @@
   "stdby_40c_kVA": 795.0,
   "stdby_40c_kW": 636.0,
   "stdby_27c_kVA": 825.0,
-  "stdby_27c_kW": 660.0
+  "stdby_27c_kW": 660.0,
+  "winding_conn": "YY,Δ/Y"
  },
  {
   "type": "generator",
@@ -5091,7 +5373,8 @@
   "stdby_40c_kVA": 710.2,
   "stdby_40c_kW": 568.2,
   "stdby_27c_kVA": 737.0,
-  "stdby_27c_kW": 589.6
+  "stdby_27c_kW": 589.6,
+  "winding_conn": "Δ/Y"
  },
  {
   "type": "generator",
@@ -5109,7 +5392,8 @@
   "stdby_40c_kVA": 710.2,
   "stdby_40c_kW": 568.2,
   "stdby_27c_kVA": 737.0,
-  "stdby_27c_kW": 589.6
+  "stdby_27c_kW": 589.6,
+  "winding_conn": "Δ/Y"
  },
  {
   "type": "generator",
@@ -5127,7 +5411,8 @@
   "stdby_40c_kVA": 710.2,
   "stdby_40c_kW": 568.2,
   "stdby_27c_kVA": 737.0,
-  "stdby_27c_kW": 589.6
+  "stdby_27c_kW": 589.6,
+  "winding_conn": "Δ/Y"
  },
  {
   "type": "generator",
@@ -5145,7 +5430,8 @@
   "stdby_40c_kVA": 781.2,
   "stdby_40c_kW": 625.0,
   "stdby_27c_kVA": 810.7,
-  "stdby_27c_kW": 648.6
+  "stdby_27c_kW": 648.6,
+  "winding_conn": "YY,Δ/Y"
  },
  {
   "type": "generator",
@@ -5163,7 +5449,8 @@
   "stdby_40c_kVA": 816.7,
   "stdby_40c_kW": 653.4,
   "stdby_27c_kVA": 847.6,
-  "stdby_27c_kW": 678.0
+  "stdby_27c_kW": 678.0,
+  "winding_conn": "YY,Δ/Y"
  },
  {
   "type": "generator",
@@ -5181,7 +5468,8 @@
   "stdby_40c_kVA": 852.2,
   "stdby_40c_kW": 681.8,
   "stdby_27c_kVA": 884.4,
-  "stdby_27c_kW": 707.5
+  "stdby_27c_kW": 707.5,
+  "winding_conn": "YY,Δ/Y"
  },
  {
   "type": "generator",
@@ -5199,7 +5487,8 @@
   "stdby_40c_kVA": 742.0,
   "stdby_40c_kW": 593.6,
   "stdby_27c_kVA": 770.0,
-  "stdby_27c_kW": 616.0
+  "stdby_27c_kW": 616.0,
+  "winding_conn": "Δ/Y"
  },
  {
   "type": "generator",
@@ -5217,7 +5506,8 @@
   "stdby_40c_kVA": 742.0,
   "stdby_40c_kW": 593.6,
   "stdby_27c_kVA": 770.0,
-  "stdby_27c_kW": 616.0
+  "stdby_27c_kW": 616.0,
+  "winding_conn": "Δ/Y"
  },
  {
   "type": "generator",
@@ -5235,7 +5525,8 @@
   "stdby_40c_kVA": 742.0,
   "stdby_40c_kW": 593.6,
   "stdby_27c_kVA": 770.0,
-  "stdby_27c_kW": 616.0
+  "stdby_27c_kW": 616.0,
+  "winding_conn": "Δ/Y"
  },
  {
   "type": "generator",
@@ -5253,7 +5544,8 @@
   "stdby_40c_kVA": 816.2,
   "stdby_40c_kW": 653.0,
   "stdby_27c_kVA": 847.0,
-  "stdby_27c_kW": 677.6
+  "stdby_27c_kW": 677.6,
+  "winding_conn": "YY,Δ/Y"
  },
  {
   "type": "generator",
@@ -5271,7 +5563,8 @@
   "stdby_40c_kVA": 853.3,
   "stdby_40c_kW": 682.6,
   "stdby_27c_kVA": 885.5,
-  "stdby_27c_kW": 708.4
+  "stdby_27c_kW": 708.4,
+  "winding_conn": "YY,Δ/Y"
  },
  {
   "type": "generator",
@@ -5289,7 +5582,8 @@
   "stdby_40c_kVA": 890.4,
   "stdby_40c_kW": 712.3,
   "stdby_27c_kVA": 924.0,
-  "stdby_27c_kW": 739.2
+  "stdby_27c_kW": 739.2,
+  "winding_conn": "YY,Δ/Y"
  },
  {
   "type": "generator",
@@ -5307,7 +5601,8 @@
   "stdby_40c_kVA": 795.0,
   "stdby_40c_kW": 636.0,
   "stdby_27c_kVA": 825.0,
-  "stdby_27c_kW": 660.0
+  "stdby_27c_kW": 660.0,
+  "winding_conn": "Δ/Y"
  },
  {
   "type": "generator",
@@ -5325,7 +5620,8 @@
   "stdby_40c_kVA": 795.0,
   "stdby_40c_kW": 636.0,
   "stdby_27c_kVA": 825.0,
-  "stdby_27c_kW": 660.0
+  "stdby_27c_kW": 660.0,
+  "winding_conn": "Δ/Y"
  },
  {
   "type": "generator",
@@ -5343,7 +5639,8 @@
   "stdby_40c_kVA": 795.0,
   "stdby_40c_kW": 636.0,
   "stdby_27c_kVA": 825.0,
-  "stdby_27c_kW": 660.0
+  "stdby_27c_kW": 660.0,
+  "winding_conn": "Δ/Y"
  },
  {
   "type": "generator",
@@ -5361,7 +5658,8 @@
   "stdby_40c_kVA": 874.5,
   "stdby_40c_kW": 699.6,
   "stdby_27c_kVA": 907.5,
-  "stdby_27c_kW": 726.0
+  "stdby_27c_kW": 726.0,
+  "winding_conn": "YY,Δ/Y"
  },
  {
   "type": "generator",
@@ -5379,7 +5677,8 @@
   "stdby_40c_kVA": 914.3,
   "stdby_40c_kW": 731.4,
   "stdby_27c_kVA": 948.8,
-  "stdby_27c_kW": 759.0
+  "stdby_27c_kW": 759.0,
+  "winding_conn": "YY,Δ/Y"
  },
  {
   "type": "generator",
@@ -5397,7 +5696,8 @@
   "stdby_40c_kVA": 954.0,
   "stdby_40c_kW": 763.2,
   "stdby_27c_kVA": 990.0,
-  "stdby_27c_kW": 792.0
+  "stdby_27c_kW": 792.0,
+  "winding_conn": "YY,Δ/Y"
  },
  {
   "type": "generator",
@@ -5415,7 +5715,8 @@
   "stdby_40c_kVA": 832.0,
   "stdby_40c_kW": 665.6,
   "stdby_27c_kVA": 864.0,
-  "stdby_27c_kW": 691.2
+  "stdby_27c_kW": 691.2,
+  "winding_conn": "Δ/Y"
  },
  {
   "type": "generator",
@@ -5433,7 +5734,8 @@
   "stdby_40c_kVA": 832.0,
   "stdby_40c_kW": 665.6,
   "stdby_27c_kVA": 864.0,
-  "stdby_27c_kW": 691.2
+  "stdby_27c_kW": 691.2,
+  "winding_conn": "Δ/Y"
  },
  {
   "type": "generator",
@@ -5451,7 +5753,8 @@
   "stdby_40c_kVA": 832.0,
   "stdby_40c_kW": 665.6,
   "stdby_27c_kVA": 864.0,
-  "stdby_27c_kW": 691.2
+  "stdby_27c_kW": 691.2,
+  "winding_conn": "Δ/Y"
  },
  {
   "type": "generator",
@@ -5469,7 +5772,8 @@
   "stdby_40c_kVA": 915.2,
   "stdby_40c_kW": 732.2,
   "stdby_27c_kVA": 950.4,
-  "stdby_27c_kW": 760.3
+  "stdby_27c_kW": 760.3,
+  "winding_conn": "YY,Δ/Y"
  },
  {
   "type": "generator",
@@ -5487,7 +5791,8 @@
   "stdby_40c_kVA": 975.2,
   "stdby_40c_kW": 780.2,
   "stdby_27c_kVA": 1012.0,
-  "stdby_27c_kW": 809.6
+  "stdby_27c_kW": 809.6,
+  "winding_conn": "YY,Δ/Y"
  },
  {
   "type": "generator",
@@ -5505,7 +5810,8 @@
   "stdby_40c_kVA": 1017.6,
   "stdby_40c_kW": 814.1,
   "stdby_27c_kVA": 1056.0,
-  "stdby_27c_kW": 844.8
+  "stdby_27c_kW": 844.8,
+  "winding_conn": "YY,Δ/Y"
  },
  {
   "type": "generator",
@@ -5523,7 +5829,8 @@
   "stdby_40c_kVA": 946.4,
   "stdby_40c_kW": 757.1,
   "stdby_27c_kVA": 982.8,
-  "stdby_27c_kW": 786.2
+  "stdby_27c_kW": 786.2,
+  "winding_conn": "Δ/Y"
  },
  {
   "type": "generator",
@@ -5541,7 +5848,8 @@
   "stdby_40c_kVA": 946.4,
   "stdby_40c_kW": 757.1,
   "stdby_27c_kVA": 982.8,
-  "stdby_27c_kW": 786.2
+  "stdby_27c_kW": 786.2,
+  "winding_conn": "Δ/Y"
  },
  {
   "type": "generator",
@@ -5559,7 +5867,8 @@
   "stdby_40c_kVA": 946.4,
   "stdby_40c_kW": 757.1,
   "stdby_27c_kVA": 982.8,
-  "stdby_27c_kW": 786.2
+  "stdby_27c_kW": 786.2,
+  "winding_conn": "Δ/Y"
  },
  {
   "type": "generator",
@@ -5577,7 +5886,8 @@
   "stdby_40c_kVA": 1041.0,
   "stdby_40c_kW": 832.8,
   "stdby_27c_kVA": 1081.1,
-  "stdby_27c_kW": 864.9
+  "stdby_27c_kW": 864.9,
+  "winding_conn": "YY,Δ/Y"
  },
  {
   "type": "generator",
@@ -5595,7 +5905,8 @@
   "stdby_40c_kVA": 1109.3,
   "stdby_40c_kW": 887.4,
   "stdby_27c_kVA": 1151.2,
-  "stdby_27c_kW": 920.9
+  "stdby_27c_kW": 920.9,
+  "winding_conn": "YY,Δ/Y"
  },
  {
   "type": "generator",
@@ -5613,7 +5924,8 @@
   "stdby_40c_kVA": 1157.5,
   "stdby_40c_kW": 926.0,
   "stdby_27c_kVA": 1201.2,
-  "stdby_27c_kW": 961.0
+  "stdby_27c_kW": 961.0,
+  "winding_conn": "YY,Δ/Y"
  },
  {
   "type": "generator",
@@ -5631,7 +5943,8 @@
   "stdby_40c_kVA": 1040.0,
   "stdby_40c_kW": 832.0,
   "stdby_27c_kVA": 1080.0,
-  "stdby_27c_kW": 864.0
+  "stdby_27c_kW": 864.0,
+  "winding_conn": "Δ/Y"
  },
  {
   "type": "generator",
@@ -5649,7 +5962,8 @@
   "stdby_40c_kVA": 1040.0,
   "stdby_40c_kW": 832.0,
   "stdby_27c_kVA": 1080.0,
-  "stdby_27c_kW": 864.0
+  "stdby_27c_kW": 864.0,
+  "winding_conn": "Δ/Y"
  },
  {
   "type": "generator",
@@ -5667,7 +5981,8 @@
   "stdby_40c_kVA": 1040.0,
   "stdby_40c_kW": 832.0,
   "stdby_27c_kVA": 1080.0,
-  "stdby_27c_kW": 864.0
+  "stdby_27c_kW": 864.0,
+  "winding_conn": "Δ/Y"
  },
  {
   "type": "generator",
@@ -5685,7 +6000,8 @@
   "stdby_40c_kVA": 1144.0,
   "stdby_40c_kW": 915.2,
   "stdby_27c_kVA": 1188.0,
-  "stdby_27c_kW": 950.4
+  "stdby_27c_kW": 950.4,
+  "winding_conn": "YY,Δ/Y"
  },
  {
   "type": "generator",
@@ -5703,7 +6019,8 @@
   "stdby_40c_kVA": 1219.0,
   "stdby_40c_kW": 975.2,
   "stdby_27c_kVA": 1265.0,
-  "stdby_27c_kW": 1012.0
+  "stdby_27c_kW": 1012.0,
+  "winding_conn": "YY,Δ/Y"
  },
  {
   "type": "generator",
@@ -5721,7 +6038,8 @@
   "stdby_40c_kVA": 1272.0,
   "stdby_40c_kW": 1017.6,
   "stdby_27c_kVA": 1320.0,
-  "stdby_27c_kW": 1056.0
+  "stdby_27c_kW": 1056.0,
+  "winding_conn": "YY,Δ/Y"
  },
  {
   "type": "generator",
@@ -5739,7 +6057,8 @@
   "stdby_40c_kVA": 1175.2,
   "stdby_40c_kW": 940.2,
   "stdby_27c_kVA": 1220.4,
-  "stdby_27c_kW": 976.3
+  "stdby_27c_kW": 976.3,
+  "winding_conn": "Δ/Y"
  },
  {
   "type": "generator",
@@ -5757,7 +6076,8 @@
   "stdby_40c_kVA": 1175.2,
   "stdby_40c_kW": 940.2,
   "stdby_27c_kVA": 1220.4,
-  "stdby_27c_kW": 976.3
+  "stdby_27c_kW": 976.3,
+  "winding_conn": "Δ/Y"
  },
  {
   "type": "generator",
@@ -5775,7 +6095,8 @@
   "stdby_40c_kVA": 1175.2,
   "stdby_40c_kW": 940.2,
   "stdby_27c_kVA": 1220.4,
-  "stdby_27c_kW": 976.3
+  "stdby_27c_kW": 976.3,
+  "winding_conn": "Δ/Y"
  },
  {
   "type": "generator",
@@ -5793,7 +6114,8 @@
   "stdby_40c_kVA": 1292.7,
   "stdby_40c_kW": 1034.2,
   "stdby_27c_kVA": 1342.4,
-  "stdby_27c_kW": 1074.0
+  "stdby_27c_kW": 1074.0,
+  "winding_conn": "YY,Δ/Y"
  },
  {
   "type": "generator",
@@ -5811,7 +6133,8 @@
   "stdby_40c_kVA": 1377.5,
   "stdby_40c_kW": 1102.0,
   "stdby_27c_kVA": 1429.5,
-  "stdby_27c_kW": 1143.6
+  "stdby_27c_kW": 1143.6,
+  "winding_conn": "YY,Δ/Y"
  },
  {
   "type": "generator",
@@ -5829,7 +6152,8 @@
   "stdby_40c_kVA": 1437.4,
   "stdby_40c_kW": 1149.9,
   "stdby_27c_kVA": 1491.6,
-  "stdby_27c_kW": 1193.3
+  "stdby_27c_kW": 1193.3,
+  "winding_conn": "YY,Δ/Y"
  },
  {
   "type": "generator",
@@ -5847,7 +6171,8 @@
   "stdby_40c_kVA": 1300.0,
   "stdby_40c_kW": 1040.0,
   "stdby_27c_kVA": 1350.0,
-  "stdby_27c_kW": 1080.0
+  "stdby_27c_kW": 1080.0,
+  "winding_conn": "Δ/Y"
  },
  {
   "type": "generator",
@@ -5865,7 +6190,8 @@
   "stdby_40c_kVA": 1300.0,
   "stdby_40c_kW": 1040.0,
   "stdby_27c_kVA": 1350.0,
-  "stdby_27c_kW": 1080.0
+  "stdby_27c_kW": 1080.0,
+  "winding_conn": "Δ/Y"
  },
  {
   "type": "generator",
@@ -5883,7 +6209,8 @@
   "stdby_40c_kVA": 1300.0,
   "stdby_40c_kW": 1040.0,
   "stdby_27c_kVA": 1350.0,
-  "stdby_27c_kW": 1080.0
+  "stdby_27c_kW": 1080.0,
+  "winding_conn": "Δ/Y"
  },
  {
   "type": "generator",
@@ -5901,7 +6228,8 @@
   "stdby_40c_kVA": 1430.0,
   "stdby_40c_kW": 1144.0,
   "stdby_27c_kVA": 1485.0,
-  "stdby_27c_kW": 1188.0
+  "stdby_27c_kW": 1188.0,
+  "winding_conn": "YY,Δ/Y"
  },
  {
   "type": "generator",
@@ -5919,7 +6247,8 @@
   "stdby_40c_kVA": 1523.8,
   "stdby_40c_kW": 1219.0,
   "stdby_27c_kVA": 1581.3,
-  "stdby_27c_kW": 1265.0
+  "stdby_27c_kW": 1265.0,
+  "winding_conn": "YY,Δ/Y"
  },
  {
   "type": "generator",
@@ -5937,7 +6266,8 @@
   "stdby_40c_kVA": 1590.0,
   "stdby_40c_kW": 1272.0,
   "stdby_27c_kVA": 1650.0,
-  "stdby_27c_kW": 1320.0
+  "stdby_27c_kW": 1320.0,
+  "winding_conn": "YY,Δ/Y"
  },
  {
   "type": "generator",
@@ -5955,7 +6285,8 @@
   "stdby_40c_kVA": 1456.0,
   "stdby_40c_kW": 1164.8,
   "stdby_27c_kVA": 1512.0,
-  "stdby_27c_kW": 1209.6
+  "stdby_27c_kW": 1209.6,
+  "winding_conn": "Δ/Y"
  },
  {
   "type": "generator",
@@ -5973,7 +6304,8 @@
   "stdby_40c_kVA": 1456.0,
   "stdby_40c_kW": 1164.8,
   "stdby_27c_kVA": 1512.0,
-  "stdby_27c_kW": 1209.6
+  "stdby_27c_kW": 1209.6,
+  "winding_conn": "Δ/Y"
  },
  {
   "type": "generator",
@@ -5991,7 +6323,8 @@
   "stdby_40c_kVA": 1456.0,
   "stdby_40c_kW": 1164.8,
   "stdby_27c_kVA": 1512.0,
-  "stdby_27c_kW": 1209.6
+  "stdby_27c_kW": 1209.6,
+  "winding_conn": "Δ/Y"
  },
  {
   "type": "generator",
@@ -6009,7 +6342,8 @@
   "stdby_40c_kVA": 1601.6,
   "stdby_40c_kW": 1281.3,
   "stdby_27c_kVA": 1663.2,
-  "stdby_27c_kW": 1330.6
+  "stdby_27c_kW": 1330.6,
+  "winding_conn": "YY,Δ/Y"
  },
  {
   "type": "generator",
@@ -6027,7 +6361,8 @@
   "stdby_40c_kVA": 1706.6,
   "stdby_40c_kW": 1365.3,
   "stdby_27c_kVA": 1771.0,
-  "stdby_27c_kW": 1416.8
+  "stdby_27c_kW": 1416.8,
+  "winding_conn": "YY,Δ/Y"
  },
  {
   "type": "generator",
@@ -6045,7 +6380,8 @@
   "stdby_40c_kVA": 1780.8,
   "stdby_40c_kW": 1424.6,
   "stdby_27c_kVA": 1848.0,
-  "stdby_27c_kW": 1478.4
+  "stdby_27c_kW": 1478.4,
+  "winding_conn": "YY,Δ/Y"
  },
  {
   "type": "generator",
@@ -6063,7 +6399,8 @@
   "stdby_40c_kVA": 1560.0,
   "stdby_40c_kW": 1248.0,
   "stdby_27c_kVA": 1620.0,
-  "stdby_27c_kW": 1296.0
+  "stdby_27c_kW": 1296.0,
+  "winding_conn": "Δ/Y"
  },
  {
   "type": "generator",
@@ -6081,7 +6418,8 @@
   "stdby_40c_kVA": 1560.0,
   "stdby_40c_kW": 1248.0,
   "stdby_27c_kVA": 1620.0,
-  "stdby_27c_kW": 1296.0
+  "stdby_27c_kW": 1296.0,
+  "winding_conn": "Δ/Y"
  },
  {
   "type": "generator",
@@ -6099,7 +6437,8 @@
   "stdby_40c_kVA": 1560.0,
   "stdby_40c_kW": 1248.0,
   "stdby_27c_kVA": 1620.0,
-  "stdby_27c_kW": 1296.0
+  "stdby_27c_kW": 1296.0,
+  "winding_conn": "Δ/Y"
  },
  {
   "type": "generator",
@@ -6117,7 +6456,8 @@
   "stdby_40c_kVA": 1716.0,
   "stdby_40c_kW": 1372.8,
   "stdby_27c_kVA": 1782.0,
-  "stdby_27c_kW": 1425.6
+  "stdby_27c_kW": 1425.6,
+  "winding_conn": "YY,Δ/Y"
  },
  {
   "type": "generator",
@@ -6135,7 +6475,8 @@
   "stdby_40c_kVA": 1828.5,
   "stdby_40c_kW": 1462.8,
   "stdby_27c_kVA": 1897.5,
-  "stdby_27c_kW": 1518.0
+  "stdby_27c_kW": 1518.0,
+  "winding_conn": "YY,Δ/Y"
  },
  {
   "type": "generator",
@@ -6153,7 +6494,8 @@
   "stdby_40c_kVA": 1908.0,
   "stdby_40c_kW": 1526.4,
   "stdby_27c_kVA": 1980.0,
-  "stdby_27c_kW": 1584.0
+  "stdby_27c_kW": 1584.0,
+  "winding_conn": "YY,Δ/Y"
  },
  {
   "type": "generator",
@@ -6171,7 +6513,8 @@
   "stdby_40c_kVA": 1612.0,
   "stdby_40c_kW": 1289.6,
   "stdby_27c_kVA": 1674.0,
-  "stdby_27c_kW": 1339.2
+  "stdby_27c_kW": 1339.2,
+  "winding_conn": "Δ/Y"
  },
  {
   "type": "generator",
@@ -6189,7 +6532,8 @@
   "stdby_40c_kVA": 1612.0,
   "stdby_40c_kW": 1289.6,
   "stdby_27c_kVA": 1674.0,
-  "stdby_27c_kW": 1339.2
+  "stdby_27c_kW": 1339.2,
+  "winding_conn": "Δ/Y"
  },
  {
   "type": "generator",
@@ -6207,7 +6551,8 @@
   "stdby_40c_kVA": 1612.0,
   "stdby_40c_kW": 1289.6,
   "stdby_27c_kVA": 1674.0,
-  "stdby_27c_kW": 1339.2
+  "stdby_27c_kW": 1339.2,
+  "winding_conn": "Δ/Y"
  },
  {
   "type": "generator",
@@ -6225,7 +6570,8 @@
   "stdby_40c_kVA": 1773.2,
   "stdby_40c_kW": 1418.6,
   "stdby_27c_kVA": 1841.4,
-  "stdby_27c_kW": 1473.1
+  "stdby_27c_kW": 1473.1,
+  "winding_conn": "YY,Δ/Y"
  },
  {
   "type": "generator",
@@ -6243,7 +6589,8 @@
   "stdby_40c_kVA": 1889.5,
   "stdby_40c_kW": 1511.6,
   "stdby_27c_kVA": 1960.8,
-  "stdby_27c_kW": 1568.6
+  "stdby_27c_kW": 1568.6,
+  "winding_conn": "YY,Δ/Y"
  },
  {
   "type": "generator",
@@ -6261,7 +6608,8 @@
   "stdby_40c_kVA": 1971.6,
   "stdby_40c_kW": 1577.3,
   "stdby_27c_kVA": 2046.0,
-  "stdby_27c_kW": 1636.8
+  "stdby_27c_kW": 1636.8,
+  "winding_conn": "YY,Δ/Y"
  },
  {
   "type": "generator",
@@ -6279,7 +6627,8 @@
   "stdby_40c_kVA": 1716.0,
   "stdby_40c_kW": 1372.8,
   "stdby_27c_kVA": 1782.0,
-  "stdby_27c_kW": 1425.6
+  "stdby_27c_kW": 1425.6,
+  "winding_conn": "Δ/Y"
  },
  {
   "type": "generator",
@@ -6297,7 +6646,8 @@
   "stdby_40c_kVA": 1716.0,
   "stdby_40c_kW": 1372.8,
   "stdby_27c_kVA": 1782.0,
-  "stdby_27c_kW": 1425.6
+  "stdby_27c_kW": 1425.6,
+  "winding_conn": "Δ/Y"
  },
  {
   "type": "generator",
@@ -6315,7 +6665,8 @@
   "stdby_40c_kVA": 1716.0,
   "stdby_40c_kW": 1372.8,
   "stdby_27c_kVA": 1782.0,
-  "stdby_27c_kW": 1425.6
+  "stdby_27c_kW": 1425.6,
+  "winding_conn": "Δ/Y"
  },
  {
   "type": "generator",
@@ -6333,7 +6684,8 @@
   "stdby_40c_kVA": 1887.6,
   "stdby_40c_kW": 1510.1,
   "stdby_27c_kVA": 1960.2,
-  "stdby_27c_kW": 1568.2
+  "stdby_27c_kW": 1568.2,
+  "winding_conn": "YY,Δ/Y"
  },
  {
   "type": "generator",
@@ -6351,7 +6703,8 @@
   "stdby_40c_kVA": 2011.4,
   "stdby_40c_kW": 1609.1,
   "stdby_27c_kVA": 2087.3,
-  "stdby_27c_kW": 1669.8
+  "stdby_27c_kW": 1669.8,
+  "winding_conn": "YY,Δ/Y"
  },
  {
   "type": "generator",
@@ -6369,7 +6722,8 @@
   "stdby_40c_kVA": 2098.8,
   "stdby_40c_kW": 1679.0,
   "stdby_27c_kVA": 2178.0,
-  "stdby_27c_kW": 1742.4
+  "stdby_27c_kW": 1742.4,
+  "winding_conn": "YY,Δ/Y"
  },
  {
   "type": "generator",
@@ -6387,7 +6741,8 @@
   "stdby_40c_kVA": 1976.0,
   "stdby_40c_kW": 1580.8,
   "stdby_27c_kVA": 2052.0,
-  "stdby_27c_kW": 1641.6
+  "stdby_27c_kW": 1641.6,
+  "winding_conn": "Δ/Y"
  },
  {
   "type": "generator",
@@ -6405,7 +6760,8 @@
   "stdby_40c_kVA": 1976.0,
   "stdby_40c_kW": 1580.8,
   "stdby_27c_kVA": 2052.0,
-  "stdby_27c_kW": 1641.6
+  "stdby_27c_kW": 1641.6,
+  "winding_conn": "Δ/Y"
  },
  {
   "type": "generator",
@@ -6423,7 +6779,8 @@
   "stdby_40c_kVA": 1976.0,
   "stdby_40c_kW": 1580.8,
   "stdby_27c_kVA": 2052.0,
-  "stdby_27c_kW": 1641.6
+  "stdby_27c_kW": 1641.6,
+  "winding_conn": "Δ/Y"
  },
  {
   "type": "generator",
@@ -6441,7 +6798,8 @@
   "stdby_40c_kVA": 2173.6,
   "stdby_40c_kW": 1738.9,
   "stdby_27c_kVA": 2257.2,
-  "stdby_27c_kW": 1805.8
+  "stdby_27c_kW": 1805.8,
+  "winding_conn": "YY,Δ/Y"
  },
  {
   "type": "generator",
@@ -6459,7 +6817,8 @@
   "stdby_40c_kVA": 2316.1,
   "stdby_40c_kW": 1852.9,
   "stdby_27c_kVA": 2403.5,
-  "stdby_27c_kW": 1922.8
+  "stdby_27c_kW": 1922.8,
+  "winding_conn": "YY,Δ/Y"
  },
  {
   "type": "generator",
@@ -6477,7 +6836,8 @@
   "stdby_40c_kVA": 2416.8,
   "stdby_40c_kW": 1933.4,
   "stdby_27c_kVA": 2508.0,
-  "stdby_27c_kW": 2006.4
+  "stdby_27c_kW": 2006.4,
+  "winding_conn": "YY,Δ/Y"
  },
  {
   "type": "generator",
@@ -6495,7 +6855,8 @@
   "stdby_40c_kVA": 2080.0,
   "stdby_40c_kW": 1664.0,
   "stdby_27c_kVA": 2160.0,
-  "stdby_27c_kW": 1728.0
+  "stdby_27c_kW": 1728.0,
+  "winding_conn": "Δ/Y"
  },
  {
   "type": "generator",
@@ -6513,7 +6874,8 @@
   "stdby_40c_kVA": 2080.0,
   "stdby_40c_kW": 1664.0,
   "stdby_27c_kVA": 2160.0,
-  "stdby_27c_kW": 1728.0
+  "stdby_27c_kW": 1728.0,
+  "winding_conn": "Δ/Y"
  },
  {
   "type": "generator",
@@ -6531,7 +6893,8 @@
   "stdby_40c_kVA": 2080.0,
   "stdby_40c_kW": 1664.0,
   "stdby_27c_kVA": 2160.0,
-  "stdby_27c_kW": 1728.0
+  "stdby_27c_kW": 1728.0,
+  "winding_conn": "Δ/Y"
  },
  {
   "type": "generator",
@@ -6549,7 +6912,8 @@
   "stdby_40c_kVA": 2288.0,
   "stdby_40c_kW": 1830.4,
   "stdby_27c_kVA": 2376.0,
-  "stdby_27c_kW": 1900.8
+  "stdby_27c_kW": 1900.8,
+  "winding_conn": "YY,Δ/Y"
  },
  {
   "type": "generator",
@@ -6567,7 +6931,8 @@
   "stdby_40c_kVA": 2438.0,
   "stdby_40c_kW": 1950.4,
   "stdby_27c_kVA": 2530.0,
-  "stdby_27c_kW": 2024.0
+  "stdby_27c_kW": 2024.0,
+  "winding_conn": "YY,Δ/Y"
  },
  {
   "type": "generator",
@@ -6585,7 +6950,8 @@
   "stdby_40c_kVA": 2544.0,
   "stdby_40c_kW": 2035.2,
   "stdby_27c_kVA": 2640.0,
-  "stdby_27c_kW": 2112.0
+  "stdby_27c_kW": 2112.0,
+  "winding_conn": "YY,Δ/Y"
  },
  {
   "type": "generator",
@@ -6603,7 +6969,8 @@
   "stdby_40c_kVA": 2340.0,
   "stdby_40c_kW": 1872.0,
   "stdby_27c_kVA": 2430.0,
-  "stdby_27c_kW": 1944.0
+  "stdby_27c_kW": 1944.0,
+  "winding_conn": "Δ/Y"
  },
  {
   "type": "generator",
@@ -6621,7 +6988,8 @@
   "stdby_40c_kVA": 2340.0,
   "stdby_40c_kW": 1872.0,
   "stdby_27c_kVA": 2430.0,
-  "stdby_27c_kW": 1944.0
+  "stdby_27c_kW": 1944.0,
+  "winding_conn": "Δ/Y"
  },
  {
   "type": "generator",
@@ -6639,7 +7007,8 @@
   "stdby_40c_kVA": 2340.0,
   "stdby_40c_kW": 1872.0,
   "stdby_27c_kVA": 2430.0,
-  "stdby_27c_kW": 1944.0
+  "stdby_27c_kW": 1944.0,
+  "winding_conn": "Δ/Y"
  },
  {
   "type": "generator",
@@ -6657,7 +7026,8 @@
   "stdby_40c_kVA": 2574.0,
   "stdby_40c_kW": 2059.2,
   "stdby_27c_kVA": 2673.0,
-  "stdby_27c_kW": 2138.4
+  "stdby_27c_kW": 2138.4,
+  "winding_conn": "YY,Δ/Y"
  },
  {
   "type": "generator",
@@ -6675,7 +7045,8 @@
   "stdby_40c_kVA": 2742.8,
   "stdby_40c_kW": 2194.2,
   "stdby_27c_kVA": 2846.3,
-  "stdby_27c_kW": 2277.0
+  "stdby_27c_kW": 2277.0,
+  "winding_conn": "YY,Δ/Y"
  },
  {
   "type": "generator",
@@ -6693,7 +7064,8 @@
   "stdby_40c_kVA": 2862.0,
   "stdby_40c_kW": 2289.6,
   "stdby_27c_kVA": 2970.0,
-  "stdby_27c_kW": 2376.0
+  "stdby_27c_kW": 2376.0,
+  "winding_conn": "YY,Δ/Y"
  },
  {
   "type": "generator",
@@ -6711,7 +7083,8 @@
   "stdby_40c_kVA": 2600.0,
   "stdby_40c_kW": 2080.0,
   "stdby_27c_kVA": 2700.0,
-  "stdby_27c_kW": 2160.0
+  "stdby_27c_kW": 2160.0,
+  "winding_conn": "Δ/Y"
  },
  {
   "type": "generator",
@@ -6729,7 +7102,8 @@
   "stdby_40c_kVA": 2600.0,
   "stdby_40c_kW": 2080.0,
   "stdby_27c_kVA": 2700.0,
-  "stdby_27c_kW": 2160.0
+  "stdby_27c_kW": 2160.0,
+  "winding_conn": "Δ/Y"
  },
  {
   "type": "generator",
@@ -6747,7 +7121,8 @@
   "stdby_40c_kVA": 2600.0,
   "stdby_40c_kW": 2080.0,
   "stdby_27c_kVA": 2700.0,
-  "stdby_27c_kW": 2160.0
+  "stdby_27c_kW": 2160.0,
+  "winding_conn": "Δ/Y"
  },
  {
   "type": "generator",
@@ -6765,7 +7140,8 @@
   "stdby_40c_kVA": 2860.0,
   "stdby_40c_kW": 2288.0,
   "stdby_27c_kVA": 2970.0,
-  "stdby_27c_kW": 2376.0
+  "stdby_27c_kW": 2376.0,
+  "winding_conn": "YY,Δ/Y"
  },
  {
   "type": "generator",
@@ -6783,7 +7159,8 @@
   "stdby_40c_kVA": 3047.5,
   "stdby_40c_kW": 2438.0,
   "stdby_27c_kVA": 3162.5,
-  "stdby_27c_kW": 2530.0
+  "stdby_27c_kW": 2530.0,
+  "winding_conn": "YY,Δ/Y"
  },
  {
   "type": "generator",
@@ -6801,6 +7178,7 @@
   "stdby_40c_kVA": 3180.0,
   "stdby_40c_kW": 2544.0,
   "stdby_27c_kVA": 3300.0,
-  "stdby_27c_kW": 2640.0
+  "stdby_27c_kW": 2640.0,
+  "winding_conn": "YY,Δ/Y"
  }
 ]
