@@ -670,7 +670,7 @@ function doSearch(){
   if(!p||p<1){alert('请输入功率');return;}
 
   var records=ALL_DATA[brand]||[];
-  var is1ph=w.indexOf('1ph-')===0;
+  var is1ph=isSinglePhase(w);   // 统一用 isSinglePhase 判定单相(含 AGG D51-1ph-230 特例
   // 中高压品牌：不适用海拔/温度修正，按默认海拔(≤1000m→af=1)和默认温度(40℃→tf=1)选型，忽略用户输入的数值
   var isHV=(brand==='利莱森玛 LSA 中高压');
   // AGG (KI/KK)：走 AGG 手册功率修正表（海拔×温度二维修正，拆成 af×tf 两个独立系数相乘）
@@ -679,13 +679,15 @@ function doSearch(){
   var isMecc=(brand==='美奥迪 Mecc Alte');
   if(!isFinite(pfUser)||pfUser<=0) pfUser=0.8; // 除零防御：PF无效时按默认0.8
   var targetKVA=unit==='kW'?Math.round(p/pfUser*10)/10:p;
+  // 单相目标:候选读kW(PF已拆档),目标直接用用户输入功率;三相比kVA。goal为最终对比口径
+  var goal = is1ph ? p : targetKVA;
 
   // 步骤1：解析
   var ch='<div class="step-panel">';
-  ch+='<div class="step-header" onclick="toggleStep(this)"><span><span class="step-num">步骤1</span>解析输入</span><span class="step-desc">用户输入 → 目标kVA</span><span class="step-result">'+targetKVA+' kVA</span><span class="arrow">▼</span></div>';
+  ch+='<div class="step-header" onclick="toggleStep(this)"><span><span class="step-num">步骤1</span>解析输入</span><span class="step-desc">用户输入 → '+(is1ph?'目标kW':'目标kVA')+'</span><span class="step-result">'+goal+' '+(is1ph?'kW':'kVA')+'</span><span class="arrow">▼</span></div>';
   ch+='<div class="step-body"><div class="calc-row"><span class="calc-label">输入功率</span><span class="calc-val">'+p+' '+unit+'</span></div>';
   ch+='<div class="calc-row"><span class="calc-label">功率因数 PF</span><span class="calc-val">'+pfUser+'</span></div>';
-  ch+='<div class="calc-row"><span class="calc-label">目标 kVA</span><span class="calc-val">'+targetKVA+' kVA</span></div></div>';
+  ch+='<div class="calc-row"><span class="calc-label">目标 '+(is1ph?'kW':'kVA')+'</span><span class="calc-val">'+goal+' '+(is1ph?'kW':'kVA')+'</span></div></div>';
 
   // 步骤2：温度修正（按品牌选系数源。LSA用原有H级40°C基准；斯坦福用官方表；AGG用手册低海拔温度系数；中高压不适用，按默认40°C选型）
   var isStanford = (brand==='斯坦福');
@@ -712,7 +714,7 @@ function doSearch(){
     var r=duty==='PRP'?g['cont_h_'+uKey]:g['stdby_27c_'+uKey];
     if(!r||r<=0) continue;
     var cp=Math.round(r*tot*10)/10;
-    list.push({m:g.model,ch:g['cont_h_'+uKey],cl:g['cont_f_'+uKey]||0,s40:g['stdby_40c_'+uKey]||0,st:g['stdby_27c_'+uKey],cp:cp,ok:cp>=targetKVA,af:af,tf:tf,pf:g.pf,uk:uKey,exc:g.exc_std||'',grade:g.temp_grade||''});
+    list.push({m:g.model,ch:g['cont_h_'+uKey],cl:g['cont_f_'+uKey]||0,s40:g['stdby_40c_'+uKey]||0,st:g['stdby_27c_'+uKey],cp:cp,ok:cp>=goal,af:af,tf:tf,pf:g.pf,uk:uKey,exc:g.exc_std||'',grade:g.temp_grade||''});
   }
 
   // 步骤4-5：温升校核 + 备用换算（在列表结果中显示）
@@ -733,7 +735,7 @@ function doSearch(){
       if(ga!==gb) return ga-gb;
     }
     if(a.ok!==b.ok) return a.ok?-1:1;
-    return Math.abs(a.cp-targetKVA)-Math.abs(b.cp-targetKVA);
+    return Math.abs(a.cp-goal)-Math.abs(b.cp-goal);
   });
 
   // 步骤6：最佳匹配
@@ -745,13 +747,13 @@ function doSearch(){
   function escM(x){return esc(x.m);}function escG(x){return esc(x.grade||'');}function escE(x){return esc(x.exc||'');}
   var topM=top?escM(top):'';
 
-  ch+='<div class="step-header '+(top?'':'')+'" onclick="toggleStep(this)"><span><span class="step-num">步骤6</span>综合判定</span><span class="step-desc">'+(top?'✅ 推荐 '+topM:'❌ 无匹配')+'</span><span class="step-result">'+(top?top.cp+top.uk+'/'+targetKVA+'kVA':'-')+'</span><span class="arrow">▼</span></div>';
+  ch+='<div class="step-header '+(top?'':'')+'" onclick="toggleStep(this)"><span><span class="step-num">步骤6</span>综合判定</span><span class="step-desc">'+(top?'✅ 推荐 '+topM:'❌ 无匹配')+'</span><span class="step-result">'+(top?top.cp+top.uk+'/'+goal+(is1ph?'kW':'kVA'):'-')+'</span><span class="arrow">▼</span></div>';
   ch+='<div class="step-body">';
   if(top){
     ch+='<div class="calc-row"><span class="calc-label">最佳型号</span><span class="calc-val"><b>'+topM+(isHV&&top.grade?'（'+escG(top)+'级温升）':'')+'</b></span></div>';
     ch+='<div class="calc-row"><span class="calc-label">基准功率'+(duty==='ESP'?'(备用27℃)':'')+'</span><span class="calc-val">'+basePw+top.uk+(isHV&&top.grade?'（'+top.grade+'级）':'')+'</span></div>';
     ch+='<div class="calc-row"><span class="calc-label">修正后功率</span><span class="calc-val calc-total">'+basePw+' × '+tot+' = <b>'+top.cp+top.uk+'</b>'+(isHV?'（中高压无修正）':'')+'</span></div>';
-    ch+='<div class="calc-row"><span class="calc-label">需求功率</span><span class="calc-val">'+targetKVA+' kVA</span></div>';
+    ch+='<div class="calc-row"><span class="calc-label">需求功率</span><span class="calc-val">'+goal+' '+(is1ph?'kW':'kVA')+'</span></div>';
     ch+='<div class="calc-row"><span class="calc-label">判定</span><span class="calc-val" style="color:green">✅ 满足</span></div>';
   } else {
     ch+='<div class="calc-row"><span class="calc-label">判定</span><span class="calc-val" style="color:red">❌ 无电机满足需求</span></div>';
@@ -772,14 +774,14 @@ function doSearch(){
     mh+='<span class="tag">备用40℃: '+top.s40+ux+'</span> ';
     mh+='<span class="tag">备用27℃: '+top.st+ux+'</span> ';
     mh+='<span class="tag">励磁: '+escE(top)+'</span><br>';
-    mh+='<div style="margin-top:8px"><b>修正后: '+top.cp+ux+'</b> ≥ '+targetKVA+'kVA ✅'+(isHV?'（无海拔/温度修正）':'')+'</div>';
+    mh+='<div style="margin-top:8px"><b>修正后: '+top.cp+ux+'</b> ≥ '+goal+(is1ph?'kW':'kVA')+' ✅'+(isHV?'（无海拔/温度修正）':'')+'</div>';
     mh+='<div style="margin-top:8px;display:flex;gap:6px">';
     mh+='<button class="btn-secondary" onclick="alert(\'导出功能待实现\')">📄 导出PDF</button>';
     mh+='<button class="btn-secondary" onclick="location.reload()">🔄 新建查询</button>';
     mh+='</div></div></div>';
   } else {
     mh+='<div class="match-card no-match"><div class="model">❌ 无匹配电机</div>';
-    mh+='<div class="params">没有电机能满足修正后 '+targetKVA+'kVA 的需求<br>建议降低功率、放宽PF或增加品牌数据。</div></div>';
+    mh+='<div class="params">没有电机能满足修正后 '+goal+(is1ph?'kW':'kVA')+' 的需求<br>建议降低功率、放宽PF或增加品牌数据。</div></div>';
   }
   document.getElementById('matchDisplay').innerHTML=mh;
 
