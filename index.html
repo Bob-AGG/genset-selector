@@ -351,7 +351,7 @@ tr:hover{background:#f0f2f5}
 <!-- 子工具 3：电流计算器（备用功率→断路器等值电流） -->
 <div id="tool-amps" class="tool-panel" style="display:none">
   <div style="font-size:1.2rem;font-weight:700;border-left:5px solid #1a365d;padding-left:.8rem;margin-bottom:.2rem;color:#1f3b4c">⚡ 电流计算器 <span style="font-size:.75rem;font-weight:400;color:#64748b">备用功率 kVA → 配置电流(断路器参考)</span></div>
-  <div style="color:#5f7f9e;margin-bottom:1.2rem;font-size:.82rem">输入备用功率(kVA)与额定电压(V)，按 I = 备用kVA × 1000 ÷ (√3 × 电压) 计算配置电流，用于断路器选型参考。</div>
+  <div style="color:#5f7f9e;margin-bottom:1.2rem;font-size:.82rem">输入备用功率(kVA)与额定线电压(V)，按 I = (备用kVA×1000) ÷ 线电压 ÷ 1.732 计算配置电流，用于断路器选型参考。</div>
 
   <div style="display:flex;gap:1rem;align-items:flex-end;flex-wrap:wrap">
     <div class="form-group" style="flex:1;min-width:160px"><label>备用功率 <span style="font-weight:normal">kVA</span></label><input type="number" id="ampsKVA" class="input-field" step="any" placeholder="例如 1100" oninput="ampsCalc()"></div>
@@ -363,7 +363,7 @@ tr:hover{background:#f0f2f5}
     <div class="calc-row"><span class="calc-label">公式</span><span class="calc-val" id="ampsFormula">I = kVA×1000 ÷ (√3×U)</span></div>
     <div id="ampsHint" style="font-size:.78rem;color:#b45309;margin-top:6px">💡 如无合适断路器档位，请选下一档</div>
   </div>
-  <div style="font-size:.72rem;color:#94a3b8;margin-top:.6rem">📐 I(A) = 备用kVA × 1000 ÷ (√3 × 电压V)，所得数值即断路器选型参考值；无合适的标准档位时，请选下一档。</div>
+  <div style="font-size:.72rem;color:#94a3b8;margin-top:.6rem">📐 I(A) = (备用kVA × 1000) ÷ 线电压(V) ÷ 1.732，所得数值即断路器选型参考值；无合适的标准档位时，请选下一档。</div>
 </div>
 </div>
 </div>
@@ -1299,13 +1299,13 @@ function ampsCalc(){
   var hintEl=document.getElementById('ampsHint');
   if(isNaN(kva)||kva<=0||isNaN(volt)||volt<=0){
     valEl.textContent='—';
-    fmEl.textContent='I = kVA×1000 ÷ (√3×U)';
+    fmEl.textContent='I = (备用kVA×1000) ÷ 线电压 ÷ 1.732';
     hintEl.style.display='';
     return;
   }
-  var i=kva*1000/(1.7320508075688772*volt);
+  var i=kva*1000/volt/1.7320508075688772;
   valEl.innerHTML=i.toFixed(1)+' <span style="font-size:.85rem;color:#64748b">A</span>';
-  fmEl.textContent='I = '+kva+'×1000 ÷ (1.732×'+volt+') = '+i.toFixed(1)+' A';
+  fmEl.textContent='I = ('+kva+'×1000) ÷ '+volt+' ÷ 1.732 = '+i.toFixed(1)+' A';
   hintEl.style.display='';   // 始终显示断路器档位提示
 }
 
