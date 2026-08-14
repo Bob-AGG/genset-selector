@@ -1006,14 +1006,16 @@ function toggleBrowseModel(el){
   var key=el.getAttribute('data-model');
   if(!key) return;
   var brand=document.getElementById('browseBrand').value;
+  var freq=document.getElementById('browseFreq').value;   // 当前选中的频率(可能为空=全部)
   var open=el.classList.toggle('open');
   var detail=document.getElementById('bd-'+key.replace(/\W/g,''));
   if(detail) detail.classList.toggle('open', open);
-  if(open && !detail.innerHTML) renderBrowseDetail(brand, key, detail);
+  if(open && !detail.innerHTML) renderBrowseDetail(brand, key, freq, detail);
 }
 
-function renderBrowseDetail(brand, model, el){
-  var recs=(ALL_DATA[brand]||[]).filter(function(r){return r.model===model;});
+function renderBrowseDetail(brand, model, freq, el){
+  var recs=(ALL_DATA[brand]||[]).filter(function(r){return r.model===model;})
+    .filter(function(r){ return !freq || r.frequency===freq; });   // 按当前选中的频率过滤(空=全部)
   // 去重: 同一 (frequency, winding_code, temp_grade) 只取一条
   var seen={}, rows=[];
   recs.forEach(function(r){
