@@ -771,11 +771,14 @@ function doSearch(){
     var wMatch = wSet ? (wSet.indexOf(g.winding_code)>=0) : (g.winding_code===w);
     if(g.frequency!==freq||!wMatch) continue;
     var uKey=is1ph?unit:'kVA';   // 单相按用户输入单位读档(kW或kVA)；三相用kVA
-    // 中高压按 F 级温升选型: 主用(PRP)取 cont_f, 备用取 stdby_27c; 其它品牌 PRP 取 cont_h(H级)
-    var r = duty==='PRP' ? g[(isHV?'cont_f':'cont_h')+'_'+uKey] : g['stdby_27c_'+uKey];
+    // 中高压主用功率列：优先 F 级(cont_f)——斯坦福中高压有 F 级；利莱森玛中高压只有 H 级(cont_h)则回退
+    // 利莱森玛中高压无 cont_f 字段，若一律取 F 级会被过滤为空 → 查不到(history bug 修复)
+    var mainCol = isHV ? (g['cont_f_'+uKey]!==undefined&&g['cont_f_'+uKey]>0?'cont_f':'cont_h') : 'cont_h';
+    var r = duty==='PRP' ? g[mainCol+'_'+uKey] : g['stdby_27c_'+uKey];
     if(!r||r<=0) continue;
     var cp=Math.round(r*tot*10)/10;
-    list.push({m:g.model,wd:g.winding_label||g.winding_code,ch:g[(isHV?'cont_f':'cont_h')+'_'+uKey],cl:g['cont_f_'+uKey]||0,s40:g['stdby_40c_'+uKey]||0,st:g['stdby_27c_'+uKey],cp:cp,ok:cp>=goal,af:af,tf:tf,pf:g.pf,uk:uKey,exc:g.exc_std||'',grade:g.temp_grade||''});
+    var bestGrade = isHV ? (g.temp_grade||(mainCol==='cont_f'?'F':'H')) : (g.temp_grade||'H');
+    list.push({m:g.model,wd:g.winding_label||g.winding_code,ch:g[mainCol+'_'+uKey],cl:g['cont_f_'+uKey]||0,s40:g['stdby_40c_'+uKey]||0,st:g['stdby_27c_'+uKey],cp:cp,ok:cp>=goal,af:af,tf:tf,pf:g.pf,uk:uKey,exc:g.exc_std||'',grade:bestGrade});
   }
 
   // 步骤4-5：温升校核 + 备用换算（在列表结果中显示）
