@@ -442,7 +442,50 @@ function onParamChange(){
     return;
   }
   ws.innerHTML='<option value="">请选择电压</option>';
-  // 按官方绕组章节分组展示电压选项（仅AGG系列有明确分组，其它品牌平铺）
+  // ===== 中高压专用：按「电压等级(kV)」分组显示，绕组并入选型内部匹配 =====
+  // windings 已经是按数值升序(见上)，这里按 label 前缀提取电压等级分组
+  // 例：'3ph 3.3kV 绕组51'/'3ph 3.3kV 绕组851' → 同一组 '3ph 3.3kV'，value=两个code逗号连接
+  if(isHVBrand(brand) && windings.length>1){
+    var hvGroups=[]; // {kv:'3.3kV', label:'三相 · 3.3kV', codes:['3300V-W51','3300V-W851']}
+    var order=[];    // 保持电压数值升序（windings已按数值升序）
+    for(var hi=0; hi<windings.length; hi++){
+      var hc=windings[hi];
+      var hlabel='';
+      for(var hj=0; hj<records.length; hj++){
+        if(records[hj].frequency===freq && records[hj].winding_code===hc && records[hj].winding_label){
+          hlabel=records[hj].winding_label; break;
+        }
+      }
+      // 提取 kV 范围前缀：'3ph 10.5-11kV 绕组83' → '10.5-11kV'
+      var m=hc.match(/^(\d+V(?:\([^)]*\))?(?:-\d+V(?:\([^)]*\))?)?)/);
+      var kvKey = m ? m[1] : hlabel;
+      var group=null;
+      for(var hg=0; hg<hvGroups.length; hg++){ if(hvGroups[hg].kvKey===kvKey){ group=hvGroups[hg]; break; } }
+      if(!group){
+        // label 显示用电压等级：从 winding_label 提 '3ph XkV'，不含绕组号
+        var kvLabel=hc.replace(/[()#&]/g,''); // 如 '3300V-W51' (不太理想，下面用更规整的)
+        group={kvKey:kvKey, label:'', codes:[]};
+        hvGroups.push(group);
+      }
+      group.codes.push(hc);
+    }
+    // 补全每个组的显示 label：取该组任一 winding_label 去掉 绕组XX 部分
+    for(var hg=0; hg<hvGroups.length; hg++){
+      var g0=hvGroups[hg];
+      var refLabel=g0.codes[0], disp='';
+      for(var hj=0; hj<records.length; hj++){
+        if(records[hj].frequency===freq && records[hj].winding_code===refLabel && records[hj].winding_label){
+          disp=records[hj].winding_label; break;
+        }
+      }
+      disp=disp.replace(/\s*绕组\d+\s*$/,'');       // '3ph 10.5kV 绕组83' → '3ph 10.5kV'
+      disp=disp.replace(/^3ph\s+/,'三相 · ');          // → '三相 · 10.5kV'
+      g0.label=disp || (g0.codes.join(', '));
+      ws.innerHTML+='<option value="'+g0.codes.join(',')+'">'+esc(g0.label)+'</option>';
+    }
+    ws.setAttribute('data-grouped','1');
+    return;
+  }
   ws.setAttribute('data-grouped', isAGG(brand) ? '1' : '0');
   var groups = isAGG(brand) ? aggVoltageGroups(freq, windings) : null;
   if(groups){
@@ -721,9 +764,12 @@ function doSearch(){
   var tot=Math.round(af*tf*1000)/1000;
 
   var list=[];
+  // 中高压电压下拉为组合值（逗号分隔多个绕组code，如 '3300V-W51,3300V-W851'），需匹配组内任一绕组
+  var wSet = (isHV && w.indexOf(',')>=0) ? w.split(',') : null;
   for(var i=0;i<records.length;i++){
     var g=records[i];
-    if(g.frequency!==freq||g.winding_code!==w) continue;
+    var wMatch = wSet ? (wSet.indexOf(g.winding_code)>=0) : (g.winding_code===w);
+    if(g.frequency!==freq||!wMatch) continue;
     var uKey=is1ph?unit:'kVA';   // 单相按用户输入单位读档(kW或kVA)；三相用kVA
     // 中高压按 F 级温升选型: 主用(PRP)取 cont_f, 备用取 stdby_27c; 其它品牌 PRP 取 cont_h(H级)
     var r = duty==='PRP' ? g[(isHV?'cont_f':'cont_h')+'_'+uKey] : g['stdby_27c_'+uKey];
