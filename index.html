@@ -775,7 +775,7 @@ function doSearch(){
     var r = duty==='PRP' ? g[(isHV?'cont_f':'cont_h')+'_'+uKey] : g['stdby_27c_'+uKey];
     if(!r||r<=0) continue;
     var cp=Math.round(r*tot*10)/10;
-    list.push({m:g.model,ch:g[(isHV?'cont_f':'cont_h')+'_'+uKey],cl:g['cont_f_'+uKey]||0,s40:g['stdby_40c_'+uKey]||0,st:g['stdby_27c_'+uKey],cp:cp,ok:cp>=goal,af:af,tf:tf,pf:g.pf,uk:uKey,exc:g.exc_std||'',grade:g.temp_grade||''});
+    list.push({m:g.model,wd:g.winding_label||g.winding_code,ch:g[(isHV?'cont_f':'cont_h')+'_'+uKey],cl:g['cont_f_'+uKey]||0,s40:g['stdby_40c_'+uKey]||0,st:g['stdby_27c_'+uKey],cp:cp,ok:cp>=goal,af:af,tf:tf,pf:g.pf,uk:uKey,exc:g.exc_std||'',grade:g.temp_grade||''});
   }
 
   // 步骤4-5：温升校核 + 备用换算（在列表结果中显示）
@@ -829,6 +829,7 @@ function doSearch(){
   if(top){
     mh+='<div class="match-card"><div class="model">'+topM+(isHV&&top.grade?' <span class="badge">'+escG(top)+'级</span>':' <span class="badge">推荐</span>')+'</div>';
     mh+='<div class="params">';
+    mh+='<span class="tag">绕组: '+esc(top.wd)+'</span> ';
     if(isHV) mh+='<span class="tag">温升: '+top.grade+'级（'+top.grade+'级温升选型）</span> ';
     mh+='<span class="tag">PF='+top.pf+'</span> ';
     mh+='<span class="tag">持续'+(isHV?top.grade:'H')+': '+top.ch+ux+'</span> ';
@@ -855,7 +856,7 @@ function doSearch(){
     for(var i=0;i<list.length;i++){
       var x=list[i];
       var rank=(x.ok?list.filter(function(y,idx){return idx<i&&y.ok;}).length+1:'-');
-      lh+='<tr class="'+(x.ok?'ok':'fail')+'"><td>'+(x.ok?rank:'✗')+'</td><td><b>'+esc(x.m)+'</b></td>'+(isHV?'<td><span class="badge">'+escG(x)+'</span></td>':'')+'<td>'+x.ch+'</td><td>'+x.cl+'</td><td>'+x.s40+'</td><td>'+x.st+'</td><td>'+x.pf+'</td><td>'+(x.ok?'✅':'❌')+'</td></tr>';
+      lh+='<tr class="'+(x.ok?'ok':'fail')+'"><td>'+(x.ok?rank:'✗')+'</td><td><b>'+esc(x.m)+'</b>'+(isHV?' <span class="wconn">'+esc(x.wd)+'</span>':'')+'</td>'+(isHV?'<td><span class="badge">'+escG(x)+'</span></td>':'')+'<td>'+x.ch+'</td><td>'+x.cl+'</td><td>'+x.s40+'</td><td>'+x.st+'</td><td>'+x.pf+'</td><td>'+(x.ok?'✅':'❌')+'</td></tr>';
     }
     lh+='</table></div>';
   }
