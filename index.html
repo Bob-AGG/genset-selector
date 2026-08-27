@@ -428,6 +428,15 @@ function onParamChange(){
       windings.push(r.winding_code);
     }
   }
+  // 中高压品牌: 电压下拉按电压数值升序（3300→4160→5500→6000→6300→6600→6900→7200→10000→...→13800）
+  if(isHVBrand(brand) && windings.length>1){
+    windings.sort(function(a,b){
+      var na=parseInt((a.match(/\d+/)||['0'])[0],10);
+      var nb=parseInt((b.match(/\d+/)||['0'])[0],10);
+      if(na!==nb) return na-nb;
+      return a<b?-1:(a>b?1:0);
+    });
+  }
   if(windings.length===0){
     ws.innerHTML='<option value="">该品牌无'+freq+'数据</option>';
     return;
@@ -477,7 +486,10 @@ function isSinglePhase(w, label){
   return false;
 }
 
-// 品牌是否为 AGG 系列（KI/KK），用于电压选项分组
+// 品牌是否为中高压(走中高压专用逻辑: 不适用海拔/温度修正, 主用功率取F级cont_f, 电压下拉数值升序)
+function isHVBrand(brand){
+  return (brand==='利莱森玛 LSA 中高压'||brand==='斯坦福中高压');
+}
 function isAGG(brand){
   return (brand==='AGG KI系列'||brand==='AGG KK系列');
 }
@@ -672,7 +684,7 @@ function doSearch(){
   var records=ALL_DATA[brand]||[];
   var is1ph=isSinglePhase(w);   // 统一用 isSinglePhase 判定单相(含 AGG D51-1ph-230 特例
   // 中高压品牌：不适用海拔/温度修正，按默认海拔(≤1000m→af=1)和默认温度(40℃→tf=1)选型，忽略用户输入的数值
-  var isHV=(brand==='利莱森玛 LSA 中高压');
+  var isHV=isHVBrand(brand);
   // AGG (KI/KK)：走 AGG 手册功率修正表（海拔×温度二维修正，拆成 af×tf 两个独立系数相乘）
   var isAGG=(brand==='AGG KI系列'||brand==='AGG KK系列');
   // 美奥迪(Mecc Alte)：走美奥迪手册 海拔×温度 二维表（拆成 af×tf，与 AGG 同法）
@@ -713,22 +725,23 @@ function doSearch(){
     var g=records[i];
     if(g.frequency!==freq||g.winding_code!==w) continue;
     var uKey=is1ph?unit:'kVA';   // 单相按用户输入单位读档(kW或kVA)；三相用kVA
-    var r=duty==='PRP'?g['cont_h_'+uKey]:g['stdby_27c_'+uKey];
+    // 中高压按 F 级温升选型: 主用(PRP)取 cont_f, 备用取 stdby_27c; 其它品牌 PRP 取 cont_h(H级)
+    var r = duty==='PRP' ? g[(isHV?'cont_f':'cont_h')+'_'+uKey] : g['stdby_27c_'+uKey];
     if(!r||r<=0) continue;
     var cp=Math.round(r*tot*10)/10;
-    list.push({m:g.model,ch:g['cont_h_'+uKey],cl:g['cont_f_'+uKey]||0,s40:g['stdby_40c_'+uKey]||0,st:g['stdby_27c_'+uKey],cp:cp,ok:cp>=goal,af:af,tf:tf,pf:g.pf,uk:uKey,exc:g.exc_std||'',grade:g.temp_grade||''});
+    list.push({m:g.model,ch:g[(isHV?'cont_f':'cont_h')+'_'+uKey],cl:g['cont_f_'+uKey]||0,s40:g['stdby_40c_'+uKey]||0,st:g['stdby_27c_'+uKey],cp:cp,ok:cp>=goal,af:af,tf:tf,pf:g.pf,uk:uKey,exc:g.exc_std||'',grade:g.temp_grade||''});
   }
 
   // 步骤4-5：温升校核 + 备用换算（在列表结果中显示）
   var hOkCount=list.filter(function(x){return x.ok;}).length;
-  ch+='<div class="step-header" onclick="toggleStep(this)"><span><span class="step-num">步骤4</span>温升校核</span><span class="step-desc">H级/F级可用功率</span><span class="step-result">'+list.length+'款</span><span class="arrow">▼</span></div>';
+  ch+='<div class="step-header" onclick="toggleStep(this)"><span><span class="step-num">步骤4</span>温升校核</span><span class="step-desc">'+(isHV?'F级可用功率(中高压按F级温升选型)':'H级/F级可用功率')+'</span><span class="step-result">'+list.length+'款</span><span class="arrow">▼</span></div>';
   ch+='<div class="step-body">';
   ch+='<div class="calc-row"><span class="calc-label">总候选电机</span><span class="calc-val">'+list.length+'款</span></div>';
   ch+='<div class="calc-row"><span class="calc-label">满足需求（修正后）</span><span class="calc-val">'+hOkCount+'款</span></div></div>';
 
   ch+='<div class="step-header" onclick="toggleStep(this)"><span><span class="step-num">步骤5</span>备用换算</span><span class="step-desc">备用功率校核</span><span class="step-result">'+(duty==='PRP'?'主用模式':'备用模式')+'</span><span class="arrow">▼</span></div>';
   ch+='<div class="step-body"><div class="calc-row"><span class="calc-label">工作制</span><span class="calc-val">'+duty+'</span></div>';
-  ch+='<div class="calc-row"><span class="calc-label">基准功率取值</span><span class="calc-val">'+(duty==='PRP'?'持续H / 125K':'备用27℃ / 163K')+'</span></div></div>';
+  ch+='<div class="calc-row"><span class="calc-label">基准功率取值</span><span class="calc-val">'+(duty==='PRP'?(isHV?'持续F / 105K':'持续H / 125K'):'备用27℃ / 163K')+'</span></div></div>';
 
   // 排序：中高压 → 先F级在前、H级在后（按温升等级），同级内再按ok优先+接近度；其它品牌 → 保持原逻辑
   list.sort(function(a,b){
@@ -817,6 +830,7 @@ var BRAND_FILES = {
   'TAL-A46/A473/A49': 'tal-a46.json',
   '利莱森玛 LSA 中高压': 'leroysomer-hv.json',
   '斯坦福': 'stanford.json',
+  '斯坦福中高压': 'stanford-hv.json',
   'AGG KI系列': 'agg-ki.json',
   'AGG KK系列': 'agg-kk.json',
   '美奥迪 Mecc Alte': 'mecc-alte.json',
@@ -903,6 +917,7 @@ function fillBrandDropdown(){
 
 loadBrandData(function(){
   fillBrandDropdown();
+  fillBrowseBrand();
   var sel=document.getElementById('genBrand');
   sel.onchange=onParamChange;
   onParamChange();
@@ -1066,7 +1081,7 @@ function renderBrowseDetail(brand, model, freq, el){
     rows.push(r);
   });
   if(!rows.length){ el.innerHTML='<div class="landing"><p>无数据</p></div>'; return; }
-  var isHV=(brand==='利莱森玛 LSA 中高压');
+  var isHV=isHVBrand(brand);
   var isStan=(brand==='斯坦福');
   var cols=['频率','电压(绕组)'];
   if(isHV) cols.push('温升');
@@ -1089,15 +1104,6 @@ function renderBrowseDetail(brand, model, freq, el){
   h+='<div class="browse-extra-placeholder" style="font-size:11px;color:#94a3b8;margin-top:6px">📌 励磁等更多参数预留，待数据补充</div>';
   el.innerHTML=h;
 }
-
-loadBrandData(function(){
-  fillBrandDropdown();
-  fillBrowseBrand();
-  var sel=document.getElementById('genBrand');
-  sel.onchange=onParamChange;
-  onParamChange();
-});
-
 /* ================= 工具页：油耗转换工具 ================= */
 // ---- 子选项卡切换 ----
 function switchToolTab(btn, name){
