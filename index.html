@@ -543,8 +543,9 @@ function isAGG(brand){
   return (brand==='AGG KI系列'||brand==='AGG KK系列');
 }
 function isLeroy(brand){
-  // 仅 LSA 低压做「标准/特殊」绕组分组；TAL 走原平铺(结构与LSA不同,无标准6号)
-  return (brand==='利莱森玛 LSA');
+  // 仅 LSA 低压做「标准/特殊」绕组分组；TAL(利莱森玛 TAL)走原平铺(结构与LSA不同,无标准6号)
+  // ⚠️ 匹配的是 BRAND_FILES 的 key 'leroysomer'(option value)，不是显示名'利莱森玛 LSA'
+  return (brand==='leroysomer');
 }
 
 // LSA/TAL 低压电压选项按「标准/特殊」绕组类型分组
