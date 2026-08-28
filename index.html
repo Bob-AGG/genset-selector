@@ -1069,7 +1069,7 @@ function aiRealCall(text){
   // }).then(r=>r.json()).then(d=>{ 渲染 d.reply })
 }
 
-function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+function esc(s){ return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 
 /* ================= 产品库 ================= */
 function fillBrowseBrand(){
