@@ -490,8 +490,10 @@ function onParamChange(){
     ws.setAttribute('data-grouped','1');
     return;
   }
-  ws.setAttribute('data-grouped', isAGG(brand) ? '1' : '0');
-  var groups = isAGG(brand) ? aggVoltageGroups(freq, windings) : null;
+  ws.setAttribute('data-grouped', (isAGG(brand)||isLeroy(brand)) ? '1' : '0');
+  var groups = isLeroy(brand) ? leroyVoltageGroups(freq, windings)
+             : isAGG(brand)    ? aggVoltageGroups(freq, windings)
+             : null;
   if(groups){
     // 分组输出：每组内电压仍按数据顺序
     for(var gi=0; gi<groups.length; gi++){
@@ -539,6 +541,44 @@ function isHVBrand(brand){
 }
 function isAGG(brand){
   return (brand==='AGG KI系列'||brand==='AGG KK系列');
+}
+function isLeroy(brand){
+  // 仅 LSA 低压做「标准/特殊」绕组分组；TAL 走原平铺(结构与LSA不同,无标准6号)
+  return (brand==='利莱森玛 LSA');
+}
+
+// LSA/TAL 低压电压选项按「标准/特殊」绕组类型分组
+// 顺序：标准绕组在前 → 特殊绕组(按数字排序)在后 → 单相单独一组；重复电压全部保留
+// 绕组类型判定：winding_code 前缀（6=标准6号，7/8/9/10/22/23/52=特殊XX号，1ph=M/M1单相）
+function leroyVoltageGroups(freq, windings){
+  var STANDARD=['6'];            // 标准绕组（手册：标准6号）
+  var SPECIAL=['7','8','9','10','22','23','52']; // 特殊绕组，按数字排序
+  var SINGLE=['1ph'];            // M/M1 单相
+  var total=[STANDARD.concat(SPECIAL).concat(SINGLE)];
+  var groups=[];
+  // 分组顺序：标准6 → 特殊按数字升序 → 单相
+  var all=[].concat(STANDARD, SPECIAL.slice().sort(function(a,b){return (+a)-(+b);}), SINGLE);
+  var assigned={};
+  for(var ai=0; ai<all.length; ai++){
+    var pfx=all[ai];
+    var codes=[];
+    for(var i=0;i<windings.length;i++){
+      var w=windings[i];
+      var pre=w.split('-')[0];
+      if(pre===pfx && !assigned[w]){ codes.push(w); assigned[w]=true; }
+    }
+    if(!codes.length) continue;
+    // 组内电压按 winding_code 尾部数字升序
+    codes.sort(function(a,b){
+      var na=parseInt((a.match(/\d+$/)||['0'])[0],10);
+      var nb=parseInt((b.match(/\d+$/)||['0'])[0],10);
+      if(na!==nb) return na-nb;
+      return a<b?-1:(a>b?1:0);
+    });
+    var name = (pfx==='1ph') ? '单相 M/M1 绕组' : (pfx==='6' ? '标准6号绕组' : '特殊'+pfx+'号绕组');
+    groups.push({name:name, codes:codes});
+  }
+  return groups;
 }
 
 // 取该 voltage code 在数据中的显示名（label）
