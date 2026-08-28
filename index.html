@@ -490,8 +490,8 @@ function onParamChange(){
     ws.setAttribute('data-grouped','1');
     return;
   }
-  ws.setAttribute('data-grouped', (isAGG(brand)||isLeroy(brand)) ? '1' : '0');
-  var groups = isAGG(brand) ? aggVoltageGroups(freq, windings) : (isLeroy(brand) ? leroysomerGroups(freq, windings) : null);
+  ws.setAttribute('data-grouped', isAGG(brand) ? '1' : '0');
+  var groups = isAGG(brand) ? aggVoltageGroups(freq, windings) : null;
   if(groups){
     // 分组输出：每组内电压仍按数据顺序
     for(var gi=0; gi<groups.length; gi++){
@@ -499,7 +499,7 @@ function onParamChange(){
       var opts='';
       for(var wi=0; wi<g.codes.length; wi++){
         var w2=g.codes[wi];
-        var lbl2 = isLeroy(brand) ? leroysomerLabel(records, freq, w2) : aggWindingLabel(records, freq, w2);
+        var lbl2 = aggWindingLabel(records, freq, w2);
         opts+='<option value="'+w2+'">'+lbl2+'</option>';
       }
       ws.innerHTML+='<optgroup label="'+esc(g.name)+'">'+opts+'</optgroup>';
@@ -539,11 +539,6 @@ function isHVBrand(brand){
 }
 function isAGG(brand){
   return (brand==='AGG KI系列'||brand==='AGG KK系列');
-}
-
-// 利莱森玛 LSA 低压：同电压存在不同绕组（如 6-415/7-415），电压下拉按电压档分组，多绕组标注绕组号
-function isLeroy(brand){
-  return brand==='leroysomer';
 }
 
 // 取该 voltage code 在数据中的显示名（label）
@@ -589,72 +584,6 @@ function aggVoltageGroups(freq, windings){
     if(codes.length) groups.push({name:order[i].name, codes:codes});
   }
   return groups;
-}
-
-// 利莱森玛 LSA 低压：电压下拉按电压档分组；同电压不同绕组（如 6-415/7-415、6-380/8-380）在组内并列，选项标注绕组号
-function leroysomerGroups(freq, windings){
-  var records=ALL_DATA['leroysomer']||[];
-  var groups=[];
-  for(var i=0;i<windings.length;i++){
-    var c=windings[i];
-    var label='', volt='';
-    for(var j=0;j<records.length;j++){
-      if(records[j].frequency===freq && records[j].winding_code===c){
-        label=records[j].winding_label||'';
-        volt=records[j].voltage||'';
-        break;
-      }
-    }
-    var key=volt||c;                              // 同电压档共享分组键（415V的6/7绕组并一组）
-    var g=null;
-    for(var gi=0;gi<groups.length;gi++){ if(groups[gi].key===key){ g=groups[gi]; break; } }
-    if(!g){
-      var isSPH = (c.indexOf('1ph-')===0 || /单相/.test(label));
-      g={key:key, name:(isSPH?'单相':'三相')+' · '+(volt.replace(/or/g,'/').replace(/V$/,'')||c), codes:[]};
-      groups.push(g);
-    }
-    g.codes.push(c);
-  }
-  return groups;
-}
-
-// LSA 低压单选项 label：同电压多绕组时标注绕组号（如 'Y-415/Δ-240/YY-208V（绕组7）'）
-function leroysomerLabel(records, freq, w){
-  var label=w, conn='', codesSame=[];
-  for(var j=0;j<records.length;j++){
-    if(records[j].frequency===freq && records[j].winding_code===w){
-      label=records[j].winding_label||w;
-      conn=records[j].winding_conn||'';
-      break;
-    }
-  }
-  // 查同电压档下是否有多个绕组（看同 voltage 下 code 数量>1）
-  var volt='';
-  for(var j2=0;j2<records.length;j2++){
-    if(records[j2].frequency===freq && records[j2].winding_code===w){ volt=records[j2].voltage||''; break; }
-  }
-  // 同电压档下：是否存在 label 也相同的其他绕组（如 6-415/7-415 同为 Y-415/Δ-240/YY-208V）
-  // label 相同才标绕组号区分（单相 vs 三相 label 本就不同，不标）
-  var multi=false;
-  var seen={};
-  for(var j3=0;j3<records.length;j3++){
-    var r3=records[j3];
-    if(r3.frequency===freq && r3.voltage===volt && r3.winding_code!==w && !seen[r3.winding_code]){
-      seen[r3.winding_code]=1;
-      if((r3.winding_label||'')===(label)){ multi=true; break; }
-    }
-  }
-  var prefix = isSinglePhase(w, label) ? '单相 · ' : '三相 · ';
-  // label 若已含「单相」字样（如 label='单相 230V'），不再重复加前缀
-  if(prefix==='单相 · ' && /^单相/.test(label)) prefix='';
-  var disp = prefix+label;
-  if(multi.length>0){
-    // 同电压多绕组：标注绕组号（取 code 中数字部分）
-    var wn=(w.match(/(\d+)/)||[''])[0];
-    disp+='（绕组'+wn+'）';
-  }
-  if(conn) disp+='「'+conn+'」';
-  return disp;
 }
 
 // 利莱森玛 LSA 海拔修正系数（底层逻辑，不可变）
