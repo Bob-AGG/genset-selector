@@ -1,5 +1,6 @@
 # 临时备份
 backup/
+*.bak*
 
 # 数据源 PDF / 原始提取文本
 stanford_pdf/
@@ -12,3 +13,13 @@ talson_a44_60hz.json
 
 # 开发临时页面
 live-index.html
+
+# 临时导出/核对脚本
+_*.js
+_*.py
+
+# Excel 导出
+*.xlsx
+
+# node 依赖
+node_modules/
