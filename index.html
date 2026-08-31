@@ -552,20 +552,21 @@ function isLeroy(brand){
 // 顺序：标准绕组在前 → 特殊绕组(按数字排序)在后 → 单相单独一组；重复电压全部保留
 // 绕组类型判定：winding_code 前缀（6=标准6号，7/8/9/10/22/23/52=特殊XX号，1ph=M/M1单相）
 function leroyVoltageGroups(freq, windings){
-  var STANDARD=['6'];            // 标准绕组（手册：标准6号）
+  var STANDARD=['6'];            // 标准绕组（手册：标准6号，6线出线；可选12线出线单独成组）
+  var STANDARD12=['6-12'];       // 标准6号绕组 · 可选12线出线（winding_code 前缀 6-12-，如 6-12-380）
   var SPECIAL=['7','8','9','10','22','23','52']; // 特殊绕组，按数字排序
   var SINGLE=['1ph'];            // M/M1 单相
-  var total=[STANDARD.concat(SPECIAL).concat(SINGLE)];
   var groups=[];
-  // 分组顺序：标准6 → 特殊按数字升序 → 单相
-  var all=[].concat(STANDARD, SPECIAL.slice().sort(function(a,b){return (+a)-(+b);}), SINGLE);
+  // 分组顺序：标准6号(6线) → 标准6号(12线) → 特殊按数字升序 → 单相
+  var all=[].concat(STANDARD, STANDARD12, SPECIAL.slice().sort(function(a,b){return (+a)-(+b);}), SINGLE);
   var assigned={};
   for(var ai=0; ai<all.length; ai++){
     var pfx=all[ai];
     var codes=[];
     for(var i=0;i<windings.length;i++){
       var w=windings[i];
-      var pre=w.split('-')[0];
+      // 6-12-* 归 STANDARD12 组；其余 6-* 归 STANDARD 组
+      var pre = w.indexOf('6-12-')===0 ? '6-12' : w.split('-')[0];
       if(pre===pfx && !assigned[w]){ codes.push(w); assigned[w]=true; }
     }
     if(!codes.length) continue;
@@ -576,7 +577,10 @@ function leroyVoltageGroups(freq, windings){
       if(na!==nb) return na-nb;
       return a<b?-1:(a>b?1:0);
     });
-    var name = (pfx==='1ph') ? '单相 M/M1 绕组' : (pfx==='6' ? '标准6号绕组' : '特殊'+pfx+'号绕组');
+    var name = (pfx==='1ph') ? '单相 M/M1 绕组'
+             : (pfx==='6-12') ? '标准6号绕组 · 12线出线'
+             : (pfx==='6') ? '标准6号绕组'
+             : '特殊'+pfx+'号绕组';
     groups.push({name:name, codes:codes});
   }
   return groups;
