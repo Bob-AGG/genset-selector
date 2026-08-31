@@ -888,7 +888,7 @@ function doSearch(){
     mh+='<span class="tag">持续'+(isHV?top.grade:'H')+': '+top.ch+ux+'</span> ';
     mh+='<span class="tag">备用40℃: '+top.s40+ux+'</span> ';
     mh+='<span class="tag">备用27℃: '+top.st+ux+'</span> ';
-    mh+='<span class="tag">励磁: '+escE(top)+'</span><br>';
+    mh+='<span class="tag">标准励磁: '+escE(top)+'</span>'+(top.rec&&top.rec.exc_opt?'<span class="tag">可选励磁: '+esc(top.rec.exc_opt)+'</span>':'')+'<br>';
     mh+='<div style="margin-top:8px"><b>修正后: '+top.cp+ux+'</b> ≥ '+goal+(is1ph?unit:'kVA')+' ✅'+(isHV?'（无海拔/温度修正）':'')+'</div>';
     mh+='<div style="margin-top:8px;display:flex;gap:6px">';
     mh+='<button class="btn-secondary" onclick="alert(\'导出功能待实现\')">📄 导出PDF</button>';
@@ -905,7 +905,7 @@ function doSearch(){
   if(list.length){
     var okCnt=list.filter(function(x){return x.ok;}).length;
     // 统一基础列 + H级功率列 + F级功率列（所有库同一套表头，无数据留空）
-    var cols=['#' ,'型号','绕组/接线','电压','出线','PF','励磁'];
+    var cols=['#' ,'型号','绕组/接线','电压','出线','PF','励磁(标准)','励磁(可选)'];
     cols=cols.concat(['持续H_kVA','持续H_kW','备用H40_kVA','备用H40_kW','备用H27_kVA','备用H27_kW']);
     cols=cols.concat(['持续F_kVA','持续F_kW','备用F40_kVA','备用F40_kW','备用F27_kVA','备用F27_kW']);
     // 品牌特有字段列（候选记录中实际存在的特有字段才显示）
@@ -924,7 +924,8 @@ function doSearch(){
       tds+='<td>'+esc(g.voltage||'')+'</td>';
       tds+='<td>'+(g.wires==null?'':esc(g.wires))+'</td>';
       tds+='<td>'+(g.pf==null?'':g.pf)+'</td>';
-      tds+='<td>'+esc(g.exc_std||'')+(g.exc_opt?'<div class="wconn">'+esc(g.exc_opt)+'</div>':'')+'</td>';
+      tds+='<td>'+(g.exc_std||'-')+'</td>';
+      tds+='<td>'+(g.exc_opt||'-')+'</td>';
       // H级功率
       tds+='<td>'+(g.cont_h_kVA!=null?g.cont_h_kVA:'')+'</td><td>'+(g.cont_h_kW!=null?g.cont_h_kW:'')+'</td>';
       tds+='<td>'+(g.stdby_h_40c_kVA!=null?g.stdby_h_40c_kVA:'')+'</td><td>'+(g.stdby_h_40c_kW!=null?g.stdby_h_40c_kW:'')+'</td>';
