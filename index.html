@@ -905,7 +905,7 @@ function doSearch(){
   if(list.length){
     var okCnt=list.filter(function(x){return x.ok;}).length;
     // 统一基础列 + H级功率列 + F级功率列（所有库同一套表头，无数据留空）
-    var cols=['#' ,'型号','绕组/接线','出线','PF','励磁(标准)','励磁(可选)'];
+    var cols=['#' ,'型号','接线/绕组/电压','出线','PF','励磁(标准)','励磁(可选)'];
     cols=cols.concat(['持续H_kVA','持续H_kW','备用H40_kVA','备用H40_kW','备用H27_kVA','备用H27_kW']);
     cols=cols.concat(['持续F_kVA','持续F_kW','备用F40_kVA','备用F40_kW','备用F27_kVA','备用F27_kW']);
     // 品牌特有字段列（候选记录中实际存在的特有字段才显示）
