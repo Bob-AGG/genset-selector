@@ -190,7 +190,7 @@ tr:hover{background:#f0f2f5}
 </div></div>
 <div class="form-group"><label>安装海拔 (m)</label><input type="number" id="genAlt" value="0" min="0" max="5000" step="100"></div>
 <div class="form-group"><label>环境温度 (°C)</label><input type="number" id="genTemp" value="40" min="-20" max="60" step="1"></div>
-<div class="form-group"><label>特殊选配</label><select id="genOption"><option value="none" selected>无</option><option value="ip44">IP44（防护降额10%）</option><option value="anti-corr">高防腐等级（降额10%）</option><option value="both">IP44 + 高防腐（降额10%）</option></select></div>
+<div class="form-group"><label>特殊选配</label><select id="genOption"><option value="none" selected>无</option><option value="ip44">IP44（防护降额10%）</option><option value="c5">C5 高防腐等级（暂不降额，数据待补）</option></select></div>
 <button class="btn" id="searchBtn" onclick="doSearch()">🔍 查询</button>
 </div>
 
@@ -768,8 +768,8 @@ function doSearch(){
   var a=Number(document.getElementById('genAlt').value);
   var t=Number(document.getElementById('genTemp').value);
   var pfUser=0.8;                                               // 功率因数固定 0.8(已去掉用户选择, 标准默认值)
-  var optCode=document.getElementById('genOption').value;      // 特殊选配: none/ip44/anti-corr/both
-  var optDec=optCode==='none'?1:0.9;                            // 选配防护/防腐: 同品电机出力打折10%, 即选型需求放大 ÷0.9
+  var optCode=document.getElementById('genOption').value;      // 特殊选配: none/ip44/c5
+  var optDec=optCode==='ip44'?0.9:1;                            // IP44防护降额10%→需求÷0.9放大; C5高防腐暂不降额(数据待补)→÷1; 无→÷1
 
   if(!brand){alert('请选品牌');return;}
   if(!w){alert('请选电压');return;}
@@ -788,14 +788,14 @@ function doSearch(){
   var targetKVA=unit==='kW'?Math.round(p/pfUser*10)/10:p;      // 三相对比口径(kVA)
   var goalUnit = is1ph ? unit : 'kVA';                          // 单相用输入单位，三相用kVA
   var goalBase = is1ph ? p : targetKVA;                         // 基础对比值(未含选配降额)
-  var goal = Math.round(goalBase/optDec*10)/10;                 // 选配放大: 有IP44/防腐则 ÷0.9 → 目标功率更大
+  var goal = Math.round(goalBase/optDec*10)/10;                 // 选配放大: IP44 防护 → ÷0.9 放大需求; C5/无 → 不变
 
   // 步骤1：解析
   var ch='<div class="step-panel">';
   ch+='<div class="step-header" onclick="toggleStep(this)"><span><span class="step-num">步骤1</span>解析输入</span><span class="step-desc">用户输入 → '+(is1ph?('目标'+unit):'目标kVA')+'</span><span class="step-result">'+goal+' '+(is1ph?unit:'kVA')+'</span><span class="arrow">▼</span></div>';
   ch+='<div class="step-body"><div class="calc-row"><span class="calc-label">输入功率</span><span class="calc-val">'+p+' '+unit+'</span></div>';
-  ch+=(optCode!=='none')?('<div class="calc-row"><span class="calc-label">特殊选配</span><span class="calc-val">'+(optCode==='ip44'?'IP44 防护降额10%':(optCode==='anti-corr'?'高防腐 降额10%':'IP44+高防腐 降额10%'))+' → 选型需求 ÷'+optDec+' 放大</span></div>'):'';
-  ch+='<div class="calc-row"><span class="calc-label">目标 '+(is1ph?unit:'kVA')+(optCode!=='none'?'(×'+(is1ph?unit:'kVA')+',已含选配÷'+optDec+')':'')+'</span><span class="calc-val">'+goal+' '+(is1ph?unit:'kVA')+'</span></div></div>';
+  ch+=(optCode==='ip44')?('<div class="calc-row"><span class="calc-label">特殊选配</span><span class="calc-val">IP44 防护降额10% → 选型需求 ÷0.9 放大</span></div>'):(optCode==='c5'?'<div class="calc-row"><span class="calc-label">特殊选配</span><span class="calc-val">C5 高防腐等级（暂不降额，数据待补）</span></div>':'');
+  ch+='<div class="calc-row"><span class="calc-label">目标 '+(is1ph?unit:'kVA')+(optCode==='ip44'?'(×'+(is1ph?unit:'kVA')+',已含选配÷0.9)':'')+'</span><span class="calc-val">'+goal+' '+(is1ph?unit:'kVA')+'</span></div></div>';
 
   // 步骤2：温度修正（按品牌选系数源。LSA用原有H级40°C基准；斯坦福用官方表；AGG用手册低海拔温度系数；中高压不适用，按默认40°C选型）
   var isStanford = (brand==='斯坦福');
