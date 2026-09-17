@@ -864,7 +864,10 @@ function doSearch(){
     }
     var cp=Math.round(r*tot*10)/10;
     var bestGrade = isHV ? (mainCol==='cont_f'?'F':'H') : 'H';   // 中高压按主用列定温升级(template已无temp_grade)
-    list.push({m:g.model,wd:g.winding_label||g.winding_code,ch:g[mainCol+'_'+uKey],cl:g['cont_f_'+uKey]||0,s40:g['stdby_h_40c_'+uKey],s27:g[standbyCol+'_'+uKey],st:g[standbyCol+'_'+uKey],cp:cp,ok:cp>=goal,af:af,tf:tf,pf:g.pf,uk:uKey,exc:g.exc_std||'',grade:bestGrade,rec:g});
+    // 卡片展示用固定值：s27=27℃备用(低压stdby_h_27c；中高压F级27℃优先、无则回退H级27℃)、s40=40℃备用(固定stdby_h_40c)
+    // ★ 与 st(当前选中温升的备用值，参与计算/排序) 分离，避免40℃模式下卡片「备用27℃」被串位成40℃值
+    var s27v = isHV ? ((g['stdby_f_27c_'+uKey]>0) ? g['stdby_f_27c_'+uKey] : g['stdby_h_27c_'+uKey]) : g['stdby_h_27c_'+uKey];
+    list.push({m:g.model,wd:g.winding_label||g.winding_code,ch:g[mainCol+'_'+uKey],cl:g['cont_f_'+uKey]||0,s40:g['stdby_h_40c_'+uKey],s27:s27v,st:g[standbyCol+'_'+uKey],cp:cp,ok:cp>=goal,af:af,tf:tf,pf:g.pf,uk:uKey,exc:g.exc_std||'',grade:bestGrade,rec:g});
   }
 
   // 步骤4-5：温升校核 + 备用换算（在列表结果中显示）
