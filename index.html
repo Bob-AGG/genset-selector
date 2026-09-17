@@ -864,7 +864,7 @@ function doSearch(){
     }
     var cp=Math.round(r*tot*10)/10;
     var bestGrade = isHV ? (mainCol==='cont_f'?'F':'H') : 'H';   // 中高压按主用列定温升级(template已无temp_grade)
-    list.push({m:g.model,wd:g.winding_label||g.winding_code,ch:g[mainCol+'_'+uKey],cl:g['cont_f_'+uKey]||0,s40:g['stdby_h_40c_'+uKey],s27:g['stdby_h_27c_'+uKey],st:g[standbyCol+'_'+uKey],cp:cp,ok:cp>=goal,af:af,tf:tf,pf:g.pf,uk:uKey,exc:g.exc_std||'',grade:bestGrade,rec:g});
+    list.push({m:g.model,wd:g.winding_label||g.winding_code,ch:g[mainCol+'_'+uKey],cl:g['cont_f_'+uKey]||0,s40:g['stdby_h_40c_'+uKey],s27:g[standbyCol+'_'+uKey],st:g[standbyCol+'_'+uKey],cp:cp,ok:cp>=goal,af:af,tf:tf,pf:g.pf,uk:uKey,exc:g.exc_std||'',grade:bestGrade,rec:g});
   }
 
   // 步骤4-5：温升校核 + 备用换算（在列表结果中显示）
@@ -922,10 +922,10 @@ function doSearch(){
     if(isHV) mh+='<span class="tag">温升: '+top.grade+'级（'+top.grade+'级温升选型）</span> ';
     mh+='<span class="tag">PF='+top.pf+'</span> ';
     mh+='<span class="tag">持续'+(isHV?top.grade:'H')+': '+top.ch+ux+'</span> ';
-    // 卡片固定展示两个温升的真实值（不随当前选中温升变化）；无数据显示 '-'；中高压无 40℃ 备用数据故不显示 40℃ 标签
-    if(!isHV) mh+='<span class="tag">备用40℃: '+((top.s40!=null)?top.s40+ux:'-')+'</span> ';
-    var vS27 = isHV ? top.ch : top.s27;
-    mh+='<span class="tag">备用27℃: '+((vS27!=null)?vS27+ux:'-')+'</span> ';
+    // 卡片固定展示两个温升的真实值（不随当前选中温升变化），仅作数据展示；无数据显示 '-'
+    // 中高压不做 40℃ 选型，但 40℃ 备用数据照常放出展示
+    mh+='<span class="tag">备用40℃: '+((top.s40!=null&&top.s40>0)?top.s40+ux:'-')+'</span> ';
+    mh+='<span class="tag">备用27℃: '+((top.s27!=null&&top.s27>0)?top.s27+ux:'-')+'</span> ';
     mh+='<span class="tag">标准励磁: '+escE(top)+'</span>'+(top.rec&&top.rec.exc_opt?'<span class="tag">可选励磁: '+esc(top.rec.exc_opt)+'</span>':'')+'<br>';
     mh+='<div style="margin-top:8px"><b>修正后: '+top.cp+ux+'</b> ≥ '+goal+(is1ph?unit:'kVA')+' ✅'+(isHV?'（无海拔/温度修正）':'')+'</div>';
     mh+='<div style="margin-top:8px;display:flex;gap:6px">';
