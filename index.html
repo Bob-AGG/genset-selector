@@ -123,6 +123,10 @@ tr.ok{background:#f0fff4}
 tr.fail{opacity:.55}
 tr:hover{background:#f0f2f5}
 .stats{font-size:12px;color:#888;margin-bottom:6px}
+/* 型号一键复制按钮 */
+.copy-btn{display:inline-block;margin-right:6px;padding:1px 6px;border:1px solid #cbd5e1;border-radius:4px;background:#f8fafc;color:#64748b;font-size:10px;line-height:1.5;cursor:pointer;font-family:inherit;vertical-align:middle;transition:all .15s}
+.copy-btn:hover{background:#1a365d;border-color:#1a365d;color:#fff}
+.copy-btn.done{background:#16a34a;border-color:#16a34a;color:#fff}
 
 .landing{text-align:center;padding:40px 20px;color:#94a3b8}
 .landing .icon{font-size:48px;margin-bottom:12px}
@@ -893,6 +897,7 @@ function doSearch(){
     mh+='<span class="tag">标准励磁: '+escE(top)+'</span>'+(top.rec&&top.rec.exc_opt?'<span class="tag">可选励磁: '+esc(top.rec.exc_opt)+'</span>':'')+'<br>';
     mh+='<div style="margin-top:8px"><b>修正后: '+top.cp+ux+'</b> ≥ '+goal+(is1ph?unit:'kVA')+' ✅'+(isHV?'（无海拔/温度修正）':'')+'</div>';
     mh+='<div style="margin-top:8px;display:flex;gap:6px">';
+    mh+='<button class="btn-secondary" onclick="copyModel(this,\''+escAttr(top.m)+'\')" title="复制型号">📋 复制型号</button>';
     mh+='<button class="btn-secondary" onclick="exportPdf()">📄 导出PDF</button>';
     mh+='<button class="btn-secondary" onclick="location.reload()">🔄 新建查询</button>';
     mh+='</div></div></div>';
@@ -921,7 +926,7 @@ function doSearch(){
       var x=list[i], g=x.rec||{};
       var rank=(x.ok?list.filter(function(y,idx){return idx<i&&y.ok;}).length+1:'-');
       var tds='<td>'+(x.ok?rank:'✗')+'</td>';
-      tds+='<td><b>'+esc(x.m)+'</b>'+(isHV?' <span class="wconn">'+esc(x.wd)+'</span>':'')+'</td>';
+      tds+='<td><button class="copy-btn" onclick="copyModel(this,\''+escAttr(x.m)+'\')" title="复制型号">复制</button><b>'+esc(x.m)+'</b>'+(isHV?' <span class="wconn">'+esc(x.wd)+'</span>':'')+'</td>';
       tds+='<td>'+esc(x.wd)+(g.winding_conn?'<div class="wconn">'+esc(g.winding_conn)+'</div>':'')+'</td>';
       tds+='<td>'+(g.wires==null?'':esc(g.wires))+'</td>';
       tds+='<td>'+(g.pf==null?'':g.pf)+'</td>';
@@ -1178,6 +1183,56 @@ function exportPdf(){
   w.document.close();
   // 等样式与字体就绪后再唤起打印
   setTimeout(function(){ try{ w.focus(); w.print(); }catch(e){} }, 400);
+}
+
+/* ================= 型号一键复制 ================= */
+// 优先用 Clipboard API（需 https/localhost）；失败或旧浏览器回退 execCommand。
+// 注意：execCommand 的 textarea 需挂在可视区域内才不会被某些浏览器忽略，
+// 故用 opacity:0 + 固定定位（不能用 display:none / visibility:hidden）。
+function copyTextFallback(text){
+  var ta=document.createElement('textarea');
+  ta.value=text;
+  ta.setAttribute('readonly','');
+  ta.style.position='fixed';
+  ta.style.top='0';
+  ta.style.left='0';
+  ta.style.width='1px';
+  ta.style.height='1px';
+  ta.style.opacity='0';
+  document.body.appendChild(ta);
+  ta.focus();
+  ta.select();
+  var ok=false;
+  try{ ok=document.execCommand('copy'); }catch(e){ ok=false; }
+  document.body.removeChild(ta);
+  return ok;
+}
+
+function copyModel(btn, text){
+  if(!text) return;
+  var done=function(){
+    var old='复制';
+    btn.textContent='✓ 已复制';
+    btn.className='copy-btn done';
+    btn.disabled=true;
+    clearTimeout(btn.__t);
+    btn.__t=setTimeout(function(){
+      btn.textContent=old;
+      btn.className='copy-btn';
+      btn.disabled=false;
+    }, 1200);
+  };
+  var fail=function(){
+    // 降级：弹框让用户手动复制（不丢数据，不静默失败）
+    window.prompt('复制失败，请手动复制型号：', text);
+  };
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(text).then(done).catch(function(){
+      if(copyTextFallback(text)) done(); else fail();
+    });
+  } else {
+    if(copyTextFallback(text)) done(); else fail();
+  }
 }
 
 function toggleStep(el){
