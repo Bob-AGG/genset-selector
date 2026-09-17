@@ -28,6 +28,16 @@ body{font-family:-apple-system,"Microsoft YaHei",sans-serif;background:#f0f2f5;c
 .radio-group{display:flex;gap:10px;margin:3px 0}
 .radio-group label{font-weight:400;font-size:13px;display:flex;align-items:center;gap:4px;cursor:pointer}
 .radio-group input[type=radio]{width:auto;cursor:pointer}
+/* ===== 双功率输入（主用 / 备用）===== */
+.pw-group{display:flex;flex-direction:column;gap:10px}
+.pw-item{background:#f8fafc;border:1px solid #e2e8f0;border-radius:7px;padding:8px 10px}
+.pw-item>label{font-size:12px;font-weight:600;color:#1a365d;margin-bottom:4px}
+.pw-opt{font-weight:400;font-size:11px;color:#94a3b8;background:#eef2f7;padding:0 6px;border-radius:8px;margin-left:4px}
+.pw-item input[type=number]{width:100%;padding:6px 10px;border:1px solid #d1d5db;border-radius:5px;font-size:13px;background:#fff}
+.pw-item input[type=number]:focus{outline:none;border-color:#1a365d;box-shadow:0 0 0 2px rgba(26,54,93,.15)}
+.pw-item .radio-group{margin:0 0 4px}
+.pw-item .pw-tr label{font-size:12px}
+.pw-hint{font-size:11px;color:#64748b;line-height:1.5;margin:-4px 0 10px;padding:6px 9px;background:#f1f5f9;border-radius:6px;border-left:3px solid #94a3b8}
 .btn{background:#1a365d;color:#fff;border:none;padding:8px 18px;border-radius:5px;font-size:14px;cursor:pointer;width:100%;margin-top:2px}
 .btn:hover{background:#2a4a7d}
 .btn:disabled{background:#94a3b8;cursor:not-allowed}
@@ -183,16 +193,29 @@ tr:hover{background:#f0f2f5}
 <label><input type="radio" name="genFreq" value="50Hz" checked onchange="onParamChange()"> 50 Hz</label>
 <label><input type="radio" name="genFreq" value="60Hz" onchange="onParamChange()"> 60 Hz</label>
 </div></div>
-<div class="form-group"><label>用途</label><div class="radio-group">
-<label><input type="radio" name="genDuty" value="PRP" checked> 主用 PRP</label>
-<label><input type="radio" name="genDuty" value="ESP"> 备用 ESP 27℃</label>
-<label id="dutyEsp40Wrap"><input type="radio" name="genDuty" value="ESP40"> 备用 ESP 40℃</label>
-</div></div>
-<div class="form-group"><label>额定功率</label><input type="number" id="genPower" value="100" min="1" max="99999" step="5">
-<div class="radio-group" style="margin-top:3px">
-<label><input type="radio" name="powerUnit" value="kW" onchange="onUnitChange()"> kW</label>
-<label><input type="radio" name="powerUnit" value="kVA" checked onchange="onUnitChange()"> kVA</label>
-</div></div>
+<div class="form-group pw-group">
+  <div class="pw-item">
+    <label>① 主用功率（H级温升） <span class="pw-opt">可选</span></label>
+    <input type="number" id="genPowerMain" value="" min="1" max="99999" step="5" placeholder="留空则不按主用校核">
+    <div class="radio-group" style="margin-top:3px">
+      <label><input type="radio" name="unitMain" value="kW" onchange="onUnitChange()"> kW</label>
+      <label><input type="radio" name="unitMain" value="kVA" checked onchange="onUnitChange()"> kVA</label>
+    </div>
+  </div>
+  <div class="pw-item">
+    <label>② 备用功率 <span class="pw-opt">可选</span></label>
+    <div class="radio-group pw-tr">
+      <label><input type="radio" name="genDuty" value="ESP" checked> 27℃</label>
+      <label id="dutyEsp40Wrap"><input type="radio" name="genDuty" value="ESP40"> 40℃</label>
+    </div>
+    <input type="number" id="genPowerStandby" value="" min="1" max="99999" step="5" placeholder="留空则不按备用校核">
+    <div class="radio-group" style="margin-top:3px">
+      <label><input type="radio" name="unitStandby" value="kW" onchange="onUnitChange()"> kW</label>
+      <label><input type="radio" name="unitStandby" value="kVA" checked onchange="onUnitChange()"> kVA</label>
+    </div>
+  </div>
+</div>
+<div class="pw-hint" id="pwHint">💡 至少填一个功率。只填①按主用选型；只填②按备用选型；两个都填则需同时满足。</div>
 <div class="form-group"><label>安装海拔 (m)</label><input type="number" id="genAlt" value="0" min="0" max="5000" step="100"></div>
 <div class="form-group"><label>环境温度 (°C)</label><input type="number" id="genTemp" value="40" min="-20" max="60" step="1"></div>
 <div class="form-group"><label>特殊选配</label><select id="genOption"><option value="none" selected>无</option><option value="ip44">IP44（防护降额10%）</option><option value="c5">C5 高防腐等级（暂不降额，数据待补）</option></select></div>
@@ -419,8 +442,13 @@ function switchView(v){
 }
 
 function onUnitChange(){
-  var unit=document.querySelector('input[name="powerUnit"]:checked').value;
-  document.getElementById('genPower').step=unit==='kW'?5:5;
+  // 两个功率输入框各自带 kW/kVA 切换；step 恒为 5，但显式读取以保证两个框状态同步刷新
+  var um=document.querySelector('input[name="unitMain"]:checked');
+  var us=document.querySelector('input[name="unitStandby"]:checked');
+  var em=document.getElementById('genPowerMain');
+  var es=document.getElementById('genPowerStandby');
+  if(em&&um) em.step = um.value==='kW'?5:5;
+  if(es&&us) es.step = us.value==='kW'?5:5;
 }
 
 function onParamChange(){
@@ -785,14 +813,21 @@ function doSearch(){
   var brand=document.getElementById('genBrand').value;
   var w=document.getElementById('genWinding').value;
   var freq=document.querySelector('input[name="genFreq"]:checked').value;
-  var duty0=document.querySelector('input[name="genDuty"]:checked').value;
   // 40℃ 备用仅低压支持（中高压暂不做）；防御：中高压若遗留 ESP40 选择则按 27℃ 处理
+  var duty0=document.querySelector('input[name="genDuty"]:checked').value;
   var duty=(duty0==='ESP40' && isHVBrand(brand)) ? 'ESP' : duty0;
-  var isESP=duty!=='PRP';
+  var isHV=isHVBrand(brand);
+  // ===== 双功率输入：①主用(H级) ②备用(27/40℃)。至少填一个；都不填报错；都填则需同时满足 =====
+  var unitM=document.querySelector('input[name="unitMain"]:checked').value;
+  var unitS=document.querySelector('input[name="unitStandby"]:checked').value;
+  var rawM=document.getElementById('genPowerMain').value.trim();
+  var rawS=document.getElementById('genPowerStandby').value.trim();
+  var hasM = rawM!=='' && Number(rawM)>=1;      // 是否启用主用校核
+  var hasS = rawS!=='' && Number(rawS)>=1;      // 是否启用备用校核
+  var pM=hasM?Number(rawM):0;
+  var pS=hasS?Number(rawS):0;
   var trKey=(duty==='ESP40') ? '40c' : '27c';
   var trLabel=(duty==='ESP40') ? '40℃' : '27℃';
-  var unit=document.querySelector('input[name="powerUnit"]:checked').value;
-  var p=Number(document.getElementById('genPower').value);
   var a=Number(document.getElementById('genAlt').value);
   var t=Number(document.getElementById('genTemp').value);
   var pfUser=0.8;                                               // 功率因数固定 0.8(已去掉用户选择, 标准默认值)
@@ -801,29 +836,46 @@ function doSearch(){
 
   if(!brand){alert('请选品牌');return;}
   if(!w){alert('请选电压');return;}
-  if(!p||p<1){alert('请输入功率');return;}
+  if(!hasM && !hasS){alert('请至少填写一个功率（① 主用功率 或 ② 备用功率）');return;}
 
   var records=ALL_DATA[brand]||[];
   var is1ph=isSinglePhase(w);   // 统一用 isSinglePhase 判定单相(含 AGG D51-1ph-230 特例
-  // 中高压品牌：不适用海拔/温度修正，按默认海拔(≤1000m→af=1)和默认温度(40℃→tf=1)选型，忽略用户输入的数值
-  var isHV=isHVBrand(brand);
   // AGG (KI/KK)：走 AGG 手册功率修正表（海拔×温度二维修正，拆成 af×tf 两个独立系数相乘）
   var isAGG=(brand==='AGG KI系列'||brand==='AGG KK系列');
   // 美奥迪(Mecc Alte)：走美奥迪手册 海拔×温度 二维表（拆成 af×tf，与 AGG 同法）
   var isMecc=(brand==='美奥迪 Mecc Alte');
   // 目标功率口径：三相候选恒为kVA(kW输入→kVA需除以PF固定0.8)；
   // 单相候选的 PF 已由所选电压档固定(0.8/1.0 已拆档)，直接按用户输入单位比，不参与PF换算
-  var targetKVA=unit==='kW'?Math.round(p/pfUser*10)/10:p;      // 三相对比口径(kVA)
-  var goalUnit = is1ph ? unit : 'kVA';                          // 单相用输入单位，三相用kVA
-  var goalBase = is1ph ? p : targetKVA;                         // 基础对比值(未含选配降额)
-  var goal = Math.round(goalBase/optDec*10)/10;                 // 选配放大: IP44 防护 → ÷0.9 放大需求; C5/无 → 不变
+  // ★ 每个输入框有自己的单位(unitM/unitS)与目标值(goalM/goalS)，单位不同互不影响
+  function calcGoal(p, unit){
+    var tk=unit==='kW'?Math.round(p/pfUser*10)/10:p;
+    var gb=is1ph?p:tk;
+    return {targetKVA:tk, goal:Math.round(gb/optDec*10)/10};
+  }
+  var gm=hasM?calcGoal(pM,unitM):null;
+  var gs=hasS?calcGoal(pS,unitS):null;
+  var targetKVA=hasM?gm.targetKVA:(hasS?gs.targetKVA:0);         // 保留旧变量(含选配÷0.9前的换算值)，供兼容
+  var goalUnit = is1ph ? (hasM?unitM:unitS) : 'kVA';            // 单相取实际使用的单位，三相恒 kVA
+  var unit = hasM ? unitM : unitS;                               // 兼容: 老逻辑的单一 unit（优先主用）
+  var p = hasM ? pM : pS;                                        // 兼容: 老逻辑的单一 raw 值（优先主用）
+  var goalM = gm?gm.goal:0;
+  var goalS = gs?gs.goal:0;
+  var goal  = hasM ? goalM : goalS;                              // 兼容: 老逻辑的单一 goal（优先主用）
+  // 单相候选用输入单位读列；两个框单位可能不同 → 各自需要自己的 uKey
+  var uKeyM = is1ph?unitM:'kVA';
+  var uKeyS = is1ph?unitS:'kVA';
+  var uKey  = hasM ? uKeyM : uKeyS;                              // 兼容: 老逻辑的单一 uKey
 
   // 步骤1：解析
   var ch='<div class="step-panel">';
-  ch+='<div class="step-header" onclick="toggleStep(this)"><span><span class="step-num">步骤1</span>解析输入</span><span class="step-desc">用户输入 → '+(is1ph?('目标'+unit):'目标kVA')+'</span><span class="step-result">'+goal+' '+(is1ph?unit:'kVA')+'</span><span class="arrow">▼</span></div>';
-  ch+='<div class="step-body"><div class="calc-row"><span class="calc-label">输入功率</span><span class="calc-val">'+p+' '+unit+'</span></div>';
+  ch+='<div class="step-header" onclick="toggleStep(this)"><span><span class="step-num">步骤1</span>解析输入</span><span class="step-desc">'+(hasM&&hasS?'主用 + 备用 双功率校核':(hasM?'仅主用校核':'仅备用校核'))+'</span><span class="step-result">'+(hasM?('主用 '+goalM+' '+(is1ph?unitM:'kVA')):'')+(hasM&&hasS?' / ':'')+(hasS?('备用 '+goalS+' '+(is1ph?unitS:'kVA')):'')+'</span><span class="arrow">▼</span></div>';
+  ch+='<div class="step-body">';
+  ch+=hasM?('<div class="calc-row"><span class="calc-label">① 主用功率（H级）</span><span class="calc-val">'+pM+' '+unitM+'</span></div>'):'<div class="calc-row"><span class="calc-label">① 主用功率</span><span class="calc-val" style="color:#94a3b8">未填写（不校核）</span></div>';
+  ch+=hasS?('<div class="calc-row"><span class="calc-label">② 备用功率（'+trLabel+'）</span><span class="calc-val">'+pS+' '+unitS+'</span></div>'):'<div class="calc-row"><span class="calc-label">② 备用功率</span><span class="calc-val" style="color:#94a3b8">未填写（不校核）</span></div>';
   ch+=(optCode==='ip44')?('<div class="calc-row"><span class="calc-label">特殊选配</span><span class="calc-val">IP44 防护降额10% → 选型需求 ÷0.9 放大</span></div>'):(optCode==='c5'?'<div class="calc-row"><span class="calc-label">特殊选配</span><span class="calc-val">C5 高防腐等级（暂不降额，数据待补）</span></div>':'');
-  ch+='<div class="calc-row"><span class="calc-label">目标 '+(is1ph?unit:'kVA')+(optCode==='ip44'?'(×'+(is1ph?unit:'kVA')+',已含选配÷0.9)':'')+'</span><span class="calc-val">'+goal+' '+(is1ph?unit:'kVA')+'</span></div></div>';
+  if(hasM) ch+='<div class="calc-row"><span class="calc-label">① 目标 '+(is1ph?unitM:'kVA')+(optCode==='ip44'?'（已含选配÷0.9）':'')+'</span><span class="calc-val">'+goalM+' '+(is1ph?unitM:'kVA')+'</span></div>';
+  if(hasS) ch+='<div class="calc-row"><span class="calc-label">② 目标 '+(is1ph?unitS:'kVA')+(optCode==='ip44'?'（已含选配÷0.9）':'')+'</span><span class="calc-val">'+goalS+' '+(is1ph?unitS:'kVA')+'</span></div>';
+  ch+='</div>';
 
   // 步骤2：温度修正（按品牌选系数源。LSA用原有H级40°C基准；斯坦福用官方表；AGG用手册低海拔温度系数；中高压不适用，按默认40°C选型）
   var isStanford = (brand==='斯坦福');
@@ -849,25 +901,41 @@ function doSearch(){
     var g=records[i];
     var wMatch = wSet ? (wSet.indexOf(g.winding_code)>=0) : (g.winding_code===w);
     if(g.frequency!==freq||!wMatch) continue;
-    var uKey=is1ph?unit:'kVA';   // 单相按用户输入单位读档(kW或kVA)；三相用kVA
+    // ★ 两个输入框单位可能不同 → 各自用各自 uKey 读列
+    var mkM=uKeyM, mkS=uKeyS;
     // 主用功率列：低压按 H 级温升(cont_h)；中高压按 F 级温升(cont_f)，F级无数据回退 H 级(cont_h)
-    var mainCol = (isHV && g['cont_f_'+uKey]!==undefined && g['cont_f_'+uKey]>0) ? 'cont_f' : 'cont_h';
-    // 备用功率：低压读 H级<温升>备用(stdby_h_27c / stdby_h_40c)；中高压读 F级27℃备用(stdby_f_27c)，无则回退 H级27℃
-    // ★ 温升由用户选择的用途决定：ESP=27℃(trKey=27c)、ESP40=40℃(trKey=40c)
-    var standbyCol = isHV ? (g['stdby_f_'+trKey+'_'+uKey]!==undefined&&g['stdby_f_'+trKey+'_'+uKey]>0?'stdby_f_'+trKey:'stdby_h_'+trKey) : 'stdby_h_'+trKey;
-    var r = isESP ? g[standbyCol+'_'+uKey] : g[mainCol+'_'+uKey];
-    if(!r||r<=0) continue;
+    var mainCol = isHV ? ((g['cont_f_'+mkM]>0)?'cont_f':'cont_h') : 'cont_h';
+    // 备用功率：低压读 H级<温升>备用(stdby_h_27c / stdby_h_40c)；中高压读 F级<温升>备用，无则回退 H级
+    var standbyCol = isHV ? (((g['stdby_f_'+trKey+'_'+mkS]>0)?'stdby_f_'+trKey:'stdby_h_'+trKey)) : 'stdby_h_'+trKey;
+    // 备用温升列（固定 27℃/40℃，用于卡片展示，不随当前选择变）
+    var col27 = isHV ? (((g['stdby_f_27c_'+mkS]>0)?'stdby_f_27c':'stdby_h_27c')) : 'stdby_h_27c';
+    var col40 = 'stdby_h_40c';
     // 低压 40℃ 备用：排除 27℃<40℃ 的反向异常数据（27条，厂家手册原文口径存疑，已在公告说明）
-    if(isESP && trKey==='40c' && !isHV){
-      var v27=g['stdby_h_27c_'+uKey], v40=g['stdby_h_40c_'+uKey];
-      if(v27>0 && v40>0 && v27<v40) continue;   // 温度升高功率反而变大 → 数据存疑，不参与选型
+    if(hasS && trKey==='40c' && !isHV){
+      var ev27=g['stdby_h_27c_'+mkS], ev40=g['stdby_h_40c_'+mkS];
+      if(ev27>0 && ev40>0 && ev27<ev40) continue;   // 温度升高功率反而变大 → 数据存疑，不参与选型
     }
-    var cp=Math.round(r*tot*10)/10;
+    // ── 双功率校核：两个框都填时必须同时满足 ──
+    var baseM=null, cpM=null, okM=null;
+    if(hasM){
+      baseM=g[mainCol+'_'+mkM];
+      if(!baseM||baseM<=0) continue;              // 主用无数据 → 不可选
+      cpM=Math.round(baseM*tot*10)/10;
+      okM = cpM>=goalM;
+    }
+    var baseS=null, cpS=null, okS=null;
+    if(hasS){
+      baseS=g[standbyCol+'_'+mkS];
+      if(!baseS||baseS<=0) continue;              // 备用无数据 → 不可选
+      cpS=Math.round(baseS*tot*10)/10;
+      okS = cpS>=goalS;
+    }
+    var ok = hasM&&hasS ? (okM&&okS) : (hasM?okM:okS);
     var bestGrade = isHV ? (mainCol==='cont_f'?'F':'H') : 'H';   // 中高压按主用列定温升级(template已无temp_grade)
-    // 卡片展示用固定值：s27=27℃备用(低压stdby_h_27c；中高压F级27℃优先、无则回退H级27℃)、s40=40℃备用(固定stdby_h_40c)
-    // ★ 与 st(当前选中温升的备用值，参与计算/排序) 分离，避免40℃模式下卡片「备用27℃」被串位成40℃值
-    var s27v = isHV ? ((g['stdby_f_27c_'+uKey]>0) ? g['stdby_f_27c_'+uKey] : g['stdby_h_27c_'+uKey]) : g['stdby_h_27c_'+uKey];
-    list.push({m:g.model,wd:g.winding_label||g.winding_code,ch:g[mainCol+'_'+uKey],cl:g['cont_f_'+uKey]||0,s40:g['stdby_h_40c_'+uKey],s27:s27v,st:g[standbyCol+'_'+uKey],cp:cp,ok:cp>=goal,af:af,tf:tf,pf:g.pf,uk:uKey,exc:g.exc_std||'',grade:bestGrade,rec:g});
+    list.push({m:g.model,wd:g.winding_label||g.winding_code,ch:g[mainCol+'_'+mkM],cl:g['cont_f_'+mkM]||0,
+      s40:g[col40+'_'+mkS],s27:g[col27+'_'+mkS],
+      baseM:baseM,cpM:cpM,okM:okM,baseS:baseS,cpS:cpS,okS:okS,
+      cp:hasM?cpM:cpS,ok:ok,pf:g.pf,uk:hasM?mkM:mkS,exc:g.exc_std||'',grade:bestGrade,rec:g});
   }
 
   // 步骤4-5：温升校核 + 备用换算（在列表结果中显示）
@@ -877,9 +945,11 @@ function doSearch(){
   ch+='<div class="calc-row"><span class="calc-label">总候选电机</span><span class="calc-val">'+list.length+'款</span></div>';
   ch+='<div class="calc-row"><span class="calc-label">满足需求（修正后）</span><span class="calc-val">'+hOkCount+'款</span></div></div>';
 
-  ch+='<div class="step-header" onclick="toggleStep(this)"><span><span class="step-num">步骤5</span>备用换算</span><span class="step-desc">备用功率校核</span><span class="step-result">'+(isESP?'备用'+trLabel+'模式':'主用模式')+'</span><span class="arrow">▼</span></div>';
-  ch+='<div class="step-body"><div class="calc-row"><span class="calc-label">工作制</span><span class="calc-val">'+duty+(isESP?'（备用 '+trLabel+'）':'')+'</span></div>';
-  ch+='<div class="calc-row"><span class="calc-label">基准功率取值</span><span class="calc-val">'+(!isESP?(isHV?'持续F / 105K':'持续H / 125K'):'备用'+trLabel+' / 163K')+'</span></div></div>';
+  ch+='<div class="step-header" onclick="toggleStep(this)"><span><span class="step-num">步骤5</span>功率口径</span><span class="step-desc">主用/备用双口径</span><span class="step-result">'+(hasM&&hasS?'主用 + 备用':(hasM?'仅主用':'仅备用'))+'</span><span class="arrow">▼</span></div>';
+  ch+='<div class="step-body">';
+  ch+= hasM ? ('<div class="calc-row"><span class="calc-label">① 主用基准功率</span><span class="calc-val">'+(isHV?'持续F / 105K':'持续H / 125K')+'</span></div>') : '';
+  ch+= hasS ? ('<div class="calc-row"><span class="calc-label">② 备用基准功率</span><span class="calc-val">备用'+trLabel+' / 163K</span></div>') : '';
+  ch+='</div>';
 
   // 排序：中高压 → 先F级在前、H级在后（按温升等级），同级内再按ok优先+接近度；其它品牌 → 保持原逻辑
   list.sort(function(a,b){
@@ -894,20 +964,29 @@ function doSearch(){
   // 步骤6：最佳匹配
   var top=null;
   for(var i=0;i<list.length;i++){if(list[i].ok){top=list[i];break;}}
-  var basePw=top?(!isESP?top.ch:top.st):0; // 主用取持续H、备用取备用<温升>，与候选取同源
+  var basePw=top?(hasM?top.baseM:top.baseS):0; // 单口径：取对应框的基准功率；双口径：展示主用基准
 
   // 型号等数据字段统一转义后再拼HTML（防御数据污染导致XSS）
   function escM(x){return esc(x.m);}function escG(x){return esc(x.grade||'');}function escE(x){return esc(x.exc||'');}
   var topM=top?escM(top):'';
 
-  ch+='<div class="step-header '+(top?'':'')+'" onclick="toggleStep(this)"><span><span class="step-num">步骤6</span>综合判定</span><span class="step-desc">'+(top?'✅ 推荐 '+topM:'❌ 无匹配')+'</span><span class="step-result">'+(top?top.cp+top.uk+'/'+goal+(is1ph?unit:'kVA'):'-')+'</span><span class="arrow">▼</span></div>';
+  ch+='<div class="step-header '+(top?'':'')+'" onclick="toggleStep(this)"><span><span class="step-num">步骤6</span>综合判定</span><span class="step-desc">'+(top?'✅ 推荐 '+topM:'❌ 无匹配')+'</span><span class="step-result">'+(top?(hasM?(top.cpM+uKeyM+'/'+goalM+' '+(is1ph?unitM:'kVA')):(top.cpS+uKeyS+'/'+goalS+' '+(is1ph?unitS:'kVA'))):'-')+'</span><span class="arrow">▼</span></div>';
   ch+='<div class="step-body">';
   if(top){
     ch+='<div class="calc-row"><span class="calc-label">最佳型号</span><span class="calc-val"><b>'+topM+(isHV&&top.grade?'（'+escG(top)+'级温升）':'')+'</b></span></div>';
-    ch+='<div class="calc-row"><span class="calc-label">基准功率'+(isESP?'(备用'+trLabel+')':'')+'</span><span class="calc-val">'+basePw+top.uk+(isHV&&top.grade?'（'+top.grade+'级）':'')+'</span></div>';
-    ch+='<div class="calc-row"><span class="calc-label">修正后功率</span><span class="calc-val calc-total">'+basePw+' × '+tot+' = <b>'+top.cp+top.uk+'</b>'+(isHV?'（中高压无修正）':'')+'</span></div>';
-    ch+='<div class="calc-row"><span class="calc-label">需求功率</span><span class="calc-val">'+goal+' '+(is1ph?unit:'kVA')+'</span></div>';
-    ch+='<div class="calc-row"><span class="calc-label">判定</span><span class="calc-val" style="color:green">✅ 满足</span></div>';
+    if(hasM){
+      ch+='<div class="calc-row"><span class="calc-label">① 主用基准'+(isHV&&top.grade?'（'+top.grade+'级）':'')+'</span><span class="calc-val">'+top.baseM+uKeyM+'</span></div>';
+      ch+='<div class="calc-row"><span class="calc-label">① 主用修正后</span><span class="calc-val">'+top.baseM+' × '+tot+' = <b>'+top.cpM+uKeyM+'</b>'+(isHV?'（中高压无修正）':'')+'</span></div>';
+      ch+='<div class="calc-row"><span class="calc-label">① 主用需求</span><span class="calc-val">'+goalM+' '+(is1ph?unitM:'kVA')+'</span></div>';
+      ch+='<div class="calc-row"><span class="calc-label">① 主用判定</span><span class="calc-val" style="color:'+(top.okM?'green':'red')+'">'+(top.okM?'✅ 满足':'❌ 不满足')+'</span></div>';
+    }
+    if(hasS){
+      ch+='<div class="calc-row"><span class="calc-label">② 备用基准（'+trLabel+'）</span><span class="calc-val">'+top.baseS+uKeyS+'</span></div>';
+      ch+='<div class="calc-row"><span class="calc-label">② 备用修正后</span><span class="calc-val">'+top.baseS+' × '+tot+' = <b>'+top.cpS+uKeyS+'</b>'+(isHV?'（中高压无修正）':'')+'</span></div>';
+      ch+='<div class="calc-row"><span class="calc-label">② 备用需求</span><span class="calc-val">'+goalS+' '+(is1ph?unitS:'kVA')+'</span></div>';
+      ch+='<div class="calc-row"><span class="calc-label">② 备用判定</span><span class="calc-val" style="color:'+(top.okS?'green':'red')+'">'+(top.okS?'✅ 满足':'❌ 不满足')+'</span></div>';
+    }
+    ch+='<div class="calc-row"><span class="calc-label">综合判定</span><span class="calc-val" style="color:green">✅ '+(hasM&&hasS?'主用与备用同时满足':'满足')+'</span></div>';
   } else {
     ch+='<div class="calc-row"><span class="calc-label">判定</span><span class="calc-val" style="color:red">❌ 无电机满足需求</span></div>';
   }
@@ -916,7 +995,12 @@ function doSearch(){
   document.getElementById('calcDisplay').innerHTML=ch;
 
   // 最佳匹配卡片
-  var ux=is1ph?unit:'kVA';
+  // 单相时两个框单位可能不同，主用/备用各自用自己单位；三相恒 kVA
+  var uxM=is1ph?unitM:'kVA';
+  var uxS=is1ph?unitS:'kVA';
+  var ux=hasM?uxM:uxS;
+  // 卡片展示固定 27℃/40℃ 两列（与当前选择无关，避免串位）
+  var uxCard=is1ph?uxS:'kVA';
   var mh='';
   if(top){
     mh+='<div class="match-card"><div class="model">'+topM+(isHV&&top.grade?' <span class="badge">'+escG(top)+'级</span>':' <span class="badge">推荐</span>')+'</div>';
@@ -924,13 +1008,15 @@ function doSearch(){
     mh+='<span class="tag">绕组: '+esc(top.wd)+'</span> ';
     if(isHV) mh+='<span class="tag">温升: '+top.grade+'级（'+top.grade+'级温升选型）</span> ';
     mh+='<span class="tag">PF='+top.pf+'</span> ';
-    mh+='<span class="tag">持续'+(isHV?top.grade:'H')+': '+top.ch+ux+'</span> ';
+    mh+='<span class="tag">持续'+(isHV?top.grade:'H')+': '+top.ch+uxM+'</span> ';
     // 卡片固定展示两个温升的真实值（不随当前选中温升变化），仅作数据展示；无数据显示 '-'
     // 中高压不做 40℃ 选型，但 40℃ 备用数据照常放出展示
-    mh+='<span class="tag">备用40℃: '+((top.s40!=null&&top.s40>0)?top.s40+ux:'-')+'</span> ';
-    mh+='<span class="tag">备用27℃: '+((top.s27!=null&&top.s27>0)?top.s27+ux:'-')+'</span> ';
+    mh+='<span class="tag">备用40℃: '+((top.s40!=null&&top.s40>0)?top.s40+uxCard:'-')+'</span> ';
+    mh+='<span class="tag">备用27℃: '+((top.s27!=null&&top.s27>0)?top.s27+uxCard:'-')+'</span> ';
     mh+='<span class="tag">标准励磁: '+escE(top)+'</span>'+(top.rec&&top.rec.exc_opt?'<span class="tag">可选励磁: '+esc(top.rec.exc_opt)+'</span>':'')+'<br>';
-    mh+='<div style="margin-top:8px"><b>修正后: '+top.cp+ux+'</b> ≥ '+goal+(is1ph?unit:'kVA')+' ✅'+(isHV?'（无海拔/温度修正）':'')+'</div>';
+    if(hasM) mh+='<div style="margin-top:8px"><b>① 主用修正后: '+top.cpM+uxM+'</b> ≥ '+goalM+' '+uxM+' ✅</div>';
+    if(hasS) mh+='<div style="margin-top:'+(hasM?'4px':'8px')+'"><b>② 备用'+trLabel+'修正后: '+top.cpS+uxS+'</b> ≥ '+goalS+' '+uxS+' ✅</div>';
+    if(isHV) mh+='<div style="margin-top:4px;font-size:12px;color:#64748b">中高压无海拔/温度修正</div>';
     mh+='<div style="margin-top:8px;display:flex;gap:6px">';
     mh+='<button class="btn-secondary" onclick="copyModel(this,\''+escAttr(top.m)+'\')" title="复制型号">📋 复制型号</button>';
     mh+='<button class="btn-secondary" onclick="exportPdf()">📄 导出PDF</button>';
@@ -938,7 +1024,10 @@ function doSearch(){
     mh+='</div></div></div>';
   } else {
     mh+='<div class="match-card no-match"><div class="model">❌ 无匹配电机</div>';
-    mh+='<div class="params">当前没有电机能满足修正后 '+goal+(is1ph?unit:'kVA')+' 的需求<br>建议降低功率需求，或换选更大机座/其他品牌。</div></div>';
+    mh+='<div class="params">'+(hasM&&hasS
+      ? ('当前没有电机能同时满足：<br>① 主用修正后 '+goalM+' '+(is1ph?unitM:'kVA')+'<br>② 备用'+trLabel+'修正后 '+goalS+' '+(is1ph?unitS:'kVA'))
+      : ('当前没有电机能满足修正后 '+(hasM?goalM+' '+(is1ph?unitM:'kVA'):goalS+' '+(is1ph?unitS:'kVA'))+' 的需求'))
+      +'<br>建议降低功率需求，或换选更大机座/其他品牌。</div></div>';
   }
   document.getElementById('matchDisplay').innerHTML=mh;
 
@@ -1064,23 +1153,24 @@ function doSearch(){
     return {ok:x.ok, rank:(x.ok?list.slice(0,idx).filter(function(y){return y.ok;}).length+1:'-'), cells:cells};
   });
   // 最佳匹配的口径标签
-  var bestColLabel = isHV
-    ? (duty==='PRP' ? ('持续FA级' + (top && top.grade==='H' ? '（无F级数据，回退H级）' : '')) : '备用F27℃')
-    : (duty==='PRP' ? '持续H级' : '备用H27℃');
-  bestColLabel = isHV
-    ? (duty==='PRP' ? '持续（F级持续功率'+(top && top.grade==='H' ? '，无F级数据回退H级' : '')+'）' : '备用 27℃（F级备用功率，无则回退H级）')
-    : (duty==='PRP' ? '持续（H级持续功率）' : '备用 27℃（H级备用功率）');
+  var bestColLabel = '—';
+  if(hasM && hasS) bestColLabel = '① 主用(H级) + ② 备用('+trLabel+') 双口径';
+  else if(hasM) bestColLabel = isHV ? ('持续（F级持续功率'+(top && top.grade==='H' ? '，无F级数据回退H级' : '')+'）') : '持续（H级持续功率）';
+  else bestColLabel = isHV ? ('备用 '+trLabel+'（F级备用功率，无则回退H级）') : ('备用 '+trLabel+'（H级备用功率）');
   LAST_RESULT = {
     time: (function(){var d=new Date();function z(n){return n<10?'0'+n:n;}return d.getFullYear()+'-'+z(d.getMonth()+1)+'-'+z(d.getDate())+' '+z(d.getHours())+':'+z(d.getMinutes());})(),
     isHV: isHV, isSinglePhase: is1ph,
     input: {
       brandLabel: brandLabel(brand), freq: freq, windingLabel: (function(){for(var q=0;q<records.length;q++){if(records[q].frequency===freq && (wSet?wSet.indexOf(records[q].winding_code)>=0:records[q].winding_code===w)) return records[q].winding_label||w;}return w;})(),
       windingConn: (function(){for(var q=0;q<records.length;q++){if(records[q].frequency===freq && (wSet?wSet.indexOf(records[q].winding_code)>=0:records[q].winding_code===w)) return records[q].winding_conn||'';}return '';})(),
-      duty: duty, power: p, unit: unit, alt: a, temp: t, optionLabel: optLabel
+      duty: duty, power: p, unit: unit, alt: a, temp: t, optionLabel: optLabel,
+      hasM: hasM, hasS: hasS, pM: pM, unitM: unitM, pS: pS, unitS: unitS, trLabel: trLabel
     },
     goal: goal, targetKVA: targetKVA, af: af, tf: tf, tot: tot,
+    goalM: goalM, goalS: goalS,
     tempSrcLabel: tempSrcLabel, altSrcLabel: altSrcLabel,
-    best: top ? {model:top.m, grade:top.grade, base:(duty==='PRP'?top.ch:top.st), cp:top.cp,
+    best: top ? {model:top.m, grade:top.grade, base:(hasM?top.baseM:top.baseS), cp:top.cp,
+                 baseM:top.baseM, cpM:top.cpM, okM:top.okM, baseS:top.baseS, cpS:top.cpS, okS:top.okS,
                  windingLabel:top.wd, conn:(top.rec&&top.rec.winding_conn)||'', pf:top.pf,
                  wires:(top.rec&&top.rec.wires)||'', exc:top.exc, excOpt:(top.rec&&top.rec.exc_opt)||'',
                  colLabel:bestColLabel} : null,
@@ -1122,9 +1212,12 @@ var LAST_RESULT = null;   // 最近一次查询的结果快照
 function buildPdfHtml(){
   var R = LAST_RESULT;
   if(!R) return null;
-  var ux = R.isSinglePhase ? R.input.unit : 'kVA';
-  var unitLabel = R.isSinglePhase ? R.input.unit : 'kVA';
-  var dutyLabel = R.input.duty==='PRP' ? '主用 PRP' : '备用 ESP';
+  var uxM = R.isSinglePhase ? R.input.unitM : 'kVA';
+  var uxS = R.isSinglePhase ? R.input.unitS : 'kVA';
+  var ux = uxM;
+  var unitLabel = uxM;
+  var dutyLabel = (R.input.hasM && R.input.hasS) ? ('主用(H级) + 备用('+R.input.trLabel+')')
+                : (R.input.hasM ? '主用 PRP（H级）' : ('备用 ESP '+R.input.trLabel));
 
   var h = '';
   h += '<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8">';
@@ -1190,7 +1283,8 @@ function buildPdfHtml(){
   h += '<tr><td>频率</td><td>'+esc(R.input.freq)+'</td></tr>';
   h += '<tr><td>额定电压（接线方式）</td><td>'+esc(R.input.windingLabel)+(R.input.windingConn?'（'+esc(R.input.windingConn)+'）':'')+'</td></tr>';
   h += '<tr><td>用途</td><td>'+esc(dutyLabel)+'</td></tr>';
-  h += '<tr><td>额定功率</td><td>'+esc(String(R.input.power))+' '+esc(R.input.unit)+'</td></tr>';
+  h += '<tr><td>① 主用功率（H级）</td><td>'+(R.input.hasM?esc(String(R.input.pM))+' '+esc(R.input.unitM):'未填写（不校核）')+'</td></tr>';
+  h += '<tr><td>② 备用功率（'+esc(R.input.trLabel)+'）</td><td>'+(R.input.hasS?esc(String(R.input.pS))+' '+esc(R.input.unitS):'未填写（不校核）')+'</td></tr>';
   h += '<tr><td>安装海拔</td><td>'+(R.isHV?'中高压不适用（按 ≤1000m 选型）':esc(String(R.input.alt))+' m')+'</td></tr>';
   h += '<tr><td>环境温度</td><td>'+(R.isHV?'中高压不适用（按 40℃ 选型）':esc(String(R.input.temp))+' ℃')+'</td></tr>';
   h += '<tr><td>特殊选配</td><td>'+esc(R.input.optionLabel)+'</td></tr>';
@@ -1198,9 +1292,13 @@ function buildPdfHtml(){
 
   // ---- 二、功率修正过程 ----
   h += '<h2>二、功率修正过程</h2><table class="kv">';
-  h += '<tr><td>目标功率（'+esc(unitLabel)+'）</td><td>'+esc(String(R.goal))+' '+esc(unitLabel)+'</td></tr>';
-  if(R.input.unit==='kW' && !R.isSinglePhase){
-    h += '<tr><td>单位换算</td><td>'+esc(String(R.input.power))+' kW ÷ 0.8 = '+esc(String(R.targetKVA))+' kVA</td></tr>';
+  h += '<tr><td>目标功率</td><td>';
+  if(R.input.hasM && R.input.hasS) h += '① 主用 '+esc(String(R.goalM))+' '+esc(uxM)+'　/　② 备用 '+esc(String(R.goalS))+' '+esc(uxS);
+  else if(R.input.hasM) h += esc(String(R.goalM))+' '+esc(uxM);
+  else h += esc(String(R.goalS))+' '+esc(uxS);
+  h += '</td></tr>';
+  if(R.input.hasM && R.input.unitM==='kW' && !R.isSinglePhase){
+    h += '<tr><td>① 单位换算</td><td>'+esc(String(R.input.pM))+' kW ÷ 0.8 = '+esc(String(R.targetKVA))+' kVA</td></tr>';
   }
   h += '<tr><td>温度修正系数 ('+esc(R.tempSrcLabel)+')</td><td>×'+esc(String(R.tf))+'</td></tr>';
   h += '<tr><td>海拔修正系数 ('+esc(R.altSrcLabel)+')</td><td>×'+esc(String(R.af))+'</td></tr>';
