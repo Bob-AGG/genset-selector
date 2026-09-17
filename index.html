@@ -893,7 +893,7 @@ function doSearch(){
     mh+='<span class="tag">标准励磁: '+escE(top)+'</span>'+(top.rec&&top.rec.exc_opt?'<span class="tag">可选励磁: '+esc(top.rec.exc_opt)+'</span>':'')+'<br>';
     mh+='<div style="margin-top:8px"><b>修正后: '+top.cp+ux+'</b> ≥ '+goal+(is1ph?unit:'kVA')+' ✅'+(isHV?'（无海拔/温度修正）':'')+'</div>';
     mh+='<div style="margin-top:8px;display:flex;gap:6px">';
-    mh+='<button class="btn-secondary" onclick="alert(\'导出功能待实现\')">📄 导出PDF</button>';
+    mh+='<button class="btn-secondary" onclick="exportPdf()">📄 导出PDF</button>';
     mh+='<button class="btn-secondary" onclick="location.reload()">🔄 新建查询</button>';
     mh+='</div></div></div>';
   } else {
@@ -903,18 +903,18 @@ function doSearch(){
   document.getElementById('matchDisplay').innerHTML=mh;
 
   // 全部候选表（平铺展示数据库所有字段）
+  // ⚠️ cols / showExtra 声明在 if 块之外：导出 PDF 的抓照逻辑也要用（曾因块作用域导致 pdfCols undefined）
+  var cols=['#' ,'型号','接线/电压','出线','PF','励磁(标准)','励磁(可选)'];
+  cols=cols.concat(['持续H_kVA','持续H_kW','备用H40_kVA','备用H40_kW','备用H27_kVA','备用H27_kW']);
+  cols=cols.concat(['持续F_kVA','持续F_kW','备用F40_kVA','备用F40_kW','备用F27_kVA','备用F27_kW']);
+  // 品牌特有字段列（候选记录中实际存在的特有字段才显示）
+  var extraKeys=['cont_b_kVA','cont_b_kW','poles','winding_id','winding_no','pitch','group','footnote','_vollabel'];
+  var showExtra=(list.length && list[0].rec) ? extraKeys.filter(function(k){return list.some(function(x){return x.rec&&x.rec[k]!==undefined&&x.rec[k]!==null&&x.rec[k]!=='';});}) : [];
+  cols=cols.concat(showExtra);
+  cols.push('判断');
   var lh='';
   if(list.length){
     var okCnt=list.filter(function(x){return x.ok;}).length;
-    // 统一基础列 + H级功率列 + F级功率列（所有库同一套表头，无数据留空）
-    var cols=['#' ,'型号','接线/电压','出线','PF','励磁(标准)','励磁(可选)'];
-    cols=cols.concat(['持续H_kVA','持续H_kW','备用H40_kVA','备用H40_kW','备用H27_kVA','备用H27_kW']);
-    cols=cols.concat(['持续F_kVA','持续F_kW','备用F40_kVA','备用F40_kW','备用F27_kVA','备用F27_kW']);
-    // 品牌特有字段列（候选记录中实际存在的特有字段才显示）
-    var extraKeys=['cont_b_kVA','cont_b_kW','poles','winding_id','winding_no','pitch','group','footnote','_vollabel'];
-    var showExtra=extraKeys.filter(function(k){return list.some(function(x){return x.rec&&x.rec[k]!==undefined&&x.rec[k]!==null&&x.rec[k]!=='';});});
-    cols=cols.concat(showExtra);
-    cols.push('判断');
     lh+='<div class="stats">共'+list.length+'款，'+okCnt+'款满足'+(isHV?'（F级温升在前）':'')+'</div><div class="table-wrap"><table class="full-table">';
     lh+='<thead><tr>'+cols.map(function(c){return '<th>'+esc(c)+'</th>';}).join('')+'</tr></thead><tbody>';
     for(var i=0;i<list.length;i++){
@@ -946,6 +946,238 @@ function doSearch(){
     lh+='</tbody></table></div>';
   }
   document.getElementById('listDisplay').innerHTML=lh||'<div class="landing"><p>暂无可选电机</p></div>';
+
+  // ===== 保存本次查询结果快照（供导出 PDF 使用，保证导出内容与屏幕一致）=====
+  var unitLabel2 = is1ph ? unit : 'kVA';
+  var optLabel = optCode==='ip44' ? 'IP44（防护降额10%）' : (optCode==='c5' ? 'C5 高防腐等级（暂不降额，数据待补）' : '无');
+  var tempSrcLabel = isHV ? '中高压不适用' : (isAGG ? 'AGG手册' : (isMecc ? '美奥迪手册' : (isStanford ? '斯坦福手册' : 'H级')));
+  var altSrcLabel  = isHV ? '中高压不适用' : (isAGG ? 'AGG手册' : (isMecc ? '美奥迪手册' : (isStanford ? '斯坦福手册' : '海拔降额系数')));
+  // 候选表列定义（与屏幕表格同源，导出时按同一套列顺序重绘）
+  // cols 已包含全部列（首列为 '#'），仅需剔除 '#'，其余照抄，避免重复
+  var pdfCols = cols.filter(function(t){ return t!=='#'; });
+  // 列对齐方式：功率类数字右对齐，判定居中
+  var colDefs = pdfCols.map(function(t){
+    var v = /kVA|kW|出线|PF/.test(t) ? 'num' : (t==='判断' ? 'ctr' : '');
+    return {t:t, v:v};
+  });
+  // 逐行数据（与屏幕表格同源，直接从 rec 取，保证一致）
+  var pdfRows = list.map(function(x){
+    var g = x.rec||{};
+    var cells = [];
+    cells.push(x.m);
+    cells.push(x.wd);
+    cells.push(g.wires==null?'':g.wires);
+    cells.push(g.pf==null?'':g.pf);
+    cells.push(g.exc_std||'-');
+    cells.push(g.exc_opt||'-');
+    cells.push(g.cont_h_kVA!=null?g.cont_h_kVA:'');
+    cells.push(g.cont_h_kW!=null?g.cont_h_kW:'');
+    cells.push(g.stdby_h_40c_kVA!=null?g.stdby_h_40c_kVA:'');
+    cells.push(g.stdby_h_40c_kW!=null?g.stdby_h_40c_kW:'');
+    cells.push(g.stdby_h_27c_kVA!=null?g.stdby_h_27c_kVA:'');
+    cells.push(g.stdby_h_27c_kW!=null?g.stdby_h_27c_kW:'');
+    cells.push(g.cont_f_kVA!=null?g.cont_f_kVA:'');
+    cells.push(g.cont_f_kW!=null?g.cont_f_kW:'');
+    cells.push(g.stdby_f_40c_kVA!=null?g.stdby_f_40c_kVA:'');
+    cells.push(g.stdby_f_40c_kW!=null?g.stdby_f_40c_kW:'');
+    cells.push(g.stdby_f_27c_kVA!=null?g.stdby_f_27c_kVA:'');
+    cells.push(g.stdby_f_27c_kW!=null?g.stdby_f_27c_kW:'');
+    for(var e2=0; e2<showExtra.length; e2++){
+      var ev=g[showExtra[e2]];
+      cells.push(ev===undefined||ev===null||ev===''?'':ev);
+    }
+    cells.push(x.ok?'✅':'❌');
+    return {ok:x.ok, rank:(x.ok?list.slice(0,i).filter(function(y){return y.ok;}).length+1:'-'), cells:cells};
+  });
+  // 最佳匹配的口径标签
+  var bestColLabel = isHV
+    ? (duty==='PRP' ? ('持续FA级' + (top && top.grade==='H' ? '（无F级数据，回退H级）' : '')) : '备用F27℃')
+    : (duty==='PRP' ? '持续H级' : '备用H27℃');
+  bestColLabel = isHV
+    ? (duty==='PRP' ? '持续（F级持续功率'+(top && top.grade==='H' ? '，无F级数据回退H级' : '')+'）' : '备用 27℃（F级备用功率，无则回退H级）')
+    : (duty==='PRP' ? '持续（H级持续功率）' : '备用 27℃（H级备用功率）');
+  LAST_RESULT = {
+    time: (function(){var d=new Date();function z(n){return n<10?'0'+n:n;}return d.getFullYear()+'-'+z(d.getMonth()+1)+'-'+z(d.getDate())+' '+z(d.getHours())+':'+z(d.getMinutes());})(),
+    isHV: isHV, isSinglePhase: is1ph,
+    input: {
+      brandLabel: brandLabel(brand), freq: freq, windingLabel: (function(){for(var q=0;q<records.length;q++){if(records[q].frequency===freq && (wSet?wSet.indexOf(records[q].winding_code)>=0:records[q].winding_code===w)) return records[q].winding_label||w;}return w;})(),
+      windingConn: (function(){for(var q=0;q<records.length;q++){if(records[q].frequency===freq && (wSet?wSet.indexOf(records[q].winding_code)>=0:records[q].winding_code===w)) return records[q].winding_conn||'';}return '';})(),
+      duty: duty, power: p, unit: unit, alt: a, temp: t, optionLabel: optLabel
+    },
+    goal: goal, targetKVA: targetKVA, af: af, tf: tf, tot: tot,
+    tempSrcLabel: tempSrcLabel, altSrcLabel: altSrcLabel,
+    best: top ? {model:top.m, grade:top.grade, base:(duty==='PRP'?top.ch:top.st), cp:top.cp,
+                 windingLabel:top.wd, conn:(top.rec&&top.rec.winding_conn)||'', pf:top.pf,
+                 wires:(top.rec&&top.rec.wires)||'', exc:top.exc, excOpt:(top.rec&&top.rec.exc_opt)||'',
+                 colLabel:bestColLabel} : null,
+    cols: colDefs, rows: pdfRows, okCount: list.filter(function(x){return x.ok;}).length
+  };
+}
+
+/* ================= 导出 PDF ================= */
+// 思路：用「捕获快照」而非「重新渲染」——点击查询时把关键结果存下来，
+// 导出时用干净的白底样式重绘一份 HTML（去掉交互控件、按钮、AI窗口），
+// 再通过新窗口 + window.print() 交给浏览器"另存为 PDF"。
+// 优点：输出内容 = 用户屏幕上看到的结果，不会出现两套逻辑不一致。
+
+var LAST_RESULT = null;   // 最近一次查询的结果快照
+
+// 生成导出用 HTML（打印友好，无交互元素）
+function buildPdfHtml(){
+  var R = LAST_RESULT;
+  if(!R) return null;
+  var ux = R.isSinglePhase ? R.input.unit : 'kVA';
+  var unitLabel = R.isSinglePhase ? R.input.unit : 'kVA';
+  var dutyLabel = R.input.duty==='PRP' ? '主用 PRP' : '备用 ESP';
+
+  var h = '';
+  h += '<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8">';
+  h += '<title>发电机选型报告 - ' + esc(R.input.brandLabel) + '</title>';
+  h += '<style>';
+  // ---- 打印样式：白底、无阴影、表格不裁切 ----
+  h += '*{box-sizing:border-box;margin:0;padding:0}';
+  h += 'body{font-family:"Microsoft YaHei",-apple-system,sans-serif;color:#1f2937;padding:14mm 12mm;font-size:11px;line-height:1.55;background:#fff}';
+  h += '.rpt-head{border-bottom:3px solid #1a365d;padding-bottom:10px;margin-bottom:14px;display:flex;justify-content:space-between;align-items:flex-end}';
+  h += '.rpt-head h1{font-size:19px;color:#1a365d;letter-spacing:.5px}';
+  h += '.rpt-head .sub{font-size:10px;color:#64748b;margin-top:3px}';
+  h += '.rpt-head .meta{font-size:10px;color:#64748b;text-align:right;line-height:1.7}';
+  h += 'h2{font-size:13px;color:#1a365d;margin:16px 0 7px;padding-bottom:4px;border-bottom:1.5px solid #e2e8f0}';
+  h += 'h2:first-of-type{margin-top:0}';
+  h += 'table{width:100%;border-collapse:collapse;font-size:10px;margin-bottom:4px}';
+  h += 'th,td{border:1px solid #cbd5e1;padding:4px 6px;text-align:left;vertical-align:top}';
+  h += 'th{background:#eef2f7;font-weight:600;color:#1a365d}';
+  h += '.kv{width:100%;font-size:11px}';
+  h += '.kv td{border:0;border-bottom:1px solid #f1f5f9;padding:3px 0}';
+  h += '.kv td:first-child{color:#64748b;width:38%}';
+  h += '.kv td:last-child{font-weight:600;text-align:right}';
+  h += '.best{border:1.5px solid #86efac;background:#f0fff4;border-radius:6px;padding:10px 12px;margin-bottom:6px}';
+  h += '.best .m{font-size:15px;font-weight:700;color:#14532d;margin-bottom:5px}';
+  h += '.best .badge{display:inline-block;background:#16a34a;color:#fff;font-size:9px;padding:1px 6px;border-radius:3px;margin-left:5px;vertical-align:middle;font-weight:500}';
+  h += '.tags{margin-top:5px}';
+  h += '.tag{display:inline-block;background:#dcfce7;color:#166534;border-radius:3px;padding:1px 6px;margin:2px 4px 2px 0;font-size:10px}';
+  h += '.formula{margin-top:7px;padding-top:6px;border-top:1px dashed #bbf7d0;font-size:11px}';
+  h += '.formula b{color:#14532d;font-size:12px}';
+  h += '.nomatch{border:1.5px solid #fecaca;background:#fff5f5;border-radius:6px;padding:12px;color:#dc2626;font-weight:600}';
+  h += '.num{text-align:right;white-space:nowrap}';
+  h += '.ctr{text-align:center}';
+  h += 'tr.fail td{color:#94a3b8}';
+  h += '.note{font-size:9.5px;color:#64748b;margin-top:3px;line-height:1.6}';
+  h += '.foot{margin-top:16px;padding-top:8px;border-top:1px solid #e2e8f0;font-size:9px;color:#94a3b8;line-height:1.7}';
+  h += '@page{margin:12mm 10mm}';
+  h += '.aw{display:flex;gap:6px;margin-bottom:10px}';
+  h += 'button{padding:7px 16px;border:0;border-radius:5px;font-size:12px;cursor:pointer;font-family:inherit}';
+  h += '.bp{background:#1a365d;color:#fff}.bs{background:#e2e8f0;color:#1f2937}';
+  h += '@media print{.aw{display:none}}';
+  h += '</style></head><body>';
+
+  // ---- 操作按钮（打印时隐藏）----
+  h += '<div class="aw"><button class="bp" onclick="window.print()">🖨️ 打印 / 另存为 PDF</button>';
+  h += '<button class="bs" onclick="window.close()">关闭</button></div>';
+
+  // ---- 抬头 ----
+  h += '<div class="rpt-head"><div>';
+  h += '<h1>发电机选型报告</h1>';
+  h += '<div class="sub">Genset Selection Report</div></div>';
+  h += '<div class="meta">生成时间：'+esc(R.time)+'<br>数据来源：各品牌官方技术手册</div></div>';
+
+  // ---- 一、选型条件 ----
+  h += '<h2>一、选型条件</h2><table class="kv">';
+  h += '<tr><td>电机品牌</td><td>'+esc(R.input.brandLabel)+'</td></tr>';
+  h += '<tr><td>频率</td><td>'+esc(R.input.freq)+'</td></tr>';
+  h += '<tr><td>额定电压（接线方式）</td><td>'+esc(R.input.windingLabel)+(R.input.windingConn?'（'+esc(R.input.windingConn)+'）':'')+'</td></tr>';
+  h += '<tr><td>用途</td><td>'+esc(dutyLabel)+'</td></tr>';
+  h += '<tr><td>额定功率</td><td>'+esc(String(R.input.power))+' '+esc(R.input.unit)+'</td></tr>';
+  h += '<tr><td>安装海拔</td><td>'+(R.isHV?'中高压不适用（按 ≤1000m 选型）':esc(String(R.input.alt))+' m')+'</td></tr>';
+  h += '<tr><td>环境温度</td><td>'+(R.isHV?'中高压不适用（按 40℃ 选型）':esc(String(R.input.temp))+' ℃')+'</td></tr>';
+  h += '<tr><td>特殊选配</td><td>'+esc(R.input.optionLabel)+'</td></tr>';
+  h += '</table>';
+
+  // ---- 二、功率修正过程 ----
+  h += '<h2>二、功率修正过程</h2><table class="kv">';
+  h += '<tr><td>目标功率（'+esc(unitLabel)+'）</td><td>'+esc(String(R.goal))+' '+esc(unitLabel)+'</td></tr>';
+  if(R.input.unit==='kW' && !R.isSinglePhase){
+    h += '<tr><td>单位换算</td><td>'+esc(String(R.input.power))+' kW ÷ 0.8 = '+esc(String(R.targetKVA))+' kVA</td></tr>';
+  }
+  h += '<tr><td>温度修正系数 ('+esc(R.tempSrcLabel)+')</td><td>×'+esc(String(R.tf))+'</td></tr>';
+  h += '<tr><td>海拔修正系数 ('+esc(R.altSrcLabel)+')</td><td>×'+esc(String(R.af))+'</td></tr>';
+  h += '<tr><td>综合修正系数</td><td>×'+esc(String(R.tot))+'</td></tr>';
+  h += '</table>';
+  h += '<div class="note">说明：'+(R.isHV
+      ? '中高压机组按标准工况（≤1000m / 40℃）选型，不适用海拔与温度修正。'
+      : '发电机标称容量基于标准工况（海拔 ≤1000m、环境温度 40℃）。现场条件更恶劣时空气稀薄、散热变差，可用功率按 af × tf 折减。')+'</div>';
+
+  // ---- 三、最佳匹配 ----
+  h += '<h2>三、最佳匹配</h2>';
+  if(R.best){
+    var b = R.best;
+    h += '<div class="best"><div class="m">'+esc(b.model)+(R.isHV&&b.grade?'<span class="badge">'+esc(b.grade)+'级温升</span>':'<span class="badge">推荐</span>')+'</div>';
+    h += '<table class="kv">';
+    h += '<tr><td>功率取值口径</td><td>'+esc(b.colLabel)+'</td></tr>';
+    h += '<tr><td>基准功率</td><td>'+esc(String(b.base))+esc(unitLabel)+'</td></tr>';
+    h += '<tr><td>修正后可用功率</td><td>'+esc(String(b.base))+' × '+esc(String(R.tot))+' = '+esc(String(b.cp))+esc(unitLabel)+'</td></tr>';
+    h += '<tr><td>目标功率</td><td>'+esc(String(R.goal))+' '+esc(unitLabel)+'</td></tr>';
+    h += '</table>';
+    h += '<div class="tags">';
+    h += '<span class="tag">绕组：'+esc(b.windingLabel)+'</span>';
+    if(b.conn) h += '<span class="tag">接线：'+esc(b.conn)+'</span>';
+    if(b.pf) h += '<span class="tag">PF='+esc(String(b.pf))+'</span>';
+    if(b.wires) h += '<span class="tag">出线：'+esc(String(b.wires))+'线</span>';
+    if(b.exc) h += '<span class="tag">标准励磁：'+esc(b.exc)+'</span>';
+    if(b.excOpt) h += '<span class="tag">可选励磁：'+esc(b.excOpt)+'</span>';
+    h += '</div>';
+    h += '<div class="formula">判定：<b>'+esc(String(b.cp))+' '+esc(unitLabel)+' ≥ '+esc(String(R.goal))+' '+esc(unitLabel)+'　✅ 满足需求</b>'+
+         (R.isHV?'　（中高压无修正）':'')+'</div></div>';
+  } else {
+    h += '<div class="nomatch">❌ 无匹配电机</div>';
+    h += '<div class="note">当前没有电机能满足修正后 '+esc(String(R.goal))+' '+esc(unitLabel)+' 的需求。<br>建议：降低功率需求，或换选更大机座 / 其他品牌。</div>';
+  }
+
+  // ---- 四、全部候选 ----
+  if(R.rows && R.rows.length){
+    var C = R.cols || [];
+    h += '<h2>四、全部候选（共 '+R.rows.length+' 款，'+R.okCount+' 款满足）</h2>';
+    h += '<table><thead><tr>';
+    h += '<th class="ctr">#</th>';
+    for(var ci=0; ci<C.length; ci++){
+      var cls = (C[ci].v==='num') ? ' class="num"' : (C[ci].v==='ctr' ? ' class="ctr"' : '');
+      h += '<th'+cls+'>'+esc(C[ci].t)+'</th>';
+    }
+    h += '</tr></thead><tbody>';
+    for(var ri=0; ri<R.rows.length; ri++){
+      var row = R.rows[ri];
+      h += '<tr'+(row.ok?'':' class="fail"')+'>';
+      h += '<td class="ctr">'+(row.ok?row.rank:'✗')+'</td>';
+      for(var cj=0; cj<row.cells.length; cj++){
+        var v = C[cj] && C[cj].v;
+        var cc = (v==='num') ? ' class="num"' : (v==='ctr' ? ' class="ctr"' : '');
+        h += '<td'+cc+'>'+esc(row.cells[cj]==null?'':String(row.cells[cj]))+'</td>';
+      }
+      h += '</tr>';
+    }
+    h += '</tbody></table>';
+    h += '<div class="note">说明：候选表平铺数据库全部字段，无数据的字段留空。判定 ✅ = 修正后可用功率满足需求。</div>';
+  }
+
+  // ---- 页脚 ----
+  h += '<div class="foot">本报告由「发电机选型工具」自动生成，选型结果依据各品牌官方技术手册的功率标称与修正规则计算。<br>';
+  h += '⚠️ 最终选型请结合机组实际负载曲线、启动冲击、并机需求等工程条件复核，并以厂家正式技术资料为准。</div>';
+
+  h += '</body></html>';
+  return h;
+}
+
+// 导出 PDF：打开新窗口 → 调起打印对话框 → 用户选"另存为 PDF"
+function exportPdf(){
+  if(!LAST_RESULT){ alert('请先执行一次查询'); return; }
+  var html = buildPdfHtml();
+  if(!html){ alert('无查询结果可导出'); return; }
+  var w = window.open('', '_blank');
+  if(!w){ alert('浏览器拦截了新窗口，请允许弹出窗口后重试'); return; }
+  w.document.open();
+  w.document.write(html);
+  w.document.close();
+  // 等样式与字体就绪后再唤起打印
+  setTimeout(function(){ try{ w.focus(); w.print(); }catch(e){} }, 400);
 }
 
 function toggleStep(el){
