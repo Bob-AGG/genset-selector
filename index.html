@@ -917,39 +917,87 @@ function doSearch(){
   var showExtra=(list.length && list[0].rec) ? extraKeys.filter(function(k){return list.some(function(x){return x.rec&&x.rec[k]!==undefined&&x.rec[k]!==null&&x.rec[k]!=='';});}) : [];
   cols=cols.concat(showExtra);
   cols.push('判断');
+  // ★ 列定义：每列显式绑定一个「取值函数」+「是否恒保留」。
+  //   为什么不用「列名猜字段名」：列名是展示文案（接线/电压、出线、PF…），
+  //   与数据库字段名（winding_label/wires/pf…）不同构，靠字符串推导会误删列。
+  //   取值函数同时决定「单元格内容」和「判空依据」，两者天然一致，不可能错位。
+  //   get(x, g) 返回该列的原始值（g = x.rec）；返回 null/undefined/'' 视为空。
+  //   P=true 的列永不隐藏：序号、型号、判断。
+  var COLDEFS=[
+    {t:'#',            P:true, get:function(x){return x.ok?'R':'X';}},
+    {t:'型号',          P:true, get:function(x){return x.m;}},
+    {t:'接线/电压',     get:function(x,g){return x.wd;}},
+    {t:'出线',          get:function(x,g){return g.wires;}},
+    {t:'PF',           get:function(x,g){return g.pf;}},
+    {t:'励磁(标准)',    get:function(x,g){return g.exc_std;}},
+    {t:'励磁(可选)',    get:function(x,g){return g.exc_opt;}},
+    {t:'持续H_kVA',     get:function(x,g){return g.cont_h_kVA;}},
+    {t:'持续H_kW',      get:function(x,g){return g.cont_h_kW;}},
+    {t:'备用H40_kVA',   get:function(x,g){return g.stdby_h_40c_kVA;}},
+    {t:'备用H40_kW',    get:function(x,g){return g.stdby_h_40c_kW;}},
+    {t:'备用H27_kVA',   get:function(x,g){return g.stdby_h_27c_kVA;}},
+    {t:'备用H27_kW',    get:function(x,g){return g.stdby_h_27c_kW;}},
+    {t:'持续F_kVA',     get:function(x,g){return g.cont_f_kVA;}},
+    {t:'持续F_kW',      get:function(x,g){return g.cont_f_kW;}},
+    {t:'备用F40_kVA',   get:function(x,g){return g.stdby_f_40c_kVA;}},
+    {t:'备用F40_kW',    get:function(x,g){return g.stdby_f_40c_kW;}},
+    {t:'备用F27_kVA',   get:function(x,g){return g.stdby_f_27c_kVA;}},
+    {t:'备用F27_kW',    get:function(x,g){return g.stdby_f_27c_kW;}},
+    {t:'判断',          P:true, get:function(x){return x.ok?'✅':'❌';}}
+  ];
+  // 品牌特有字段列（候选记录中实际存在的特有字段才加）
+  for(var e3=0; e3<showExtra.length; e3++){
+    (function(k){
+      COLDEFS.push({t:k, get:function(x,g){return g[k];}});
+    })(showExtra[e3]);
+  }
+  var isBlank=function(v){ return v===undefined || v===null || v===''; };
+  // 判空：某列在全部候选中都没值 → 隐藏（P 列除外）
+  var keepCols=COLDEFS.filter(function(cd){
+    if(cd.P) return true;
+    for(var qi=0; qi<list.length; qi++){
+      if(!isBlank(cd.get(list[qi], list[qi].rec||{}))) return true;
+    }
+    return false;
+  });
+  if(!keepCols.length) keepCols=COLDEFS.slice();   // 保底：异常时不输出空表
+  var hiddenColCnt=COLDEFS.length-keepCols.length;
+  // 供 PDF 导出复用（导出与屏幕同源，列不一致会串列）
+  var KEEP_DEFS=keepCols;
   var lh='';
   if(list.length){
     var okCnt=list.filter(function(x){return x.ok;}).length;
-    lh+='<div class="stats">共'+list.length+'款，'+okCnt+'款满足'+(isHV?'（F级温升在前）':'')+'</div><div class="table-wrap"><table class="full-table">';
-    lh+='<thead><tr>'+cols.map(function(c){return '<th>'+esc(c)+'</th>';}).join('')+'</tr></thead><tbody>';
+    lh+='<div class="stats">共'+list.length+'款，'+okCnt+'款满足'+(isHV?'（F级温升在前）':'')+(hiddenColCnt>0?'　·　已隐藏 '+hiddenColCnt+' 个空字段列':'')+'</div><div class="table-wrap"><table class="full-table">';
+    lh+='<thead><tr>'+keepCols.map(function(cd){return '<th>'+esc(cd.t)+'</th>';}).join('')+'</tr></thead><tbody>';
     for(var i=0;i<list.length;i++){
       var x=list[i], g=x.rec||{};
       var rank=(x.ok?list.filter(function(y,idx){return idx<i&&y.ok;}).length+1:'-');
-      var tds='<td>'+(x.ok?rank:'✗')+'</td>';
-      tds+='<td><button class="copy-btn" onclick="copyModel(this,\''+escAttr(x.m)+'\')" title="复制型号">复制</button><b>'+esc(x.m)+'</b>'+(isHV?' <span class="wconn">'+esc(x.wd)+'</span>':'')+'</td>';
-      tds+='<td>'+esc(x.wd)+(g.winding_conn?'<div class="wconn">'+esc(g.winding_conn)+'</div>':'')+'</td>';
-      tds+='<td>'+(g.wires==null?'':esc(g.wires))+'</td>';
-      tds+='<td>'+(g.pf==null?'':g.pf)+'</td>';
-      tds+='<td>'+(g.exc_std||'-')+'</td>';
-      tds+='<td>'+(g.exc_opt||'-')+'</td>';
-      // H级功率
-      tds+='<td>'+(g.cont_h_kVA!=null?g.cont_h_kVA:'')+'</td><td>'+(g.cont_h_kW!=null?g.cont_h_kW:'')+'</td>';
-      tds+='<td>'+(g.stdby_h_40c_kVA!=null?g.stdby_h_40c_kVA:'')+'</td><td>'+(g.stdby_h_40c_kW!=null?g.stdby_h_40c_kW:'')+'</td>';
-      tds+='<td>'+(g.stdby_h_27c_kVA!=null?g.stdby_h_27c_kVA:'')+'</td><td>'+(g.stdby_h_27c_kW!=null?g.stdby_h_27c_kW:'')+'</td>';
-      // F级功率
-      tds+='<td>'+(g.cont_f_kVA!=null?g.cont_f_kVA:'')+'</td><td>'+(g.cont_f_kW!=null?g.cont_f_kW:'')+'</td>';
-      tds+='<td>'+(g.stdby_f_40c_kVA!=null?g.stdby_f_40c_kVA:'')+'</td><td>'+(g.stdby_f_40c_kW!=null?g.stdby_f_40c_kW:'')+'</td>';
-      tds+='<td>'+(g.stdby_f_27c_kVA!=null?g.stdby_f_27c_kVA:'')+'</td><td>'+(g.stdby_f_27c_kW!=null?g.stdby_f_27c_kW:'')+'</td>';
-      // 特有字段
-      for(var e=0;e<showExtra.length;e++){
-        var ek=showExtra[e], v=g[ek];
-        tds+='<td>'+(v===undefined||v===null||v===''?'':esc(v))+'</td>';
+      var tds='';
+      for(var kci=0; kci<keepCols.length; kci++){
+        var cd=keepCols[kci];
+        if(cd.t==='#'){
+          tds+='<td>'+(x.ok?rank:'✗')+'</td>';
+        } else if(cd.t==='型号'){
+          tds+='<td><button class="copy-btn" onclick="copyModel(this,\''+escAttr(x.m)+'\')" title="复制型号">复制</button><b>'+esc(x.m)+'</b>'+(isHV?' <span class="wconn">'+esc(x.wd)+'</span>':'')+'</td>';
+        } else if(cd.t==='接线/电压'){
+          tds+='<td>'+esc(x.wd)+(g.winding_conn?'<div class="wconn">'+esc(g.winding_conn)+'</div>':'')+'</td>';
+        } else if(cd.t==='判断'){
+          tds+='<td>'+(x.ok?'✅':'❌')+'</td>';
+        } else if(cd.t==='励磁(标准)'){
+          tds+='<td>'+(g.exc_std||'-')+'</td>';
+        } else if(cd.t==='励磁(可选)'){
+          tds+='<td>'+(g.exc_opt||'-')+'</td>';
+        } else {
+          var v=cd.get(x,g);
+          tds+='<td>'+(isBlank(v)?'':esc(v))+'</td>';
+        }
       }
-      tds+='<td>'+(x.ok?'✅':'❌')+'</td>';
       lh+='<tr class="'+(x.ok?'ok':'fail')+'">'+tds+'</tr>';
     }
     lh+='</tbody></table></div>';
   }
+  // 保存给 PDF 导出用（列定义+取值函数，保证导出与屏幕逐列同源）
+  window.__KEEP_DEFS=KEEP_DEFS;
   document.getElementById('listDisplay').innerHTML=lh||'<div class="landing"><p>暂无可选电机</p></div>';
 
   // ===== 保存本次查询结果快照（供导出 PDF 使用，保证导出内容与屏幕一致）=====
@@ -957,42 +1005,28 @@ function doSearch(){
   var optLabel = optCode==='ip44' ? 'IP44（防护降额10%）' : (optCode==='c5' ? 'C5 高防腐等级（暂不降额，数据待补）' : '无');
   var tempSrcLabel = isHV ? '中高压不适用' : (isAGG ? 'AGG手册' : (isMecc ? '美奥迪手册' : (isStanford ? '斯坦福手册' : 'H级')));
   var altSrcLabel  = isHV ? '中高压不适用' : (isAGG ? 'AGG手册' : (isMecc ? '美奥迪手册' : (isStanford ? '斯坦福手册' : '海拔降额系数')));
-  // 候选表列定义（与屏幕表格同源，导出时按同一套列顺序重绘）
-  // cols 已包含全部列（首列为 '#'），仅需剔除 '#'，其余照抄，避免重复
-  var pdfCols = cols.filter(function(t){ return t!=='#'; });
+  // ★ PDF 列定义：直接复用屏幕的 KEEP_DEFS（含取值函数）——
+  //   导出与屏幕用同一套 get()，从根本上避免「两边列不一致 / 串列」。
+  var pdfCols = KEEP_DEFS.filter(function(cd){ return cd.t!=='#'; });
   // 列对齐方式：功率类数字右对齐，判定居中
-  var colDefs = pdfCols.map(function(t){
-    var v = /kVA|kW|出线|PF/.test(t) ? 'num' : (t==='判断' ? 'ctr' : '');
-    return {t:t, v:v};
+  var colDefs = pdfCols.map(function(cd){
+    var v = /kVA|kW|出线|PF/.test(cd.t) ? 'num' : (cd.t==='判断' ? 'ctr' : '');
+    return {t:cd.t, v:v};
   });
-  // 逐行数据（与屏幕表格同源，直接从 rec 取，保证一致）
-  var pdfRows = list.map(function(x){
+  // 逐行数据：用与屏幕完全相同的取值函数
+  var pdfRows = list.map(function(x, idx){
     var g = x.rec||{};
     var cells = [];
-    cells.push(x.m);
-    cells.push(x.wd);
-    cells.push(g.wires==null?'':g.wires);
-    cells.push(g.pf==null?'':g.pf);
-    cells.push(g.exc_std||'-');
-    cells.push(g.exc_opt||'-');
-    cells.push(g.cont_h_kVA!=null?g.cont_h_kVA:'');
-    cells.push(g.cont_h_kW!=null?g.cont_h_kW:'');
-    cells.push(g.stdby_h_40c_kVA!=null?g.stdby_h_40c_kVA:'');
-    cells.push(g.stdby_h_40c_kW!=null?g.stdby_h_40c_kW:'');
-    cells.push(g.stdby_h_27c_kVA!=null?g.stdby_h_27c_kVA:'');
-    cells.push(g.stdby_h_27c_kW!=null?g.stdby_h_27c_kW:'');
-    cells.push(g.cont_f_kVA!=null?g.cont_f_kVA:'');
-    cells.push(g.cont_f_kW!=null?g.cont_f_kW:'');
-    cells.push(g.stdby_f_40c_kVA!=null?g.stdby_f_40c_kVA:'');
-    cells.push(g.stdby_f_40c_kW!=null?g.stdby_f_40c_kW:'');
-    cells.push(g.stdby_f_27c_kVA!=null?g.stdby_f_27c_kVA:'');
-    cells.push(g.stdby_f_27c_kW!=null?g.stdby_f_27c_kW:'');
-    for(var e2=0; e2<showExtra.length; e2++){
-      var ev=g[showExtra[e2]];
-      cells.push(ev===undefined||ev===null||ev===''?'':ev);
+    for(var ci2=0; ci2<pdfCols.length; ci2++){
+      var cd2 = pdfCols[ci2];
+      if(cd2.t==='判断'){
+        cells.push(x.ok?'✅':'❌');
+      } else {
+        var v2 = cd2.get(x, g);
+        cells.push(v2===undefined||v2===null||v2===''?'':v2);
+      }
     }
-    cells.push(x.ok?'✅':'❌');
-    return {ok:x.ok, rank:(x.ok?list.slice(0,i).filter(function(y){return y.ok;}).length+1:'-'), cells:cells};
+    return {ok:x.ok, rank:(x.ok?list.slice(0,idx).filter(function(y){return y.ok;}).length+1:'-'), cells:cells};
   });
   // 最佳匹配的口径标签
   var bestColLabel = isHV
