@@ -23,3 +23,6 @@ _*.py
 
 # node 依赖
 node_modules/
+
+# docs 内的历史 Excel 中间产物（json 才是最终交付物）
+docs/*.xlsx
