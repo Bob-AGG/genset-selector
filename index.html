@@ -1315,9 +1315,25 @@ function buildPdfHtml(){
     h += '<div class="best"><div class="m">'+esc(b.model)+(R.isHV&&b.grade?'<span class="badge">'+esc(b.grade)+'级温升</span>':'<span class="badge">推荐</span>')+'</div>';
     h += '<table class="kv">';
     h += '<tr><td>功率取值口径</td><td>'+esc(b.colLabel)+'</td></tr>';
-    h += '<tr><td>基准功率</td><td>'+esc(String(b.base))+esc(unitLabel)+'</td></tr>';
-    h += '<tr><td>修正后可用功率</td><td>'+esc(String(b.base))+' × '+esc(String(R.tot))+' = '+esc(String(b.cp))+esc(unitLabel)+'</td></tr>';
-    h += '<tr><td>目标功率</td><td>'+esc(String(R.goal))+' '+esc(unitLabel)+'</td></tr>';
+    // ★ 双功率：两个口径各自的基准值 / 修正后 / 目标 / 判定，逐条列出（不再只出单一口径）
+    if(R.input.hasM){
+      h += '<tr><td>① 主用基准功率'+(R.isHV&&b.grade?'（'+esc(b.grade)+'级）':'（H级）')+'</td><td>'+esc(String(b.baseM))+esc(uxM)+'</td></tr>';
+      h += '<tr><td>① 主用修正后可用功率</td><td>'+esc(String(b.baseM))+' × '+esc(String(R.tot))+' = '+esc(String(b.cpM))+esc(uxM)+'</td></tr>';
+      h += '<tr><td>① 主用目标功率</td><td>'+esc(String(R.goalM))+' '+esc(uxM)+'</td></tr>';
+      h += '<tr><td>① 主用判定</td><td>'+(b.okM?'✅ 满足':'❌ 不满足')+'</td></tr>';
+    }
+    if(R.input.hasS){
+      h += '<tr><td>② 备用基准功率（'+esc(R.input.trLabel)+'）</td><td>'+esc(String(b.baseS))+esc(uxS)+'</td></tr>';
+      h += '<tr><td>② 备用修正后可用功率</td><td>'+esc(String(b.baseS))+' × '+esc(String(R.tot))+' = '+esc(String(b.cpS))+esc(uxS)+'</td></tr>';
+      h += '<tr><td>② 备用目标功率</td><td>'+esc(String(R.goalS))+' '+esc(uxS)+'</td></tr>';
+      h += '<tr><td>② 备用判定</td><td>'+(b.okS?'✅ 满足':'❌ 不满足')+'</td></tr>';
+    }
+    // 兼容：单一口径时仍给出「基准/修正后/目标」三行，保持与旧报告结构一致
+    if(!(R.input.hasM && R.input.hasS)){
+      h += '<tr><td>基准功率</td><td>'+esc(String(b.base))+esc(unitLabel)+'</td></tr>';
+      h += '<tr><td>修正后可用功率</td><td>'+esc(String(b.base))+' × '+esc(String(R.tot))+' = '+esc(String(b.cp))+esc(unitLabel)+'</td></tr>';
+      h += '<tr><td>目标功率</td><td>'+esc(String(R.goal))+' '+esc(unitLabel)+'</td></tr>';
+    }
     h += '</table>';
     h += '<div class="tags">';
     h += '<span class="tag">绕组：'+esc(b.windingLabel)+'</span>';
@@ -1327,11 +1343,28 @@ function buildPdfHtml(){
     if(b.exc) h += '<span class="tag">标准励磁：'+esc(b.exc)+'</span>';
     if(b.excOpt) h += '<span class="tag">可选励磁：'+esc(b.excOpt)+'</span>';
     h += '</div>';
-    h += '<div class="formula">判定：<b>'+esc(String(b.cp))+' '+esc(unitLabel)+' ≥ '+esc(String(R.goal))+' '+esc(unitLabel)+'　✅ 满足需求</b>'+
-         (R.isHV?'　（中高压无修正）':'')+'</div></div>';
+    h += '<div class="formula">';
+    if(R.input.hasM && R.input.hasS){
+      h += '<div>① 主用判定：<b>'+esc(String(b.cpM))+' '+esc(uxM)+' ≥ '+esc(String(R.goalM))+' '+esc(uxM)+'　'+(b.okM?'✅ 满足':'❌ 不满足')+'</b></div>';
+      h += '<div>② 备用'+esc(R.input.trLabel)+'判定：<b>'+esc(String(b.cpS))+' '+esc(uxS)+' ≥ '+esc(String(R.goalS))+' '+esc(uxS)+'　'+(b.okS?'✅ 满足':'❌ 不满足')+'</b></div>';
+      h += '<div>综合判定：<b>✅ 主用与备用同时满足</b>'+(R.isHV?'　（中高压无修正）':'')+'</div>';
+    } else if(R.input.hasM){
+      h += '判定：<b>'+esc(String(b.cpM))+' '+esc(uxM)+' ≥ '+esc(String(R.goalM))+' '+esc(uxM)+'　✅ 满足需求</b>'+(R.isHV?'　（中高压无修正）':'')+'</div>';
+    } else {
+      h += '判定：<b>'+esc(String(b.cpS))+' '+esc(uxS)+' ≥ '+esc(String(R.goalS))+' '+esc(uxS)+'　✅ 满足需求</b>'+(R.isHV?'　（中高压无修正）':'')+'</div>';
+    }
+    h += '</div></div>';
   } else {
     h += '<div class="nomatch">❌ 无匹配电机</div>';
-    h += '<div class="note">当前没有电机能满足修正后 '+esc(String(R.goal))+' '+esc(unitLabel)+' 的需求。<br>建议：降低功率需求，或换选更大机座 / 其他品牌。</div>';
+    h += '<div class="note">';
+    if(R.input.hasM && R.input.hasS){
+      h += '当前没有电机能同时满足：<br>① 主用修正后 '+esc(String(R.goalM))+' '+esc(uxM)+'<br>② 备用'+esc(R.input.trLabel)+'修正后 '+esc(String(R.goalS))+' '+esc(uxS);
+    } else if(R.input.hasM){
+      h += '当前没有电机能满足修正后 '+esc(String(R.goalM))+' '+esc(uxM)+' 的需求。';
+    } else {
+      h += '当前没有电机能满足修正后 '+esc(String(R.goalS))+' '+esc(uxS)+' 的需求。';
+    }
+    h += '<br>建议：降低功率需求，或换选更大机座 / 其他品牌。</div>';
   }
 
   // ---- 四、全部候选 ----
