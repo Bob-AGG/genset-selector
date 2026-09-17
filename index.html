@@ -427,6 +427,7 @@ function onParamChange(){
   var brand=document.getElementById('genBrand').value;
   var freq=document.querySelector('input[name="genFreq"]:checked').value;
   var ws=document.getElementById('genWinding');
+  syncDutyOptions(brand);   // ★必须放最前：本函数有多处 early return，放末尾会被跳过（中高压曾因此漏隐藏40℃选项）
   if(!brand||!freq){ws.innerHTML='<option value="">请先选择品牌和频率</option>';return;}
   // 根据已加载的品牌数据动态生成电压选项
   var records=ALL_DATA[brand]||[];
@@ -529,7 +530,6 @@ function onParamChange(){
       ws.innerHTML+='<option value="'+w+'">'+prefix+esc(label)+(conn?'（'+esc(conn)+'）':'')+'</option>';
     }
   }
-  syncDutyOptions(brand);
 }
 
 // 用途选项联动：40℃ 备用功率仅低压品牌提供（中高压暂无 40℃ 备用数据，暂不做）
