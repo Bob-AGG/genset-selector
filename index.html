@@ -1025,6 +1025,28 @@ function doSearch(){
 // 再通过新窗口 + window.print() 交给浏览器"另存为 PDF"。
 // 优点：输出内容 = 用户屏幕上看到的结果，不会出现两套逻辑不一致。
 
+// 单元格值格式化：
+// 1) 去掉浮点误差尾巴（866.4000000000001 → 866.4），否则一个数字能占满整列
+// 2) 超长文本（如绕组描述）插入零宽断点，让它在单元格内换行而不是把表格撑破
+var ZWSP = '\u200b';
+function fmtCell(val, colType){
+  if(val==null || val==='') return '';
+  var s = String(val);
+  // 纯数字（含负号/小数点）→ 限 4 位小数并去掉末尾零
+  if(/^-?\d+(\.\d+)?$/.test(s)){
+    if(s.indexOf('.') >= 0){
+      var n = parseFloat(s);
+      if(isFinite(n)) s = String(Math.round(n*10000)/10000);
+    }
+    return s;
+  }
+  // 长文本：在分隔符后插零宽空格，给浏览器提供换行点
+  if(s.length > 8){
+    s = s.replace(/([\/、,，&\-－（(）)])\s*/g, '$1'+ZWSP);
+  }
+  return s;
+}
+
 var LAST_RESULT = null;   // 最近一次查询的结果快照
 
 // 生成导出用 HTML（打印友好，无交互元素）
@@ -1066,6 +1088,14 @@ function buildPdfHtml(){
   h += '.num{text-align:right;white-space:nowrap}';
   h += '.ctr{text-align:center}';
   h += 'tr.fail td{color:#94a3b8}';
+  // ---- 候选表：列多且内容长，需允许单元格内换行 + 自动压缩字号 ----
+  // 不加 min-width（否则超出纸张宽度会被裁切）；固定布局让列宽由内容比例分配
+  h += '.cand{table-layout:fixed;font-size:9px;width:100%}';
+  h += '.cand th,.cand td{padding:3px 4px;white-space:normal;word-break:break-word;overflow-wrap:anywhere;line-height:1.35}';
+  h += '.cand th{font-size:8.5px;line-height:1.25}';
+  h += '.cand .num{text-align:right;white-space:normal}';
+  // 长数字去掉浮点尾巴（1029.6000000000001 → 1029.6），避免无谓撑宽
+  h += '.cand td{font-variant-numeric:tabular-nums}';
   h += '.note{font-size:9.5px;color:#64748b;margin-top:3px;line-height:1.6}';
   h += '.foot{margin-top:16px;padding-top:8px;border-top:1px solid #e2e8f0;font-size:9px;color:#94a3b8;line-height:1.7}';
   h += '@page{margin:12mm 10mm}';
@@ -1140,27 +1170,47 @@ function buildPdfHtml(){
   // ---- 四、全部候选 ----
   if(R.rows && R.rows.length){
     var C = R.cols || [];
+    // ★ 自动隐藏「本批次候选中全部为空」的列：
+    //   例：某库没有 F 级备用数据 → 备用F40/F27 四列全空 → 整列不打印，省宽度也让报告更干净。
+    //   注意：只要有任意一行该列有值就保留（避免把部分有数据的列误删）。
+    var keepIdx = [];
+    for(var ci0=0; ci0<C.length; ci0++){
+      var hasVal = false;
+      for(var ri0=0; ri0<R.rows.length; ri0++){
+        var cv = R.rows[ri0].cells[ci0];
+        if(cv!==undefined && cv!==null && String(cv).trim()!==''){ hasVal = true; break; }
+      }
+      if(hasVal) keepIdx.push(ci0);
+    }
+    // 保底：若所有列都空（异常情况）则保留全部，避免输出空表
+    if(!keepIdx.length) keepIdx = C.map(function(_,i){ return i; });
+    var hiddenCols = C.length - keepIdx.length;
     h += '<h2>四、全部候选（共 '+R.rows.length+' 款，'+R.okCount+' 款满足）</h2>';
-    h += '<table><thead><tr>';
+    if(hiddenCols > 0){
+      h += '<div class="note" style="margin-top:-3px;margin-bottom:5px">已隐藏本批次全部为空的 '+hiddenCols+' 个字段列。</div>';
+    }
+    h += '<table class="cand"><thead><tr>';
     h += '<th class="ctr">#</th>';
-    for(var ci=0; ci<C.length; ci++){
-      var cls = (C[ci].v==='num') ? ' class="num"' : (C[ci].v==='ctr' ? ' class="ctr"' : '');
-      h += '<th'+cls+'>'+esc(C[ci].t)+'</th>';
+    for(var ci=0; ci<keepIdx.length; ci++){
+      var col = C[keepIdx[ci]];
+      var cls = (col.v==='num') ? ' class="num"' : (col.v==='ctr' ? ' class="ctr"' : '');
+      h += '<th'+cls+'>'+esc(col.t)+'</th>';
     }
     h += '</tr></thead><tbody>';
     for(var ri=0; ri<R.rows.length; ri++){
       var row = R.rows[ri];
       h += '<tr'+(row.ok?'':' class="fail"')+'>';
       h += '<td class="ctr">'+(row.ok?row.rank:'✗')+'</td>';
-      for(var cj=0; cj<row.cells.length; cj++){
+      for(var q=0; q<keepIdx.length; q++){
+        var cj = keepIdx[q];
         var v = C[cj] && C[cj].v;
         var cc = (v==='num') ? ' class="num"' : (v==='ctr' ? ' class="ctr"' : '');
-        h += '<td'+cc+'>'+esc(row.cells[cj]==null?'':String(row.cells[cj]))+'</td>';
+        h += '<td'+cc+'>'+esc(fmtCell(row.cells[cj], v))+'</td>';
       }
       h += '</tr>';
     }
     h += '</tbody></table>';
-    h += '<div class="note">说明：候选表平铺数据库全部字段，无数据的字段留空。判定 ✅ = 修正后可用功率满足需求。</div>';
+    h += '<div class="note">说明：候选表平铺数据库字段；本批次候选中全空的字段已自动隐藏，无数据的单元格留空。判定 ✅ = 修正后可用功率满足需求。</div>';
   }
 
   // ---- 页脚 ----
