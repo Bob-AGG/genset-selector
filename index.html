@@ -51,6 +51,46 @@
   --warn:#e67e22;
 }
 *{box-sizing:border-box;margin:0;padding:0}
+/* ══════ 滚动条：全站统一 macOS 暖红风格（电脑端 + 手机端一致）══════
+   ① html{overflow-y:scroll}：纵向滚动条**始终占位**，消除「内容变高
+      → 滚动条首次出现 → 视口有效宽变小 → margin:0 auto 居中的整页
+      内容左移一下」的抖动。
+   ② 配色统一走站内主色 rgba(142,31,44,*)：轨道透明、滑块暖红、
+      两端留白（border+background-clip 做出悬浮胶囊感）、hover/active 加深。
+   ③ 用**通配选择器**（`*::-webkit-scrollbar`）而不是逐容器列举，
+      保证任何滚动容器（页面、表格、AI 对话、产品库、日志、文本框…）
+      风格自动一致；窄屏再把尺寸收细一点，跟手机端适配。 */
+html{overflow-y:scroll}
+/* Firefox（新语法，全局） */
+*{scrollbar-width:thin;scrollbar-color:rgba(142,31,44,.30) transparent}
+/* WebKit / Chromium / Safari —— 全局统一 */
+*::-webkit-scrollbar{width:12px;height:12px}
+*::-webkit-scrollbar-track{background:transparent}
+*::-webkit-scrollbar-thumb{
+  background:rgba(142,31,44,.30);
+  border-radius:99px;
+  border:3px solid transparent;
+  background-clip:content-box;
+  min-height:32px;
+}
+*::-webkit-scrollbar-thumb:hover{
+  background:rgba(142,31,44,.48);
+  border:3px solid transparent;background-clip:content-box;
+}
+*::-webkit-scrollbar-thumb:active{
+  background:rgba(142,31,44,.62);
+  border:3px solid transparent;background-clip:content-box;
+}
+*::-webkit-scrollbar-corner{background:transparent}
+/* 内滚区（表格 / AI 对话 / 产品库详情）：滑块略淡，不抢主要内容视线 */
+.table-wrap::-webkit-scrollbar-thumb,
+.ai-chat::-webkit-scrollbar-thumb,
+.browse-detail::-webkit-scrollbar-thumb{background:rgba(142,31,44,.24)}
+.table-wrap::-webkit-scrollbar-thumb:hover,
+.ai-chat::-webkit-scrollbar-thumb:hover,
+.browse-detail::-webkit-scrollbar-thumb:hover{background:rgba(142,31,44,.42)}
+/* 横滚时下方滚动条与右侧同宽同色，避免出现"两条不一样" */
+.table-wrap::-webkit-scrollbar{height:12px}
 body{font-family:-apple-system,"Microsoft YaHei",sans-serif;background:var(--bg);color:var(--ink)}
 .header{
   /* 不透明红渐变：不用毛玻璃模糊。
@@ -334,6 +374,12 @@ tr:hover{background:var(--bg)}
 .landing p{font-size:14px;line-height:1.8}
 
 @media(max-width:800px){
+/* 手机端滚动条：收细一点，触摸设备也不至于太抢眼，配色与电脑端一致 */
+*::-webkit-scrollbar{width:5px;height:5px}
+*::-webkit-scrollbar-thumb{border:0;background-clip:border-box;min-height:24px}
+*::-webkit-scrollbar-thumb:hover{border:0;background-clip:border-box}
+*::-webkit-scrollbar-thumb:active{border:0;background-clip:border-box}
+.table-wrap::-webkit-scrollbar{height:5px}
 .header{flex-direction:column;gap:10px}
 .nav{flex-wrap:wrap;justify-content:center}
 
