@@ -308,6 +308,9 @@ tr:hover{background:#f0f2f5}
 #loadTable td input:focus{outline:none;border-color:#1a365d}
 #loadTable th{text-align:center}
 #loadTable td{text-align:center}
+/* 油耗多工况表：4 列自适应铺满，不继承 browse-table 的 min-width，桌面端不横滚 */
+#loadTable{min-width:0;width:100%;table-layout:auto}
+#loadTable th,#loadTable td{white-space:normal}
 .load-percent-cell{font-weight:700}
 /* ===== 性能优化：滚动流畅（手机端重点，桌面端无损）===== */
 .table-wrap,.ai-chat{-webkit-overflow-scrolling:touch;overscroll-behavior:contain}
