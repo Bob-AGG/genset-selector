@@ -91,7 +91,11 @@ html{overflow-y:scroll}
 .browse-detail::-webkit-scrollbar-thumb:hover{background:rgba(142,31,44,.42)}
 /* 横滚时下方滚动条与右侧同宽同色，避免出现"两条不一样" */
 .table-wrap::-webkit-scrollbar{height:12px}
-body{font-family:-apple-system,"Microsoft YaHei",sans-serif;background:var(--bg);color:var(--ink)}
+body{font-family:-apple-system,"Microsoft YaHei",sans-serif;color:var(--ink);background-color:var(--bg);background-image:radial-gradient(900px 560px at 8% 4%,rgba(142,31,44,.055),transparent 64%),radial-gradient(760px 480px at 92% 10%,rgba(200,50,62,.045),transparent 62%),linear-gradient(160deg,#faf8f9 0%,#f3f1f3 52%,#eeecee 100%);background-attachment:fixed}
+/* 页面背景：暖白通透（原方案 D）= 双角暖红淡晕 + 160deg 暖白渐变。
+   ⚠️ 颜色与图像必须分开写（background-color + background-image）：
+   写成 `background:var(--bg) radial-gradient(...)` 会因简写语法非法被整条丢弃。
+   纯静态渐变，无动图/无模糊 → 滚动零额外开销。*/
 .header{
   /* 不透明红渐变：不用毛玻璃模糊。
      sticky 元素若带 blur，滚动时每帧都要重新采样背后内容 → 持续 GPU 开销。 */
