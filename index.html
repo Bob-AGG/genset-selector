@@ -135,9 +135,11 @@ body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
   -webkit-mask-image:-webkit-radial-gradient(#fff,#000);
   mask-image:radial-gradient(#fff,#000)
 }
-/* 表格自身也描一圈外框，保证表头/末行边缘都有边线 */
+/* 表格外框 + 圆角。⚠️ 绝不能加 overflow:hidden：
+   那会使表格成为 sticky 的滚动祖先，导致表头/首列冻结失效。
+   圆角改由单元格 border-radius 实现（见下方四条）。*/
 .card.bottom-area .full-table{
-  border-collapse:separate;border-spacing:0;border-radius:12px;overflow:hidden
+  border-collapse:separate;border-spacing:0;border-radius:12px
 }
 .card.bottom-area .full-table thead th{
   border-top:1px solid rgba(142,31,44,.22)
