@@ -224,6 +224,33 @@ tr:hover{background:#f0f2f5}
   .table-desktop{display:none}
   .mc-list{display:flex;flex-direction:column;gap:0}
   .table-wrap{max-height:none}
+  /* --- 滚动流畅度优化（B+C）--- */
+  /* 卡片去阴影/渐变，降合成层开销 */
+  .card{box-shadow:none;border:1px solid #e8edf3}
+  .mc-card{box-shadow:none;border:1px solid #e2e8f0;border-left-width:4px;margin-bottom:8px;contain:layout style paint}
+  .mc-card.mc-ok{background:#f7fdf9}
+  .mc-card.mc-fail{background:#fff;opacity:1}
+  .mc-card.mc-fail .mc-model,.mc-card.mc-fail .mc-pw-v{color:#94a3b8}
+  .half-card{box-shadow:none;border:1px solid #e8edf3}
+  .browse-group{contain:layout style paint}
+  /* --- 油耗多工况表：手机端改竖排卡片（B方案，无横滚）--- */
+  #loadTable,
+  #loadTable tbody,
+  #loadTable tr,
+  #loadTable td{display:block;width:100%}
+  #loadTable{min-width:0 !important;border-collapse:separate}
+  #loadTable tr:first-child{display:none}
+  #loadTable tr.load-row{background:#fff;border:1px solid #e2e8f0;border-left:4px solid #e67e22;border-radius:9px;padding:10px 12px;margin-bottom:8px;contain:layout style paint}
+  #loadTable td{border:0 !important;text-align:left !important;padding:0;white-space:normal}
+  #loadTable td[data-label]{display:flex;align-items:center;gap:10px;padding:6px 0;border-bottom:1px dashed #eef2f7;min-height:40px}
+  #loadTable td[data-label]:last-child{border-bottom:0}
+  #loadTable td[data-label]::before{content:attr(data-label);flex:0 0 42%;font-size:12.5px;color:#64748b;font-weight:400}
+  #loadTable td.load-percent-cell{display:flex;align-items:baseline;justify-content:space-between;font-size:17px;font-weight:700;color:#1a365d;border-bottom:1px solid #eef2f7;padding-bottom:8px;margin-bottom:4px}
+  #loadTable td.load-percent-cell::before{content:"负载";font-size:12px;color:#94a3b8;font-weight:400;flex:0 0 auto}
+  #loadTable td.load-percent-cell br{display:none}
+  #loadTable td.load-percent-cell span{font-size:11.5px !important;color:#94a3b8 !important;font-weight:400 !important}
+  #loadTable td input{flex:1;font-size:16px;padding:8px 10px;min-height:40px;text-align:right}
+  #loadTable .power-value{flex:1;text-align:right;font-size:15px}
   /* --- 产品库 --- */
   .browse-bar{flex-direction:column;align-items:stretch}
   .browse-group{border-radius:7px}
@@ -282,6 +309,10 @@ tr:hover{background:#f0f2f5}
 #loadTable th{text-align:center}
 #loadTable td{text-align:center}
 .load-percent-cell{font-weight:700}
+/* ===== 性能优化：滚动流畅（手机端重点，桌面端无损）===== */
+.table-wrap,.ai-chat{-webkit-overflow-scrolling:touch;overscroll-behavior:contain}
+/* 表格边框改用 separate，避免滚动时丢边（border-collapse:collapse 在滚动中会漏线）*/
+.browse-table,.full-table{border-collapse:separate;border-spacing:0}
 </style>
 </head>
 <body>
@@ -2106,10 +2137,11 @@ function fuelBuildLoadTable(){
   for(var i=0;i<FUEL_LOAD_LEVELS.length;i++){
     var lv=FUEL_LOAD_LEVELS[i];
     var tr=document.createElement('tr');
-    tr.innerHTML='<td class="load-percent-cell">'+lv.percent+'<br><span style="font-weight:normal;font-size:11px;color:#94a3b8">系数 '+lv.factor+'</span></td>'
-      +'<td><span class="power-value">— kW</span></td>'
-      +'<td><input type="number" class="fuel-lh-input" step="any" placeholder="L/h"></td>'
-      +'<td><input type="number" class="fuel-gkwh-input" step="any" placeholder="g/kWh"></td>';
+    tr.className='load-row';
+    tr.innerHTML='<td class="load-percent-cell" data-label="负载">'+lv.percent+'<br><span style="font-weight:normal;font-size:11px;color:#94a3b8">系数 '+lv.factor+'</span></td>'
+      +'<td data-label="实际毛功率"><span class="power-value">— kW</span></td>'
+      +'<td data-label="体积油耗 L/h"><input type="number" class="fuel-lh-input" step="any" placeholder="L/h"></td>'
+      +'<td data-label="燃油消耗率 g/kWh"><input type="number" class="fuel-gkwh-input" step="any" placeholder="g/kWh"></td>';
     table.appendChild(tr);
     var row={factor:lv.factor,actualPower:null,powerEl:tr.querySelector('.power-value'),lhInput:tr.querySelector('.fuel-lh-input'),gkwhInput:tr.querySelector('.fuel-gkwh-input')};
     row.lhInput.addEventListener('input',(function(r){return function(){fuelRowCalc(r,'lh');};})(row));
