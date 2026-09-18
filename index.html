@@ -246,9 +246,12 @@ body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
 .browse-bar select,.browse-bar input{padding:7px 10px;font-size:13px;border:1px solid #cbd5e1;border-radius:6px;font-family:inherit}
 .browse-bar select:focus,.browse-bar input:focus{outline:none;border-color:#8e1f2c}
 .browse-list{display:flex;flex-direction:column;gap:12px}
-.browse-group{border:1px solid #e2e8f0;border-radius:8px;overflow:hidden}
-.browse-group-title{padding:9px 14px;background:rgba(255,255,255,.5);font-weight:600;font-size:14px;color:#8e1f2c;border-bottom:1px solid rgba(142,31,44,.10);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
-.browse-model{display:flex;justify-content:space-between;align-items:center;padding:9px 14px;border-bottom:1px solid #f1f5f9;cursor:pointer;transition:background .15s}
+/* ⚠️ 不能用 overflow:hidden：会截断内部 .table-wrap 的滚动、
+   并使自身成为 sticky 滚动祖先 → 表头/首列冻结失效。
+   圆角改由子元素（.browse-detail .table-wrap）承担 */
+.browse-group{border:1px solid var(--tb-line);border-radius:12px;background:linear-gradient(180deg,rgba(255,255,255,.7),rgba(255,255,255,.6))}
+.browse-group-title{padding:9px 14px;background:rgba(255,247,246,.9);font-weight:600;font-size:14px;color:#8e1f2c;border-bottom:1px solid var(--tb-line);border-radius:12px 12px 0 0}
+.browse-model{display:flex;justify-content:space-between;align-items:center;padding:9px 14px;border-bottom:1px solid var(--tb-line);cursor:pointer;transition:background .15s}
 .browse-model:last-child{border-bottom:none}
 .browse-model:hover{background:rgba(255,255,255,.5)}
 .browse-model .bm-left{display:flex;align-items:center;gap:8px;font-size:14px;font-weight:500}
@@ -256,13 +259,35 @@ body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
 .browse-model.open .chev{transform:rotate(90deg)}
 .browse-model .bm-right{font-size:12px;color:#64748b;display:flex;gap:12px;flex-wrap:wrap}
 .browse-model .bm-right span{background:rgba(255,255,255,.55);border:1px solid rgba(255,255,255,.7);padding:1px 8px;border-radius:10px}
-.browse-detail{display:none;padding:10px 14px;background:#fbfdff;border-top:1px solid #eef2f7}
+.browse-detail{display:none;padding:10px 14px;background:transparent;border-top:1px solid var(--tb-line)}
 .browse-detail.open{display:block}
-.browse-table{width:100%;min-width:1100px;border-collapse:collapse;font-size:12px}
-.browse-table th,.browse-table td{border:1px solid #e2e8f0;padding:5px 8px;text-align:center;white-space:nowrap}
-.browse-table th{background:rgba(255,250,249,.9);font-weight:600;color:#334155;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+/* 产品库详情里的表格容器：圆角 + 四周外框 + 内部裁切（同「全部候选」风格）*/
+.browse-detail .table-wrap{
+  border:1px solid rgba(142,31,44,.22);
+  border-radius:12px;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.9), 0 1px 2px rgba(80,16,26,.05);
+  overflow:auto;
+  -webkit-overflow-scrolling:touch;
+  overscroll-behavior:contain;
+  -webkit-mask-image:-webkit-radial-gradient(#fff,#000);
+  mask-image:radial-gradient(#fff,#000)
+}
+/* 四角圆角（不靠 overflow 裁切，避免掐断 sticky）*/
+.browse-detail .browse-table thead th:first-child{border-top-left-radius:12px}
+.browse-detail .browse-table thead th:last-child{border-top-right-radius:12px}
+.browse-detail .browse-table tbody tr:last-child td:first-child{border-bottom-left-radius:12px}
+.browse-detail .browse-table tbody tr:last-child td:last-child{border-bottom-right-radius:12px}
+.browse-detail .browse-table thead th{border-top:0}
+.browse-detail .browse-table tbody tr:last-child td{border-bottom:0}
+.browse-detail .browse-table tr td:last-child,
+.browse-detail .browse-table tr th:last-child{border-right:0}
+/* ===== 产品库表格：与「全部候选」同风格（圆角/暖红色系/四周外框/首行首列冻结）
+   性能：表头去掉 backdrop-filter（每格一个模糊层 × 数十列 × 数十组 = 极卡）*/
+.browse-table{width:100%;min-width:1100px;border-collapse:separate;border-spacing:0;font-size:12px}
+.browse-table th,.browse-table td{border-bottom:1px solid var(--tb-line);border-right:1px solid var(--tb-line);padding:5px 8px;text-align:center;white-space:nowrap}
+.browse-table th{background:var(--tb-head);font-weight:600;color:#5b2028;position:sticky;top:0;z-index:3}
 .browse-table td{color:#334155}
-.browse-table .freq-col{font-weight:600;background:rgba(255,246,245,.86);color:#8e1f2c;white-space:nowrap}
+.browse-table .freq-col{font-weight:600;background:rgba(253,242,241,.9);color:#8e1f2c;white-space:nowrap}
 .browse-table .wconn{font-size:10px;color:#64748b;margin-top:2px}
 .browse-count{font-size:12px;color:#64748b;margin-bottom:4px}
 
@@ -312,10 +337,10 @@ th{background:var(--tb-head);font-weight:600;color:#5b2028;position:sticky;top:0
 .full-table tbody tr.ok td:first-child,.full-table tbody tr.ok td:nth-child(2){background:var(--tb-ok-frozen)}
 .full-table tbody tr.fail td:first-child,.full-table tbody tr.fail td:nth-child(2){background:var(--tb-fail-frozen)}
 .full-table tbody tr:hover td:first-child,.full-table tbody tr:hover td:nth-child(2){background:var(--tb-hover)}
-.browse-table th:first-child,.browse-table td:first-child{position:sticky;left:0;z-index:2;background:#fff;border-right:1px solid #e2e8f0}
-.browse-table thead th:first-child{z-index:4;background:#eef2f7}
-.browse-table .freq-col{background:#fff}
-.browse-table thead .freq-col{background:#eef2f7}
+/* 产品库冻结列：色系与表格统一（勿加 overflow 到祖先）*/
+.browse-table th:first-child,.browse-table td:first-child{position:sticky;left:0;z-index:2;background:var(--tb-frozen);border-right:1px solid var(--tb-line);transform:translateZ(0)}
+.browse-table thead th:first-child{z-index:4;background:var(--tb-head-frozen)}
+.browse-table thead th{transform:translateZ(0)}
 /* ===== 手机端卡片列表（仅 ≤640px 显示；桌面端默认隐藏）===== */
 .mc-list{display:none}
 /* ===== 手机卡片样式 ===== */
@@ -431,7 +456,7 @@ th{background:var(--tb-head);font-weight:600;color:#5b2028;position:sticky;top:0
   #loadTable .power-value{flex:1;text-align:right;font-size:15px}
   /* --- 产品库 --- */
   .browse-bar{flex-direction:column;align-items:stretch}
-  .browse-group{border-radius:7px}
+  .browse-group{border-radius:10px}
   .browse-group-title{padding:10px 12px;font-size:13.5px}
   .browse-model{flex-direction:column;align-items:flex-start;gap:6px;padding:12px}
   .browse-model .bm-left{font-size:15px;width:100%;justify-content:space-between}
