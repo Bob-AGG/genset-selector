@@ -121,12 +121,54 @@ body{font-family:-apple-system,"Microsoft YaHei",sans-serif;background:#f0f2f5;c
 .step-body{display:none;padding:8px 10px;background:#fff;border:1px solid #e2e8f0;border-top:0;border-radius:0 0 5px 5px;font-size:13px;margin-bottom:4px}
 .step-body.open{display:block}
 
-.table-wrap{overflow-x:auto}
+.table-wrap{overflow:auto;max-height:78vh}
 table{width:100%;border-collapse:collapse;font-size:12px}
 th,td{padding:5px 8px;text-align:left;border-bottom:1px solid #e2e8f0;white-space:nowrap}
-th{background:#f8fafc;font-weight:600;position:sticky;top:0}
+th{background:#f8fafc;font-weight:600;position:sticky;top:0;z-index:3}
 .full-table{min-width:1600px}
 .full-table th,.browse-table th{background:#eef2f7}
+/* ===== 冻结表头 + 首列（#判定 / 型号），横纵滚动时保持可见 ===== */
+.full-table th:first-child,.full-table td:first-child{position:sticky;left:0;z-index:2;width:42px;min-width:42px;background:#fff;border-right:1px solid #e2e8f0}
+.full-table th:nth-child(2),.full-table td:nth-child(2){position:sticky;left:42px;z-index:2;background:#fff;border-right:1px solid #e2e8f0}
+.full-table thead th:first-child,.full-table thead th:nth-child(2){z-index:4;background:#eef2f7}
+.full-table tbody tr.ok td:first-child,.full-table tbody tr.ok td:nth-child(2){background:#f0fff4}
+.full-table tbody tr.fail td:first-child,.full-table tbody tr.fail td:nth-child(2){background:#fff}
+.full-table tbody tr:hover td:first-child,.full-table tbody tr:hover td:nth-child(2){background:#f0f2f5}
+.browse-table th:first-child,.browse-table td:first-child{position:sticky;left:0;z-index:2;background:#fff;border-right:1px solid #e2e8f0}
+.browse-table thead th:first-child{z-index:4;background:#eef2f7}
+.browse-table .freq-col{background:#fff}
+.browse-table thead .freq-col{background:#eef2f7}
+/* ===== 手机端卡片列表（仅 ≤640px 显示；桌面端默认隐藏）===== */
+.mc-list{display:none}
+/* ===== 手机卡片样式 ===== */
+.mc-card{background:#fff;border:1px solid #e2e8f0;border-left:4px solid #94a3b8;border-radius:9px;padding:12px;margin-bottom:10px;box-shadow:0 1px 2px rgba(0,0,0,.05)}
+.mc-card.mc-ok{border-left-color:#16a34a;background:linear-gradient(180deg,#f7fdf9,#fff)}
+.mc-card.mc-fail{border-left-color:#cbd5e1;opacity:.72}
+.mc-head{display:flex;align-items:center;gap:9px;margin-bottom:8px}
+.mc-badge{flex-shrink:0;display:inline-flex;align-items:center;gap:2px;font-size:15px;line-height:1}
+.mc-badge i{font-style:normal;font-size:11px;font-weight:700;color:#166534;background:#dcfce7;border-radius:8px;padding:1px 5px}
+.mc-model{flex:1;text-align:left;font-size:17px;font-weight:700;color:#1a365d;background:none;border:0;padding:2px 0;font-family:inherit;cursor:pointer;word-break:break-all;line-height:1.3}
+.mc-model:active{color:#16a34a}
+.mc-tags{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:9px}
+.mc-tag{font-size:12px;color:#475569;background:#f1f5f9;border-radius:5px;padding:3px 7px;line-height:1.4}
+.mc-tag-wide{flex:1 1 100%;background:#eef2f7;color:#1e3a5f;font-weight:600}
+.mc-tag i{display:block;font-style:normal;font-size:11px;font-weight:400;color:#64748b;margin-top:1px}
+.mc-pw{display:flex;flex-direction:column;gap:5px;padding:9px 0;border-top:1px dashed #e2e8f0;border-bottom:1px dashed #e2e8f0}
+.mc-pw-row{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+.mc-pw-k{font-size:12.5px;color:#64748b;flex-shrink:0}
+.mc-pw-v{font-size:16px;font-weight:700;color:#1a365d;font-variant-numeric:tabular-nums}
+.mc-card.mc-fail .mc-pw-v{color:#64748b}
+.mc-exc{display:flex;flex-wrap:wrap;gap:5px;margin-top:8px;font-size:11.5px;color:#64748b}
+.mc-exc span{background:#f8fafc;border:1px solid #eef2f7;border-radius:5px;padding:2px 7px}
+.mc-more{margin-top:9px}
+.mc-more-btn{width:100%;background:#f8fafc;border:1px solid #e2e8f0;border-radius:7px;color:#475569;font-size:13px;font-family:inherit;padding:9px;cursor:pointer;text-align:center;min-height:38px}
+.mc-more-btn:active{background:#eef2f7}
+.mc-kv-list{display:none;margin-top:8px;background:#f8fafc;border-radius:7px;padding:4px 10px}
+.mc-kv-list.open{display:block}
+.mc-kv{display:flex;justify-content:space-between;align-items:baseline;gap:10px;padding:6px 0;border-bottom:1px solid #eef2f7;font-size:13px}
+.mc-kv:last-child{border-bottom:0}
+.mc-k{color:#64748b;flex-shrink:0}
+.mc-v{color:#1e293b;font-weight:600;text-align:right;word-break:break-all}
 .full-table tr.ok td{color:#14532d}
 .full-table tr.fail td{color:#9ca3af}
 tr.ok{background:#f0fff4}
@@ -142,7 +184,77 @@ tr:hover{background:#f0f2f5}
 .landing .icon{font-size:48px;margin-bottom:12px}
 .landing p{font-size:14px;line-height:1.8}
 
-@media(max-width:800px){.page{grid-template-columns:1fr;grid-template-areas:"left" "right" "bottom"}.header{flex-direction:column;gap:10px}.nav{flex-wrap:wrap;justify-content:center}}
+@media(max-width:800px){.page{grid-template-columns:minmax(0,1fr);grid-template-areas:"left" "right" "bottom"}.page>*{min-width:0}.header{flex-direction:column;gap:10px}.nav{flex-wrap:wrap;justify-content:center}}
+/* ================= 手机端优化（≤640px）================= */
+@media(max-width:640px){
+  .header{padding:12px 14px}
+  .header h1{font-size:17px}
+  .header p{font-size:11px}
+  .nav{gap:4px;width:100%;justify-content:center}
+  .nav a{font-size:12px;padding:8px 10px;min-height:34px;display:inline-flex;align-items:center}
+  .page{padding:8px;gap:10px}
+  .card{padding:12px;border-radius:7px}
+  .card h2{font-size:14px;margin-bottom:10px}
+  /* 输入框≥16px 防 iOS 自动放大 */
+  .form-group input,.form-group select,.pw-item input[type=number],.input-field{font-size:16px;padding:8px 10px}
+  .form-group label{font-size:12px}
+  .radio-group label{font-size:13px;padding:4px 0;min-height:30px}
+  .btn{padding:11px 18px;font-size:15px;min-height:44px}
+  .btn-secondary{padding:9px 14px;font-size:14px;min-height:38px}
+  .copy-btn{padding:4px 8px;font-size:12px}
+  /* 表格：字体略放大、行高加大，横向滚动更顺 */
+  .table-wrap{max-height:70vh;-webkit-overflow-scrolling:touch}
+  table{font-size:14px}
+  th,td{padding:8px 10px}
+  .browse-table{min-width:900px}
+  .browse-table .wconn{font-size:12px}
+  .browse-model{padding:11px 12px}
+  .browse-model .bm-left{font-size:15px}
+  .browse-model .bm-right{font-size:12px;gap:8px}
+  .browse-bar{gap:10px}
+  .browse-bar .form-group{min-width:100%;width:100%}
+  .browse-bar select,.browse-bar input{font-size:16px;padding:9px 10px;min-height:42px;width:100%}
+  .half-card{min-width:100%;padding:12px 10px}
+  .tool-tab{padding:9px 14px;font-size:14px;min-height:40px}
+  .step-header{padding:10px 10px;font-size:13px;min-height:42px}
+  .match-card .model{font-size:16px}
+  .match-card .params{font-size:14px}
+  .notice-item{padding:10px 12px}
+  /* --- 手机端：切卡片、隐宽表（桌面端不受影响）--- */
+  .table-desktop{display:none}
+  .mc-list{display:flex;flex-direction:column;gap:0}
+  .table-wrap{max-height:none}
+  /* --- 产品库 --- */
+  .browse-bar{flex-direction:column;align-items:stretch}
+  .browse-group{border-radius:7px}
+  .browse-group-title{padding:10px 12px;font-size:13.5px}
+  .browse-model{flex-direction:column;align-items:flex-start;gap:6px;padding:12px}
+  .browse-model .bm-left{font-size:15px;width:100%;justify-content:space-between}
+  .browse-model .bm-right{width:100%;gap:6px}
+  .browse-detail{padding:8px 10px}
+  .browse-count{font-size:13px}
+  /* --- 工具页 --- */
+  .tool-tabs{gap:6px}
+  .tool-tab{flex:1 1 45%;text-align:center;padding:10px 12px;font-size:13px;min-height:44px}
+  .half-card{flex:1 1 100%;min-width:0;padding:14px 12px}
+  .cards-grid{gap:12px !important;margin-bottom:12px !important}
+  .tool-subtab{font-size:13px;min-height:40px}
+  /* 工具页内联 flex 行（min-width:200/180/160px）在窄屏改为整行堆叠 */
+  .card [style*="min-width:200px"],
+  .card [style*="min-width:180px"],
+  .card [style*="min-width:160px"],
+  .card [style*="min-width:150px"]{flex:1 1 100% !important;min-width:0 !important}
+  .card [style*="max-width:420px"]{max-width:100% !important}
+  .card button.btn[style*="max-width:200px"]{max-width:100% !important}
+  /* 帮助页 --- */
+  .notice-item{padding:11px 12px}
+  .notice-item .n-title{flex-direction:column;align-items:flex-start;gap:3px;font-size:13.5px}
+  .notice-item .n-content{font-size:13px}
+  .notice-empty{padding:18px;font-size:13px}
+  .landing{padding:28px 14px}
+  .landing .icon{font-size:40px}
+  .landing p{font-size:14px}
+}
 
 /* ================= 工具页：油耗转换工具 ================= */
 .tool-tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
@@ -1120,9 +1232,55 @@ function doSearch(){
     }
     lh+='</tbody></table></div>';
   }
+  // ===== 手机端卡片列表（≤640px 显示，桌面宽表不受影响）=====
+  var mc='';
+  if(list.length){
+    mc+='<div class="mc-list">';
+    for(var mi=0; mi<list.length; mi++){
+      var mx=list[mi], mg=mx.rec||{};
+      var mrank=(mx.ok?list.filter(function(y,idx){return idx<mi&&y.ok;}).length+1:'');
+      mc+='<div class="mc-card'+(mx.ok?' mc-ok':' mc-fail')+'">';
+      // 头部：判定 + 型号（型号可点击复制）
+      mc+='<div class="mc-head"><span class="mc-badge">'+(mx.ok?'✅':'❌')+(mx.ok&&mrank?'<i>'+mrank+'</i>':'')+'</span>';
+      mc+='<button class="mc-model" onclick="copyModel(this,\''+escAttr(mx.m)+'\')" title="点击复制型号">'+esc(mx.m)+'</button></div>';
+      // 接线/电压 + 出线 + PF：小标签行
+      mc+='<div class="mc-tags">';
+      mc+='<span class="mc-tag mc-tag-wide">'+esc(mx.wd)+(mg.winding_conn?'<i>'+esc(mg.winding_conn)+'</i>':'')+'</span>';
+      if(mg.wires!==undefined&&mg.wires!==null&&mg.wires!=='') mc+='<span class="mc-tag">出线 '+esc(mg.wires)+'</span>';
+      if(mx.pf!==undefined&&mx.pf!==null&&mx.pf!=='') mc+='<span class="mc-tag">PF '+esc(mx.pf)+'</span>';
+      mc+='</div>';
+      // 功率区：只显示用户实际使用的口径
+      mc+='<div class="mc-pw">';
+      if(hasM) mc+='<div class="mc-pw-row"><span class="mc-pw-k">主用（'+(isHV?'F':'H')+'级持续）</span><span class="mc-pw-v">'+esc(String(mx.cpM))+' '+esc(is1ph?unitM:'kVA')+'</span></div>';
+      if(hasS) mc+='<div class="mc-pw-row"><span class="mc-pw-k">备用（'+(isHV?'F级':'H级')+esc(trLabel)+'）</span><span class="mc-pw-v">'+esc(String(mx.cpS))+' '+esc(is1ph?unitS:'kVA')+'</span></div>';
+      mc+='</div>';
+      // 励磁信息（有则显示）
+      if(mg.exc_std||mg.exc_opt){ mc+='<div class="mc-exc">';
+        if(mg.exc_std) mc+='<span>标准励磁 '+esc(mg.exc_std)+'</span>';
+        if(mg.exc_opt) mc+='<span>可选 '+esc(mg.exc_opt)+'</span>';
+        mc+='</div>';
+      }
+      // 其余全部参数：默认收起，点开竖排键值对
+      var rowsHtml='';
+      for(var kci2=0; kci2<keepCols.length; kci2++){
+        var cd2=keepCols[kci2];
+        if(cd2.t==='#'||cd2.t==='型号'||cd2.t==='PF'||cd2.t==='接线/电压'||cd2.t==='判断'||cd2.t==='出线') continue;
+        var v2=(cd2.t==='励磁(标准)')?(mg.exc_std):((cd2.t==='励磁(可选)')?(mg.exc_opt):cd2.get(mx,mg));
+        if(isBlank(v2)) continue;
+        rowsHtml+='<div class="mc-kv"><span class="mc-k">'+esc(cd2.t)+'</span><span class="mc-v">'+esc(v2)+'</span></div>';
+      }
+      if(rowsHtml) mc+='<div class="mc-more"><button class="mc-more-btn" onclick="mcToggle(this)">查看全部参数 ▾</button><div class="mc-kv-list">'+rowsHtml+'</div></div>';
+      mc+='</div>';
+    }
+    mc+='</div>';
+  }
   // 保存给 PDF 导出用（列定义+取值函数，保证导出与屏幕逐列同源）
   window.__KEEP_DEFS=KEEP_DEFS;
-  document.getElementById('listDisplay').innerHTML=lh||'<div class="landing"><p>暂无可选电机</p></div>';
+  var statsHtml='<div class="stats">共'+list.length+'款，'+list.filter(function(x){return x.ok;}).length+'款满足'+(isHV?'（F级温升在前）':'')+(hiddenColCnt>0?'　·　已隐藏 '+hiddenColCnt+' 个空字段列':'')+'</div>';
+  // 桌面：宽表（table-desktop 包裹）；手机：卡片列表。两者同时入 DOM，用 CSS 切换，保证桌面端逐像素不变
+  document.getElementById('listDisplay').innerHTML = list.length
+    ? (statsHtml+'<div class="table-desktop">'+lh.replace(/^<div class="stats">[\s\S]*?<\/div>/,'')+'</div>'+mc)
+    : '<div class="landing"><p>暂无可选电机</p></div>';
 
   // ===== 保存本次查询结果快照（供导出 PDF 使用，保证导出内容与屏幕一致）=====
   var unitLabel2 = is1ph ? unit : 'kVA';
@@ -1456,6 +1614,14 @@ function copyTextFallback(text){
   try{ ok=document.execCommand('copy'); }catch(e){ ok=false; }
   document.body.removeChild(ta);
   return ok;
+}
+
+// 手机端卡片：展开/收起「查看全部参数」
+function mcToggle(btn){
+  var box=btn.nextElementSibling;
+  if(!box) return;
+  var open=box.classList.toggle('open');
+  btn.textContent=open?'收起参数 ▴':'查看全部参数 ▾';
 }
 
 function copyModel(btn, text){
