@@ -229,7 +229,11 @@ body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
 .step-body{display:none;padding:8px 10px;background:rgba(255,255,255,.42);border:1px solid rgba(142,31,44,.08);border-top:0;border-radius:0 0 8px 8px;font-size:13px;margin-bottom:4px}
 .step-body.open{display:block}
 
-.table-wrap{overflow:auto;max-height:78vh;overflow-anchor:none}
+.table-wrap{overflow:auto;max-height:78vh;overflow-anchor:none;min-width:0;max-width:100%}
+/* 候选表容器：防止 .full-table 的 min-width:1600px 撑破卡片（grid min-content 陷阱） */
+.right-area,.bottom-area,.left-area{min-width:0}
+.card.right-area{min-width:0;overflow:hidden}
+.table-desktop{min-width:0;max-width:100%;overflow:hidden}
 table{width:100%;border-collapse:collapse;font-size:12px}
 th,td{padding:5px 8px;text-align:left;border-bottom:1px solid #e2e8f0;white-space:nowrap}
 th{background:rgba(255,248,247,.92);font-weight:600;position:sticky;top:0;z-index:3;-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
