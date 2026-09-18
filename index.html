@@ -7,17 +7,116 @@
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:-apple-system,"Microsoft YaHei",sans-serif;background:#f0f2f5;color:#333}
-.header{background:#1a365d;color:#fff;padding:20px 40px;display:flex;justify-content:space-between;align-items:center}
+.header{background:#8e1f2c;color:#fff;padding:20px 40px;display:flex;justify-content:space-between;align-items:center}
 .header h1{font-size:22px;cursor:pointer}
 .header h1:hover{opacity:.8}
 .header p{font-size:13px;opacity:.7}
 .nav{display:flex;gap:6px}
-.nav a{color:#94a3b8;text-decoration:none;font-size:13px;padding:6px 14px;border-radius:4px;cursor:pointer}
+.nav a{color:#f3d2d2;text-decoration:none;font-size:13px;padding:6px 14px;border-radius:999px;cursor:pointer}
 .nav a:hover{color:#fff;background:rgba(255,255,255,.1)}
 .nav a.active{color:#fff;background:rgba(255,255,255,.15)}
 
 .page{max-width:1200px;margin:0 auto;padding:16px;display:grid;gap:16px;grid-template-columns:340px 1fr;grid-template-areas:"left right" "bottom bottom"}
 .card{background:#fff;border-radius:8px;padding:20px;box-shadow:0 1px 3px rgba(0,0,0,.1)}
+/* ================= Apple 风：毛玻璃 + 丝滑动画 ================= */
+/* 苹果动效曲线 */
+:root{
+  --ease-apple:cubic-bezier(.25,.1,.25,1);
+  --ease-spring:cubic-bezier(.22,1,.36,1);
+  --ease-out-expo:cubic-bezier(.16,1,.3,1);
+  --glass-bg:rgba(255,255,255,.46);
+  --glass-brd:rgba(255,255,255,.72);
+  --glass-line:rgba(142,31,44,.10);
+  --glass-hi:rgba(255,255,255,.75);
+  --glass-shadow:0 1px 2px rgba(80,16,26,.05), 0 12px 34px -12px rgba(80,16,26,.16);
+}
+/* ===== 全站玻璃化：输入框/下拉/按钮/卡片 ===== */
+/* 统一玻璃底：半透明白 + 细亮边 + 内高光 */
+.glass,
+.card,
+.half-card,
+.browse-group,
+.notice-item,
+.ai-panel,
+.step-item{
+  background:var(--glass-bg) !important;
+  border:1px solid var(--glass-line) !important;
+  box-shadow:var(--glass-shadow), inset 0 1px 0 var(--glass-hi) !important;
+  -webkit-backdrop-filter:blur(18px) saturate(178%);
+  backdrop-filter:blur(18px) saturate(178%)
+}
+/* 输入框、下拉、文本域：玻璃质感 */
+input[type=text],input[type=number],input[type=search],select,textarea,.input-field,.pw-item input,.ai-input,.browse-bar select,.browse-bar input{
+  background:rgba(255,255,255,.66) !important;
+  border:1px solid rgba(142,31,44,.14) !important;
+  box-shadow:inset 0 1px 2px rgba(80,16,26,.06), 0 1px 0 rgba(255,255,255,.8) !important;
+  -webkit-backdrop-filter:blur(8px) saturate(150%);
+  backdrop-filter:blur(8px) saturate(150%);
+  transition:border-color .25s var(--ease-apple), box-shadow .25s var(--ease-apple), background .25s var(--ease-apple)
+}
+input[type=text]:focus,input[type=number]:focus,input[type=search]:focus,select:focus,textarea:focus,.input-field:focus,.pw-item input[type=number]:focus,.ai-input:focus,.browse-bar select:focus,.browse-bar input:focus{
+  outline:none !important;
+  border-color:rgba(142,31,44,.5) !important;
+  background:rgba(255,255,255,.82) !important;
+  box-shadow:0 0 0 3px rgba(142,31,44,.12), inset 0 1px 2px rgba(80,16,26,.05) !important
+}
+/* 按钮：玻璃 */
+.btn,.ai-send,.tool-tab,.tool-subtab,.copy-btn{
+  background:rgba(255,255,255,.6) !important;
+  color:#8e1f2c !important;
+  border:1px solid rgba(142,31,44,.18) !important;
+  box-shadow:0 1px 2px rgba(80,16,26,.06), inset 0 1px 0 rgba(255,255,255,.85) !important;
+  -webkit-backdrop-filter:blur(10px) saturate(160%);
+  backdrop-filter:blur(10px) saturate(160%)
+}
+.btn:hover,.ai-send:hover{background:rgba(255,255,255,.78) !important}
+.btn:active,.ai-send:active{background:rgba(255,255,255,.9) !important}
+/* 背景：极淡彩色光晕（固定不滚动，零滚动代价） */
+body{background:#f0f2f5;position:relative}
+body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
+  background:
+    radial-gradient(1200px 620px at 12% -8%, rgba(224,75,75,.24), transparent 62%),
+    radial-gradient(1000px 560px at 92% 4%, rgba(255,138,110,.20), transparent 60%),
+    radial-gradient(900px 520px at 50% 108%, rgba(255,180,160,.22), transparent 62%),
+    linear-gradient(180deg,#fdf2f0,#fff7f5 52%,#fdf0ee)}
+/* 页头：毛玻璃 + 细腻高光 */
+.header{background:linear-gradient(135deg,rgba(224,75,75,.86),rgba(200,50,62,.82) 52%,rgba(214,64,80,.86));
+  color:#fff;padding:20px 40px;display:flex;justify-content:space-between;align-items:center;
+  position:sticky;top:0;z-index:60;
+  -webkit-backdrop-filter:blur(22px) saturate(180%);backdrop-filter:blur(22px) saturate(180%);
+  border-bottom:1px solid rgba(255,255,255,.14);
+  box-shadow:0 6px 26px rgba(16,38,72,.18), inset 0 1px 0 rgba(255,255,255,.16);
+  transition:box-shadow .35s var(--ease-apple), background .35s var(--ease-apple)}
+.header h1{font-size:22px;cursor:pointer;transition:opacity .25s var(--ease-apple), transform .35s var(--ease-spring)}
+.header h1:hover{opacity:.92;transform:translateY(-1px) scale(1.012)}
+.header h1:active{transform:scale(.97)}
+.header p{font-size:13px;opacity:.7}
+/* 导航胶囊：毛玻璃 + 果冻指示 */
+.nav{display:flex;gap:6px}
+.nav a{color:#f3d2d2;text-decoration:none;font-size:13px;padding:6px 14px;border-radius:999px;cursor:pointer;
+  position:relative;border:1px solid transparent;
+  transition:color .25s var(--ease-apple), background .25s var(--ease-apple), border-color .25s var(--ease-apple), transform .32s var(--ease-spring)}
+.nav a:hover{color:#fff;background:rgba(255,255,255,.14);border-color:rgba(255,255,255,.22);transform:translateY(-1px)}
+.nav a:active{transform:scale(.95)}
+.nav a.active{color:#fff;background:rgba(255,255,255,.2);border-color:rgba(255,255,255,.32);
+  -webkit-backdrop-filter:blur(12px) saturate(180%);backdrop-filter:blur(12px) saturate(180%);
+  box-shadow:0 4px 14px rgba(0,0,0,.16), inset 0 1px 0 rgba(255,255,255,.4)}
+/* 卡片：仿毛玻璃（不用 backdrop-filter，保滚动性能）+ 浮起感 */
+.card{background:rgba(255,255,255,.86);border:1px solid rgba(255,255,255,.9);border-radius:14px;padding:20px;
+  box-shadow:0 1px 2px rgba(16,38,72,.06), 0 10px 30px -12px rgba(16,38,72,.16), inset 0 1px 0 #fff;
+  transition:box-shadow .38s var(--ease-apple), transform .38s var(--ease-apple)}
+.card:hover{box-shadow:0 2px 4px rgba(16,38,72,.07), 0 18px 46px -14px rgba(16,38,72,.22), inset 0 1px 0 #fff;
+  transform:translateY(-2px)}
+/* 页面切换：淡入 + 微上移（只动 transform/opacity） */
+@keyframes pageIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.page.is-in{animation:pageIn .42s var(--ease-out-expo) both}
+/* 卡片入场交错 */
+@keyframes cardIn{from{opacity:0;transform:translateY(14px) scale(.985)}to{opacity:1;transform:none}}
+@keyframes badgePop{0%{opacity:0;transform:scale(.4)}60%{transform:scale(1.14)}100%{opacity:1;transform:scale(1)}}
+/* 按钮：苹果式按压回弹 */
+.btn{transition:transform .3s var(--ease-spring), box-shadow .3s var(--ease-apple), filter .25s var(--ease-apple)}
+.btn:hover{filter:brightness(1.06);box-shadow:0 8px 22px -8px rgba(142,31,44,.5);transform:translateY(-1px)}
+.btn:active{transform:scale(.965)}
 .card h2{font-size:15px;margin-bottom:12px;padding-bottom:6px;border-bottom:2px solid #e2e8f0}
 .left-area{grid-area:left;align-self:start}
 .right-area{grid-area:right;align-self:start}
@@ -28,28 +127,37 @@ body{font-family:-apple-system,"Microsoft YaHei",sans-serif;background:#f0f2f5;c
 .radio-group{display:flex;gap:10px;margin:3px 0}
 .radio-group label{font-weight:400;font-size:13px;display:flex;align-items:center;gap:4px;cursor:pointer}
 .radio-group input[type=radio]{width:auto;cursor:pointer}
-/* ===== 双功率输入（主用 / 备用）===== */
+/* ===== 双功率输入（主用 / 备用）玻璃化：低通透 + 高光边框 ===== */
 .pw-group{display:flex;flex-direction:column;gap:10px}
-.pw-item{background:#f8fafc;border:1px solid #e2e8f0;border-radius:7px;padding:8px 10px}
-.pw-item>label{font-size:12px;font-weight:600;color:#1a365d;margin-bottom:4px}
+.pw-item{background:rgba(255,255,255,.42);border:1px solid rgba(255,255,255,.85);border-radius:12px;padding:10px 12px;
+  box-shadow:0 1px 2px rgba(80,16,26,.06), 0 8px 22px -12px rgba(80,16,26,.18), inset 0 1px 0 rgba(255,255,255,.95), inset 0 -1px 0 rgba(80,16,26,.04);
+  -webkit-backdrop-filter:blur(16px) saturate(178%);backdrop-filter:blur(16px) saturate(178%);
+  position:relative;overflow:hidden;
+  transition:box-shadow .3s var(--ease-apple), border-color .3s var(--ease-apple), transform .35s var(--ease-apple)}
+/* 苹果式顶部斜向高光（光打上去） */
+.pw-item::before{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;
+  background:linear-gradient(145deg, rgba(255,255,255,.55) 0%, rgba(255,255,255,.06) 34%, rgba(255,255,255,0) 62%)}
+.pw-item:hover{transform:translateY(-1px);
+  box-shadow:0 2px 4px rgba(80,16,26,.07), 0 14px 30px -14px rgba(80,16,26,.24), inset 0 1px 0 rgba(255,255,255,1)}
+.pw-item>label{font-size:12px;font-weight:600;color:#8e1f2c;margin-bottom:5px;position:relative;z-index:1}
 .pw-opt{font-weight:400;font-size:11px;color:#94a3b8;background:#eef2f7;padding:0 6px;border-radius:8px;margin-left:4px}
 .pw-item input[type=number]{width:100%;padding:6px 10px;border:1px solid #d1d5db;border-radius:5px;font-size:13px;background:#fff}
-.pw-item input[type=number]:focus{outline:none;border-color:#1a365d;box-shadow:0 0 0 2px rgba(26,54,93,.15)}
+.pw-item input[type=number]:focus{outline:none;border-color:#8e1f2c;box-shadow:0 0 0 2px rgba(142,31,44,.15)}
 .pw-item .radio-group{margin:0 0 4px}
 .pw-item .pw-tr label{font-size:12px}
-.pw-hint{font-size:11px;color:#64748b;line-height:1.5;margin:-4px 0 10px;padding:6px 9px;background:#f1f5f9;border-radius:6px;border-left:3px solid #94a3b8}
-.btn{background:#1a365d;color:#fff;border:none;padding:8px 18px;border-radius:5px;font-size:14px;cursor:pointer;width:100%;margin-top:2px}
+.pw-hint{font-size:11px;color:#64748b;line-height:1.5;margin:-4px 0 10px;padding:6px 9px;background:rgba(255,255,255,.34);border:1px solid rgba(255,255,255,.7);border-left:3px solid rgba(142,31,44,.35);border-radius:10px;box-shadow:inset 0 1px 0 rgba(255,255,255,.8)}
+.btn{background:#8e1f2c;color:#fff;border:none;padding:8px 18px;border-radius:5px;font-size:14px;cursor:pointer;width:100%;margin-top:2px}
 .btn:hover{background:#2a4a7d}
 .btn:disabled{background:#94a3b8;cursor:not-allowed}
 .btn-secondary{background:#e2e8f0;color:#333;border:none;padding:6px 14px;border-radius:5px;font-size:13px;cursor:pointer}
 .btn-secondary:hover{background:#cbd5e1}
 
-.calc-box{background:#f8fafc;border:1px solid #e2e8f0;border-radius:6px;padding:10px 12px;font-size:13px;line-height:1.7}
+.calc-box{background:rgba(255,255,255,.38);border:1px solid rgba(255,255,255,.8);border-radius:12px;padding:10px 12px;font-size:13px;line-height:1.7;box-shadow:0 1px 2px rgba(80,16,26,.05), inset 0 1px 0 rgba(255,255,255,.9);backdrop-filter:blur(14px) saturate(170%);-webkit-backdrop-filter:blur(14px) saturate(170%)}
 .calc-row{display:flex;justify-content:space-between;padding:3px 0;border-bottom:1px solid #f0f0f0}
 .calc-row:last-child{border:0}
 .calc-label{color:#666}
 .calc-val{font-weight:600}
-.calc-total{color:#1a365d;font-size:14px}
+.calc-total{color:#8e1f2c;font-size:14px}
 
 .match-card{background:#f0fff4;border:1px solid #bbf7d0;border-radius:8px;padding:14px;margin-top:8px}
 .match-card .model{font-size:17px;font-weight:700;margin-bottom:6px}
@@ -61,26 +169,26 @@ body{font-family:-apple-system,"Microsoft YaHei",sans-serif;background:#f0f2f5;c
 
 /* ---- AI 售前工程师窗口 ---- */
 .ai-panel{margin-top:20px;border:1px solid #e2e8f0;border-radius:8px;background:#fff;overflow:hidden}
-.ai-header{display:flex;align-items:center;gap:6px;padding:9px 12px;background:#1a365d;color:#fff;font-size:13px;font-weight:600}
+.ai-header{display:flex;align-items:center;gap:6px;padding:9px 12px;background:#8e1f2c;color:#fff;font-size:13px;font-weight:600}
 .ai-dot{width:8px;height:8px;border-radius:50%;background:#22c55e;animation:aiPulse 1.6s infinite}
 @keyframes aiPulse{0%,100%{opacity:1}50%{opacity:.4}}
 .ai-badge{margin-left:auto;font-size:10px;font-weight:500;background:rgba(255,255,255,.18);padding:1px 8px;border-radius:10px}
-.ai-chat{padding:12px;background:#f8fafc;max-height:340px;overflow-y:auto;display:flex;flex-direction:column;gap:10px}
+.ai-chat{padding:12px;background:rgba(255,255,255,.34);max-height:340px;overflow-y:auto;display:flex;flex-direction:column;gap:10px}
 .ai-msg{display:flex;gap:8px;max-width:96%}
 .ai-bot{align-self:flex-start}
 .ai-user{align-self:flex-end;flex-direction:row-reverse}
 .ai-avatar{width:26px;height:26px;border-radius:50%;background:#e2e8f0;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0}
 .ai-user .ai-avatar{background:#dbeafe}
-.ai-bubble{padding:8px 11px;border-radius:10px;font-size:13px;line-height:1.7;background:#fff;border:1px solid #e2e8f0;white-space:pre-wrap;word-break:break-word}
-.ai-user .ai-bubble{background:#1a365d;color:#fff;border:none}
+.ai-bubble{padding:8px 11px;border-radius:12px;font-size:13px;line-height:1.7;background:rgba(255,255,255,.6);border:1px solid rgba(255,255,255,.8);white-space:pre-wrap;word-break:break-word}
+.ai-user .ai-bubble{background:#8e1f2c;color:#fff;border:none}
 .ai-bubble.typing{color:#94a3b8}
 .ai-typing .ai-bubble::after{content:"▍";animation:blink 1s infinite}
 @keyframes blink{50%{opacity:0}}
 .ai-input-row{display:flex;gap:8px;padding:10px 12px;border-top:1px solid #e2e8f0;align-items:flex-end}
 .ai-input{flex:1;resize:none;border:1px solid #cbd5e1;border-radius:6px;padding:8px 10px;font-size:13px;font-family:inherit;line-height:1.5}
-.ai-input:focus{outline:none;border-color:#1a365d}
-.ai-send{padding:8px 16px;background:#1a365d;color:#fff;border:none;border-radius:6px;font-size:13px;cursor:pointer;flex-shrink:0}
-.ai-send:hover{background:#2c5282}
+.ai-input:focus{outline:none;border-color:#8e1f2c}
+.ai-send{padding:8px 16px;background:#8e1f2c;color:#fff;border:none;border-radius:6px;font-size:13px;cursor:pointer;flex-shrink:0}
+.ai-send:hover{background:#a5283a}
 .ai-send:disabled{opacity:.5;cursor:not-allowed}
 .ai-hint{padding:6px 12px 9px;font-size:11px;color:#94a3b8;background:#fff;border-top:1px solid #f1f5f9}
 
@@ -88,50 +196,50 @@ body{font-family:-apple-system,"Microsoft YaHei",sans-serif;background:#f0f2f5;c
 .browse-bar{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:16px;align-items:flex-end}
 .browse-bar .form-group{display:flex;flex-direction:column;gap:4px;min-width:160px}
 .browse-bar select,.browse-bar input{padding:7px 10px;font-size:13px;border:1px solid #cbd5e1;border-radius:6px;font-family:inherit}
-.browse-bar select:focus,.browse-bar input:focus{outline:none;border-color:#1a365d}
+.browse-bar select:focus,.browse-bar input:focus{outline:none;border-color:#8e1f2c}
 .browse-list{display:flex;flex-direction:column;gap:12px}
 .browse-group{border:1px solid #e2e8f0;border-radius:8px;overflow:hidden}
-.browse-group-title{padding:9px 14px;background:#f8fafc;font-weight:600;font-size:14px;color:#1a365d;border-bottom:1px solid #e2e8f0}
+.browse-group-title{padding:9px 14px;background:rgba(255,255,255,.5);font-weight:600;font-size:14px;color:#8e1f2c;border-bottom:1px solid rgba(142,31,44,.10);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
 .browse-model{display:flex;justify-content:space-between;align-items:center;padding:9px 14px;border-bottom:1px solid #f1f5f9;cursor:pointer;transition:background .15s}
 .browse-model:last-child{border-bottom:none}
-.browse-model:hover{background:#f1f5f9}
+.browse-model:hover{background:rgba(255,255,255,.5)}
 .browse-model .bm-left{display:flex;align-items:center;gap:8px;font-size:14px;font-weight:500}
 .browse-model .bm-left .chev{transition:transform .2s;color:#94a3b8;font-size:11px}
 .browse-model.open .chev{transform:rotate(90deg)}
 .browse-model .bm-right{font-size:12px;color:#64748b;display:flex;gap:12px;flex-wrap:wrap}
-.browse-model .bm-right span{background:#f1f5f9;padding:1px 8px;border-radius:10px}
+.browse-model .bm-right span{background:rgba(255,255,255,.55);border:1px solid rgba(255,255,255,.7);padding:1px 8px;border-radius:10px}
 .browse-detail{display:none;padding:10px 14px;background:#fbfdff;border-top:1px solid #eef2f7}
 .browse-detail.open{display:block}
 .browse-table{width:100%;min-width:1100px;border-collapse:collapse;font-size:12px}
 .browse-table th,.browse-table td{border:1px solid #e2e8f0;padding:5px 8px;text-align:center;white-space:nowrap}
-.browse-table th{background:#f8fafc;font-weight:600;color:#334155}
+.browse-table th{background:rgba(255,250,249,.9);font-weight:600;color:#334155;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
 .browse-table td{color:#334155}
-.browse-table .freq-col{font-weight:600;background:#f8fafc;color:#1a365d;white-space:nowrap}
+.browse-table .freq-col{font-weight:600;background:rgba(255,246,245,.86);color:#8e1f2c;white-space:nowrap}
 .browse-table .wconn{font-size:10px;color:#64748b;margin-top:2px}
 .browse-count{font-size:12px;color:#64748b;margin-bottom:4px}
 
 .step-panel{margin-top:8px}
-.step-header{display:flex;justify-content:space-between;align-items:center;padding:8px 10px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:5px;cursor:pointer;font-size:13px;margin-bottom:4px}
-.step-header:hover{background:#f1f5f9}
-.step-header .step-num{font-weight:700;color:#1a365d;margin-right:8px}
+.step-header{display:flex;justify-content:space-between;align-items:center;padding:8px 10px;background:rgba(255,255,255,.55);border:1px solid rgba(142,31,44,.10);border-radius:8px;cursor:pointer;font-size:13px;margin-bottom:4px;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);transition:background .25s var(--ease-apple)}
+.step-header:hover{background:rgba(255,255,255,.75)}
+.step-header .step-num{font-weight:700;color:#8e1f2c;margin-right:8px}
 .step-header .step-desc{flex:1;color:#475569}
-.step-header .step-result{font-weight:600;color:#1a365d}
+.step-header .step-result{font-weight:600;color:#8e1f2c}
 .step-header .arrow{color:#94a3b8;font-size:11px;transition:transform .2s}
 .step-header.open .arrow{transform:rotate(180deg)}
-.step-body{display:none;padding:8px 10px;background:#fff;border:1px solid #e2e8f0;border-top:0;border-radius:0 0 5px 5px;font-size:13px;margin-bottom:4px}
+.step-body{display:none;padding:8px 10px;background:rgba(255,255,255,.42);border:1px solid rgba(142,31,44,.08);border-top:0;border-radius:0 0 8px 8px;font-size:13px;margin-bottom:4px}
 .step-body.open{display:block}
 
 .table-wrap{overflow:auto;max-height:78vh;overflow-anchor:none}
 table{width:100%;border-collapse:collapse;font-size:12px}
 th,td{padding:5px 8px;text-align:left;border-bottom:1px solid #e2e8f0;white-space:nowrap}
-th{background:#f8fafc;font-weight:600;position:sticky;top:0;z-index:3}
+th{background:rgba(255,248,247,.92);font-weight:600;position:sticky;top:0;z-index:3;-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
 .full-table{min-width:1600px}
-.full-table th,.browse-table th{background:#eef2f7}
+.full-table th,.browse-table th{background:rgba(255,244,243,.94)}
 /* ===== 冻结表头 + 首列（#判定 / 型号），横纵滚动时保持可见 =====
    性能：冻结列提升为独立合成层（translateZ(0)），sticky 定位走 GPU；
    不在单元格上加 contain（实测会加重层管理开销，反而掉帧）*/
-.full-table th:first-child,.full-table td:first-child{position:sticky;left:0;z-index:2;width:42px;min-width:42px;background:#fff;border-right:1px solid #e2e8f0;transform:translateZ(0)}
-.full-table th:nth-child(2),.full-table td:nth-child(2){position:sticky;left:42px;z-index:2;background:#fff;border-right:1px solid #e2e8f0;transform:translateZ(0)}
+.full-table th:first-child,.full-table td:first-child{position:sticky;left:0;z-index:2;width:42px;min-width:42px;background:rgba(255,255,255,.96);border-right:1px solid #e2e8f0;transform:translateZ(0)}
+.full-table th:nth-child(2),.full-table td:nth-child(2){position:sticky;left:42px;z-index:2;background:rgba(255,255,255,.96);border-right:1px solid #e2e8f0;transform:translateZ(0)}
 .full-table thead th{transform:translateZ(0)}
 .full-table thead th:first-child,.full-table thead th:nth-child(2){z-index:4;background:#eef2f7}
 .full-table tbody tr.ok td:first-child,.full-table tbody tr.ok td:nth-child(2){background:#f0fff4}
@@ -144,29 +252,29 @@ th{background:#f8fafc;font-weight:600;position:sticky;top:0;z-index:3}
 /* ===== 手机端卡片列表（仅 ≤640px 显示；桌面端默认隐藏）===== */
 .mc-list{display:none}
 /* ===== 手机卡片样式 ===== */
-.mc-card{background:#fff;border:1px solid #e2e8f0;border-left:4px solid #94a3b8;border-radius:9px;padding:12px;margin-bottom:10px;box-shadow:0 1px 2px rgba(0,0,0,.05)}
+.mc-card{background:rgba(255,255,255,.52);border:1px solid rgba(255,255,255,.8);border-left:4px solid #94a3b8;border-radius:12px;padding:12px;margin-bottom:10px;box-shadow:0 1px 2px rgba(80,16,26,.05), inset 0 1px 0 rgba(255,255,255,.9);backdrop-filter:blur(16px) saturate(178%);-webkit-backdrop-filter:blur(16px) saturate(178%)}
 .mc-card.mc-ok{border-left-color:#16a34a;background:linear-gradient(180deg,#f7fdf9,#fff)}
 .mc-card.mc-fail{border-left-color:#cbd5e1;opacity:.72}
 .mc-head{display:flex;align-items:center;gap:9px;margin-bottom:8px}
 .mc-badge{flex-shrink:0;display:inline-flex;align-items:center;gap:2px;font-size:15px;line-height:1}
 .mc-badge i{font-style:normal;font-size:11px;font-weight:700;color:#166534;background:#dcfce7;border-radius:8px;padding:1px 5px}
-.mc-model{flex:1;text-align:left;font-size:17px;font-weight:700;color:#1a365d;background:none;border:0;padding:2px 0;font-family:inherit;cursor:pointer;word-break:break-all;line-height:1.3}
+.mc-model{flex:1;text-align:left;font-size:17px;font-weight:700;color:#8e1f2c;background:none;border:0;padding:2px 0;font-family:inherit;cursor:pointer;word-break:break-all;line-height:1.3}
 .mc-model:active{color:#16a34a}
 .mc-tags{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:9px}
-.mc-tag{font-size:12px;color:#475569;background:#f1f5f9;border-radius:5px;padding:3px 7px;line-height:1.4}
+.mc-tag{font-size:12px;color:#475569;background:rgba(255,255,255,.55);border:1px solid rgba(255,255,255,.75);border-radius:8px;padding:3px 7px;line-height:1.4}
 .mc-tag-wide{flex:1 1 100%;background:#eef2f7;color:#1e3a5f;font-weight:600}
 .mc-tag i{display:block;font-style:normal;font-size:11px;font-weight:400;color:#64748b;margin-top:1px}
 .mc-pw{display:flex;flex-direction:column;gap:5px;padding:9px 0;border-top:1px dashed #e2e8f0;border-bottom:1px dashed #e2e8f0}
 .mc-pw-row{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
 .mc-pw-k{font-size:12.5px;color:#64748b;flex-shrink:0}
-.mc-pw-v{font-size:16px;font-weight:700;color:#1a365d;font-variant-numeric:tabular-nums}
+.mc-pw-v{font-size:16px;font-weight:700;color:#8e1f2c;font-variant-numeric:tabular-nums}
 .mc-card.mc-fail .mc-pw-v{color:#64748b}
 .mc-exc{display:flex;flex-wrap:wrap;gap:5px;margin-top:8px;font-size:11.5px;color:#64748b}
-.mc-exc span{background:#f8fafc;border:1px solid #eef2f7;border-radius:5px;padding:2px 7px}
+.mc-exc span{background:rgba(255,255,255,.5);border:1px solid rgba(255,255,255,.7);border-radius:8px;padding:2px 7px}
 .mc-more{margin-top:9px}
-.mc-more-btn{width:100%;background:#f8fafc;border:1px solid #e2e8f0;border-radius:7px;color:#475569;font-size:13px;font-family:inherit;padding:9px;cursor:pointer;text-align:center;min-height:38px}
+.mc-more-btn{width:100%;background:rgba(255,255,255,.5);border:1px solid rgba(255,255,255,.78);border-radius:10px;color:#475569;font-size:13px;font-family:inherit;padding:9px;cursor:pointer;text-align:center;min-height:38px}
 .mc-more-btn:active{background:#eef2f7}
-.mc-kv-list{display:none;margin-top:8px;background:#f8fafc;border-radius:7px;padding:4px 10px}
+.mc-kv-list{display:none;margin-top:8px;background:rgba(255,255,255,.42);border:1px solid rgba(255,255,255,.7);border-radius:10px;padding:4px 10px}
 .mc-kv-list.open{display:block}
 .mc-kv{display:flex;justify-content:space-between;align-items:baseline;gap:10px;padding:6px 0;border-bottom:1px solid #eef2f7;font-size:13px}
 .mc-kv:last-child{border-bottom:0}
@@ -180,7 +288,7 @@ tr:hover{background:#f0f2f5}
 .stats{font-size:12px;color:#888;margin-bottom:6px}
 /* 型号一键复制按钮 */
 .copy-btn{display:inline-block;margin-right:6px;padding:1px 6px;border:1px solid #cbd5e1;border-radius:4px;background:#f8fafc;color:#64748b;font-size:10px;line-height:1.5;cursor:pointer;font-family:inherit;vertical-align:middle;transition:all .15s}
-.copy-btn:hover{background:#1a365d;border-color:#1a365d;color:#fff}
+.copy-btn:hover{background:#8e1f2c;border-color:#8e1f2c;color:#fff}
 .copy-btn.done{background:#16a34a;border-color:#16a34a;color:#fff}
 
 .landing{text-align:center;padding:40px 20px;color:#94a3b8}
@@ -243,12 +351,12 @@ tr:hover{background:#f0f2f5}
   #loadTable td{display:block;width:100%}
   #loadTable{min-width:0 !important;border-collapse:separate}
   #loadTable tr:first-child{display:none}
-  #loadTable tr.load-row{background:#fff;border:1px solid #e2e8f0;border-left:4px solid #e67e22;border-radius:9px;padding:10px 12px;margin-bottom:8px;contain:layout style paint}
+  #loadTable tr.load-row{background:#fff;border:1px solid #e2e8f0;border-left:4px solid #d9534f;border-radius:9px;padding:10px 12px;margin-bottom:8px;contain:layout style paint}
   #loadTable td{border:0 !important;text-align:left !important;padding:0;white-space:normal}
   #loadTable td[data-label]{display:flex;align-items:center;gap:10px;padding:6px 0;border-bottom:1px dashed #eef2f7;min-height:40px}
   #loadTable td[data-label]:last-child{border-bottom:0}
   #loadTable td[data-label]::before{content:attr(data-label);flex:0 0 42%;font-size:12.5px;color:#64748b;font-weight:400}
-  #loadTable td.load-percent-cell{display:flex;align-items:baseline;justify-content:space-between;font-size:17px;font-weight:700;color:#1a365d;border-bottom:1px solid #eef2f7;padding-bottom:8px;margin-bottom:4px}
+  #loadTable td.load-percent-cell{display:flex;align-items:baseline;justify-content:space-between;font-size:17px;font-weight:700;color:#8e1f2c;border-bottom:1px solid #eef2f7;padding-bottom:8px;margin-bottom:4px}
   #loadTable td.load-percent-cell::before{content:"负载";font-size:12px;color:#94a3b8;font-weight:400;flex:0 0 auto}
   #loadTable td.load-percent-cell br{display:none}
   #loadTable td.load-percent-cell span{font-size:11.5px !important;color:#94a3b8 !important;font-weight:400 !important}
@@ -289,26 +397,26 @@ tr:hover{background:#f0f2f5}
 /* ================= 工具页：油耗转换工具 ================= */
 .tool-tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
 .tool-tab{background:#eef2f7;border:1px solid #e2e8f0;color:#334155;padding:8px 18px;border-radius:6px;font-size:14px;font-weight:600;cursor:pointer;transition:.15s}
-.tool-tab.active{background:#1a365d;color:#fff;border-color:#1a365d}
-.tool-tab:hover{background:#cbd5e1}.tool-tab.active:hover{background:#2a4a7d}
+.tool-tab.active{background:linear-gradient(135deg,#e04b4b,#c8323e);color:#fff;border-color:rgba(255,255,255,.5);box-shadow:0 6px 18px -6px rgba(200,50,62,.6)}
+.tool-tab:hover{background:#cbd5e1}.tool-tab.active:hover{background:linear-gradient(135deg,#e85757,#d03a46)}
 .tool-panel{animation:toolFade .2s}
 @keyframes toolFade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
 .half-card{flex:1;min-width:280px;background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:1.2rem 1rem;box-shadow:0 1px 3px rgba(0,0,0,.05)}
 .input-field{width:100%;padding:7px 11px;font-size:13px;border:1px solid #d1d5db;border-radius:6px;background:#fff;font-family:inherit}
-.input-field:focus{outline:none;border-color:#1a365d;box-shadow:0 0 0 2px rgba(26,54,93,.15)}
+.input-field:focus{outline:none;border-color:#8e1f2c;box-shadow:0 0 0 2px rgba(142,31,44,.15)}
 /* ===== 帮助页通知公告(只读显示) ===== */
 .notice-list{margin-top:4px}
-.notice-item{background:#f8fafc;border:1px solid #e2e8f0;border-left:4px solid #1a365d;border-radius:6px;padding:10px 14px;margin-bottom:10px}
-.notice-item .n-title{font-weight:600;font-size:14px;color:#1a365d;display:flex;justify-content:space-between;align-items:center}
+.notice-item{background:#f8fafc;border:1px solid #e2e8f0;border-left:4px solid #8e1f2c;border-radius:6px;padding:10px 14px;margin-bottom:10px}
+.notice-item .n-title{font-weight:600;font-size:14px;color:#8e1f2c;display:flex;justify-content:space-between;align-items:center}
 .notice-item .n-ts{font-size:11px;color:#94a3b8;font-weight:400}
 .notice-item .n-content{font-size:13px;color:#475569;margin-top:6px;line-height:1.7;white-space:pre-wrap}
 .notice-empty{text-align:center;padding:24px;color:#94a3b8;font-size:13px;border:1px dashed #e2e8f0;border-radius:6px}
-.tool-err{font-size:.75rem;color:#e67e22;background:#fef2e6;border-radius:6px;padding:2px 8px;display:inline-block;margin-top:4px}
+.tool-err{font-size:.75rem;color:#d9534f;background:#fdeaea;border-radius:6px;padding:2px 8px;display:inline-block;margin-top:4px}
 .tool-subtab{flex:1;text-align:center;padding:8px 0;border-radius:32px;font-weight:600;cursor:pointer;transition:.15s;background:transparent;color:#2c5a44;border:none;font-size:14px}
-.tool-subtab.active{background:#fff;box-shadow:0 2px 6px rgba(0,0,0,.08);color:#1a365d;border:1px solid #cbd5e1}
-.power-value{font-weight:600;color:#e67e22;background:#fef5e8;padding:2px 8px;border-radius:20px;display:inline-block;font-size:13px}
+.tool-subtab.active{background:#fff;box-shadow:0 2px 6px rgba(0,0,0,.08);color:#8e1f2c;border:1px solid #cbd5e1}
+.power-value{font-weight:600;color:#d9534f;background:#fdeeee;padding:2px 8px;border-radius:20px;display:inline-block;font-size:13px}
 #loadTable td input{width:100%;padding:5px 8px;border:1px solid #e2e8f0;border-radius:5px;font-size:13px}
-#loadTable td input:focus{outline:none;border-color:#1a365d}
+#loadTable td input:focus{outline:none;border-color:#8e1f2c}
 #loadTable th{text-align:center}
 #loadTable td{text-align:center}
 /* 油耗多工况表：4 列自适应铺满，不继承 browse-table 的 min-width，桌面端不横滚 */
@@ -322,7 +430,7 @@ tr:hover{background:#f0f2f5}
 </style>
 </head>
 <body>
-<div id="loadWarn" style="display:none;background:#fff4e5;color:#c2410c;padding:8px 16px;font-size:13px;border-bottom:1px solid #f0c9a5;"></div>
+<div id="loadWarn" style="display:none;background:#fdf0ee;color:#b03a2e;padding:8px 16px;font-size:13px;border-bottom:1px solid #f0c0bb;"></div>
 <div class="header">
 <div><h1 onclick="switchView('home')">⚡ 发电机选型工具</h1></div>
 <div class="nav">
@@ -430,14 +538,14 @@ tr:hover{background:#f0f2f5}
   <!-- 基础换算卡片 -->
   <div class="cards-grid" style="display:flex;flex-wrap:wrap;gap:1.5rem;margin-bottom:1.5rem">
     <div class="half-card">
-      <div class="card-title" style="font-size:1.15rem;font-weight:700;border-left:4px solid #1a365d;padding-left:.7rem;margin-bottom:1rem;color:#1e2f3e">🔽 体积油耗 → 燃油消耗率</div>
+      <div class="card-title" style="font-size:1.15rem;font-weight:700;border-left:4px solid #8e1f2c;padding-left:.7rem;margin-bottom:1rem;color:#3a1c20">🔽 体积油耗 → 燃油消耗率</div>
       <div style="font-size:.78rem;color:#5f7f9e;margin-bottom:1rem">输入发动机毛功率(kW或BHP)和体积油耗(L/h)</div>
       <div class="form-group"><label>发动机毛功率</label>
         <div style="display:flex;gap:.5rem">
           <input type="number" id="power_lh_kw" class="input-field" placeholder="kW (如150)" step="any">
           <input type="number" id="power_lh_bhp" class="input-field" placeholder="BHP (如201)" step="any">
         </div>
-        <div style="font-size:.72rem;color:#1a365d;margin-top:2px">⇄ 自动换算 (1 BHP = 0.7457 kW)</div>
+        <div style="font-size:.72rem;color:#8e1f2c;margin-top:2px">⇄ 自动换算 (1 BHP = 0.7457 kW)</div>
       </div>
       <div class="form-group"><label>体积油耗 <span style="font-weight:normal">L/h</span></label><input type="number" id="vol_flow" class="input-field" placeholder="例如 25.5" step="any"></div>
       <div class="calc-box">
@@ -450,14 +558,14 @@ tr:hover{background:#f0f2f5}
     </div>
 
     <div class="half-card">
-      <div class="card-title" style="font-size:1.15rem;font-weight:700;border-left:4px solid #1a365d;padding-left:.7rem;margin-bottom:1rem;color:#1e2f3e">🔼 燃油消耗率 → 体积油耗</div>
+      <div class="card-title" style="font-size:1.15rem;font-weight:700;border-left:4px solid #8e1f2c;padding-left:.7rem;margin-bottom:1rem;color:#3a1c20">🔼 燃油消耗率 → 体积油耗</div>
       <div style="font-size:.78rem;color:#5f7f9e;margin-bottom:1rem">输入发动机毛功率(kW或BHP)和燃油消耗率(g/kWh)</div>
       <div class="form-group"><label>发动机毛功率</label>
         <div style="display:flex;gap:.5rem">
           <input type="number" id="power_bsfc_kw" class="input-field" placeholder="kW (如200)" step="any">
           <input type="number" id="power_bsfc_bhp" class="input-field" placeholder="BHP (如268)" step="any">
         </div>
-        <div style="font-size:.72rem;color:#1a365d;margin-top:2px">⇄ 自动换算 (1 BHP = 0.7457 kW)</div>
+        <div style="font-size:.72rem;color:#8e1f2c;margin-top:2px">⇄ 自动换算 (1 BHP = 0.7457 kW)</div>
       </div>
       <div class="form-group"><label>燃油消耗率 <span style="font-weight:normal">g/kWh</span></label><input type="number" id="bsfc_input" class="input-field" placeholder="例如 195" step="any"></div>
       <div class="calc-box">
@@ -472,7 +580,7 @@ tr:hover{background:#f0f2f5}
 
   <!-- 多工况负载表 -->
   <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;padding:1rem;margin-top:.5rem">
-    <div style="font-size:1.2rem;font-weight:700;margin-bottom:.2rem;display:flex;align-items:center;gap:8px;color:#1f3b4c;border-left:5px solid #e67e22;padding-left:.8rem">📊 多工况负载油耗换算表</div>
+    <div style="font-size:1.2rem;font-weight:700;margin-bottom:.2rem;display:flex;align-items:center;gap:8px;color:#1f3b4c;border-left:5px solid #d9534f;padding-left:.8rem">📊 多工况负载油耗换算表</div>
     <div style="color:#5f7f9e;margin-bottom:1rem;font-size:.82rem;padding-left:.8rem">基于毛功率基准(PRP/ESP)，负载系数 × 基准功率 = 实际毛功率</div>
 
     <div style="display:flex;flex-wrap:wrap;gap:1rem;background:#fff;padding:.8rem 1rem;border-radius:8px;margin-bottom:1rem;align-items:flex-end">
@@ -507,7 +615,7 @@ tr:hover{background:#f0f2f5}
 
 <!-- 子工具 2：柴油流量换算（LB/H ↔ L/H） -->
 <div id="tool-fuelconv" class="tool-panel" style="display:none">
-  <div style="font-size:1.2rem;font-weight:700;border-left:5px solid #1a365d;padding-left:.8rem;margin-bottom:.2rem;color:#1f3b4c">⛽ 柴油流量换算 <span style="font-size:.75rem;font-weight:400;color:#64748b">LB/H ↔ L/H · 基于密度(kg/L)</span></div>
+  <div style="font-size:1.2rem;font-weight:700;border-left:5px solid #8e1f2c;padding-left:.8rem;margin-bottom:.2rem;color:#1f3b4c">⛽ 柴油流量换算 <span style="font-size:.75rem;font-weight:400;color:#64748b">LB/H ↔ L/H · 基于密度(kg/L)</span></div>
   <div style="color:#5f7f9e;margin-bottom:1.2rem;font-size:.82rem">质量流量 ⇄ 体积流量 · 密度可调(典型0#柴油15-25℃: 0.82~0.85)</div>
 
   <div style="display:flex;gap:.6rem;background:#eef2f7;padding:.4rem;border-radius:40px;margin-bottom:1.2rem;max-width:420px">
@@ -532,7 +640,7 @@ tr:hover{background:#f0f2f5}
 
 <!-- 子工具 3：电流计算器（备用功率→断路器等值电流） -->
 <div id="tool-amps" class="tool-panel" style="display:none">
-  <div style="font-size:1.2rem;font-weight:700;border-left:5px solid #1a365d;padding-left:.8rem;margin-bottom:.2rem;color:#1f3b4c">⚡ 电流计算器 <span style="font-size:.75rem;font-weight:400;color:#64748b">备用功率 kVA → 配置电流(断路器参考)</span></div>
+  <div style="font-size:1.2rem;font-weight:700;border-left:5px solid #8e1f2c;padding-left:.8rem;margin-bottom:.2rem;color:#1f3b4c">⚡ 电流计算器 <span style="font-size:.75rem;font-weight:400;color:#64748b">备用功率 kVA → 配置电流(断路器参考)</span></div>
   <div style="color:#5f7f9e;margin-bottom:1.2rem;font-size:.82rem">输入备用功率(kVA)与额定线电压(V)，按 I = (备用kVA×1000) ÷ 线电压 ÷ 1.732 计算配置电流，用于断路器选型参考。</div>
 
   <div style="display:flex;gap:1rem;align-items:flex-end;flex-wrap:wrap">
@@ -550,7 +658,7 @@ tr:hover{background:#f0f2f5}
 
 <!-- 子工具 4：油箱容量计算（油耗 × 运行小时 → 油箱容积） -->
 <div id="tool-tank" class="tool-panel" style="display:none">
-  <div style="font-size:1.2rem;font-weight:700;border-left:5px solid #1a365d;padding-left:.8rem;margin-bottom:.2rem;color:#1f3b4c">🕐 油箱容量计算 <span style="font-size:.75rem;font-weight:400;color:#64748b">油耗(L/h) × 运行小时 → 油箱容积(L)</span></div>
+  <div style="font-size:1.2rem;font-weight:700;border-left:5px solid #8e1f2c;padding-left:.8rem;margin-bottom:.2rem;color:#1f3b4c">🕐 油箱容量计算 <span style="font-size:.75rem;font-weight:400;color:#64748b">油耗(L/h) × 运行小时 → 油箱容积(L)</span></div>
   <div style="color:#5f7f9e;margin-bottom:1.2rem;font-size:.82rem">输入单位油耗(L/h)与所需运行小时数，按 油箱容积 = 油耗 × 运行小时 计算。油耗可按负载工况填写(如 110% / 100% / 75%)。</div>
 
   <div style="display:flex;gap:1rem;align-items:flex-end;flex-wrap:wrap">
@@ -574,7 +682,7 @@ tr:hover{background:#f0f2f5}
 </div>
 
 <div class="card" style="grid-column:1/-1">
-<h2 style="border-color:#1a365d">📢 通知公告</h2>
+<h2 style="border-color:#8e1f2c">📢 通知公告</h2>
 <div id="noticeList"><div class="notice-empty">加载中…</div></div>
 </div>
 </div>
@@ -582,12 +690,59 @@ tr:hover{background:#f0f2f5}
 <script>
 var ALL_DATA = {};  // 按品牌分：{ brand: [record,...] }
 
+function replayAnim(el,cls){
+  if(!el)return;
+  el.classList.remove(cls);
+  void el.offsetWidth;   // 强制重排，让动画可重播
+  el.classList.add(cls);
+}
+
 function switchView(v){
   document.querySelectorAll('.nav a').forEach(function(a){a.className='';});
   document.querySelectorAll('.page').forEach(function(p){p.style.display='none';});
   var nav={'home':'selector','selector':'selector','browse':'browse','tools':'tools','help':'help'};
-  document.getElementById(nav[v]+'View').style.display='grid';
-  document.querySelector('.nav a[onclick*="'+v+'"]').className='active';
+  var pv=document.getElementById(nav[v]+'View');
+  pv.style.display='grid';
+  // 苹果式页面切换：淡入 + 微上移
+  replayAnim(pv,'is-in');
+  var nv=document.querySelector('.nav a[onclick*="'+v+'"]');
+  if(nv)nv.className='active';
+  // 卡片入场交错
+  staggerCards(pv);
+}
+
+/* 卡片入场交错（仅 transform/opacity，不碰 backdrop-filter） */
+function staggerCards(scope){
+  if(!scope)return;
+  var cards=scope.querySelectorAll('.card, .half-card');
+  for(var i=0;i<cards.length;i++){
+    (function(c,idx){
+      c.style.animation='none';
+      void c.offsetWidth;
+      c.style.animation='cardIn .46s var(--ease-out-expo) both';
+      c.style.animationDelay=Math.min(idx*55,330)+'ms';
+    })(cards[i],i);
+  }
+}
+
+/* 数字滚动（功率值从 0 跳到目标，含单位后缀） */
+function countUp(el,target,dur,decimals){
+  if(!el)return;
+  var isNum=typeof target==='number'&&!isNaN(target);
+  if(!isNum)return;
+  var d=(decimals===undefined)?1:decimals;
+  var from=0, t0=null, D=dur||620;
+  var fmt=function(x){return x.toFixed(d).replace(/\.0+$/,'').replace(/(\.\d*?)0+$/,'$1');};
+  function step(ts){
+    if(t0===null)t0=ts;
+    var p=Math.min((ts-t0)/D,1);
+    // easeOutExpo
+    var e=p===1?1:1-Math.pow(2,-10*p);
+    el.textContent=fmt(from+(target-from)*e);
+    if(p<1)requestAnimationFrame(step);
+    else el.textContent=fmt(target);
+  }
+  requestAnimationFrame(step);
 }
 
 function onUnitChange(){
@@ -1421,15 +1576,15 @@ function buildPdfHtml(){
   // ---- 打印样式：白底、无阴影、表格不裁切 ----
   h += '*{box-sizing:border-box;margin:0;padding:0}';
   h += 'body{font-family:"Microsoft YaHei",-apple-system,sans-serif;color:#1f2937;padding:14mm 12mm;font-size:11px;line-height:1.55;background:#fff}';
-  h += '.rpt-head{border-bottom:3px solid #1a365d;padding-bottom:10px;margin-bottom:14px;display:flex;justify-content:space-between;align-items:flex-end}';
-  h += '.rpt-head h1{font-size:19px;color:#1a365d;letter-spacing:.5px}';
+  h += '.rpt-head{border-bottom:3px solid #8e1f2c;padding-bottom:10px;margin-bottom:14px;display:flex;justify-content:space-between;align-items:flex-end}';
+  h += '.rpt-head h1{font-size:19px;color:#8e1f2c;letter-spacing:.5px}';
   h += '.rpt-head .sub{font-size:10px;color:#64748b;margin-top:3px}';
   h += '.rpt-head .meta{font-size:10px;color:#64748b;text-align:right;line-height:1.7}';
-  h += 'h2{font-size:13px;color:#1a365d;margin:16px 0 7px;padding-bottom:4px;border-bottom:1.5px solid #e2e8f0}';
+  h += 'h2{font-size:13px;color:#8e1f2c;margin:16px 0 7px;padding-bottom:4px;border-bottom:1.5px solid #e2e8f0}';
   h += 'h2:first-of-type{margin-top:0}';
   h += 'table{width:100%;border-collapse:collapse;font-size:10px;margin-bottom:4px}';
   h += 'th,td{border:1px solid #cbd5e1;padding:4px 6px;text-align:left;vertical-align:top}';
-  h += 'th{background:#eef2f7;font-weight:600;color:#1a365d}';
+  h += 'th{background:#eef2f7;font-weight:600;color:#8e1f2c}';
   h += '.kv{width:100%;font-size:11px}';
   h += '.kv td{border:0;border-bottom:1px solid #f1f5f9;padding:3px 0}';
   h += '.kv td:first-child{color:#64748b;width:38%}';
@@ -1458,7 +1613,7 @@ function buildPdfHtml(){
   h += '@page{margin:12mm 10mm}';
   h += '.aw{display:flex;gap:6px;margin-bottom:10px}';
   h += 'button{padding:7px 16px;border:0;border-radius:5px;font-size:12px;cursor:pointer;font-family:inherit}';
-  h += '.bp{background:#1a365d;color:#fff}.bs{background:#e2e8f0;color:#1f2937}';
+  h += '.bp{background:#8e1f2c;color:#fff}.bs{background:#e2e8f0;color:#1f2937}';
   h += '@media print{.aw{display:none}}';
   h += '</style></head><body>';
 
@@ -2037,7 +2192,7 @@ function fuelSyncBtoK(kwEl,bhpEl){
 
 function fuelShowErr(el,msg,valEl){
   el.textContent=msg;el.style.display='inline-block';
-  valEl.textContent='—';valEl.style.color='#e67e22';
+  valEl.textContent='—';valEl.style.color='#d9534f';
 }
 function fuelHideErr(el,valEl){el.style.display='none';if(valEl)valEl.style.color='#1f3b4c';}
 
