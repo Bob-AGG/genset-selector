@@ -324,11 +324,16 @@ th{background:var(--surf-2);font-weight:600;position:sticky;top:0;z-index:3}
 .full-table tbody tr.ok td:first-child,.full-table tbody tr.ok td:nth-child(2){background:#f2fdf5}
 .full-table tbody tr.fail td:first-child,.full-table tbody tr.fail td:nth-child(2){background:#fff}
 .full-table tbody tr:hover td:first-child,.full-table tbody tr:hover td:nth-child(2){background:#fdf5f5}
+/* 产品库详情表：首列冻结（横向）+ 表头冻结（纵向）
+   结构已补 <thead>（原先表头行在 tbody 里，导致下面所有 thead 规则全部失效）。
+   z 分层：数据单元格 0 < 数据首列 2 < 表头行 3 < 表头首列/交叉 4 */
+.browse-table th,.browse-table td{position:relative;z-index:0}
 .browse-table th:first-child,.browse-table td:first-child{position:sticky;left:0;z-index:2;background:#fff;border-right:1px solid var(--brand-line);transform:translateZ(0)}
-.browse-table thead th:first-child{z-index:4;background:#fdf3f3}
-.browse-table thead th{position:sticky;top:0;z-index:3;transform:translateZ(0)}
-.browse-table .freq-col{background:#fff}
-.browse-table thead .freq-col{background:var(--surf-3)}
+.browse-table thead th{position:sticky;top:0;z-index:3;background:#fdf3f3;transform:translateZ(0)}
+.browse-table thead th:first-child{z-index:4;background:#fdf3f3;border-right:1px solid var(--brand-line)}
+/* 交叉单元格（表头 ∩ 首列）必须最高：否则横滚时会被数据首列盖住 */
+.browse-table thead th.freq-col{z-index:4;background:var(--surf-3)}
+.browse-table td.freq-col{background:#fff}
 /* ===== 手机端卡片列表（仅 ≤640px 显示；桌面端默认隐藏）===== */
 .mc-list{display:none}
 /* ===== 手机卡片样式 ===== */
@@ -2231,7 +2236,9 @@ function renderBrowseDetail(brand, model, freq, el){
   var extraKeys=['cont_b_kVA','cont_b_kW','poles','winding_id','winding_no','pitch','group','footnote','_vollabel'];
   var showExtra=extraKeys.filter(function(k){return rows.some(function(r){return r[k]!==undefined&&r[k]!==null&&r[k]!=='';});});
   cols=cols.concat(showExtra);
-  var h='<div class="table-wrap"><table class="browse-table"><tr>'+cols.map(function(c){return '<th>'+esc(c)+'</th>';}).join('')+'</tr>';
+  // ★ 表头必须放进 <thead>：原先表头行直接是 tbody 里第 1 个 <tr>，
+  //   导致 CSS 里全部 `.browse-table thead th` 规则（sticky top / z-index / 表头底色）匹配不上。
+  var h='<div class="table-wrap"><table class="browse-table"><thead><tr>'+cols.map(function(c){return '<th>'+esc(c)+'</th>';}).join('')+'</tr></thead><tbody>';
   rows.forEach(function(r){
     var v=function(k){return (r[k]===undefined||r[k]===null||r[k]==='')?'':esc(r[k]);};
     var tds='<td class="freq-col">'+r.frequency+'</td><td>'+esc(r.winding_label||r.winding_code)+(r.winding_conn?'<div class="wconn">'+esc(r.winding_conn)+'</div>':'')+'</td>';
@@ -2248,7 +2255,7 @@ function renderBrowseDetail(brand, model, freq, el){
     for(var e=0;e<showExtra.length;e++) tds+='<td>'+v(showExtra[e])+'</td>';
     h+='<tr>'+tds+'</tr>';
   });
-  h+='</table></div>';
+  h+='</tbody></table></div>';
   el.innerHTML=h;
 }
 /* ================= 工具页：油耗转换工具 ================= */
