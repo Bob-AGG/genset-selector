@@ -80,8 +80,49 @@ body{font-family:-apple-system,"Microsoft YaHei",sans-serif;background:var(--bg)
   letter-spacing:-.005em;
 }
 .left-area{grid-area:left;align-self:start}
-.right-area{grid-area:right;align-self:start}
+.right-area{grid-area:right;align-self:start;min-width:0}
+/* 选型页右列：必须撑满网格行高（=左卡高），否则永远差一截 */
+.page.col-split .right-area{align-self:stretch}
+/* 右列容器只做布局，不画卡片外观（外观由内部 match-area/ai-area 自持）*/
+.page.col-split .right-area{background:none;border:0;box-shadow:none;padding:0;border-radius:0}
 .bottom-area{grid-area:bottom}
+
+/* ================= 选型页右列：最佳匹配 + AI 售前，上下两卡固定高 =================
+   用户要求：
+   1. 最佳匹配卡片拆成上下两个卡片
+   2. 上面放最佳匹配内容，框高固定
+   3. 下面放 AI 售前工程师，框高固定
+   4. 两卡高度之和 = 左侧「选型参数」卡片高度
+   做法：左右两卡组成一个 sticky 等高的「视口高列」，用
+   calc((100vh - 页头 - 上下留白 - gap) / 2) 各分一半 →
+   两卡等高等分，且随视口自适应；页面滚动时两卡一并在视口内保持可见。
+   作用域严格锁 .match-area / .ai-area，不影响手机端与其他页面。 */
+.page.col-split{grid-template-columns:340px 1fr;grid-template-areas:"left right" "bottom bottom";align-items:stretch;align-content:start}
+.page.col-split .right-area{
+  display:flex;flex-direction:column;gap:16px;
+  /* height 用 auto → 由 align-self:stretch 撑满网格行高（=左卡高）。
+     ⚠️ 不要再写 height:var(--rc-full)：非 auto 的 height 会让 stretch 失效。 */
+  height:auto;
+}
+.page.col-split .match-area,
+.page.col-split .ai-area{display:flex;flex-direction:column;overflow:hidden}
+.page.col-split .match-area,
+.page.col-split .ai-area{
+  /* 右列容器高 = 左卡高，两卡各 flex:1 等分 → 天然「两卡之和 = 左卡高」。
+     同时给一个最小高保障，避免左卡极矮时两卡被压扁。 */
+  flex:1 1 0;
+  min-height:var(--rc-half,180px);
+}
+/* 卡片标题不参与伸缩，保证两卡内容区高度一致 */
+.page.col-split .match-area>h2,
+.page.col-split .ai-area>h2{flex:0 0 auto}
+/* 最佳匹配内容区：内部滚动，卡高恒定 */
+.page.col-split #matchDisplay{flex:1 1 auto;min-height:0;overflow-y:auto;overscroll-behavior:contain}
+/* AI 面板：填满卡片剩余高度 */
+.page.col-split .ai-panel{margin-top:0;flex:1 1 auto;min-height:0;display:flex;flex-direction:column}
+.page.col-split .ai-chat{flex:1 1 auto;min-height:0;max-height:none}
+.page.col-split .ai-input-row,
+.page.col-split .ai-hint{flex:0 0 auto}
 .form-group{margin-bottom:10px}
 .form-group label{display:block;font-size:12px;font-weight:600;margin-bottom:2px;color:var(--ink-2)}
 .form-group input,.form-group select{
@@ -292,7 +333,26 @@ tr:hover{background:var(--bg)}
 .landing .icon{font-size:48px;margin-bottom:12px}
 .landing p{font-size:14px;line-height:1.8}
 
-@media(max-width:800px){.page{grid-template-columns:minmax(0,1fr);grid-template-areas:"left" "right" "bottom"}.page>*{min-width:0}.header{flex-direction:column;gap:10px}.nav{flex-wrap:wrap;justify-content:center}}
+@media(max-width:800px){.page{grid-template-columns:minmax(0,1fr);grid-template-areas:"left" "right" "bottom"}.page>*{min-width:0}.header{flex-direction:column;gap:10px}.nav{flex-wrap:wrap;justify-content:center}
+/* 手机端：右列两卡必须回退成普通堆叠、解除固定高（否则卡内空一大截）*/
+.page.col-split .right-area{display:block;height:auto;padding:0;background:none;border:0;box-shadow:none}
+/* 手机端：right-area 包裹层内的两卡必须同样解除 min-width 约束，
+   否则 .page>*{min-width:0} 管不到（它们不是 page 的直接子元素）→ 横向溢出 */
+.page.col-split .right-area>*{min-width:0;width:100%}
+/* ⚠️ 关键：.page.col-split (0,2,0) 特异性高于 .page (0,1,0)，
+   手机端单列规则必须同样用 .page.col-split 才压得住桌面双列，
+   否则 390px 下仍是 340px+24px 两列 → 横向溢出。 */
+.page.col-split{grid-template-columns:minmax(0,1fr)}
+.page.col-split .card.left-area,
+.page.col-split .card.match-area,
+.page.col-split .card.ai-area,
+.page.col-split .card.bottom-area{width:auto;min-width:0}
+.page.col-split .match-area,
+.page.col-split .ai-area{display:block;height:auto;max-height:none;overflow:visible}
+.page.col-split #matchDisplay{overflow:visible}
+.page.col-split .ai-panel{display:block}
+.page.col-split .ai-chat{max-height:340px}
+}
 /* ================= 手机端优化（≤640px）================= */
 @media(max-width:640px){
   .header{padding:12px 14px}
@@ -458,7 +518,7 @@ tr:hover{background:var(--bg)}
 </div>
 </div>
 
-<div class="page" id="selectorView">
+<div class="page col-split" id="selectorView">
 <div class="card left-area">
 <h2>📋 选型参数</h2>
 <div class="form-group"><label>电机品牌</label><select id="genBrand"><option value="">请选择品牌</option></select></div>
@@ -496,10 +556,14 @@ tr:hover{background:var(--bg)}
 <button class="btn" id="searchBtn" onclick="doSearch()">🔍 查询</button>
 </div>
 
-<div class="card right-area">
+<div class="right-area">
+<div class="card match-area">
 <h2>🏆 最佳匹配</h2>
 <div id="matchDisplay"><div class="landing"><div class="icon">🔍</div><p>填写左侧参数后点击「查询」<br>系统将自动计算并推荐最佳匹配电机</p></div></div>
+</div>
 
+<div class="card ai-area">
+<h2>🤖 AI 售前工程师</h2>
 <div class="ai-panel" id="aiPanel">
   <div class="ai-header">
     <span class="ai-dot"></span> AI 售前工程师
@@ -516,6 +580,7 @@ tr:hover{background:var(--bg)}
     <button class="ai-send" id="aiSendBtn" onclick="aiAsk()">发送</button>
   </div>
   <div class="ai-hint">💡 支持多轮追问：例如“这个型号能在高原用吗”“备用和主用怎么选”</div>
+</div>
 </div>
 </div>
 
@@ -667,6 +732,35 @@ tr:hover{background:var(--bg)}
 <script>
 var ALL_DATA = {};  // 按品牌分：{ brand: [record,...] }
 
+/* 让 CSS 能按「真实页头高度」计算右列两卡的等分高度 */
+function syncHeaderHeight(){
+  var hd=document.querySelector('.header');
+  if(!hd)return;
+  document.documentElement.style.setProperty('--hdr-h',Math.round(hd.getBoundingClientRect().height)+'px');
+}
+
+/* ★ 右列两卡等高，且两卡高度之和 = 左侧「选型参数」卡片高度。
+   用实测值而非纯视口估算：手机端/超长左卡/视口变化都能精确贴合。
+   --rc-half = (左卡实测高 - 16px卡间距) / 2    */
+function syncRightColHeight(){
+  var page=document.getElementById('selectorView');
+  if(!page||!page.classList.contains('col-split'))return;
+  if(window.innerWidth<=800)return; /* 手机端走堆叠，不需要固定高 */
+  var L=page.querySelector('.card.left-area');
+  if(!L)return;
+  var lh=Math.round(L.getBoundingClientRect().height);
+  if(lh<=0)return;
+  var page=document.getElementById('selectorView');
+  var RA=page.querySelector('.right-area');
+  if(!RA)return;
+  var gapPx=parseFloat(getComputedStyle(RA).rowGap)||16;
+  var bd=4; /* 两卡上下 border-box 补偿，避免累积出 1px 级溢出 */
+  /* lh 全程来自左卡实测（不是右列），右列高度由 align-self:stretch 自动跟齐 */
+  var half=Math.max(140,Math.floor((lh-gapPx-bd)/2));
+  document.documentElement.style.setProperty('--rc-half',half+'px');
+  document.documentElement.style.setProperty('--rc-full',lh+'px');
+}
+
 function switchView(v){
   document.querySelectorAll('.nav a').forEach(function(a){a.className='';});
   document.querySelectorAll('.page').forEach(function(p){p.style.display='none';});
@@ -674,6 +768,12 @@ function switchView(v){
   var host=document.getElementById(nav[v]+'View');
   host.style.display='grid';
   document.querySelector('.nav a[onclick*="'+v+'"]').className='active';
+  /* 选型页：右列拆成「最佳匹配 + AI 售前」上下两卡，等高分栏 */
+  host.classList.toggle('col-split',nav[v]==='selector');
+  var hd=document.querySelector('.header');
+  if(hd)hd.classList.remove('compact');
+  syncHeaderHeight();
+  syncRightColHeight();
   /* macOS 入场动画：仅在切换视图时触发，播完自动解除合成层 */
   if(window.__macStagger){
     /* 重置已播完的动画标记，让再次进入也有入场 */
@@ -2359,6 +2459,21 @@ function initFuelTools(){
 }
 
 // 页面加载完成后初始化工具页（无论当前是否显示都绑定好，避免切换时无功能）
+/* 页头高度同步：初始化 + 视口变化（右列等高计算依赖它）*/
+function syncLayout(){
+  syncHeaderHeight();
+  syncRightColHeight();
+}
+if(document.readyState==='loading'){
+  document.addEventListener('DOMContentLoaded',syncLayout);
+}else{
+  syncLayout();
+}
+window.addEventListener('resize',syncLayout);
+/* 查询后左卡高度可能变化（如功率框展开）→ 右列跟随 */
+window.addEventListener('load',syncLayout);
+document.addEventListener('click',function(){setTimeout(syncRightColHeight,60);},true);
+
 if(document.readyState==='loading'){
   document.addEventListener('DOMContentLoaded',initFuelTools);
 }else{
