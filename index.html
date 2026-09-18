@@ -293,60 +293,6 @@ tr:hover{background:var(--bg)}
 .landing p{font-size:14px;line-height:1.8}
 
 @media(max-width:800px){.page{grid-template-columns:minmax(0,1fr);grid-template-areas:"left" "right" "bottom"}.page>*{min-width:0}.header{flex-direction:column;gap:10px}.nav{flex-wrap:wrap;justify-content:center}}
-
-/* ================= 工具页：免竖向滚动（严格作用域，只锁 #toolsView）=================
-   用户要求：油耗页不要上下拉，一屏显示全。
-   ① 进工具页时页头改 static（sticky 会固定占掉一截视口高，导致必然溢出）
-   ② 工具页主卡片转 2 列网格，把竖向长表摊到横向
-   ③ 多工况表改横向紧凑列（手机端仍走卡片，不受影响）
-   ④ compact 模式全面压缩留白
-   所有规则一律以 #toolsView 开头，绝不外溢到其他页面。 */
-#toolsView>.card{grid-column:1/-1}
-#toolsView .tool-tabs{margin-bottom:10px}
-/* 工具页双列仅限宽屏：手机端必须单列，否则 390px 下挤爆横向溢出 */
-#toolsView .tool-panel{display:grid;grid-template-columns:1fr;gap:1rem;align-items:start}
-
-/* 多工况表：横向紧凑列（体积/消耗率给足宽度放输入框） */
-#toolsView #loadTable{width:100%;table-layout:auto;min-width:0}
-#toolsView #loadTable th,#toolsView #loadTable td{padding:5px 6px}
-#toolsView #loadTable th:nth-child(1),#toolsView #loadTable td:nth-child(1){width:19%}
-#toolsView #loadTable th:nth-child(2),#toolsView #loadTable td:nth-child(2){width:23%}
-#toolsView #loadTable th:nth-child(3),#toolsView #loadTable td:nth-child(3){width:29%}
-#toolsView #loadTable th:nth-child(4),#toolsView #loadTable td:nth-child(4){width:29%}
-#toolsView #loadTable td input{padding:4px 6px;font-size:12px}
-#toolsView #loadTable .power-value{padding:1px 6px;font-size:12px}
-
-/* compact 模式：进工具页时由 JS 加 class，压缩留白 */
-.header.compact{padding:10px 40px}
-.header.compact h1{font-size:18px}
-.header.compact p{display:none}
-#toolsView .page-compact #toolsView>.card,
-#page-tools-compact #toolsView>.card{padding:12px 14px}
-#toolsView .card{padding:12px 14px}
-#toolsView .half-card{padding:.7rem .8rem;min-width:200px}
-#toolsView .form-group{margin-bottom:6px}
-#toolsView .form-group label{font-size:11.5px}
-#toolsView .input-field{padding:5px 9px;font-size:12.5px}
-#toolsView .tool-tab{padding:6px 14px;font-size:13px}
-#toolsView .calc-box{padding:8px 10px;font-size:12.5px;line-height:1.55}
-#toolsView .calc-row{padding:2px 0}
-
-/* compact 生效保障：
-   ⚠️ 本块必须位于手机端媒体查询(.header{padding:12px 14px})之后，
-   否则同特异性下会被后者覆盖 → compact 失效。 */
-.header.compact{
-  position:static;
-  padding:10px 40px;
-}
-.header.compact h1{font-size:18px}
-.header.compact p{display:none}
-@media(min-width:801px){
-  #toolsView .tool-panel{grid-template-columns:1fr 1fr}
-}
-@media(max-width:800px){
-  .header.compact{padding:8px 14px}
-  .header.compact h1{font-size:16px}
-}
 /* ================= 手机端优化（≤640px）================= */
 @media(max-width:640px){
   .header{padding:12px 14px}
@@ -428,22 +374,6 @@ tr:hover{background:var(--bg)}
   .half-card{flex:1 1 100%;min-width:0;padding:14px 12px}
   .cards-grid{gap:12px !important;margin-bottom:12px !important}
   .tool-subtab{font-size:13px;min-height:40px}
-  /* 工具页窄屏：内部 flex 行的 inline min-width 必须解除，否则顶破视口 */
-  #toolsView .tool-panel>*,
-  #toolsView .cards-grid,
-  #toolsView .cards-grid>*,
-  #toolsView .half-card{min-width:0!important;width:100%}
-  #toolsView [style*="min-width"]{min-width:0!important}
-  #toolsView .table-wrap{min-width:0;max-width:100%}
-  /* 手机端紧凑压缩，保证一屏装下 */
-  #toolsView .card{padding:11px 12px}
-  #toolsView .half-card{padding:.7rem .8rem}
-  #toolsView .tool-tabs{gap:5px}
-  #toolsView .tool-tab{flex:1 1 45%;padding:7px 10px;font-size:12.5px;min-height:38px}
-  #toolsView .calc-box{padding:8px 10px;font-size:12.5px;line-height:1.55}
-  #toolsView .calc-row{padding:2px 0}
-  #toolsView .form-group{margin-bottom:6px}
-  #toolsView .input-field{padding:5px 9px;font-size:16px;min-height:36px}
   /* 工具页内联 flex 行（min-width:200/180/160px）在窄屏改为整行堆叠 */
   .card [style*="min-width:200px"],
   .card [style*="min-width:180px"],
@@ -784,9 +714,6 @@ function switchView(v){
   var host=document.getElementById(nav[v]+'View');
   host.style.display='grid';
   document.querySelector('.nav a[onclick*="'+v+'"]').className='active';
-  /* 工具页免竖向滚动：页头由 sticky 改 static 并压缩留白，腾出一屏高度 */
-  var hd=document.querySelector('.header');
-  if(hd){ if(v==='tools'){hd.classList.add('compact');}else{hd.classList.remove('compact');} }
   /* macOS 入场动画：仅在切换视图时触发，播完自动解除合成层 */
   if(window.__macStagger){
     /* 重置已播完的动画标记，让再次进入也有入场 */
