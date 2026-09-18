@@ -229,16 +229,20 @@ body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
 .step-body{display:none;padding:8px 10px;background:rgba(255,255,255,.42);border:1px solid rgba(142,31,44,.08);border-top:0;border-radius:0 0 8px 8px;font-size:13px;margin-bottom:4px}
 .step-body.open{display:block}
 
-.table-wrap{overflow:auto;max-height:78vh;overflow-anchor:none;min-width:0;max-width:100%}
+.table-wrap{overflow:auto;max-height:78vh;overflow-anchor:none;min-width:0;max-width:100%;contain:content;-webkit-overflow-scrolling:touch;overscroll-behavior:contain}
 /* 候选表容器：防止 .full-table 的 min-width:1600px 撑破卡片（grid min-content 陷阱） */
 .right-area,.bottom-area,.left-area{min-width:0}
 .card.right-area{min-width:0;overflow:hidden}
 .table-desktop{min-width:0;max-width:100%;overflow:hidden}
 table{width:100%;border-collapse:collapse;font-size:12px}
 th,td{padding:5px 8px;text-align:left;border-bottom:1px solid #e2e8f0;white-space:nowrap}
-th{background:rgba(255,248,247,.92);font-weight:600;position:sticky;top:0;z-index:3;-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
+th{background:rgba(255,248,247,.92);font-weight:600;position:sticky;top:0;z-index:3}
 .full-table{min-width:1600px}
 .full-table th,.browse-table th{background:rgba(255,244,243,.94)}
+/* 行背景改 background-color（不用 shorthand），避免每次重绘解析简写 */
+.full-table tbody tr{background-color:transparent}
+.full-table tbody tr.ok{background-color:rgba(240,255,244,.5)}
+.full-table tbody tr:hover{background-color:rgba(240,242,245,.75)}
 /* ===== 冻结表头 + 首列（#判定 / 型号），横纵滚动时保持可见 =====
    性能：冻结列提升为独立合成层（translateZ(0)），sticky 定位走 GPU；
    不在单元格上加 contain（实测会加重层管理开销，反而掉帧）*/
@@ -715,7 +719,9 @@ function switchView(v){
   staggerCards(pv);
 }
 
-/* 卡片入场交错（仅 transform/opacity，不碰 backdrop-filter） */
+/* 卡片入场交错（仅 transform/opacity，不碰 backdrop-filter）
+   ★ 关键：动画结束后必须摘掉内联 animation/transform，否则
+   fill-mode:both 会让元素长期保持独立合成层 + 每次滚动重算动画状态 → 一顿一顿 */
 function staggerCards(scope){
   if(!scope)return;
   var cards=scope.querySelectorAll('.card, .half-card');
@@ -725,6 +731,12 @@ function staggerCards(scope){
       void c.offsetWidth;
       c.style.animation='cardIn .46s var(--ease-out-expo) both';
       c.style.animationDelay=Math.min(idx*55,330)+'ms';
+      // 动画结束（含延迟）后清理内联样式
+      var dur=460+Math.min(idx*55,330);
+      clearTimeout(c.__animT);
+      c.__animT=setTimeout(function(){
+        c.style.animation='';c.style.animationDelay='';
+      },dur+40);
     })(cards[i],i);
   }
 }
