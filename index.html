@@ -5,51 +5,122 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>发电机选型工具</title>
 <style>
+
+:root{
+  /* ===== 品牌红系（macOS 风格）===== */
+  --brand:#8e1f2c;              /* 主色 深红 */
+  --brand-2:#a8283a;            /* 主色亮一档 */
+  --brand-hi:#c8323e;           /* 高亮红 */
+  --brand-lite:#e04b4b;         /* 页头亮红 */
+  --brand-ink:#5b2028;          /* 文字红 */
+  --brand-soft:rgba(142,31,44,.08);
+  --brand-soft2:rgba(142,31,44,.14);
+  --brand-line:rgba(142,31,44,.10);
+
+  /* ===== 中性色（macOS 灰阶）===== */
+  --ink:#1f2328;
+  --ink-2:#4a5058;
+  --ink-3:#6b7480;
+  --ink-4:#98a1ac;
+  --bg:#f2f1f3;
+  --line:#e6e2e4;
+  --line-2:#efecee;
+
+  /* ===== 表面 ===== */
+  --surf:#ffffff;
+  --surf-2:#faf9fa;
+  --surf-3:#f6f4f5;
+
+  /* ===== 玻璃（仅静态区使用）===== */
+  --glass-bg:rgba(255,255,255,.62);
+  --glass-bd:rgba(255,255,255,.72);
+  --glass-blur:blur(20px) saturate(1.8);
+
+  /* ===== macOS 曲线 ===== */
+  --ez-apple:cubic-bezier(.25,.1,.25,1);
+  --ez-spring:cubic-bezier(.22,1,.36,1);
+  --ez-expo:cubic-bezier(.16,1,.3,1);
+
+  /* ===== 判定色（保留语义）===== */
+  --ok:#16a34a;
+  --ok-bg:#f0fff4;
+  --ok-bd:#bbf7d0;
+  --no:#dc2626;
+  --no-bg:#fff5f5;
+  --no-bd:#fecaca;
+  --warn:#e67e22;
+}
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:-apple-system,"Microsoft YaHei",sans-serif;background:#f0f2f5;color:#333}
-.header{background:#1a365d;color:#fff;padding:20px 40px;display:flex;justify-content:space-between;align-items:center}
-.header h1{font-size:22px;cursor:pointer}
-.header h1:hover{opacity:.8}
+body{font-family:-apple-system,"Microsoft YaHei",sans-serif;background:var(--bg);color:var(--ink)}
+.header{
+  /* 不透明红渐变：不用毛玻璃模糊。
+     sticky 元素若带 blur，滚动时每帧都要重新采样背后内容 → 持续 GPU 开销。 */
+  background:linear-gradient(135deg,#e04b4b 0%,#c8323e 55%,#a8283a 100%);
+  color:#fff;padding:20px 40px;display:flex;justify-content:space-between;align-items:center;
+  position:sticky;top:0;z-index:200;
+  box-shadow:0 1px 0 rgba(255,255,255,.18) inset,0 2px 16px rgba(142,31,44,.20);
+}
+.header h1{font-size:22px;cursor:pointer;letter-spacing:-.01em;transition:opacity .25s var(--ez-apple)}
+.header h1:hover{opacity:.82}
 .header p{font-size:13px;opacity:.7}
 .nav{display:flex;gap:6px}
-.nav a{color:#94a3b8;text-decoration:none;font-size:13px;padding:6px 14px;border-radius:4px;cursor:pointer}
-.nav a:hover{color:#fff;background:rgba(255,255,255,.1)}
-.nav a.active{color:#fff;background:rgba(255,255,255,.15)}
+.nav a{color:rgba(255,255,255,.74);text-decoration:none;font-size:13px;padding:6px 14px;border-radius:8px;cursor:pointer;transition:background .25s var(--ez-apple),color .25s var(--ez-apple)}
+.nav a:hover{color:#fff;background:rgba(255,255,255,.16)}
+.nav a.active{color:#fff;background:rgba(255,255,255,.22);box-shadow:0 1px 0 rgba(255,255,255,.25) inset}
 
 .page{max-width:1200px;margin:0 auto;padding:16px;display:grid;gap:16px;grid-template-columns:340px 1fr;grid-template-areas:"left right" "bottom bottom"}
-.card{background:#fff;border-radius:8px;padding:20px;box-shadow:0 1px 3px rgba(0,0,0,.1)}
-.card h2{font-size:15px;margin-bottom:12px;padding-bottom:6px;border-bottom:2px solid #e2e8f0}
+.card{
+  background:var(--surf);border-radius:14px;padding:20px;
+  border:1px solid var(--line);
+  box-shadow:0 1px 2px rgba(31,35,40,.05),0 8px 24px -12px rgba(31,35,40,.10);
+}
+.card h2{
+  font-size:15px;margin-bottom:12px;padding-bottom:8px;
+  border-bottom:1px solid var(--brand-line);color:var(--brand-ink);
+  letter-spacing:-.005em;
+}
 .left-area{grid-area:left;align-self:start}
 .right-area{grid-area:right;align-self:start}
 .bottom-area{grid-area:bottom}
 .form-group{margin-bottom:10px}
-.form-group label{display:block;font-size:12px;font-weight:600;margin-bottom:2px;color:#4a5568}
-.form-group input,.form-group select{width:100%;padding:6px 10px;border:1px solid #d1d5db;border-radius:5px;font-size:13px;background:#fff}
+.form-group label{display:block;font-size:12px;font-weight:600;margin-bottom:2px;color:var(--ink-2)}
+.form-group input,.form-group select{
+  width:100%;padding:7px 11px;border:1px solid var(--line);border-radius:9px;font-size:13px;background:var(--surf);
+  transition:border-color .25s var(--ez-apple),box-shadow .25s var(--ez-apple);
+}
+.form-group input:focus,.form-group select:focus{outline:none;border-color:var(--brand-2);box-shadow:0 0 0 3px var(--brand-soft2)}
 .radio-group{display:flex;gap:10px;margin:3px 0}
 .radio-group label{font-weight:400;font-size:13px;display:flex;align-items:center;gap:4px;cursor:pointer}
 .radio-group input[type=radio]{width:auto;cursor:pointer}
 /* ===== 双功率输入（主用 / 备用）===== */
 .pw-group{display:flex;flex-direction:column;gap:10px}
-.pw-item{background:#f8fafc;border:1px solid #e2e8f0;border-radius:7px;padding:8px 10px}
-.pw-item>label{font-size:12px;font-weight:600;color:#1a365d;margin-bottom:4px}
-.pw-opt{font-weight:400;font-size:11px;color:#94a3b8;background:#eef2f7;padding:0 6px;border-radius:8px;margin-left:4px}
-.pw-item input[type=number]{width:100%;padding:6px 10px;border:1px solid #d1d5db;border-radius:5px;font-size:13px;background:#fff}
-.pw-item input[type=number]:focus{outline:none;border-color:#1a365d;box-shadow:0 0 0 2px rgba(26,54,93,.15)}
+.pw-item{background:var(--surf-2);border:1px solid var(--line);border-radius:11px;padding:9px 11px}
+.pw-item>label{font-size:12px;font-weight:600;color:var(--brand-ink);margin-bottom:4px}
+.pw-opt{font-weight:400;font-size:11px;color:var(--ink-4);background:var(--brand-soft);padding:1px 7px;border-radius:8px;margin-left:4px}
+.pw-item input[type=number]{width:100%;padding:6px 10px;border:1px solid var(--line);border-radius:5px;font-size:13px;background:#fff}
+.pw-item input[type=number]:focus{outline:none;border-color:var(--brand-2);box-shadow:0 0 0 3px var(--brand-soft2)}
 .pw-item .radio-group{margin:0 0 4px}
 .pw-item .pw-tr label{font-size:12px}
-.pw-hint{font-size:11px;color:#64748b;line-height:1.5;margin:-4px 0 10px;padding:6px 9px;background:#f1f5f9;border-radius:6px;border-left:3px solid #94a3b8}
-.btn{background:#1a365d;color:#fff;border:none;padding:8px 18px;border-radius:5px;font-size:14px;cursor:pointer;width:100%;margin-top:2px}
-.btn:hover{background:#2a4a7d}
-.btn:disabled{background:#94a3b8;cursor:not-allowed}
-.btn-secondary{background:#e2e8f0;color:#333;border:none;padding:6px 14px;border-radius:5px;font-size:13px;cursor:pointer}
-.btn-secondary:hover{background:#cbd5e1}
+.pw-hint{font-size:11px;color:var(--ink-3);line-height:1.55;margin:-4px 0 10px;padding:7px 10px;background:var(--surf-3);border-radius:9px;border-left:3px solid var(--brand-soft2)}
+.btn{
+  background:linear-gradient(180deg,var(--brand-2),var(--brand));
+  color:#fff;border:none;padding:9px 18px;border-radius:9px;font-size:14px;cursor:pointer;width:100%;margin-top:2px;
+  box-shadow:0 1px 0 rgba(255,255,255,.22) inset,0 2px 8px -2px rgba(142,31,44,.34);
+  transition:transform .18s var(--ez-spring),box-shadow .25s var(--ez-apple),filter .25s var(--ez-apple);
+}
+.btn:hover{filter:brightness(1.06);box-shadow:0 1px 0 rgba(255,255,255,.26) inset,0 4px 14px -2px rgba(142,31,44,.42)}
+.btn:active{transform:scale(.985)}
+.btn:disabled{background:var(--ink-4);cursor:not-allowed;box-shadow:none;filter:none}
+.btn-secondary{background:var(--line);color:var(--ink);border:none;padding:6px 14px;border-radius:5px;font-size:13px;cursor:pointer}
+.btn-secondary:hover{background:#f0ecee;border-color:var(--brand-soft2)}
+.btn-secondary:active{transform:scale(.985)}
 
-.calc-box{background:#f8fafc;border:1px solid #e2e8f0;border-radius:6px;padding:10px 12px;font-size:13px;line-height:1.7}
+.calc-box{background:var(--surf-2);border:1px solid var(--line);border-radius:11px;padding:11px 13px;font-size:13px;line-height:1.7}
 .calc-row{display:flex;justify-content:space-between;padding:3px 0;border-bottom:1px solid #f0f0f0}
 .calc-row:last-child{border:0}
 .calc-label{color:#666}
 .calc-val{font-weight:600}
-.calc-total{color:#1a365d;font-size:14px}
+.calc-total{color:var(--brand);font-size:14px;font-weight:700}
 
 .match-card{background:#f0fff4;border:1px solid #bbf7d0;border-radius:8px;padding:14px;margin-top:8px}
 .match-card .model{font-size:17px;font-weight:700;margin-bottom:6px}
@@ -60,130 +131,164 @@ body{font-family:-apple-system,"Microsoft YaHei",sans-serif;background:#f0f2f5;c
 .match-card.no-match .model{color:#dc2626}
 
 /* ---- AI 售前工程师窗口 ---- */
-.ai-panel{margin-top:20px;border:1px solid #e2e8f0;border-radius:8px;background:#fff;overflow:hidden}
-.ai-header{display:flex;align-items:center;gap:6px;padding:9px 12px;background:#1a365d;color:#fff;font-size:13px;font-weight:600}
+.ai-panel{margin-top:20px;border:1px solid var(--line);border-radius:8px;background:#fff;overflow:hidden}
+.ai-header{display:flex;align-items:center;gap:6px;padding:9px 12px;background:var(--brand);color:#fff;font-size:13px;font-weight:600}
 .ai-dot{width:8px;height:8px;border-radius:50%;background:#22c55e;animation:aiPulse 1.6s infinite}
 @keyframes aiPulse{0%,100%{opacity:1}50%{opacity:.4}}
 .ai-badge{margin-left:auto;font-size:10px;font-weight:500;background:rgba(255,255,255,.18);padding:1px 8px;border-radius:10px}
-.ai-chat{padding:12px;background:#f8fafc;max-height:340px;overflow-y:auto;display:flex;flex-direction:column;gap:10px}
+.ai-chat{padding:12px;background:var(--surf-2);max-height:340px;overflow-y:auto;display:flex;flex-direction:column;gap:10px}
 .ai-msg{display:flex;gap:8px;max-width:96%}
 .ai-bot{align-self:flex-start}
 .ai-user{align-self:flex-end;flex-direction:row-reverse}
-.ai-avatar{width:26px;height:26px;border-radius:50%;background:#e2e8f0;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0}
+.ai-avatar{width:26px;height:26px;border-radius:50%;background:var(--line);display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0}
 .ai-user .ai-avatar{background:#dbeafe}
-.ai-bubble{padding:8px 11px;border-radius:10px;font-size:13px;line-height:1.7;background:#fff;border:1px solid #e2e8f0;white-space:pre-wrap;word-break:break-word}
-.ai-user .ai-bubble{background:#1a365d;color:#fff;border:none}
-.ai-bubble.typing{color:#94a3b8}
+.ai-bubble{padding:8px 11px;border-radius:10px;font-size:13px;line-height:1.7;background:#fff;border:1px solid var(--line);white-space:pre-wrap;word-break:break-word}
+.ai-user .ai-bubble{background:var(--brand);color:#fff;border:none}
+.ai-bubble.typing{color:var(--ink-4)}
 .ai-typing .ai-bubble::after{content:"▍";animation:blink 1s infinite}
 @keyframes blink{50%{opacity:0}}
-.ai-input-row{display:flex;gap:8px;padding:10px 12px;border-top:1px solid #e2e8f0;align-items:flex-end}
-.ai-input{flex:1;resize:none;border:1px solid #cbd5e1;border-radius:6px;padding:8px 10px;font-size:13px;font-family:inherit;line-height:1.5}
-.ai-input:focus{outline:none;border-color:#1a365d}
-.ai-send{padding:8px 16px;background:#1a365d;color:#fff;border:none;border-radius:6px;font-size:13px;cursor:pointer;flex-shrink:0}
+.ai-input-row{display:flex;gap:8px;padding:10px 12px;border-top:1px solid var(--line);align-items:flex-end}
+.ai-input{flex:1;resize:none;border:1px solid var(--line);border-radius:6px;padding:8px 10px;font-size:13px;font-family:inherit;line-height:1.5}
+.ai-input:focus{outline:none;border-color:var(--brand)}
+.ai-send{padding:8px 16px;background:var(--brand);color:#fff;border:none;border-radius:6px;font-size:13px;cursor:pointer;flex-shrink:0}
 .ai-send:hover{background:#2c5282}
 .ai-send:disabled{opacity:.5;cursor:not-allowed}
-.ai-hint{padding:6px 12px 9px;font-size:11px;color:#94a3b8;background:#fff;border-top:1px solid #f1f5f9}
+.ai-hint{padding:6px 12px 9px;font-size:11px;color:var(--ink-4);background:#fff;border-top:1px solid var(--surf-3)}
 
 /* ---- 产品库 ---- */
 .browse-bar{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:16px;align-items:flex-end}
 .browse-bar .form-group{display:flex;flex-direction:column;gap:4px;min-width:160px}
-.browse-bar select,.browse-bar input{padding:7px 10px;font-size:13px;border:1px solid #cbd5e1;border-radius:6px;font-family:inherit}
-.browse-bar select:focus,.browse-bar input:focus{outline:none;border-color:#1a365d}
+.browse-bar select,.browse-bar input{padding:7px 11px;font-size:13px;border:1px solid var(--line);border-radius:9px;font-family:inherit}
+.browse-bar select:focus,.browse-bar input:focus{outline:none;border-color:var(--brand)}
 .browse-list{display:flex;flex-direction:column;gap:12px}
-.browse-group{border:1px solid #e2e8f0;border-radius:8px;overflow:hidden}
-.browse-group-title{padding:9px 14px;background:#f8fafc;font-weight:600;font-size:14px;color:#1a365d;border-bottom:1px solid #e2e8f0}
-.browse-model{display:flex;justify-content:space-between;align-items:center;padding:9px 14px;border-bottom:1px solid #f1f5f9;cursor:pointer;transition:background .15s}
+/* ⚠️ 不能用 overflow:hidden：会截断内部 .table-wrap 滚动，
+   并使自身成为 sticky 滚动祖先 → 表头/首列冻结失效。
+   圆角一律由子元素承担。性能：全组零渐变/零模糊/零阴影。*/
+.browse-group{
+  border:1px solid var(--brand-line);border-radius:12px;
+  background:var(--surf);
+  contain:content;
+}
+.browse-group-title{
+  padding:10px 14px;background:var(--surf-3);
+  font-weight:600;font-size:14px;color:var(--brand-ink);
+  border-bottom:1px solid var(--brand-line);
+  border-top-left-radius:12px;border-top-right-radius:12px;
+}
+.browse-model{display:flex;justify-content:space-between;align-items:center;padding:9px 14px;border-bottom:1px solid var(--brand-line);cursor:pointer}
 .browse-model:last-child{border-bottom:none}
-.browse-model:hover{background:#f1f5f9}
+.browse-model:hover{background:var(--surf-2)}
 .browse-model .bm-left{display:flex;align-items:center;gap:8px;font-size:14px;font-weight:500}
-.browse-model .bm-left .chev{transition:transform .2s;color:#94a3b8;font-size:11px}
+.browse-model .bm-left .chev{transition:transform .2s;color:var(--ink-4);font-size:11px}
 .browse-model.open .chev{transform:rotate(90deg)}
-.browse-model .bm-right{font-size:12px;color:#64748b;display:flex;gap:12px;flex-wrap:wrap}
-.browse-model .bm-right span{background:#f1f5f9;padding:1px 8px;border-radius:10px}
-.browse-detail{display:none;padding:10px 14px;background:#fbfdff;border-top:1px solid #eef2f7}
+.browse-model .bm-right{font-size:12px;color:var(--ink-3);display:flex;gap:12px;flex-wrap:wrap}
+.browse-model .bm-right span{background:var(--brand-soft);color:var(--brand-ink);padding:1px 8px;border-radius:10px}
+.browse-detail{display:none;padding:10px 14px;background:var(--surf-2);border-top:1px solid var(--brand-line);border-bottom-left-radius:12px;border-bottom-right-radius:12px}
 .browse-detail.open{display:block}
+.browse-detail .table-wrap{border:1px solid var(--brand-line);border-radius:12px}
 .browse-table{width:100%;min-width:1100px;border-collapse:collapse;font-size:12px}
-.browse-table th,.browse-table td{border:1px solid #e2e8f0;padding:5px 8px;text-align:center;white-space:nowrap}
-.browse-table th{background:#f8fafc;font-weight:600;color:#334155}
-.browse-table td{color:#334155}
-.browse-table .freq-col{font-weight:600;background:#f8fafc;color:#1a365d;white-space:nowrap}
-.browse-table .wconn{font-size:10px;color:#64748b;margin-top:2px}
-.browse-count{font-size:12px;color:#64748b;margin-bottom:4px}
+.browse-table th,.browse-table td{border:1px solid var(--line);padding:5px 8px;text-align:center;white-space:nowrap}
+.browse-table th{background:#fdf3f3;font-weight:600;color:var(--brand-ink)}
+.browse-table td{color:var(--ink-2)}
+.browse-table .freq-col{font-weight:600;background:var(--surf-3);color:var(--brand-ink);white-space:nowrap}
+.browse-table .wconn{font-size:10px;color:var(--ink-3);margin-top:2px}
+.browse-count{font-size:12px;color:var(--ink-3);margin-bottom:4px}
 
 .step-panel{margin-top:8px}
-.step-header{display:flex;justify-content:space-between;align-items:center;padding:8px 10px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:5px;cursor:pointer;font-size:13px;margin-bottom:4px}
-.step-header:hover{background:#f1f5f9}
-.step-header .step-num{font-weight:700;color:#1a365d;margin-right:8px}
-.step-header .step-desc{flex:1;color:#475569}
-.step-header .step-result{font-weight:600;color:#1a365d}
-.step-header .arrow{color:#94a3b8;font-size:11px;transition:transform .2s}
+.step-header{display:flex;justify-content:space-between;align-items:center;padding:8px 10px;background:var(--surf-2);border:1px solid var(--line);border-radius:5px;cursor:pointer;font-size:13px;margin-bottom:4px}
+.step-header:hover{background:var(--surf-3)}
+.step-header .step-num{font-weight:700;color:var(--brand);margin-right:8px}
+.step-header .step-desc{flex:1;color:var(--ink-2)}
+.step-header .step-result{font-weight:600;color:var(--brand)}
+.step-header .arrow{color:var(--ink-4);font-size:11px;transition:transform .2s}
 .step-header.open .arrow{transform:rotate(180deg)}
-.step-body{display:none;padding:8px 10px;background:#fff;border:1px solid #e2e8f0;border-top:0;border-radius:0 0 5px 5px;font-size:13px;margin-bottom:4px}
+.step-body{display:none;padding:8px 10px;background:#fff;border:1px solid var(--line);border-top:0;border-radius:0 0 5px 5px;font-size:13px;margin-bottom:4px}
 .step-body.open{display:block}
 
-.table-wrap{overflow:auto;max-height:78vh;overflow-anchor:none}
+.table-wrap{
+  overflow:auto;max-height:78vh;overflow-anchor:none;
+  border:1px solid var(--brand-line);border-radius:12px;
+  background:var(--surf);
+  -webkit-overflow-scrolling:touch;
+  overscroll-behavior:contain;
+}
 table{width:100%;border-collapse:collapse;font-size:12px}
-th,td{padding:5px 8px;text-align:left;border-bottom:1px solid #e2e8f0;white-space:nowrap}
-th{background:#f8fafc;font-weight:600;position:sticky;top:0;z-index:3}
-.full-table{min-width:1600px}
-.full-table th,.browse-table th{background:#eef2f7}
+th,td{padding:5px 8px;text-align:left;border-bottom:1px solid var(--line);white-space:nowrap}
+th{background:var(--surf-2);font-weight:600;position:sticky;top:0;z-index:3}
+.full-table{min-width:1600px;border-collapse:separate;border-spacing:0}
+/* 四角圆角（靠单元格，不靠 overflow 裁切 —— 否则掐断 sticky）*/
+.full-table thead tr:first-child th:first-child{border-top-left-radius:12px}
+.full-table thead tr:first-child th:last-child{border-top-right-radius:12px}
+.full-table tbody tr:last-child td:first-child{border-bottom-left-radius:12px}
+.full-table tbody tr:last-child td:last-child{border-bottom-right-radius:12px}
+.full-table th,.browse-table th{background:var(--surf-3)}
+.full-table thead th{
+  position:sticky;top:0;z-index:3;
+  background:#fdf3f3;color:var(--brand-ink);
+  border-bottom:1px solid var(--brand-line);
+  font-weight:600;font-size:12px;
+  transform:translateZ(0);
+}
 /* ===== 冻结表头 + 首列（#判定 / 型号），横纵滚动时保持可见 =====
    性能：冻结列提升为独立合成层（translateZ(0)），sticky 定位走 GPU；
    不在单元格上加 contain（实测会加重层管理开销，反而掉帧）*/
-.full-table th:first-child,.full-table td:first-child{position:sticky;left:0;z-index:2;width:42px;min-width:42px;background:#fff;border-right:1px solid #e2e8f0;transform:translateZ(0)}
-.full-table th:nth-child(2),.full-table td:nth-child(2){position:sticky;left:42px;z-index:2;background:#fff;border-right:1px solid #e2e8f0;transform:translateZ(0)}
+.full-table th:first-child,.full-table td:first-child{position:sticky;left:0;z-index:2;width:42px;min-width:42px;background:#fff;border-right:1px solid var(--brand-line);transform:translateZ(0)}
+.full-table th:nth-child(2),.full-table td:nth-child(2){position:sticky;left:42px;z-index:2;background:#fff;border-right:1px solid var(--brand-line);transform:translateZ(0)}
 .full-table thead th{transform:translateZ(0)}
-.full-table thead th:first-child,.full-table thead th:nth-child(2){z-index:4;background:#eef2f7}
-.full-table tbody tr.ok td:first-child,.full-table tbody tr.ok td:nth-child(2){background:#f0fff4}
+.full-table thead th:first-child,.full-table thead th:nth-child(2){z-index:5;background:#fdf3f3}
+.full-table tbody tr.ok td:first-child,.full-table tbody tr.ok td:nth-child(2){background:#f2fdf5}
 .full-table tbody tr.fail td:first-child,.full-table tbody tr.fail td:nth-child(2){background:#fff}
-.full-table tbody tr:hover td:first-child,.full-table tbody tr:hover td:nth-child(2){background:#f0f2f5}
-.browse-table th:first-child,.browse-table td:first-child{position:sticky;left:0;z-index:2;background:#fff;border-right:1px solid #e2e8f0}
-.browse-table thead th:first-child{z-index:4;background:#eef2f7}
+.full-table tbody tr:hover td:first-child,.full-table tbody tr:hover td:nth-child(2){background:#fdf5f5}
+.browse-table th:first-child,.browse-table td:first-child{position:sticky;left:0;z-index:2;background:#fff;border-right:1px solid var(--brand-line);transform:translateZ(0)}
+.browse-table thead th:first-child{z-index:4;background:#fdf3f3}
+.browse-table thead th{position:sticky;top:0;z-index:3;transform:translateZ(0)}
 .browse-table .freq-col{background:#fff}
-.browse-table thead .freq-col{background:#eef2f7}
+.browse-table thead .freq-col{background:var(--surf-3)}
 /* ===== 手机端卡片列表（仅 ≤640px 显示；桌面端默认隐藏）===== */
 .mc-list{display:none}
 /* ===== 手机卡片样式 ===== */
-.mc-card{background:#fff;border:1px solid #e2e8f0;border-left:4px solid #94a3b8;border-radius:9px;padding:12px;margin-bottom:10px;box-shadow:0 1px 2px rgba(0,0,0,.05)}
-.mc-card.mc-ok{border-left-color:#16a34a;background:linear-gradient(180deg,#f7fdf9,#fff)}
-.mc-card.mc-fail{border-left-color:#cbd5e1;opacity:.72}
+.mc-card{background:var(--surf);border:1px solid var(--line);border-left:4px solid var(--ink-4);border-radius:12px;padding:12px;margin-bottom:10px;box-shadow:0 1px 2px rgba(31,35,40,.05)}
+.mc-card.mc-ok{border-left-color:#16a34a;background:linear-gradient(180deg,var(--surf-2),#fff)}
+.mc-card.mc-fail{border-left-color:var(--line);opacity:.72}
 .mc-head{display:flex;align-items:center;gap:9px;margin-bottom:8px}
 .mc-badge{flex-shrink:0;display:inline-flex;align-items:center;gap:2px;font-size:15px;line-height:1}
 .mc-badge i{font-style:normal;font-size:11px;font-weight:700;color:#166534;background:#dcfce7;border-radius:8px;padding:1px 5px}
-.mc-model{flex:1;text-align:left;font-size:17px;font-weight:700;color:#1a365d;background:none;border:0;padding:2px 0;font-family:inherit;cursor:pointer;word-break:break-all;line-height:1.3}
+.mc-model{flex:1;text-align:left;font-size:17px;font-weight:700;color:var(--brand);background:none;border:0;padding:2px 0;font-family:inherit;cursor:pointer;word-break:break-all;line-height:1.3}
 .mc-model:active{color:#16a34a}
 .mc-tags{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:9px}
-.mc-tag{font-size:12px;color:#475569;background:#f1f5f9;border-radius:5px;padding:3px 7px;line-height:1.4}
-.mc-tag-wide{flex:1 1 100%;background:#eef2f7;color:#1e3a5f;font-weight:600}
-.mc-tag i{display:block;font-style:normal;font-size:11px;font-weight:400;color:#64748b;margin-top:1px}
-.mc-pw{display:flex;flex-direction:column;gap:5px;padding:9px 0;border-top:1px dashed #e2e8f0;border-bottom:1px dashed #e2e8f0}
+.mc-tag{font-size:12px;color:var(--ink-2);background:var(--surf-3);border-radius:5px;padding:3px 7px;line-height:1.4}
+.mc-tag-wide{flex:1 1 100%;background:var(--surf-3);color:#1e3a5f;font-weight:600}
+.mc-tag i{display:block;font-style:normal;font-size:11px;font-weight:400;color:var(--ink-3);margin-top:1px}
+.mc-pw{display:flex;flex-direction:column;gap:5px;padding:9px 0;border-top:1px dashed var(--line);border-bottom:1px dashed var(--line)}
 .mc-pw-row{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
-.mc-pw-k{font-size:12.5px;color:#64748b;flex-shrink:0}
-.mc-pw-v{font-size:16px;font-weight:700;color:#1a365d;font-variant-numeric:tabular-nums}
-.mc-card.mc-fail .mc-pw-v{color:#64748b}
-.mc-exc{display:flex;flex-wrap:wrap;gap:5px;margin-top:8px;font-size:11.5px;color:#64748b}
-.mc-exc span{background:#f8fafc;border:1px solid #eef2f7;border-radius:5px;padding:2px 7px}
+.mc-pw-k{font-size:12.5px;color:var(--ink-3);flex-shrink:0}
+.mc-pw-v{font-size:16px;font-weight:700;color:var(--brand);font-variant-numeric:tabular-nums}
+.mc-card.mc-fail .mc-pw-v{color:var(--ink-3)}
+.mc-exc{display:flex;flex-wrap:wrap;gap:5px;margin-top:8px;font-size:11.5px;color:var(--ink-3)}
+.mc-exc span{background:var(--surf-2);border:1px solid var(--surf-3);border-radius:5px;padding:2px 7px}
 .mc-more{margin-top:9px}
-.mc-more-btn{width:100%;background:#f8fafc;border:1px solid #e2e8f0;border-radius:7px;color:#475569;font-size:13px;font-family:inherit;padding:9px;cursor:pointer;text-align:center;min-height:38px}
-.mc-more-btn:active{background:#eef2f7}
-.mc-kv-list{display:none;margin-top:8px;background:#f8fafc;border-radius:7px;padding:4px 10px}
+.mc-more-btn{width:100%;background:var(--surf-2);border:1px solid var(--line);border-radius:7px;color:var(--ink-2);font-size:13px;font-family:inherit;padding:9px;cursor:pointer;text-align:center;min-height:38px}
+.mc-more-btn:active{background:var(--surf-3)}
+.mc-kv-list{display:none;margin-top:8px;background:var(--surf-2);border-radius:7px;padding:4px 10px}
 .mc-kv-list.open{display:block}
-.mc-kv{display:flex;justify-content:space-between;align-items:baseline;gap:10px;padding:6px 0;border-bottom:1px solid #eef2f7;font-size:13px}
+.mc-kv{display:flex;justify-content:space-between;align-items:baseline;gap:10px;padding:6px 0;border-bottom:1px solid var(--surf-3);font-size:13px}
 .mc-kv:last-child{border-bottom:0}
-.mc-k{color:#64748b;flex-shrink:0}
+.mc-k{color:var(--ink-3);flex-shrink:0}
 .mc-v{color:#1e293b;font-weight:600;text-align:right;word-break:break-all}
+.full-table tbody tr:hover td{background:#fdf7f7}
 .full-table tr.ok td{color:#14532d}
+.full-table tr.fail td{color:#9ca3af}
 .full-table tr.fail td{color:#9ca3af}
 tr.ok{background:#f0fff4}
 tr.fail{opacity:.55}
-tr:hover{background:#f0f2f5}
+tr:hover{background:var(--bg)}
 .stats{font-size:12px;color:#888;margin-bottom:6px}
 /* 型号一键复制按钮 */
-.copy-btn{display:inline-block;margin-right:6px;padding:1px 6px;border:1px solid #cbd5e1;border-radius:4px;background:#f8fafc;color:#64748b;font-size:10px;line-height:1.5;cursor:pointer;font-family:inherit;vertical-align:middle;transition:all .15s}
-.copy-btn:hover{background:#1a365d;border-color:#1a365d;color:#fff}
+.copy-btn{display:inline-block;margin-right:6px;padding:1px 6px;border:1px solid var(--line);border-radius:4px;background:var(--surf-2);color:var(--ink-3);font-size:10px;line-height:1.5;cursor:pointer;font-family:inherit;vertical-align:middle;transition:all .15s}
+.copy-btn:hover{background:var(--brand);border-color:var(--brand);color:#fff}
 .copy-btn.done{background:#16a34a;border-color:#16a34a;color:#fff}
 
-.landing{text-align:center;padding:40px 20px;color:#94a3b8}
+.landing{text-align:center;padding:40px 20px;color:var(--ink-4)}
 .landing .icon{font-size:48px;margin-bottom:12px}
 .landing p{font-size:14px;line-height:1.8}
 
@@ -229,12 +334,12 @@ tr:hover{background:#f0f2f5}
   .table-wrap{max-height:none}
   /* --- 滚动流畅度优化（B+C）--- */
   /* 卡片去阴影/渐变，降合成层开销 */
-  .card{box-shadow:none;border:1px solid #e8edf3}
-  .mc-card{box-shadow:none;border:1px solid #e2e8f0;border-left-width:4px;margin-bottom:8px;contain:layout style paint}
-  .mc-card.mc-ok{background:#f7fdf9}
+  .card{box-shadow:none;border:1px solid var(--line-2)}
+  .mc-card{box-shadow:none;border:1px solid var(--line);border-left-width:4px;margin-bottom:8px;contain:layout style paint}
+  .mc-card.mc-ok{background:var(--surf-2)}
   .mc-card.mc-fail{background:#fff;opacity:1}
-  .mc-card.mc-fail .mc-model,.mc-card.mc-fail .mc-pw-v{color:#94a3b8}
-  .half-card{box-shadow:none;border:1px solid #e8edf3}
+  .mc-card.mc-fail .mc-model,.mc-card.mc-fail .mc-pw-v{color:var(--ink-4)}
+  .half-card{box-shadow:none;border:1px solid var(--line-2)}
   .browse-group{contain:layout style paint}
   /* --- 油耗多工况表：手机端改竖排卡片（B方案，无横滚）--- */
   #loadTable,
@@ -243,20 +348,20 @@ tr:hover{background:#f0f2f5}
   #loadTable td{display:block;width:100%}
   #loadTable{min-width:0 !important;border-collapse:separate}
   #loadTable tr:first-child{display:none}
-  #loadTable tr.load-row{background:#fff;border:1px solid #e2e8f0;border-left:4px solid #e67e22;border-radius:9px;padding:10px 12px;margin-bottom:8px;contain:layout style paint}
+  #loadTable tr.load-row{background:#fff;border:1px solid var(--line);border-left:4px solid #e67e22;border-radius:9px;padding:10px 12px;margin-bottom:8px;contain:layout style paint}
   #loadTable td{border:0 !important;text-align:left !important;padding:0;white-space:normal}
-  #loadTable td[data-label]{display:flex;align-items:center;gap:10px;padding:6px 0;border-bottom:1px dashed #eef2f7;min-height:40px}
+  #loadTable td[data-label]{display:flex;align-items:center;gap:10px;padding:6px 0;border-bottom:1px dashed var(--surf-3);min-height:40px}
   #loadTable td[data-label]:last-child{border-bottom:0}
-  #loadTable td[data-label]::before{content:attr(data-label);flex:0 0 42%;font-size:12.5px;color:#64748b;font-weight:400}
-  #loadTable td.load-percent-cell{display:flex;align-items:baseline;justify-content:space-between;font-size:17px;font-weight:700;color:#1a365d;border-bottom:1px solid #eef2f7;padding-bottom:8px;margin-bottom:4px}
-  #loadTable td.load-percent-cell::before{content:"负载";font-size:12px;color:#94a3b8;font-weight:400;flex:0 0 auto}
+  #loadTable td[data-label]::before{content:attr(data-label);flex:0 0 42%;font-size:12.5px;color:var(--ink-3);font-weight:400}
+  #loadTable td.load-percent-cell{display:flex;align-items:baseline;justify-content:space-between;font-size:17px;font-weight:700;color:var(--brand);border-bottom:1px solid var(--surf-3);padding-bottom:8px;margin-bottom:4px}
+  #loadTable td.load-percent-cell::before{content:"负载";font-size:12px;color:var(--ink-4);font-weight:400;flex:0 0 auto}
   #loadTable td.load-percent-cell br{display:none}
-  #loadTable td.load-percent-cell span{font-size:11.5px !important;color:#94a3b8 !important;font-weight:400 !important}
+  #loadTable td.load-percent-cell span{font-size:11.5px !important;color:var(--ink-4) !important;font-weight:400 !important}
   #loadTable td input{flex:1;font-size:16px;padding:8px 10px;min-height:40px;text-align:right}
   #loadTable .power-value{flex:1;text-align:right;font-size:15px}
   /* --- 产品库 --- */
   .browse-bar{flex-direction:column;align-items:stretch}
-  .browse-group{border-radius:7px}
+  .browse-group{border-radius:12px}
   .browse-group-title{padding:10px 12px;font-size:13.5px}
   .browse-model{flex-direction:column;align-items:flex-start;gap:6px;padding:12px}
   .browse-model .bm-left{font-size:15px;width:100%;justify-content:space-between}
@@ -288,27 +393,27 @@ tr:hover{background:#f0f2f5}
 
 /* ================= 工具页：油耗转换工具 ================= */
 .tool-tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
-.tool-tab{background:#eef2f7;border:1px solid #e2e8f0;color:#334155;padding:8px 18px;border-radius:6px;font-size:14px;font-weight:600;cursor:pointer;transition:.15s}
-.tool-tab.active{background:#1a365d;color:#fff;border-color:#1a365d}
-.tool-tab:hover{background:#cbd5e1}.tool-tab.active:hover{background:#2a4a7d}
+.tool-tab{background:var(--surf-3);border:1px solid var(--line);color:var(--ink-2);padding:8px 18px;border-radius:6px;font-size:14px;font-weight:600;cursor:pointer;transition:.15s}
+.tool-tab.active{background:var(--brand);color:#fff;border-color:var(--brand)}
+.tool-tab:hover{background:var(--line)}.tool-tab.active:hover{background:var(--brand-2)}
 .tool-panel{animation:toolFade .2s}
 @keyframes toolFade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
-.half-card{flex:1;min-width:280px;background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:1.2rem 1rem;box-shadow:0 1px 3px rgba(0,0,0,.05)}
-.input-field{width:100%;padding:7px 11px;font-size:13px;border:1px solid #d1d5db;border-radius:6px;background:#fff;font-family:inherit}
-.input-field:focus{outline:none;border-color:#1a365d;box-shadow:0 0 0 2px rgba(26,54,93,.15)}
+.half-card{flex:1;min-width:280px;background:#fff;border:1px solid var(--line);border-radius:10px;padding:1.2rem 1rem;box-shadow:0 1px 3px rgba(0,0,0,.05)}
+.input-field{width:100%;padding:7px 11px;font-size:13px;border:1px solid var(--line);border-radius:6px;background:#fff;font-family:inherit}
+.input-field:focus{outline:none;border-color:var(--brand);box-shadow:0 0 0 2px rgba(26,54,93,.15)}
 /* ===== 帮助页通知公告(只读显示) ===== */
 .notice-list{margin-top:4px}
-.notice-item{background:#f8fafc;border:1px solid #e2e8f0;border-left:4px solid #1a365d;border-radius:6px;padding:10px 14px;margin-bottom:10px}
-.notice-item .n-title{font-weight:600;font-size:14px;color:#1a365d;display:flex;justify-content:space-between;align-items:center}
-.notice-item .n-ts{font-size:11px;color:#94a3b8;font-weight:400}
-.notice-item .n-content{font-size:13px;color:#475569;margin-top:6px;line-height:1.7;white-space:pre-wrap}
-.notice-empty{text-align:center;padding:24px;color:#94a3b8;font-size:13px;border:1px dashed #e2e8f0;border-radius:6px}
+.notice-item{background:var(--surf-2);border:1px solid var(--line);border-left:4px solid var(--brand);border-radius:6px;padding:10px 14px;margin-bottom:10px}
+.notice-item .n-title{font-weight:600;font-size:14px;color:var(--brand);display:flex;justify-content:space-between;align-items:center}
+.notice-item .n-ts{font-size:11px;color:var(--ink-4);font-weight:400}
+.notice-item .n-content{font-size:13px;color:var(--ink-2);margin-top:6px;line-height:1.7;white-space:pre-wrap}
+.notice-empty{text-align:center;padding:24px;color:var(--ink-4);font-size:13px;border:1px dashed var(--line);border-radius:6px}
 .tool-err{font-size:.75rem;color:#e67e22;background:#fef2e6;border-radius:6px;padding:2px 8px;display:inline-block;margin-top:4px}
 .tool-subtab{flex:1;text-align:center;padding:8px 0;border-radius:32px;font-weight:600;cursor:pointer;transition:.15s;background:transparent;color:#2c5a44;border:none;font-size:14px}
-.tool-subtab.active{background:#fff;box-shadow:0 2px 6px rgba(0,0,0,.08);color:#1a365d;border:1px solid #cbd5e1}
+.tool-subtab.active{background:#fff;box-shadow:0 2px 6px rgba(0,0,0,.08);color:var(--brand);border:1px solid var(--line)}
 .power-value{font-weight:600;color:#e67e22;background:#fef5e8;padding:2px 8px;border-radius:20px;display:inline-block;font-size:13px}
-#loadTable td input{width:100%;padding:5px 8px;border:1px solid #e2e8f0;border-radius:5px;font-size:13px}
-#loadTable td input:focus{outline:none;border-color:#1a365d}
+#loadTable td input{width:100%;padding:5px 8px;border:1px solid var(--line);border-radius:5px;font-size:13px}
+#loadTable td input:focus{outline:none;border-color:var(--brand)}
 #loadTable th{text-align:center}
 #loadTable td{text-align:center}
 /* 油耗多工况表：4 列自适应铺满，不继承 browse-table 的 min-width，桌面端不横滚 */
@@ -319,6 +424,26 @@ tr:hover{background:#f0f2f5}
 .table-wrap,.ai-chat{-webkit-overflow-scrolling:touch;overscroll-behavior:contain}
 /* 表格边框改用 separate，避免滚动时丢边（border-collapse:collapse 在滚动中会漏线）*/
 .browse-table,.full-table{border-collapse:separate;border-spacing:0}
+
+/* ===== macOS 动效：统一曲线 + 入场 ===== */
+@keyframes macFadeUp{from{opacity:0;transform:translateY(10px) scale(.985)}to{opacity:1;transform:none}}
+@keyframes macFadeIn{from{opacity:0}to{opacity:1}}
+.view{animation:macFadeIn .34s var(--ez-apple) both}
+.card,.browse-group,.mc-card{animation:macFadeUp .42s var(--ez-expo) both}
+.card:nth-child(2){animation-delay:.05s}
+.card:nth-child(3){animation-delay:.1s}
+/* 动画播完解除合成层，避免长期占用 GPU */
+.anim-done{animation:none!important}
+
+/* 滚动热区零成本：卡片/表格内不做 hover 过渡 */
+.browse-model,.full-table tbody td{transition:none}
+
+/* 无障碍/省电：尊重系统减少动效 */
+@media (prefers-reduced-motion:reduce){
+  *{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+  .card,.browse-group,.mc-card{animation:none}
+}
+
 </style>
 </head>
 <body>
@@ -430,50 +555,50 @@ tr:hover{background:#f0f2f5}
   <!-- 基础换算卡片 -->
   <div class="cards-grid" style="display:flex;flex-wrap:wrap;gap:1.5rem;margin-bottom:1.5rem">
     <div class="half-card">
-      <div class="card-title" style="font-size:1.15rem;font-weight:700;border-left:4px solid #1a365d;padding-left:.7rem;margin-bottom:1rem;color:#1e2f3e">🔽 体积油耗 → 燃油消耗率</div>
-      <div style="font-size:.78rem;color:#5f7f9e;margin-bottom:1rem">输入发动机毛功率(kW或BHP)和体积油耗(L/h)</div>
+      <div class="card-title" style="font-size:1.15rem;font-weight:700;border-left:4px solid var(--brand);padding-left:.7rem;margin-bottom:1rem;color:#1e2f3e">🔽 体积油耗 → 燃油消耗率</div>
+      <div style="font-size:.78rem;color:var(--ink-3);margin-bottom:1rem">输入发动机毛功率(kW或BHP)和体积油耗(L/h)</div>
       <div class="form-group"><label>发动机毛功率</label>
         <div style="display:flex;gap:.5rem">
           <input type="number" id="power_lh_kw" class="input-field" placeholder="kW (如150)" step="any">
           <input type="number" id="power_lh_bhp" class="input-field" placeholder="BHP (如201)" step="any">
         </div>
-        <div style="font-size:.72rem;color:#1a365d;margin-top:2px">⇄ 自动换算 (1 BHP = 0.7457 kW)</div>
+        <div style="font-size:.72rem;color:var(--brand);margin-top:2px">⇄ 自动换算 (1 BHP = 0.7457 kW)</div>
       </div>
       <div class="form-group"><label>体积油耗 <span style="font-weight:normal">L/h</span></label><input type="number" id="vol_flow" class="input-field" placeholder="例如 25.5" step="any"></div>
       <div class="calc-box">
         <div class="calc-row"><span class="calc-label">燃油消耗率 (BSFC)</span><span class="calc-val" id="bsfcValue">—</span></div>
         <div style="font-size:.7rem;color:#888;text-align:right">g/kWh</div>
         <div id="bsfcError" class="tool-err" style="display:none"></div>
-        <div id="bsfcFormulaDetail" style="font-size:.7rem;font-family:monospace;color:#94a3b8;margin-top:4px"></div>
+        <div id="bsfcFormulaDetail" style="font-size:.7rem;font-family:monospace;color:var(--ink-4);margin-top:4px"></div>
       </div>
-      <div style="font-size:.72rem;color:#94a3b8;margin-top:.5rem">📐 g/kWh = (L/h × 850) ÷ 毛功率(kW)</div>
+      <div style="font-size:.72rem;color:var(--ink-4);margin-top:.5rem">📐 g/kWh = (L/h × 850) ÷ 毛功率(kW)</div>
     </div>
 
     <div class="half-card">
-      <div class="card-title" style="font-size:1.15rem;font-weight:700;border-left:4px solid #1a365d;padding-left:.7rem;margin-bottom:1rem;color:#1e2f3e">🔼 燃油消耗率 → 体积油耗</div>
-      <div style="font-size:.78rem;color:#5f7f9e;margin-bottom:1rem">输入发动机毛功率(kW或BHP)和燃油消耗率(g/kWh)</div>
+      <div class="card-title" style="font-size:1.15rem;font-weight:700;border-left:4px solid var(--brand);padding-left:.7rem;margin-bottom:1rem;color:#1e2f3e">🔼 燃油消耗率 → 体积油耗</div>
+      <div style="font-size:.78rem;color:var(--ink-3);margin-bottom:1rem">输入发动机毛功率(kW或BHP)和燃油消耗率(g/kWh)</div>
       <div class="form-group"><label>发动机毛功率</label>
         <div style="display:flex;gap:.5rem">
           <input type="number" id="power_bsfc_kw" class="input-field" placeholder="kW (如200)" step="any">
           <input type="number" id="power_bsfc_bhp" class="input-field" placeholder="BHP (如268)" step="any">
         </div>
-        <div style="font-size:.72rem;color:#1a365d;margin-top:2px">⇄ 自动换算 (1 BHP = 0.7457 kW)</div>
+        <div style="font-size:.72rem;color:var(--brand);margin-top:2px">⇄ 自动换算 (1 BHP = 0.7457 kW)</div>
       </div>
       <div class="form-group"><label>燃油消耗率 <span style="font-weight:normal">g/kWh</span></label><input type="number" id="bsfc_input" class="input-field" placeholder="例如 195" step="any"></div>
       <div class="calc-box">
         <div class="calc-row"><span class="calc-label">体积油耗</span><span class="calc-val" id="volFlowValue">—</span></div>
         <div style="font-size:.7rem;color:#888;text-align:right">L/h</div>
         <div id="volFlowError" class="tool-err" style="display:none"></div>
-        <div id="volFlowFormulaDetail" style="font-size:.7rem;font-family:monospace;color:#94a3b8;margin-top:4px"></div>
+        <div id="volFlowFormulaDetail" style="font-size:.7rem;font-family:monospace;color:var(--ink-4);margin-top:4px"></div>
       </div>
-      <div style="font-size:.72rem;color:#94a3b8;margin-top:.5rem">📐 L/h = (g/kWh × kW) ÷ 850</div>
+      <div style="font-size:.72rem;color:var(--ink-4);margin-top:.5rem">📐 L/h = (g/kWh × kW) ÷ 850</div>
     </div>
   </div>
 
   <!-- 多工况负载表 -->
-  <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;padding:1rem;margin-top:.5rem">
-    <div style="font-size:1.2rem;font-weight:700;margin-bottom:.2rem;display:flex;align-items:center;gap:8px;color:#1f3b4c;border-left:5px solid #e67e22;padding-left:.8rem">📊 多工况负载油耗换算表</div>
-    <div style="color:#5f7f9e;margin-bottom:1rem;font-size:.82rem;padding-left:.8rem">基于毛功率基准(PRP/ESP)，负载系数 × 基准功率 = 实际毛功率</div>
+  <div style="background:var(--surf-2);border:1px solid var(--line);border-radius:8px;padding:1rem;margin-top:.5rem">
+    <div style="font-size:1.2rem;font-weight:700;margin-bottom:.2rem;display:flex;align-items:center;gap:8px;color:var(--brand-ink);border-left:5px solid #e67e22;padding-left:.8rem">📊 多工况负载油耗换算表</div>
+    <div style="color:var(--ink-3);margin-bottom:1rem;font-size:.82rem;padding-left:.8rem">基于毛功率基准(PRP/ESP)，负载系数 × 基准功率 = 实际毛功率</div>
 
     <div style="display:flex;flex-wrap:wrap;gap:1rem;background:#fff;padding:.8rem 1rem;border-radius:8px;margin-bottom:1rem;align-items:flex-end">
       <div class="form-group" style="flex:1;min-width:200px"><label>🔧 PRP 毛功率</label>
@@ -501,16 +626,16 @@ tr:hover{background:#f0f2f5}
         <tr><th>负载百分比</th><th>实际毛功率(kW)</th><th>体积油耗 L/h <span style="font-weight:normal">(⬅输入任一)</span></th><th>燃油消耗率 g/kWh <span style="font-weight:normal">(自动换算)</span></th></tr>
       </table>
     </div>
-    <div style="font-size:.72rem;color:#94a3b8;margin-top:.6rem">💡 g/kWh=(L/h×850)÷毛功率 | L/h=(g/kWh×毛功率)÷850 | 柴油密度0.85kg/L=850g/L | 功率为飞轮端毛功率</div>
+    <div style="font-size:.72rem;color:var(--ink-4);margin-top:.6rem">💡 g/kWh=(L/h×850)÷毛功率 | L/h=(g/kWh×毛功率)÷850 | 柴油密度0.85kg/L=850g/L | 功率为飞轮端毛功率</div>
   </div>
 </div>
 
 <!-- 子工具 2：柴油流量换算（LB/H ↔ L/H） -->
 <div id="tool-fuelconv" class="tool-panel" style="display:none">
-  <div style="font-size:1.2rem;font-weight:700;border-left:5px solid #1a365d;padding-left:.8rem;margin-bottom:.2rem;color:#1f3b4c">⛽ 柴油流量换算 <span style="font-size:.75rem;font-weight:400;color:#64748b">LB/H ↔ L/H · 基于密度(kg/L)</span></div>
-  <div style="color:#5f7f9e;margin-bottom:1.2rem;font-size:.82rem">质量流量 ⇄ 体积流量 · 密度可调(典型0#柴油15-25℃: 0.82~0.85)</div>
+  <div style="font-size:1.2rem;font-weight:700;border-left:5px solid var(--brand);padding-left:.8rem;margin-bottom:.2rem;color:var(--brand-ink)">⛽ 柴油流量换算 <span style="font-size:.75rem;font-weight:400;color:var(--ink-3)">LB/H ↔ L/H · 基于密度(kg/L)</span></div>
+  <div style="color:var(--ink-3);margin-bottom:1.2rem;font-size:.82rem">质量流量 ⇄ 体积流量 · 密度可调(典型0#柴油15-25℃: 0.82~0.85)</div>
 
-  <div style="display:flex;gap:.6rem;background:#eef2f7;padding:.4rem;border-radius:40px;margin-bottom:1.2rem;max-width:420px">
+  <div style="display:flex;gap:.6rem;background:var(--surf-3);padding:.4rem;border-radius:40px;margin-bottom:1.2rem;max-width:420px">
     <button class="tool-subtab active" onclick="setFuelDir(this,'toL')">➡️ LB/H → L/H</button>
     <button class="tool-subtab" onclick="setFuelDir(this,'toLB')">⬅️ L/H → LB/H</button>
   </div>
@@ -527,13 +652,13 @@ tr:hover{background:#f0f2f5}
   <div class="calc-box" style="margin-top:14px">
     <div class="calc-row"><span class="calc-label" id="fuelResultLabel">换算结果</span><span class="calc-val" id="fuelResultValue">—</span></div>
   </div>
-  <div style="font-size:.72rem;color:#94a3b8;margin-top:.6rem">📐 L/H=(LB/H×0.45359237)÷密度 | LB/H=(L/H×密度)÷0.45359237 ⚠️ 体积受温度影响，请用工况实际密度</div>
+  <div style="font-size:.72rem;color:var(--ink-4);margin-top:.6rem">📐 L/H=(LB/H×0.45359237)÷密度 | LB/H=(L/H×密度)÷0.45359237 ⚠️ 体积受温度影响，请用工况实际密度</div>
 </div>
 
 <!-- 子工具 3：电流计算器（备用功率→断路器等值电流） -->
 <div id="tool-amps" class="tool-panel" style="display:none">
-  <div style="font-size:1.2rem;font-weight:700;border-left:5px solid #1a365d;padding-left:.8rem;margin-bottom:.2rem;color:#1f3b4c">⚡ 电流计算器 <span style="font-size:.75rem;font-weight:400;color:#64748b">备用功率 kVA → 配置电流(断路器参考)</span></div>
-  <div style="color:#5f7f9e;margin-bottom:1.2rem;font-size:.82rem">输入备用功率(kVA)与额定线电压(V)，按 I = (备用kVA×1000) ÷ 线电压 ÷ 1.732 计算配置电流，用于断路器选型参考。</div>
+  <div style="font-size:1.2rem;font-weight:700;border-left:5px solid var(--brand);padding-left:.8rem;margin-bottom:.2rem;color:var(--brand-ink)">⚡ 电流计算器 <span style="font-size:.75rem;font-weight:400;color:var(--ink-3)">备用功率 kVA → 配置电流(断路器参考)</span></div>
+  <div style="color:var(--ink-3);margin-bottom:1.2rem;font-size:.82rem">输入备用功率(kVA)与额定线电压(V)，按 I = (备用kVA×1000) ÷ 线电压 ÷ 1.732 计算配置电流，用于断路器选型参考。</div>
 
   <div style="display:flex;gap:1rem;align-items:flex-end;flex-wrap:wrap">
     <div class="form-group" style="flex:1;min-width:160px"><label>备用功率 <span style="font-weight:normal">kVA</span></label><input type="number" id="ampsKVA" class="input-field" step="any" placeholder="例如 1100" oninput="ampsCalc()"></div>
@@ -545,13 +670,13 @@ tr:hover{background:#f0f2f5}
     <div class="calc-row"><span class="calc-label">公式</span><span class="calc-val" id="ampsFormula">I = (备用kVA×1000) ÷ 线电压 ÷ 1.732</span></div>
     <div id="ampsHint" style="font-size:.78rem;color:#b45309;margin-top:6px">💡 如无合适断路器档位，请选下一档</div>
   </div>
-  <div style="font-size:.72rem;color:#94a3b8;margin-top:.6rem">📐 I(A) = (备用kVA × 1000) ÷ 线电压(V) ÷ 1.732，所得数值即断路器选型参考值；无合适的标准档位时，请选下一档。</div>
+  <div style="font-size:.72rem;color:var(--ink-4);margin-top:.6rem">📐 I(A) = (备用kVA × 1000) ÷ 线电压(V) ÷ 1.732，所得数值即断路器选型参考值；无合适的标准档位时，请选下一档。</div>
 </div>
 
 <!-- 子工具 4：油箱容量计算（油耗 × 运行小时 → 油箱容积） -->
 <div id="tool-tank" class="tool-panel" style="display:none">
-  <div style="font-size:1.2rem;font-weight:700;border-left:5px solid #1a365d;padding-left:.8rem;margin-bottom:.2rem;color:#1f3b4c">🕐 油箱容量计算 <span style="font-size:.75rem;font-weight:400;color:#64748b">油耗(L/h) × 运行小时 → 油箱容积(L)</span></div>
-  <div style="color:#5f7f9e;margin-bottom:1.2rem;font-size:.82rem">输入单位油耗(L/h)与所需运行小时数，按 油箱容积 = 油耗 × 运行小时 计算。油耗可按负载工况填写(如 110% / 100% / 75%)。</div>
+  <div style="font-size:1.2rem;font-weight:700;border-left:5px solid var(--brand);padding-left:.8rem;margin-bottom:.2rem;color:var(--brand-ink)">🕐 油箱容量计算 <span style="font-size:.75rem;font-weight:400;color:var(--ink-3)">油耗(L/h) × 运行小时 → 油箱容积(L)</span></div>
+  <div style="color:var(--ink-3);margin-bottom:1.2rem;font-size:.82rem">输入单位油耗(L/h)与所需运行小时数，按 油箱容积 = 油耗 × 运行小时 计算。油耗可按负载工况填写(如 110% / 100% / 75%)。</div>
 
   <div style="display:flex;gap:1rem;align-items:flex-end;flex-wrap:wrap">
     <div class="form-group" style="flex:1;min-width:160px"><label>油耗 <span style="font-weight:normal">L/h（如110%、100%或75%工况）</span></label><input type="number" id="tankCons" class="input-field" step="any" placeholder="例如 63.5（默认75%）" oninput="tankCalc()"></div>
@@ -562,7 +687,7 @@ tr:hover{background:#f0f2f5}
     <div class="calc-row"><span class="calc-label">所需油箱容积</span><span class="calc-val" id="tankValue">—</span></div>
     <div class="calc-row"><span class="calc-label">公式</span><span class="calc-val" id="tankFormula">油箱容积 = 油耗 × 运行小时</span></div>
   </div>
-  <div style="font-size:.72rem;color:#94a3b8;margin-top:.6rem">📐 油箱容积(L) = 油耗(L/h) × 运行小时数(h)；油耗请按实际负载工况填写(参考：满载100%、常用75%)。</div>
+  <div style="font-size:.72rem;color:var(--ink-4);margin-top:.6rem">📐 油箱容积(L) = 油耗(L/h) × 运行小时数(h)；油耗请按实际负载工况填写(参考：满载100%、常用75%)。</div>
 </div>
 </div>
 </div>
@@ -574,7 +699,7 @@ tr:hover{background:#f0f2f5}
 </div>
 
 <div class="card" style="grid-column:1/-1">
-<h2 style="border-color:#1a365d">📢 通知公告</h2>
+<h2 style="border-color:var(--brand)">📢 通知公告</h2>
 <div id="noticeList"><div class="notice-empty">加载中…</div></div>
 </div>
 </div>
@@ -586,8 +711,15 @@ function switchView(v){
   document.querySelectorAll('.nav a').forEach(function(a){a.className='';});
   document.querySelectorAll('.page').forEach(function(p){p.style.display='none';});
   var nav={'home':'selector','selector':'selector','browse':'browse','tools':'tools','help':'help'};
-  document.getElementById(nav[v]+'View').style.display='grid';
+  var host=document.getElementById(nav[v]+'View');
+  host.style.display='grid';
   document.querySelector('.nav a[onclick*="'+v+'"]').className='active';
+  /* macOS 入场动画：仅在切换视图时触发，播完自动解除合成层 */
+  if(window.__macStagger){
+    /* 重置已播完的动画标记，让再次进入也有入场 */
+    host.querySelectorAll('.anim-done').forEach(function(el){el.classList.remove('anim-done');});
+    window.__macStagger(host);
+  }
 }
 
 function onUnitChange(){
@@ -1019,8 +1151,8 @@ function doSearch(){
   var ch='<div class="step-panel">';
   ch+='<div class="step-header" onclick="toggleStep(this)"><span><span class="step-num">步骤1</span>解析输入</span><span class="step-desc">'+(hasM&&hasS?'主用 + 备用 双功率校核':(hasM?'仅主用校核':'仅备用校核'))+'</span><span class="step-result">'+(hasM?('主用 '+goalM+' '+(is1ph?unitM:'kVA')):'')+(hasM&&hasS?' / ':'')+(hasS?('备用 '+goalS+' '+(is1ph?unitS:'kVA')):'')+'</span><span class="arrow">▼</span></div>';
   ch+='<div class="step-body">';
-  ch+=hasM?('<div class="calc-row"><span class="calc-label">① 主用功率（H级）</span><span class="calc-val">'+pM+' '+unitM+'</span></div>'):'<div class="calc-row"><span class="calc-label">① 主用功率</span><span class="calc-val" style="color:#94a3b8">未填写（不校核）</span></div>';
-  ch+=hasS?('<div class="calc-row"><span class="calc-label">② 备用功率（'+trLabel+'）</span><span class="calc-val">'+pS+' '+unitS+'</span></div>'):'<div class="calc-row"><span class="calc-label">② 备用功率</span><span class="calc-val" style="color:#94a3b8">未填写（不校核）</span></div>';
+  ch+=hasM?('<div class="calc-row"><span class="calc-label">① 主用功率（H级）</span><span class="calc-val">'+pM+' '+unitM+'</span></div>'):'<div class="calc-row"><span class="calc-label">① 主用功率</span><span class="calc-val" style="color:var(--ink-4)">未填写（不校核）</span></div>';
+  ch+=hasS?('<div class="calc-row"><span class="calc-label">② 备用功率（'+trLabel+'）</span><span class="calc-val">'+pS+' '+unitS+'</span></div>'):'<div class="calc-row"><span class="calc-label">② 备用功率</span><span class="calc-val" style="color:var(--ink-4)">未填写（不校核）</span></div>';
   ch+=(optCode==='ip44')?('<div class="calc-row"><span class="calc-label">特殊选配</span><span class="calc-val">IP44 防护降额10% → 选型需求 ÷0.9 放大</span></div>'):(optCode==='c5'?'<div class="calc-row"><span class="calc-label">特殊选配</span><span class="calc-val">C5 高防腐等级（暂不降额，数据待补）</span></div>':'');
   if(hasM) ch+='<div class="calc-row"><span class="calc-label">① 目标 '+(is1ph?unitM:'kVA')+(optCode==='ip44'?'（已含选配÷0.9）':'')+'</span><span class="calc-val">'+goalM+' '+(is1ph?unitM:'kVA')+'</span></div>';
   if(hasS) ch+='<div class="calc-row"><span class="calc-label">② 目标 '+(is1ph?unitS:'kVA')+(optCode==='ip44'?'（已含选配÷0.9）':'')+'</span><span class="calc-val">'+goalS+' '+(is1ph?unitS:'kVA')+'</span></div>';
@@ -1165,7 +1297,7 @@ function doSearch(){
     mh+='<span class="tag">标准励磁: '+escE(top)+'</span>'+(top.rec&&top.rec.exc_opt?'<span class="tag">可选励磁: '+esc(top.rec.exc_opt)+'</span>':'')+'<br>';
     if(hasM) mh+='<div style="margin-top:8px"><b>① 主用修正后: '+top.cpM+uxM+'</b> ≥ '+goalM+' '+uxM+' ✅</div>';
     if(hasS) mh+='<div style="margin-top:'+(hasM?'4px':'8px')+'"><b>② 备用'+trLabel+'修正后: '+top.cpS+uxS+'</b> ≥ '+goalS+' '+uxS+' ✅</div>';
-    if(isHV) mh+='<div style="margin-top:4px;font-size:12px;color:#64748b">中高压无海拔/温度修正</div>';
+    if(isHV) mh+='<div style="margin-top:4px;font-size:12px;color:var(--ink-3)">中高压无海拔/温度修正</div>';
     mh+='<div style="margin-top:8px;display:flex;gap:6px">';
     mh+='<button class="btn-secondary" onclick="copyModel(this,\''+escAttr(top.m)+'\')" title="复制型号">📋 复制型号</button>';
     mh+='<button class="btn-secondary" onclick="exportPdf()">📄 导出PDF</button>';
@@ -1421,18 +1553,18 @@ function buildPdfHtml(){
   // ---- 打印样式：白底、无阴影、表格不裁切 ----
   h += '*{box-sizing:border-box;margin:0;padding:0}';
   h += 'body{font-family:"Microsoft YaHei",-apple-system,sans-serif;color:#1f2937;padding:14mm 12mm;font-size:11px;line-height:1.55;background:#fff}';
-  h += '.rpt-head{border-bottom:3px solid #1a365d;padding-bottom:10px;margin-bottom:14px;display:flex;justify-content:space-between;align-items:flex-end}';
-  h += '.rpt-head h1{font-size:19px;color:#1a365d;letter-spacing:.5px}';
-  h += '.rpt-head .sub{font-size:10px;color:#64748b;margin-top:3px}';
-  h += '.rpt-head .meta{font-size:10px;color:#64748b;text-align:right;line-height:1.7}';
-  h += 'h2{font-size:13px;color:#1a365d;margin:16px 0 7px;padding-bottom:4px;border-bottom:1.5px solid #e2e8f0}';
+  h += '.rpt-head{border-bottom:3px solid var(--brand);padding-bottom:10px;margin-bottom:14px;display:flex;justify-content:space-between;align-items:flex-end}';
+  h += '.rpt-head h1{font-size:19px;color:var(--brand);letter-spacing:.5px}';
+  h += '.rpt-head .sub{font-size:10px;color:var(--ink-3);margin-top:3px}';
+  h += '.rpt-head .meta{font-size:10px;color:var(--ink-3);text-align:right;line-height:1.7}';
+  h += 'h2{font-size:13px;color:var(--brand);margin:16px 0 7px;padding-bottom:4px;border-bottom:1.5px solid var(--line)}';
   h += 'h2:first-of-type{margin-top:0}';
   h += 'table{width:100%;border-collapse:collapse;font-size:10px;margin-bottom:4px}';
-  h += 'th,td{border:1px solid #cbd5e1;padding:4px 6px;text-align:left;vertical-align:top}';
-  h += 'th{background:#eef2f7;font-weight:600;color:#1a365d}';
+  h += 'th,td{border:1px solid var(--line);padding:4px 6px;text-align:left;vertical-align:top}';
+  h += 'th{background:var(--surf-3);font-weight:600;color:var(--brand)}';
   h += '.kv{width:100%;font-size:11px}';
-  h += '.kv td{border:0;border-bottom:1px solid #f1f5f9;padding:3px 0}';
-  h += '.kv td:first-child{color:#64748b;width:38%}';
+  h += '.kv td{border:0;border-bottom:1px solid var(--surf-3);padding:3px 0}';
+  h += '.kv td:first-child{color:var(--ink-3);width:38%}';
   h += '.kv td:last-child{font-weight:600;text-align:right}';
   h += '.best{border:1.5px solid #86efac;background:#f0fff4;border-radius:6px;padding:10px 12px;margin-bottom:6px}';
   h += '.best .m{font-size:15px;font-weight:700;color:#14532d;margin-bottom:5px}';
@@ -1444,7 +1576,7 @@ function buildPdfHtml(){
   h += '.nomatch{border:1.5px solid #fecaca;background:#fff5f5;border-radius:6px;padding:12px;color:#dc2626;font-weight:600}';
   h += '.num{text-align:right;white-space:nowrap}';
   h += '.ctr{text-align:center}';
-  h += 'tr.fail td{color:#94a3b8}';
+  h += 'tr.fail td{color:var(--ink-4)}';
   // ---- 候选表：列多且内容长，需允许单元格内换行 + 自动压缩字号 ----
   // 不加 min-width（否则超出纸张宽度会被裁切）；固定布局让列宽由内容比例分配
   h += '.cand{table-layout:fixed;font-size:9px;width:100%}';
@@ -1453,12 +1585,12 @@ function buildPdfHtml(){
   h += '.cand .num{text-align:right;white-space:normal}';
   // 长数字去掉浮点尾巴（1029.6000000000001 → 1029.6），避免无谓撑宽
   h += '.cand td{font-variant-numeric:tabular-nums}';
-  h += '.note{font-size:9.5px;color:#64748b;margin-top:3px;line-height:1.6}';
-  h += '.foot{margin-top:16px;padding-top:8px;border-top:1px solid #e2e8f0;font-size:9px;color:#94a3b8;line-height:1.7}';
+  h += '.note{font-size:9.5px;color:var(--ink-3);margin-top:3px;line-height:1.6}';
+  h += '.foot{margin-top:16px;padding-top:8px;border-top:1px solid var(--line);font-size:9px;color:var(--ink-4);line-height:1.7}';
   h += '@page{margin:12mm 10mm}';
   h += '.aw{display:flex;gap:6px;margin-bottom:10px}';
   h += 'button{padding:7px 16px;border:0;border-radius:5px;font-size:12px;cursor:pointer;font-family:inherit}';
-  h += '.bp{background:#1a365d;color:#fff}.bs{background:#e2e8f0;color:#1f2937}';
+  h += '.bp{background:var(--brand);color:#fff}.bs{background:var(--line);color:#1f2937}';
   h += '@media print{.aw{display:none}}';
   h += '</style></head><body>';
 
@@ -1843,7 +1975,7 @@ function demoReply(text){
   r+='🏷️ 品牌方向：<b>'+brand+'</b>\n';
   r+='⚙️ 参考选型：'+unit+'模式，'+vol+'，'+freq+'，约 '+kw+'kW\n\n';
   r+='📌 建议：请确认机组用途（主用需按持续功率选，备用可对应备用功率）、安装海拔与环境温度（影响降额）。\n\n';
-  r+='<span style="color:#94a3b8">⚠️ 当前为演示模式，接入后端（AI_API.enabled=true）后将给出真实品牌与型号推荐。</span>';
+  r+='<span style="color:var(--ink-4)">⚠️ 当前为演示模式，接入后端（AI_API.enabled=true）后将给出真实品牌与型号推荐。</span>';
   return r;
 }
 
@@ -2039,7 +2171,7 @@ function fuelShowErr(el,msg,valEl){
   el.textContent=msg;el.style.display='inline-block';
   valEl.textContent='—';valEl.style.color='#e67e22';
 }
-function fuelHideErr(el,valEl){el.style.display='none';if(valEl)valEl.style.color='#1f3b4c';}
+function fuelHideErr(el,valEl){el.style.display='none';if(valEl)valEl.style.color='var(--brand-ink)';}
 
 // 卡片1：L/h → g/kWh
 function fuelUpdateBsfc(){
@@ -2144,7 +2276,7 @@ function fuelBuildLoadTable(){
     var lv=FUEL_LOAD_LEVELS[i];
     var tr=document.createElement('tr');
     tr.className='load-row';
-    tr.innerHTML='<td class="load-percent-cell" data-label="负载">'+lv.percent+'<br><span style="font-weight:normal;font-size:11px;color:#94a3b8">系数 '+lv.factor+'</span></td>'
+    tr.innerHTML='<td class="load-percent-cell" data-label="负载">'+lv.percent+'<br><span style="font-weight:normal;font-size:11px;color:var(--ink-4)">系数 '+lv.factor+'</span></td>'
       +'<td data-label="实际毛功率"><span class="power-value">— kW</span></td>'
       +'<td data-label="体积油耗 L/h"><input type="number" class="fuel-lh-input" step="any" placeholder="L/h"></td>'
       +'<td data-label="燃油消耗率 g/kWh"><input type="number" class="fuel-gkwh-input" step="any" placeholder="g/kWh"></td>';
@@ -2191,7 +2323,7 @@ function fuelPerformConversion(){
     res=(val*density)/FUEL_LB_TO_KG;unit='LB/H';
     lblEl.textContent='🔁 '+val+' L/H =';
   }
-  resEl.innerHTML=res.toFixed(4)+' <span style="font-size:.9rem;color:#64748b">'+unit+'</span>';
+  resEl.innerHTML=res.toFixed(4)+' <span style="font-size:.9rem;color:var(--ink-3)">'+unit+'</span>';
 }
 
 // ===== 电流计算器：备用功率(kVA)→配置电流(断路器参考) =====
@@ -2208,7 +2340,7 @@ function ampsCalc(){
     return;
   }
   var i=kva*1000/volt/1.7320508075688772;
-  valEl.innerHTML=i.toFixed(1)+' <span style="font-size:.85rem;color:#64748b">A</span>';
+  valEl.innerHTML=i.toFixed(1)+' <span style="font-size:.85rem;color:var(--ink-3)">A</span>';
   fmEl.textContent='I = ('+kva+'×1000) ÷ '+volt+' ÷ 1.732 = '+i.toFixed(1)+' A';
   hintEl.style.display='';   // 始终显示断路器档位提示
 }
@@ -2225,7 +2357,7 @@ function tankCalc(){
     return;
   }
   var vol=cons*hours;
-  valEl.innerHTML=vol.toFixed(1)+' <span style="font-size:.85rem;color:#64748b">L</span>';
+  valEl.innerHTML=vol.toFixed(1)+' <span style="font-size:.85rem;color:var(--ink-3)">L</span>';
   fmEl.textContent='油箱容积 = '+cons+' × '+hours+' = '+vol.toFixed(1)+' L';
 }
 
@@ -2300,6 +2432,47 @@ if(document.readyState==='loading'){
 }else{
   loadHelpNotices();
 }
+
+/* ===== macOS 入场动画调度：播完立即解除合成层，避免长期占用 GPU ===== */
+(function(){
+  var styleEl=null;
+  function killAnim(el){
+    if(!el||!el.classList)return;
+    el.classList.add('anim-done');
+    el.style.animation='none';
+  }
+  function runStagger(scope){
+    if(!scope)return;
+    var els=scope.querySelectorAll('.card,.browse-group,.mc-card');
+    if(!els.length)return;
+    for(var i=0;i<els.length;i++){
+      (function(el,idx){
+        el.classList.remove('anim-done');
+        el.style.animation='';
+        /* 交错延迟：最多 330ms，避免长列表拖慢 */
+        var d=Math.min(idx*45,330);
+        el.style.animationDelay=d+'ms';
+      })(els[i],i);
+    }
+    /* 动画播完统一清理 */
+    clearTimeout(scope.__animT);
+    var total=330+460;
+    scope.__animT=setTimeout(function(){
+      for(var i=0;i<els.length;i++){
+        els[i].style.animation='none';
+        els[i].style.animationDelay='';
+        els[i].classList.add('anim-done');
+      }
+    },total);
+  }
+  window.__macStagger=runStagger;
+
+  /* 尊重系统减少动效 */
+  var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(reduce){
+    window.__macStagger=function(){};
+  }
+})();
 </script>
 </body>
 </html>
