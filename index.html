@@ -333,25 +333,55 @@ tr:hover{background:var(--bg)}
 .landing .icon{font-size:48px;margin-bottom:12px}
 .landing p{font-size:14px;line-height:1.8}
 
-@media(max-width:800px){.page{grid-template-columns:minmax(0,1fr);grid-template-areas:"left" "right" "bottom"}.page>*{min-width:0}.header{flex-direction:column;gap:10px}.nav{flex-wrap:wrap;justify-content:center}
-/* 手机端：右列两卡必须回退成普通堆叠、解除固定高（否则卡内空一大截）*/
-.page.col-split .right-area{display:block;height:auto;padding:0;background:none;border:0;box-shadow:none}
-/* 手机端：right-area 包裹层内的两卡必须同样解除 min-width 约束，
-   否则 .page>*{min-width:0} 管不到（它们不是 page 的直接子元素）→ 横向溢出 */
-.page.col-split .right-area>*{min-width:0;width:100%}
-/* ⚠️ 关键：.page.col-split (0,2,0) 特异性高于 .page (0,1,0)，
-   手机端单列规则必须同样用 .page.col-split 才压得住桌面双列，
-   否则 390px 下仍是 340px+24px 两列 → 横向溢出。 */
-.page.col-split{grid-template-columns:minmax(0,1fr)}
+@media(max-width:800px){
+.header{flex-direction:column;gap:10px}
+.nav{flex-wrap:wrap;justify-content:center}
+
+/* ===== 手机端选型页：单列纵向堆叠（选型参数 → 最佳匹配 → AI售前 → 全部候选）===== */
+/* ⚠️ 必须用 .page 与 .page.col-split 两条分别写：
+   桌面 .page.col-split{grid-template-columns:340px 1fr} 是 (0,2,0)，
+   仅写 .page (0,1,0) 压不住 → 会退化成 0px+364px，左卡被压成一条竖线。 */
+.page,
+.page.col-split{
+  grid-template-columns:minmax(0,1fr);
+  grid-template-areas:"left" "right" "bottom";
+  align-items:start;
+  align-content:start;
+}
+.page>*{min-width:0;max-width:100%}
+
+/* 右列：解除桌面固定高等分，回退为普通纵向堆叠 */
+.page.col-split .right-area,
+.page .right-area{
+  display:flex;flex-direction:column;gap:12px;
+  height:auto;min-height:0;
+  align-self:auto;
+  padding:0;background:none;border:0;box-shadow:none;border-radius:0;
+}
+/* 包裹层内的子元素不受 .page>*{min-width:0} 约束，必须单独解除 */
+.page.col-split .right-area>*,
+.page .right-area>*{min-width:0;width:100%;max-width:100%}
+
+/* 两卡解除桌面 flex 等分与固定高，各自按内容自适应 */
+.page.col-split .match-area,
+.page.col-split .ai-area,
+.page .match-area,
+.page .ai-area{
+  flex:0 0 auto;display:block;
+  height:auto;max-height:none;min-height:0;
+}
+/* 卡内滚动区解除，交给页面整体滚动 */
+.page.col-split #matchDisplay,
+.page #matchDisplay{overflow:visible;max-height:none;flex:0 0 auto}
+.page.col-split .ai-panel,
+.page .ai-panel{display:block;flex:0 0 auto;min-height:0;margin-top:0;overflow:hidden}
+.page.col-split .ai-chat,
+.page .ai-chat{max-height:340px;flex:0 0 auto}
+/* 左卡/底卡：解除桌面 max-width 约束，宽度吃满 */
 .page.col-split .card.left-area,
 .page.col-split .card.match-area,
 .page.col-split .card.ai-area,
-.page.col-split .card.bottom-area{width:auto;min-width:0}
-.page.col-split .match-area,
-.page.col-split .ai-area{display:block;height:auto;max-height:none;overflow:visible}
-.page.col-split #matchDisplay{overflow:visible}
-.page.col-split .ai-panel{display:block}
-.page.col-split .ai-chat{max-height:340px}
+.page.col-split .card.bottom-area{width:auto;min-width:0;max-width:100%}
 }
 /* ================= 手机端优化（≤640px）================= */
 @media(max-width:640px){
