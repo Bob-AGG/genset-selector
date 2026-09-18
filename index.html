@@ -121,15 +121,18 @@ body{font-family:-apple-system,"Microsoft YaHei",sans-serif;background:#f0f2f5;c
 .step-body{display:none;padding:8px 10px;background:#fff;border:1px solid #e2e8f0;border-top:0;border-radius:0 0 5px 5px;font-size:13px;margin-bottom:4px}
 .step-body.open{display:block}
 
-.table-wrap{overflow:auto;max-height:78vh}
+.table-wrap{overflow:auto;max-height:78vh;overflow-anchor:none}
 table{width:100%;border-collapse:collapse;font-size:12px}
 th,td{padding:5px 8px;text-align:left;border-bottom:1px solid #e2e8f0;white-space:nowrap}
 th{background:#f8fafc;font-weight:600;position:sticky;top:0;z-index:3}
 .full-table{min-width:1600px}
 .full-table th,.browse-table th{background:#eef2f7}
-/* ===== 冻结表头 + 首列（#判定 / 型号），横纵滚动时保持可见 ===== */
-.full-table th:first-child,.full-table td:first-child{position:sticky;left:0;z-index:2;width:42px;min-width:42px;background:#fff;border-right:1px solid #e2e8f0}
-.full-table th:nth-child(2),.full-table td:nth-child(2){position:sticky;left:42px;z-index:2;background:#fff;border-right:1px solid #e2e8f0}
+/* ===== 冻结表头 + 首列（#判定 / 型号），横纵滚动时保持可见 =====
+   性能：冻结列提升为独立合成层（translateZ(0)），sticky 定位走 GPU；
+   不在单元格上加 contain（实测会加重层管理开销，反而掉帧）*/
+.full-table th:first-child,.full-table td:first-child{position:sticky;left:0;z-index:2;width:42px;min-width:42px;background:#fff;border-right:1px solid #e2e8f0;transform:translateZ(0)}
+.full-table th:nth-child(2),.full-table td:nth-child(2){position:sticky;left:42px;z-index:2;background:#fff;border-right:1px solid #e2e8f0;transform:translateZ(0)}
+.full-table thead th{transform:translateZ(0)}
 .full-table thead th:first-child,.full-table thead th:nth-child(2){z-index:4;background:#eef2f7}
 .full-table tbody tr.ok td:first-child,.full-table tbody tr.ok td:nth-child(2){background:#f0fff4}
 .full-table tbody tr.fail td:first-child,.full-table tbody tr.fail td:nth-child(2){background:#fff}
