@@ -1022,10 +1022,20 @@ function userPhase(){
   return el?Number(el.value):3;
 }
 
-// 单相接法名集合（与 winding_label/winding_conn 口径一致）
-var SINGLE_CONNS={'串联单相':1,'并联单相':1};
-function isSingleConn(conn){
-  return !!SINGLE_CONNS[String(conn||'').trim()];
+// 相数判定：数据库 phase 字段（'1'=单相 / '3'=三相）为唯一依据
+// 依据来源见 docs/LSA手册_接线相数权威表.md
+//   LSA/TAL —— 手册「相 - 连接代码」行：3ph-D/F/A=三相，1ph-FF/G=单相
+//   斯坦福  —— 手册章节标题：4 POLE Single Phase(Dedicated+Reconnectable)=单相，4 POLE Three Phase=三相
+// ⚠️ 绝不用接线名/线数/pf 反推
+function recPhase(rec){
+  var v=rec && rec.phase;
+  if(v===undefined || v===null || v==='') return null;
+  var n=Number(v);
+  if(n===1 || n===3) return n;
+  var t=String(v).trim();
+  if(t==='单相'||t==='1'||t==='1ph') return 1;
+  if(t==='三相'||t==='3'||t==='3ph') return 3;
+  return null;
 }
 
 // 相数切换：只刷新接线选项，PF 不自动归位（方案A）
@@ -1035,20 +1045,17 @@ function onPhaseChange(){
   onVoltChange();
 }
 
-// 记录是否匹配所选相数（无 winding_conn 的老库 → 退回 pf 判定，再退回 label 前缀）
+// 记录是否匹配所选相数
+// 新库：直读 phase 字段（精确）
+// 旧库（无 phase）：退回 winding_label「单相」字样 / winding_code 1ph- 前缀兜底
 function phaseMatch(rec){
   var ph=userPhase();
-  var conn=String(rec.winding_conn||'').trim();
-  if(conn && !/[/,]/.test(conn)){
-    var is1=isSingleConn(conn);
-    return ph===1 ? is1 : !is1;
-  }
-  // 旧库兜底：看 winding_label 是否含「单相」或 1ph 前缀
+  var rp=recPhase(rec);
+  if(rp!==null) return rp===ph;
   var lab=String(rec.winding_label||'');
   var code=String(rec.winding_code||'');
   var is1b=/单相/.test(lab) || /^1ph/i.test(code);
   if(ph===1) return is1b;
-  // 三相：明确标单相的排除，其余保留
   return !is1b;
 }
 
