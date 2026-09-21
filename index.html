@@ -609,10 +609,18 @@ tr:hover{background:var(--bg)}
 <div class="card left-area">
 <h2>📋 选型参数</h2>
 <div class="form-group"><label>电机品牌</label><select id="genBrand"><option value="">请选择品牌</option></select></div>
+<div class="form-group"><label>频率</label><div class="radio-group">
+<label><input type="radio" name="genFreq" value="50Hz" checked onchange="onParamChange()"> 50 Hz</label>
+<label><input type="radio" name="genFreq" value="60Hz" onchange="onParamChange()"> 60 Hz</label>
+</div></div>
 <div class="form-group"><label>额定电压 (V)</label><input type="number" id="genVolt" value="" min="100" max="15000" step="1" placeholder="请输入额定电压，如 380" oninput="onVoltChange()"><div class="volt-hint" id="voltHint"></div></div>
+<div class="form-group"><label>相数</label><div class="radio-group">
+<label><input type="radio" name="genPhase" value="3" checked onchange="onPhaseChange()"> 三相</label>
+<label><input type="radio" name="genPhase" value="1" onchange="onPhaseChange()"> 单相</label>
+</div></div>
 <div class="form-group"><label>功率因数 (PF)</label><div class="radio-group">
-<label><input type="radio" name="genPF" value="0.8" checked onchange="onVoltChange()"> 0.8（三相）</label>
-<label><input type="radio" name="genPF" value="1.0" onchange="onVoltChange()"> 1.0（单相）</label>
+<label><input type="radio" name="genPF" value="0.8" checked onchange="onVoltChange()"> 0.8</label>
+<label><input type="radio" name="genPF" value="1.0" onchange="onVoltChange()"> 1.0</label>
 </div></div>
 <div class="form-group"><label>极数</label><div class="radio-group">
 <label><input type="radio" name="genPole" value="4" checked onchange="onVoltChange()"> 4 极</label>
@@ -620,10 +628,6 @@ tr:hover{background:var(--bg)}
 <label><input type="radio" name="genPole" value="all" onchange="onVoltChange()"> 全部</label>
 </div></div>
 <div class="form-group"><label>接线方式</label><select id="genWinding"><option value="">请先输入电压</option></select></div>
-<div class="form-group"><label>频率</label><div class="radio-group">
-<label><input type="radio" name="genFreq" value="50Hz" checked onchange="onParamChange()"> 50 Hz</label>
-<label><input type="radio" name="genFreq" value="60Hz" onchange="onParamChange()"> 60 Hz</label>
-</div></div>
 <div class="form-group pw-group">
   <div class="pw-item">
     <label>① 主用功率（H级温升） <span class="pw-opt">可选</span></label>
@@ -958,6 +962,8 @@ function findVoltMatches(brand, freq, volt){
     if(r.pf!=null && Math.abs(Number(r.pf)-wantPF)>0.01) continue;
     // 极数过滤（4极 / 6极 / 全部）
     if(!poleMatch(r)) continue;
+    // 相数过滤（三相 / 单相）
+    if(!phaseMatch(r)) continue;
     // 电压匹配：优先按 voltage 区间（支持 '380-440V' 范围档），退回 winding_label 解析
     if(voltHitRange(r, volt)){
       var pairs=getConnVoltPairs(r);
@@ -1008,6 +1014,42 @@ function voltHitRange(rec, volt){
   var rg=voltRange(rec.voltage);
   if(rg) return volt>=rg.lo-0.01 && volt<=rg.hi+0.01;
   return false;
+}
+
+// 读取用户选择的相数（3 / 1）
+function userPhase(){
+  var el=document.querySelector('input[name="genPhase"]:checked');
+  return el?Number(el.value):3;
+}
+
+// 单相接法名集合（与 winding_label/winding_conn 口径一致）
+var SINGLE_CONNS={'串联单相':1,'并联单相':1};
+function isSingleConn(conn){
+  return !!SINGLE_CONNS[String(conn||'').trim()];
+}
+
+// 相数切换：只刷新接线选项，PF 不自动归位（方案A）
+// 相数 = 筛选维度（按接线名判三相/单相）；PF = 功率换算/口径维度，两者独立
+// 例：斯坦福 220V Reconnectable 手册只有 0.8pf 表 → 切「单相」后需手动选 PF=0.8 才能查到
+function onPhaseChange(){
+  onVoltChange();
+}
+
+// 记录是否匹配所选相数（无 winding_conn 的老库 → 退回 pf 判定，再退回 label 前缀）
+function phaseMatch(rec){
+  var ph=userPhase();
+  var conn=String(rec.winding_conn||'').trim();
+  if(conn && !/[/,]/.test(conn)){
+    var is1=isSingleConn(conn);
+    return ph===1 ? is1 : !is1;
+  }
+  // 旧库兜底：看 winding_label 是否含「单相」或 1ph 前缀
+  var lab=String(rec.winding_label||'');
+  var code=String(rec.winding_code||'');
+  var is1b=/单相/.test(lab) || /^1ph/i.test(code);
+  if(ph===1) return is1b;
+  // 三相：明确标单相的排除，其余保留
+  return !is1b;
 }
 
 // 读取用户选择的功率因数（默认 0.8）
@@ -1352,6 +1394,7 @@ function doSearch(){
   var records=ALL_DATA[brand]||[];
   // 单相判定：模式A（w=接线名）时，看同电压下的记录；模式B（w=code）时按 code
   var is1ph=(function(){
+    if(userPhase()===1) return true;                     // 用户显式选单相 → 直接单相口径
     if(isSinglePhase(w)) return true;
     // 模式A：接线名 → 查同电压命中的记录，看是否单相
     if(userVolt!==null){
@@ -1427,6 +1470,7 @@ function doSearch(){
     if(modeA){
       if(wSet) continue;                                  // 模式A 不处理中高压 combo
       if(!poleMatch(g)) continue;                          // 极数过滤
+      if(!phaseMatch(g)) continue;                         // 相数过滤
       // 范围档：用户电压落在区间内即算电压命中
       if(voltHitRange(g, userVolt)){
         var pr=getConnVoltPairs(g);
