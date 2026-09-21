@@ -187,6 +187,8 @@ body{font-family:-apple-system,"Microsoft YaHei",sans-serif;color:var(--ink);bac
 .pw-item .radio-group{margin:0 0 4px}
 .pw-item .pw-tr label{font-size:12px}
 .pw-hint{font-size:11px;color:var(--ink-3);line-height:1.55;margin:-4px 0 10px;padding:7px 10px;background:var(--surf-3);border-radius:9px;border-left:3px solid var(--brand-soft2)}
+.volt-hint{font-size:11px;color:var(--ink-3);line-height:1.5;margin-top:4px;min-height:14px}
+.volt-hint.warn{color:#c2410c}
 .btn{
   background:linear-gradient(180deg,var(--brand-2),var(--brand));
   color:#fff;border:none;padding:9px 18px;border-radius:9px;font-size:14px;cursor:pointer;width:100%;margin-top:2px;
@@ -607,7 +609,17 @@ tr:hover{background:var(--bg)}
 <div class="card left-area">
 <h2>📋 选型参数</h2>
 <div class="form-group"><label>电机品牌</label><select id="genBrand"><option value="">请选择品牌</option></select></div>
-<div class="form-group"><label>额定电压（接线方式）</label><select id="genWinding"><option value="">请先选择品牌和频率</option></select></div>
+<div class="form-group"><label>额定电压 (V)</label><input type="number" id="genVolt" value="" min="100" max="15000" step="1" placeholder="请输入额定电压，如 380" oninput="onVoltChange()"><div class="volt-hint" id="voltHint"></div></div>
+<div class="form-group"><label>功率因数 (PF)</label><div class="radio-group">
+<label><input type="radio" name="genPF" value="0.8" checked onchange="onVoltChange()"> 0.8（三相）</label>
+<label><input type="radio" name="genPF" value="1.0" onchange="onVoltChange()"> 1.0（单相）</label>
+</div></div>
+<div class="form-group"><label>极数</label><div class="radio-group">
+<label><input type="radio" name="genPole" value="4" checked onchange="onVoltChange()"> 4 极</label>
+<label><input type="radio" name="genPole" value="6" onchange="onVoltChange()"> 6 极</label>
+<label><input type="radio" name="genPole" value="all" onchange="onVoltChange()"> 全部</label>
+</div></div>
+<div class="form-group"><label>接线方式</label><select id="genWinding"><option value="">请先输入电压</option></select></div>
 <div class="form-group"><label>频率</label><div class="radio-group">
 <label><input type="radio" name="genFreq" value="50Hz" checked onchange="onParamChange()"> 50 Hz</label>
 <label><input type="radio" name="genFreq" value="60Hz" onchange="onParamChange()"> 60 Hz</label>
@@ -877,113 +889,183 @@ function onUnitChange(){
   if(es&&us) es.step = us.value==='kW'?5:5;
 }
 
+// ============================================================================
+// 电压输入式选型（用户 2026-09-21 定）：品牌 → 输入电压 → 接线方式 → 频率 ...
+// 规则：① 用户输入电压，命中所有覆盖该电压的「接线方式」，用户再选接线 → 命中款式
+//       ② 电压不在库中 → 报「无匹配」（后续再喂就近规则）
+// 匹配机制：winding_label 形如 'Y-380/Δ-220/YY-190V' → 解析成
+//           [{conn:'Y',volt:380},{conn:'Δ',volt:220},{conn:'YY',volt:190}] 逐项比对
+// ============================================================================
+
+// 把一条记录的 winding_label 解析为「接线+电压」对数组
+// 支持格式：'Y-380/Δ-220/YY-190V'、'Δ-230/ΔΔ-230V'、'Y-440V(仅L/M)'、
+//           '双三角形-230V'、'串联单相-230/并联单相-115'、'三相 · 3.3kV'、'3900V-W51' 等
+// 取一条记录的所有「接线+电压」组合
+// 新库（按接线拆行）：winding_conn 单值 + voltage 单值 → 一项
+// 旧库（一条含多接线）：winding_conn='Y/Δ/YY' + winding_label='Y-380/Δ-220/YY-190V' → 多项
+function getConnVoltPairs(rec){
+  if(!rec) return [];
+  var conn=rec.winding_conn==null?'':String(rec.winding_conn).trim();
+  var volt=rec.voltage==null?'':String(rec.voltage).trim();
+  // 新库判定：conn 非空 且 不含 '/'（单接线）
+  if(conn && conn.indexOf('/')<0){
+    var v=parseFloat(volt.replace(/kV/i,'').replace(/V/ig,'').replace(/[^\d.]/g,''));
+    var isKV=/kV/i.test(volt);
+    if(isFinite(v)&&v>0){
+      return [{conn:conn, volt:isKV?v*1000:v}];
+    }
+    // voltage 字段缺失 → 退回解析 label
+  }
+  // 旧库 / 兜底：解析 winding_label
+  return parseVoltPairs(rec.winding_label);
+}
+
+function parseVoltPairs(label){
+  var out=[];
+  if(label==null) return out;
+  var s=String(label).replace(/[（(][^）)]*[）)]/g,'');   // 去括号备注（如「(仅L/M)」）
+  s=s.replace(/^\s*(三相|单相)\s*[·•]\s*/,'');            // 去「三相 · 」前缀
+  s=s.replace(/V/g,'');                                    // 去 V 后缀，统一纯数字
+  var parts=s.split('/');
+  for(var i=0;i<parts.length;i++){
+    var seg=parts[i].trim();
+    if(!seg) continue;
+    // 末尾连续数字 = 电压；前面部分 = 接线名
+    var m=seg.match(/^(.*?)[\s-]*([\d.]+)\s*$/);
+    if(!m) continue;
+    var conn=m[1].replace(/[\s-]+$/,'').trim();
+    var volt=parseFloat(m[2]);
+    if(!isFinite(volt)||volt<=0) continue;
+    if(!conn) conn='';                                     // 无接线名（纯电压）
+    out.push({conn:conn, volt:volt});
+  }
+  return out;
+}
+
+// 电压浮点比较：容忍 0.01 误差
+function voltEq(a,b){ return Math.abs(Number(a)-Number(b))<0.01; }
+
+// 找该品牌+频率下，所有「覆盖用户输入电压」的记录
+// 返回 [{rec:记录, conn:接线名, volt:该接线的电压}, ...]
+function findVoltMatches(brand, freq, volt){
+  var records=ALL_DATA[brand]||[];
+  var hits=[];
+  var wantPF=userPF();
+  for(var i=0;i<records.length;i++){
+    var r=records[i];
+    if(r.frequency!==freq) continue;
+    // PF 过滤：用户选 0.8 只看三相(0.8)，选 1.0 只看单相(1.0)
+    if(r.pf!=null && Math.abs(Number(r.pf)-wantPF)>0.01) continue;
+    // 极数过滤（4极 / 6极 / 全部）
+    if(!poleMatch(r)) continue;
+    // 电压匹配：优先按 voltage 区间（支持 '380-440V' 范围档），退回 winding_label 解析
+    if(voltHitRange(r, volt)){
+      var pairs=getConnVoltPairs(r);
+      hits.push({rec:r, conn:pairs.length?pairs[0].conn:(r.winding_conn||''), volt:volt});
+      continue;
+    }
+    var pairs2=getConnVoltPairs(r);
+    for(var j=0;j<pairs2.length;j++){
+      if(voltEq(pairs2[j].volt, volt)){
+        hits.push({rec:r, conn:pairs2[j].conn, volt:pairs2[j].volt});
+        break;                                             // 一条记录同一电压只取一次
+      }
+    }
+  }
+  return hits;
+}
+
+// 读取用户选择的极数（4 / 6 / all）
+function userPole(){
+  var el=document.querySelector('input[name="genPole"]:checked');
+  return el?el.value:'4';
+}
+// 记录是否属于所选极数（无 poles 字段的老库视为不限制）
+function poleMatch(rec){
+  var sel=userPole();
+  if(sel==='all') return true;
+  if(rec.poles==null) return true;          // 老库无 poles 字段 → 不筛
+  return Number(rec.poles)===Number(sel);
+}
+
+// 解析一条记录的电压字段 → 电压区间 [lo,hi]（单值则 lo==hi）
+// 支持 '380V' / '3.3kV' / '380-440V' / '190V-208V' / '220V-240V' / '660-690V'
+function voltRange(str){
+  if(str==null) return null;
+  var s=String(str).trim();
+  var isKV=/kV/i.test(s);
+  s=s.replace(/[kK]?V/gi,'').trim();
+  var parts=s.split('-').map(function(x){return parseFloat(x.replace(/[^\d.]/g,''));});
+  parts=parts.filter(function(x){return isFinite(x)&&x>0;});
+  if(!parts.length) return null;
+  var lo=Math.min.apply(null,parts), hi=Math.max.apply(null,parts);
+  if(isKV){ lo*=1000; hi*=1000; }
+  return {lo:lo, hi:hi};
+}
+
+// 电压是否命中（单值精确匹配 / 范围档：用户值落在区间内即命中）
+function voltHitRange(rec, volt){
+  var rg=voltRange(rec.voltage);
+  if(rg) return volt>=rg.lo-0.01 && volt<=rg.hi+0.01;
+  return false;
+}
+
+// 读取用户选择的功率因数（默认 0.8）
+function userPF(){
+  var el=document.querySelector('input[name="genPF"]:checked');
+  return el?Number(el.value):0.8;
+}
+
+// 用户输入电压变化 → 刷新接线下拉
+function onVoltChange(){
+  var brand=document.getElementById('genBrand').value;
+  var freq=document.querySelector('input[name="genFreq"]:checked').value;
+  var raw=document.getElementById('genVolt').value.trim();
+  var hint=document.getElementById('voltHint');
+  var ws=document.getElementById('genWinding');
+  syncDutyOptions(brand);
+  if(!brand||!freq){ ws.innerHTML='<option value="">请先选择品牌和频率</option>'; hint.textContent=''; return; }
+  if(raw==='' ){ ws.innerHTML='<option value="">请先输入电压</option>'; hint.textContent=''; hint.className='volt-hint'; return; }
+  var volt=Number(raw);
+  if(!isFinite(volt)||volt<=0){ ws.innerHTML='<option value="">电压无效</option>'; hint.textContent='请输入有效电压值'; hint.className='volt-hint warn'; return; }
+  var hits=findVoltMatches(brand, freq, volt);
+  if(hits.length===0){
+    ws.innerHTML='<option value="">无匹配</option>';
+    hint.textContent='❌ '+volt+'V 在 '+freq+' 下无匹配（请核对电压或频率）';
+    hint.className='volt-hint warn';
+    return;
+  }
+  // 按接线名聚合：同一接线可能对应多个绕组代码/型号
+  var conns=[];
+  for(var i=0;i<hits.length;i++){
+    var h=hits[i];
+    var key=h.conn;
+    var found=null;
+    for(var k=0;k<conns.length;k++){ if(conns[k].conn===key){ found=conns[k]; break; } }
+    if(!found){ found={conn:key, volts:[], labels:[]}; conns.push(found); }
+    if(found.volts.indexOf(h.volt)<0) found.volts.push(h.volt);
+    if(found.labels.indexOf(h.rec.winding_label)<0) found.labels.push(h.rec.winding_label);
+  }
+  ws.innerHTML='<option value="">请选择接线方式</option>';
+  for(var i=0;i<conns.length;i++){
+    var c=conns[i];
+    // value 用接线名（doSearch 按此过滤）；显示接线名 + 实际电压
+    ws.innerHTML+='<option value="'+esc(c.conn)+'">'+esc(c.conn||'（未标注接线）')+' · '+esc(String(c.volts.join('/')))+'V</option>';
+  }
+  ws.setAttribute('data-mode','conn');
+  hint.textContent='✅ '+volt+'V 命中 '+conns.length+' 种接线方式、'+hits.length+' 个绕组档';
+  hint.className='volt-hint';
+}
+
+// 品牌/频率变化时刷新（保留函数名，供现有 onchange 调用）
 function onParamChange(){
   var brand=document.getElementById('genBrand').value;
   var freq=document.querySelector('input[name="genFreq"]:checked').value;
-  var ws=document.getElementById('genWinding');
   syncDutyOptions(brand);   // ★必须放最前：本函数有多处 early return，放末尾会被跳过（中高压曾因此漏隐藏40℃选项）
-  if(!brand||!freq){ws.innerHTML='<option value="">请先选择品牌和频率</option>';return;}
-  // 根据已加载的品牌数据动态生成电压选项
-  var records=ALL_DATA[brand]||[];
-  var windings=[];
-  for(var i=0;i<records.length;i++){
-    var r=records[i];
-    if(r.frequency===freq && windings.indexOf(r.winding_code)===-1){
-      windings.push(r.winding_code);
-    }
-  }
-  // 中高压品牌: 电压下拉按电压数值升序（3300→4160→5500→6000→6300→6600→6900→7200→10000→...→13800）
-  if(isHVBrand(brand) && windings.length>1){
-    windings.sort(function(a,b){
-      var na=parseInt((a.match(/\d+/)||['0'])[0],10);
-      var nb=parseInt((b.match(/\d+/)||['0'])[0],10);
-      if(na!==nb) return na-nb;
-      return a<b?-1:(a>b?1:0);
-    });
-  }
-  if(windings.length===0){
-    ws.innerHTML='<option value="">该品牌无'+freq+'数据</option>';
-    return;
-  }
-  ws.innerHTML='<option value="">请选择电压</option>';
-  // ===== 中高压专用：按「电压等级(kV)」分组显示，绕组并入选型内部匹配 =====
-  // windings 已经是按数值升序(见上)，这里按 label 前缀提取电压等级分组
-  // 例：'3ph 3.3kV 绕组51'/'3ph 3.3kV 绕组851' → 同一组 '3ph 3.3kV'，value=两个code逗号连接
-  if(isHVBrand(brand) && windings.length>1){
-    var hvGroups=[]; // {kv:'3.3kV', label:'三相 · 3.3kV', codes:['3300V-W51','3300V-W851']}
-    var order=[];    // 保持电压数值升序（windings已按数值升序）
-    for(var hi=0; hi<windings.length; hi++){
-      var hc=windings[hi];
-      var hlabel='';
-      for(var hj=0; hj<records.length; hj++){
-        if(records[hj].frequency===freq && records[hj].winding_code===hc && records[hj].winding_label){
-          hlabel=records[hj].winding_label; break;
-        }
-      }
-      // 提取 kV 范围前缀：'3ph 10.5-11kV 绕组83' → '10.5-11kV'
-      var m=hc.match(/^(\d+V(?:\([^)]*\))?(?:-\d+V(?:\([^)]*\))?)?)/);
-      var kvKey = m ? m[1] : hlabel;
-      var group=null;
-      for(var hg=0; hg<hvGroups.length; hg++){ if(hvGroups[hg].kvKey===kvKey){ group=hvGroups[hg]; break; } }
-      if(!group){
-        // label 显示用电压等级：从 winding_label 提 '3ph XkV'，不含绕组号
-        var kvLabel=hc.replace(/[()#&]/g,''); // 如 '3300V-W51' (不太理想，下面用更规整的)
-        group={kvKey:kvKey, label:'', codes:[]};
-        hvGroups.push(group);
-      }
-      group.codes.push(hc);
-    }
-    // 补全每个组的显示 label：取该组任一 winding_label 去掉 绕组XX 部分
-    for(var hg=0; hg<hvGroups.length; hg++){
-      var g0=hvGroups[hg];
-      var refLabel=g0.codes[0], disp='';
-      for(var hj=0; hj<records.length; hj++){
-        if(records[hj].frequency===freq && records[hj].winding_code===refLabel && records[hj].winding_label){
-          disp=records[hj].winding_label; break;
-        }
-      }
-      disp=disp.replace(/\s*绕组\d+\s*$/,'');       // '3ph 10.5kV 绕组83' → '3ph 10.5kV'
-      disp=disp.replace(/^3ph\s+/,'三相 · ');          // → '三相 · 10.5kV'
-      g0.label=disp || (g0.codes.join(', '));
-      ws.innerHTML+='<option value="'+g0.codes.join(',')+'">'+esc(g0.label)+'</option>';
-    }
-    ws.setAttribute('data-grouped','1');
-    return;
-  }
-  ws.setAttribute('data-grouped', (isAGG(brand)||isLeroy(brand)) ? '1' : '0');
-  var groups = isLeroy(brand) ? leroyVoltageGroups(freq, windings)
-             : isAGG(brand)    ? aggVoltageGroups(freq, windings)
-             : null;
-  if(groups){
-    // 分组输出：每组内电压仍按数据顺序
-    for(var gi=0; gi<groups.length; gi++){
-      var g=groups[gi];
-      var opts='';
-      for(var wi=0; wi<g.codes.length; wi++){
-        var w2=g.codes[wi];
-        var lbl2 = aggWindingLabel(records, freq, w2);
-        opts+='<option value="'+w2+'">'+lbl2+'</option>';
-      }
-      ws.innerHTML+='<optgroup label="'+esc(g.name)+'">'+opts+'</optgroup>';
-    }
-  } else {
-    var added={};
-    for(var i=0;i<windings.length;i++){
-      var w=windings[i];
-      if(added[w]) continue;
-      added[w]=true;
-      var label=w, conn='';
-      for(var j=0;j<records.length;j++){
-        if(records[j].frequency===freq && records[j].winding_code===w && records[j].winding_label){
-          label=records[j].winding_label;
-          conn=records[j].winding_conn||'';
-          break;
-        }
-      }
-      var prefix = isSinglePhase(w, label) ? '单相 · ' : '三相 · ';
-      ws.innerHTML+='<option value="'+w+'">'+prefix+esc(label)+(conn?'（'+esc(conn)+'）':'')+'</option>';
-    }
-  }
+  var hint=document.getElementById('voltHint');
+  var ws=document.getElementById('genWinding');
+  if(!brand||!freq){ ws.innerHTML='<option value="">请先输入电压</option>'; if(hint){hint.textContent='';hint.className='volt-hint';} return; }
+  onVoltChange();   // 品牌/频率变了 → 按当前电压重算接线选项
 }
 
 // 用途选项联动：40℃ 备用功率仅低压品牌提供（中高压暂无 40℃ 备用数据，暂不做）
@@ -1237,7 +1319,9 @@ function getPFFactor(pf){
 
 function doSearch(){
   var brand=document.getElementById('genBrand').value;
-  var w=document.getElementById('genWinding').value;
+  var w=document.getElementById('genWinding').value;      // 接线名（模式A）或绕组代码（旧数据兼容，由 doSearch 内部判定）
+  var userVoltRaw=document.getElementById('genVolt').value.trim();
+  var userVolt=(userVoltRaw!=='' && isFinite(Number(userVoltRaw)))?Number(userVoltRaw):null;
   var freq=document.querySelector('input[name="genFreq"]:checked').value;
   // 40℃ 备用仅低压支持（中高压暂不做）；防御：中高压若遗留 ESP40 选择则按 27℃ 处理
   var duty0=document.querySelector('input[name="genDuty"]:checked').value;
@@ -1256,16 +1340,28 @@ function doSearch(){
   var trLabel=(duty==='ESP40') ? '40℃' : '27℃';
   var a=Number(document.getElementById('genAlt').value);
   var t=Number(document.getElementById('genTemp').value);
-  var pfUser=0.8;                                               // 功率因数固定 0.8(已去掉用户选择, 标准默认值)
+  var pfUser=userPF();                                          // 功率因数：用户 PF 切换（默认0.8三相 / 1.0单相）
   var optCode=document.getElementById('genOption').value;      // 特殊选配: none/ip44/c5
   var optDec=optCode==='ip44'?0.9:1;                            // IP44防护降额10%→需求÷0.9放大; C5高防腐暂不降额(数据待补)→÷1; 无→÷1
 
   if(!brand){alert('请选品牌');return;}
-  if(!w){alert('请选电压');return;}
+  if(userVolt===null&&!w){alert('请输入额定电压');return;}
+  if(!w){alert(userVolt!==null?('请输入额定电压 '+userVolt+'V 对应的接线方式'):'请输入额定电压');return;}
   if(!hasM && !hasS){alert('请至少填写一个功率（① 主用功率 或 ② 备用功率）');return;}
 
   var records=ALL_DATA[brand]||[];
-  var is1ph=isSinglePhase(w);   // 统一用 isSinglePhase 判定单相(含 AGG D51-1ph-230 特例
+  // 单相判定：模式A（w=接线名）时，看同电压下的记录；模式B（w=code）时按 code
+  var is1ph=(function(){
+    if(isSinglePhase(w)) return true;
+    // 模式A：接线名 → 查同电压命中的记录，看是否单相
+    if(userVolt!==null){
+      var hs=findVoltMatches(brand, freq, userVolt);
+      for(var i=0;i<hs.length;i++){
+        if(hs[i].conn===w) return isSinglePhase(hs[i].rec.winding_code, hs[i].rec.winding_label);
+      }
+    }
+    return false;
+  })();
   // AGG (KI/KK)：走 AGG 手册功率修正表（海拔×温度二维修正，拆成 af×tf 两个独立系数相乘）
   var isAGG=(brand==='AGG KI系列'||brand==='AGG KK系列');
   // 美奥迪(Mecc Alte)：走美奥迪手册 海拔×温度 二维表（拆成 af×tf，与 AGG 同法）
@@ -1325,8 +1421,33 @@ function doSearch(){
   var wSet = (isHV && w.indexOf(',')>=0) ? w.split(',') : null;
   for(var i=0;i<records.length;i++){
     var g=records[i];
-    var wMatch = wSet ? (wSet.indexOf(g.winding_code)>=0) : (g.winding_code===w);
+    // 匹配模式：A = 用户输入电压 + 选接线名（新流程）；B = 旧绕组代码（兼容历史数据）
+    var modeA = (userVolt!==null);
+    var wMatch;
+    if(modeA){
+      if(wSet) continue;                                  // 模式A 不处理中高压 combo
+      if(!poleMatch(g)) continue;                          // 极数过滤
+      // 范围档：用户电压落在区间内即算电压命中
+      if(voltHitRange(g, userVolt)){
+        var pr=getConnVoltPairs(g);
+        wMatch = pr.length ? (pr[0].conn===w) : (String(g.winding_conn||'')===w);
+      } else {
+        var pairs=getConnVoltPairs(g);
+        var vHit=false, cHit=false;
+        for(var pi=0;pi<pairs.length;pi++){
+          if(voltEq(pairs[pi].volt, userVolt)){
+            vHit=true;
+            if(pairs[pi].conn===w){ cHit=true; break; }
+          }
+        }
+        wMatch = vHit && cHit;                              // 电压命中 且 接线名一致
+      }
+    } else {
+      wMatch = wSet ? (wSet.indexOf(g.winding_code)>=0) : (g.winding_code===w);
+    }
     if(g.frequency!==freq||!wMatch) continue;
+    // PF 过滤：按用户选择的 PF 口径筛选（0.8三相 / 1.0单相）
+    if(g.pf!=null && Math.abs(Number(g.pf)-pfUser)>0.01) continue;
     // ★ 两个输入框单位可能不同 → 各自用各自 uKey 读列
     var mkM=uKeyM, mkS=uKeyS;
     // 主用功率列：低压按 H 级温升(cont_h)；中高压按 F 级温升(cont_f)，F级无数据回退 H 级(cont_h)
