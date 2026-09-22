@@ -1173,7 +1173,7 @@ function isSinglePhase(w, label){
 
 // 品牌是否为中高压(走中高压专用逻辑: 不适用海拔/温度修正, 主用功率取F级cont_f, 电压下拉数值升序)
 function isHVBrand(brand){
-  return (brand==='利莱森玛 LSA 中高压'||brand==='斯坦福中高压');
+  return (brand==='利莱森玛 LSA 中高压'||brand==='斯坦福中高压'||brand==='铨一QYH中高压');
 }
 function isAGG(brand){
   return (brand==='AGG KI系列'||brand==='AGG KK系列');
@@ -2191,6 +2191,7 @@ var BRAND_FILES = {
   '英格N3系列': 'inger-n3.json',
   '铨一QYK': 'qyk.json',
   '铨一QYI': 'qyi.json',
+  '铨一QYH中高压': 'qyh.json',
   '顶一DINGOL': 'dingol.json'
 };
 
@@ -2250,6 +2251,7 @@ function brandLabel(k){
   else if(l==='英格N3系列')l='英格N3系列';
   else if(l==='铨一QYK')l='铨一QYK';
   else if(l==='铨一QYI')l='铨一QYI';
+  else if(l==='铨一QYH中高压')l='铨一 QYH 中高压';
   else if(l==='顶一DINGOL')l='顶一 DINGOL';
   return l;
 }
