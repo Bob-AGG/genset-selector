@@ -457,11 +457,25 @@ tr:hover{background:var(--bg)}
   align-items:start;
   align-content:start;
 }
-/* 手机端：提示栏 / 厂家表栏各占一行，横排铺满（竖排文字在窄屏读不了）*/
+/* 手机端：提示栏 + 厂家表栏放在最上面（两个并排一行），下面才是选型参数等。
+   用户要求：提示在最上面，厂家选型表在他下面。 */
 .page.col-split{
-  grid-template-areas:"notices" "left" "right" "factory" "bottom";
+  grid-template-areas:
+    "notices"
+    "factory"
+    "left"
+    "right"
+    "bottom";
 }
-.notices-area,.factory-area{width:100%;max-width:100%;height:auto}
+/* 侧栏容器在手机端解除「零高 + 绝对定位」，回到正常文档流 */
+.notices-area,.factory-area{
+  position:static;height:auto;min-height:0;
+  width:100%;max-width:100%;align-self:start;
+}
+.notices-area .notice-panel,
+.factory-area .notice-panel{
+  position:static;inset:auto;
+}
 .notice-panel{height:auto;padding:10px 12px}
 .notice-panel .notice-inner{flex-direction:row;flex-wrap:wrap;justify-content:center;gap:0 8px;text-align:center}
 .notice-panel .notice-ico{margin-bottom:0}
