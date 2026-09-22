@@ -18,8 +18,9 @@ live-index.html
 _*.js
 _*.py
 
-# Excel 导出
+# Excel 导出（catalogs/ 里的厂家原始表要入库，故排除该目录）
 *.xlsx
+!catalogs/*.xlsx
 
 # node 依赖
 node_modules/
