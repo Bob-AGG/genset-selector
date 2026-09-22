@@ -134,7 +134,17 @@ body{font-family:-apple-system,"Microsoft YaHei",sans-serif;color:var(--ink);bac
   font-size:13px;line-height:1.9;font-weight:700;color:#a15c07;
 }
 .notice-panel .notice-ico{writing-mode:horizontal-tb;font-size:16px;margin-bottom:8px}
-.notice-panel .notice-inner{display:flex;flex-direction:column;align-items:center}
+/* ⚠️ 竖排栏内 flex 容器必须限宽限高，否则子元素（如「数据还在校验中」横排图标
+   与竖排文字混排）会把容器撑出栏宽（实测 61→71 溢出）。 */
+/* ⚠️ 竖排栏内 flex 容器：align-items:center 会让「最宽子项(notice-body)」把
+   inner 撑出栏宽（实测 inner 60.59 vs body 80.98 → scrollW 71 > clientW 61）。
+   修法：stretch 让子项各自不超过 inner 宽，并逐级限宽 100%。 */
+.notice-panel .notice-inner{
+  display:flex;flex-direction:column;align-items:stretch;justify-content:center;
+  max-width:100%;max-height:100%;min-width:0;min-height:0;
+  box-sizing:border-box;overflow:hidden;
+}
+.notice-panel .notice-inner>*{max-width:100%;min-width:0}
 .notice-panel .notice-sub{
   writing-mode:vertical-rl;text-orientation:upright;letter-spacing:.1em;
   font-size:11px;line-height:1.8;font-weight:500;color:#b9832e;margin-top:10px;
@@ -162,7 +172,40 @@ body{font-family:-apple-system,"Microsoft YaHei",sans-serif;color:var(--ink);bac
 }
 .notice-panel .fx-link:hover{background:#e3f0ff;border-color:#8fbde8}
 .notice-panel .fx-ico{writing-mode:horizontal-tb;font-size:15px}
-.notice-panel .fx-label{max-height:100%;overflow:hidden}
+/* ★ 用户 13:29：斯坦福「Industrial Ratings Book Edition 9」等长名称会冲出栏外。
+   竖排栏内标签必须限高 + 内部可滚，且能断行（长英文串不折行会横向撑破）。
+   ⚠️ 竖排下可用高度 = 元素高度，故用 max-height 约束 + overflow-y auto。 */
+.notice-panel .fx-label{
+  /* 竖排文字：宽度由内容决定，不能被 flex 压缩（center 下实测被压到 20px 而需要 41px）*/
+  flex:0 0 auto;width:auto;
+  max-height:100%;overflow:hidden auto;
+  overflow-wrap:anywhere;word-break:break-word;
+  text-align:center;min-height:0;
+}
+/* 链接本身不许超出栏高（宽度由内容决定，上限交给 .notice-body 的 min-width）*/
+.notice-panel .fx-link{
+  align-self:center;
+  max-height:100%;overflow:hidden;
+  box-sizing:border-box;
+  flex:0 0 auto;
+}
+/* 厂家栏内容区：竖排 vertical-rl 下「宽」=交叉轴，必须显式放开，
+   否则 body 只有 61px 而内部链接需要 81px → scrollW 溢出。
+   ⚠️ 这是本轮真正的根因：竖排容器的交叉轴尺寸不会被内容自动撑开。 */
+/* ⚠️ 真根因：.notice-inner 的宽度由「最窄兄弟节点」决定（ico/txt 只需 60px），
+   而 .notice-body 是竖排(vertical-rl)容器 —— 竖排容器的交叉轴尺寸（宽）
+   不会被内部 link 撑开，于是 body 停在 61px、内部 link 需要 81px → 溢出。
+   修法：竖排容器必须显式给定交叉轴尺寸 → body 宽度锁「栏可用宽」。 */
+.notice-panel.factory-panel .notice-inner{
+  max-height:100%;overflow:hidden;
+  width:100%;box-sizing:border-box;
+}
+.notice-panel.factory-panel .notice-body{
+  max-height:100%;overflow:hidden auto;min-height:0;
+  width:100%;min-width:0;box-sizing:border-box;
+  /* 竖排容器交叉轴不许被内容外推 */
+  contain:none;
+}
 .notice-panel .fx-hint{
   writing-mode:vertical-rl;text-orientation:upright;
   font-size:12px;letter-spacing:.1em;color:#5a8fc7;font-weight:500;
@@ -184,6 +227,13 @@ body{font-family:-apple-system,"Microsoft YaHei",sans-serif;color:var(--ink);bac
 /* 右列容器只做布局，不画卡片外观（外观由内部 match-area/ai-area 自持）*/
 .page.col-split .right-area{background:none;border:0;box-shadow:none;padding:0;border-radius:0}
 .bottom-area{grid-area:bottom}
+/* ★ 用户 13:29：底部「计算过程/全部候选」卡要跟上方对齐 ——
+   桌面端侧栏已移到最右（含提示栏+厂家选型表），底部卡必须跨过中间列、
+   右边界与侧栏左边界对齐（即 right 列 + side 列之间的 gutter）。
+   做法：把 bottom 的网格区扩成 right+side 两列。
+   ⚠️ 只作用于 .col-split（选型页），产品库/其他页不受影响。 */
+/* ★ 用户 13:51 选「甲」：底部卡拉满整行，左边界也对齐参数卡。 */
+.page.col-split .bottom-area{grid-column:1 / 4}
 
 /* ================= 选型页右列：最佳匹配 + AI 售前，上下两卡固定高 =================
    用户要求：
