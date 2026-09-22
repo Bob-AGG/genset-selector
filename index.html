@@ -113,16 +113,30 @@ body{font-family:-apple-system,"Microsoft YaHei",sans-serif;color:var(--ink);bac
 .nav a.active{color:#fff;background:rgba(255,255,255,.22);box-shadow:0 1px 0 rgba(255,255,255,.25) inset}
 
 .page{max-width:1200px;margin:0 auto;padding:16px;display:grid;gap:16px;grid-template-columns:340px 1fr;grid-template-areas:"left right" "bottom bottom"}
-/* 选型页：最左侧「温馨提示」窄栏 + 选型参数 + 右列。
-   用 3 列网格，notices 独占第 1 列，参数卡与右列整体右移一列。 */
+/* 选型页：最左「提示栏」+ 选型参数 + 右列 + 最右「厂家选型表」栏。
+   notices / factory 两栏宽度相同（174px），高度都锁与选型参数卡等高。
+   ⚠️ 参数卡宽度写 340px（与上方 .page 一致），不写 minmax(0,..)：
+      否则参数卡会被拉到 1fr 变宽。 */
 .page.col-split{
-  grid-template-columns:112px 340px minmax(0,1fr);
-  grid-template-areas:"notices left right" "notices bottom bottom";
+  grid-template-columns:var(--side-w,174px) 340px minmax(0,1fr) var(--side-w,174px);
+  grid-template-areas:"notices left right factory" "notices bottom bottom factory";
 }
-.notices-area{grid-area:notices;align-self:stretch}
-/* 提示栏：竖向窄条，文字竖排，随左卡等高 */
+.notices-area{grid-area:notices}
+.factory-area{grid-area:factory}
+/* ★ 侧栏不参与 grid 行高计算：
+   若参与，侧栏高会反过来顶高 grid 行 → 量出的左卡高被污染（稳定偏小 16px）。
+   做法：容器 position:relative 且高度为 0，panel 绝对定位铺满容器宽度、
+   高度由 JS 实测写入 --rc-full。这样侧栏对行高零贡献，测量干净。 */
+.notices-area,.factory-area{
+  position:relative;align-self:start;height:0;min-height:0;
+}
+.notices-area .notice-panel,
+.factory-area .notice-panel{
+  position:absolute;top:0;left:0;right:0;
+}
+/* 提示栏：竖向条，文字竖排，高度 = 选型参数卡 */
 .notice-panel{
-  height:100%;box-sizing:border-box;
+  height:var(--rc-full,340px);box-sizing:border-box;
   background:linear-gradient(180deg,#fff8e6,#fffdf6);
   border:1px solid #f2d99b;border-radius:14px;
   padding:16px 10px;
@@ -138,6 +152,17 @@ body{font-family:-apple-system,"Microsoft YaHei",sans-serif;color:var(--ink);bac
 .notice-panel .notice-sub{
   writing-mode:vertical-rl;text-orientation:upright;letter-spacing:.1em;
   font-size:11px;line-height:1.8;font-weight:500;color:#b9832e;margin-top:10px;
+}
+/* 右栏「厂家选型表」（占位，后续放厂家选型表）*/
+.notice-panel.factory-panel{
+  background:linear-gradient(180deg,#eef6ff,#fbfdff);
+  border-color:#c7dcf3;
+}
+.notice-panel.factory-panel .notice-txt{color:#1d4e89}
+.notice-panel.factory-panel .notice-sub{color:#5a8fc7}
+.notice-panel .notice-body{
+  writing-mode:vertical-rl;text-orientation:upright;letter-spacing:.1em;
+  font-size:12px;line-height:1.9;color:#6b7c93;
 }
 .card{
   background:var(--surf);border-radius:14px;padding:20px;
@@ -168,7 +193,7 @@ body{font-family:-apple-system,"Microsoft YaHei",sans-serif;color:var(--ink);bac
    两卡等高等分，且随视口自适应；页面滚动时两卡一并在视口内保持可见。
    作用域严格锁 .match-area / .ai-area，不影响手机端与其他页面。 */
 /* ⚠️ 本行会覆盖前面定义的 3 列版式，故必须同步写 3 列（notices 列）。 */
-.page.col-split{grid-template-columns:112px 340px minmax(0,1fr);grid-template-areas:"notices left right" "notices bottom bottom";align-items:stretch;align-content:start}
+.page.col-split{grid-template-columns:var(--side-w,174px) 340px minmax(0,1fr) var(--side-w,174px);grid-template-areas:"notices left right factory" "notices bottom bottom factory";align-items:stretch;align-content:start}
 .page.col-split .right-area{
   display:flex;flex-direction:column;gap:16px;
   /* height 用 auto → 由 align-self:stretch 撑满网格行高（=左卡高）。
@@ -432,11 +457,11 @@ tr:hover{background:var(--bg)}
   align-items:start;
   align-content:start;
 }
-/* 手机端：提示栏单独一行，横排铺满（竖排文字在窄屏读不了）*/
+/* 手机端：提示栏 / 厂家表栏各占一行，横排铺满（竖排文字在窄屏读不了）*/
 .page.col-split{
-  grid-template-areas:"notices" "left" "right" "bottom";
+  grid-template-areas:"notices" "left" "right" "factory" "bottom";
 }
-.notices-area{width:100%;max-width:100%}
+.notices-area,.factory-area{width:100%;max-width:100%;height:auto}
 .notice-panel{height:auto;padding:10px 12px}
 .notice-panel .notice-inner{flex-direction:row;flex-wrap:wrap;justify-content:center;gap:0 8px;text-align:center}
 .notice-panel .notice-ico{margin-bottom:0}
@@ -447,6 +472,7 @@ tr:hover{background:var(--bg)}
 }
 .notice-panel .notice-txt{font-size:13px}
 .notice-panel .notice-sub{font-size:12px}
+.notice-panel .notice-body{writing-mode:horizontal-tb;letter-spacing:normal;font-size:12px;margin-left:6px}
 .page>*{min-width:0;max-width:100%}
 
 /* 右列：解除桌面固定高等分，回退为普通纵向堆叠 */
@@ -742,6 +768,16 @@ tr:hover{background:var(--bg)}
 <h2 style="margin-top:16px">📋 全部候选</h2>
 <div id="listDisplay"></div>
 </div>
+
+<div class="factory-area">
+<div class="notice-panel factory-panel" title="厂家选型表">
+<div class="notice-inner">
+<div class="notice-ico">📑</div>
+<div class="notice-txt">厂家选型表</div>
+<div class="notice-body">核对用</div>
+</div>
+</div>
+</div>
 </div>
 
 <div class="page" id="browseView" style="display:none">
@@ -907,10 +943,23 @@ function syncRightColHeight(){
   if(!RA)return;
   var gapPx=parseFloat(getComputedStyle(RA).rowGap)||16;
   var bd=4; /* 两卡上下 border-box 补偿，避免累积出 1px 级溢出 */
-  /* lh 全程来自左卡实测（不是右列），右列高度由 align-self:stretch 自动跟齐 */
+  var root=document.documentElement;
+
+  /* 侧栏（提示栏 / 厂家选型表栏）高度 = 左卡高度。
+     ⚠️ 关键：量左卡高之前，必须先把侧栏高清成 0。
+     否则侧栏自身参与 grid 行高计算，会把行高顶高，量出的 lh 就是被污染的
+     值 → 写成 --rc-full 后再次污染 → 稳定收敛到 991 而不是真正的 1006。
+     清零后再量，得到的是「侧栏不占位时」的真实左卡高，写入即精确对齐。 */
+  root.style.removeProperty('--rc-full');
+
+  var lh=Math.round(L.getBoundingClientRect().height);
+  if(lh<=200){ /* 左卡还没渲染出来（首次加载）→ 重试 */
+    setTimeout(function(){ syncRightColHeight(); },60);
+    return;
+  }
   var half=Math.max(140,Math.floor((lh-gapPx-bd)/2));
-  document.documentElement.style.setProperty('--rc-half',half+'px');
-  document.documentElement.style.setProperty('--rc-full',lh+'px');
+  root.style.setProperty('--rc-half',half+'px');
+  root.style.setProperty('--rc-full',lh+'px');
 }
 
 function switchView(v){
@@ -926,6 +975,9 @@ function switchView(v){
   if(hd)hd.classList.remove('compact');
   syncHeaderHeight();
   syncRightColHeight();
+  /* ⚠️ 切视图时页面刚 display:grid，立即量左卡会取到中间态（实测 1006→991）。
+     在稳定点补测几次，保证侧栏高 = 左卡高（幂等，多调无害）。 */
+  [60,200,450].forEach(function(t){ setTimeout(syncRightColHeight,t); });
   /* macOS 入场动画：仅在切换视图时触发，播完自动解除合成层 */
   if(window.__macStagger){
     /* 重置已播完的动画标记，让再次进入也有入场 */
@@ -1711,6 +1763,8 @@ function doSearch(){
       +'<br>建议降低功率需求，或换选更大机座/其他品牌。</div></div>';
   }
   document.getElementById('matchDisplay').innerHTML=mh;
+  /* 结果渲染会改变左卡高度（无匹配提示/按钮行数变化）→ 重新对齐侧栏 */
+  if(window.syncRightColHeight) setTimeout(syncRightColHeight,0);
 
   // 全部候选表（平铺展示数据库所有字段）
   // ⚠️ cols / showExtra 声明在 if 块之外：导出 PDF 的抓照逻辑也要用（曾因块作用域导致 pdfCols undefined）
@@ -1850,6 +1904,8 @@ function doSearch(){
   document.getElementById('listDisplay').innerHTML = list.length
     ? (statsHtml+'<div class="table-desktop">'+lh.replace(/^<div class="stats">[\s\S]*?<\/div>/,'')+'</div>'+mc)
     : '<div class="landing"><p>暂无可选电机</p></div>';
+  /* 候选表渲染同样会改左卡高度 → 再同步一次侧栏 */
+  if(window.syncRightColHeight) setTimeout(syncRightColHeight,0);
 
   // ===== 保存本次查询结果快照（供导出 PDF 使用，保证导出内容与屏幕一致）=====
   var unitLabel2 = is1ph ? unit : 'kVA';
@@ -2807,6 +2863,14 @@ function initFuelTools(){
 function syncLayout(){
   syncHeaderHeight();
   syncRightColHeight();
+  /* ⚠️ 首次加载时 DOMContentLoaded 阶段字体/CSS 未完全稳定，
+     量出的左卡高是中间态（991）而非终值（1006），写进 --rc-full 后
+     侧栏就固定停在 991。故在几个稳定点补测（syncRightColHeight 幂等，
+     多调无害，且每次都重新清变量再量，能自我收敛）。 */
+  [80,250,600,1200].forEach(function(t){ setTimeout(syncRightColHeight,t); });
+  if(document.fonts&&document.fonts.ready){
+    document.fonts.ready.then(function(){ syncRightColHeight(); });
+  }
 }
 if(document.readyState==='loading'){
   document.addEventListener('DOMContentLoaded',syncLayout);
@@ -2814,6 +2878,7 @@ if(document.readyState==='loading'){
   syncLayout();
 }
 window.addEventListener('resize',syncLayout);
+window.addEventListener('load',function(){ [0,150,400].forEach(function(t){ setTimeout(syncRightColHeight,t); }); });
 /* 查询后左卡高度可能变化（如功率框展开）→ 右列跟随 */
 window.addEventListener('load',syncLayout);
 document.addEventListener('click',function(){setTimeout(syncRightColHeight,60);},true);
