@@ -1,0 +1,172 @@
+{
+ "leroysomer": {
+  "name": "利莱森玛 LSA 低压",
+  "files": [
+   {
+    "label": "LSA 低压综合样本 4极（2025.12.10）",
+    "path": "catalogs/利莱森玛LSA低压_综合样本_2025.12.10.pdf",
+    "kind": "pdf"
+   }
+  ]
+ },
+ "利莱森玛 TAL": {
+  "name": "利莱森玛 TAL",
+  "files": [
+   {
+    "label": "TAL A40 / A42 / A44 手册",
+    "path": "catalogs/利莱森玛TAL_A40-A42-A44手册.pdf",
+    "kind": "pdf"
+   },
+   {
+    "label": "TAL A46 / A473 / A49 手册",
+    "path": "catalogs/利莱森玛TAL_A46-A473-A49手册.pdf",
+    "kind": "pdf"
+   }
+  ]
+ },
+ "利莱森玛 LSA 中高压": {
+  "name": "利莱森玛 LSA 中高压",
+  "files": [
+   {
+    "label": "中高压发电机样本 4728j（2026.09.16）",
+    "path": "catalogs/利莱森玛中高压_4728j_2026.09.16.pdf",
+    "kind": "pdf"
+   }
+  ]
+ },
+ "斯坦福": {
+  "name": "斯坦福",
+  "files": [
+   {
+    "label": "Industrial Ratings Book Edition 9",
+    "path": "catalogs/斯坦福_Industrial_Ratings_Book_Edition9.pdf",
+    "kind": "pdf"
+   }
+  ]
+ },
+ "斯坦福中高压": {
+  "name": "斯坦福中高压",
+  "files": [
+   {
+    "label": "Industrial Ratings Book Edition 9",
+    "path": "catalogs/斯坦福_Industrial_Ratings_Book_Edition9.pdf",
+    "kind": "pdf"
+   }
+  ]
+ },
+ "AGG KI系列": {
+  "name": "AGG KI 系列",
+  "files": [
+   {
+    "label": "KI 系列产品手册",
+    "path": "catalogs/AGG_KI系列手册.pdf",
+    "kind": "pdf"
+   }
+  ]
+ },
+ "AGG KK系列": {
+  "name": "AGG KK 系列",
+  "files": [
+   {
+    "label": "KK 系列产品手册（中文版 2023）",
+    "path": "catalogs/AGG_KK系列产品手册.pdf",
+    "kind": "pdf"
+   },
+   {
+    "label": "KK 系列手册（补充）",
+    "path": "catalogs/AGG_KK系列手册_补充.pdf",
+    "kind": "pdf"
+   }
+  ]
+ },
+ "美奥迪 Mecc Alte": {
+  "name": "美奥迪 Mecc Alte",
+  "files": [
+   {
+    "label": "Mecc Alte 选型手册",
+    "path": "catalogs/美奥迪_MeccAlte手册.pdf",
+    "kind": "pdf"
+   }
+  ]
+ },
+ "马拉松低压": {
+  "name": "马拉松低压",
+  "files": [
+   {
+    "label": "低压对照表 50Hz / 60Hz（Excel）",
+    "path": "catalogs/马拉松低压对照表_50Hz_60Hz.xls",
+    "kind": "excel"
+   }
+  ]
+ },
+ "英格N系列": {
+  "name": "英格 N 系列",
+  "files": [
+   {
+    "label": "EG-N 系列选型表",
+    "path": "catalogs/英格_低压N系列选型表.pdf",
+    "kind": "pdf"
+   }
+  ]
+ },
+ "英格N3系列": {
+  "name": "英格 N3 系列",
+  "files": [
+   {
+    "label": "EG-N3 系列选型表",
+    "path": "catalogs/英格_低压N3系列选型表.pdf",
+    "kind": "pdf"
+   }
+  ]
+ },
+ "铨一QYK": {
+  "name": "铨一 QYK",
+  "files": [
+   {
+    "label": "QYK 系列 50Hz 选型表汇总",
+    "path": "catalogs/铨一QYK_50Hz选型表汇总.pdf",
+    "kind": "pdf"
+   },
+   {
+    "label": "QYK 系列 60Hz 选型表汇总",
+    "path": "catalogs/铨一QYK_60Hz选型表汇总.pdf",
+    "kind": "pdf"
+   }
+  ]
+ },
+ "铨一QYI": {
+  "name": "铨一 QYI",
+  "files": [
+   {
+    "label": "11 绕组 50Hz 选型表汇总（第五版）",
+    "path": "catalogs/铨一QYI_11绕组50Hz选型表汇总.pdf",
+    "kind": "pdf"
+   },
+   {
+    "label": "11 绕组 60Hz 选型表汇总（第五版）",
+    "path": "catalogs/铨一QYI_11绕组60Hz选型表汇总.pdf",
+    "kind": "pdf"
+   }
+  ]
+ },
+ "铨一QYH中高压": {
+  "name": "铨一 QYH 中高压",
+  "files": [
+   {
+    "label": "铨一高压样册 2025",
+    "path": "catalogs/铨一QYH_高压样册2025.pdf",
+    "kind": "pdf"
+   }
+  ]
+ },
+ "顶一DINGOL": {
+  "name": "顶一 DINGOL",
+  "files": [
+   {
+    "label": "Dingol Rating Table rev13（Excel，12个工作表）",
+    "path": "catalogs/订高Dingol_rating_table_rev13_20240222.xlsx",
+    "kind": "excel"
+   }
+  ]
+ }
+}

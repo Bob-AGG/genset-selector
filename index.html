@@ -113,30 +113,16 @@ body{font-family:-apple-system,"Microsoft YaHei",sans-serif;color:var(--ink);bac
 .nav a.active{color:#fff;background:rgba(255,255,255,.22);box-shadow:0 1px 0 rgba(255,255,255,.25) inset}
 
 .page{max-width:1200px;margin:0 auto;padding:16px;display:grid;gap:16px;grid-template-columns:340px 1fr;grid-template-areas:"left right" "bottom bottom"}
-/* 选型页：最左「提示栏」+ 选型参数 + 右列 + 最右「厂家选型表」栏。
-   notices / factory 两栏宽度相同（174px），高度都锁与选型参数卡等高。
-   ⚠️ 参数卡宽度写 340px（与上方 .page 一致），不写 minmax(0,..)：
-      否则参数卡会被拉到 1fr 变宽。 */
+/* 选型页：左=选型参数（340px） 中=内容区 右=侧栏（提示 + 厂家选型表，220px）
+   用户 13:21 要求：原左右两条竖栏全部移到右边，上下叠放（上=提示，下=厂家选型表）。 */
 .page.col-split{
-  grid-template-columns:var(--side-w,174px) 340px minmax(0,1fr) var(--side-w,174px);
-  grid-template-areas:"notices left right factory" "notices bottom bottom factory";
+  grid-template-columns:340px minmax(0,1fr) var(--side-w,220px);
+  grid-template-areas:"left right side" "bottom bottom side";
 }
-.notices-area{grid-area:notices}
-.factory-area{grid-area:factory}
-/* ★ 侧栏不参与 grid 行高计算：
-   若参与，侧栏高会反过来顶高 grid 行 → 量出的左卡高被污染（稳定偏小 16px）。
-   做法：容器 position:relative 且高度为 0，panel 绝对定位铺满容器宽度、
-   高度由 JS 实测写入 --rc-full。这样侧栏对行高零贡献，测量干净。 */
-.notices-area,.factory-area{
-  position:relative;align-self:start;height:0;min-height:0;
-}
-.notices-area .notice-panel,
-.factory-area .notice-panel{
-  position:absolute;top:0;left:0;right:0;
-}
-/* 提示栏：竖向条，文字竖排，高度 = 选型参数卡 */
-.notice-panel{
-  height:var(--rc-full,340px);box-sizing:border-box;
+.side-area{grid-area:side;display:flex;flex-direction:column;gap:16px;min-width:0}
+/* 侧栏两栏高度各 = (参数卡高 - gap) / 2（由 JS 写 --rc-half），合计=参数卡高 */
+.side-area .notice-panel{
+  height:var(--rc-half,300px);box-sizing:border-box;
   background:linear-gradient(180deg,#fff8e6,#fffdf6);
   border:1px solid #f2d99b;border-radius:14px;
   padding:16px 10px;
@@ -163,6 +149,23 @@ body{font-family:-apple-system,"Microsoft YaHei",sans-serif;color:var(--ink);bac
 .notice-panel .notice-body{
   writing-mode:vertical-rl;text-orientation:upright;letter-spacing:.1em;
   font-size:12px;line-height:1.9;color:#6b7c93;
+}
+/* 厂家选型表链接列表（竖排栏内纵向排） */
+.notice-panel .fx-link{
+  writing-mode:vertical-rl;text-orientation:upright;
+  display:flex;flex-direction:column;align-items:center;
+  gap:6px;padding:8px 6px;margin:4px 0;
+  border:1px solid #c7dcf3;border-radius:10px;
+  background:#fff;text-decoration:none;
+  font-size:12px;line-height:1.7;color:#1d4e89;font-weight:600;
+  transition:background .15s,border-color .15s;
+}
+.notice-panel .fx-link:hover{background:#e3f0ff;border-color:#8fbde8}
+.notice-panel .fx-ico{writing-mode:horizontal-tb;font-size:15px}
+.notice-panel .fx-label{max-height:100%;overflow:hidden}
+.notice-panel .fx-hint{
+  writing-mode:vertical-rl;text-orientation:upright;
+  font-size:12px;letter-spacing:.1em;color:#5a8fc7;font-weight:500;
 }
 .card{
   background:var(--surf);border-radius:14px;padding:20px;
@@ -192,8 +195,8 @@ body{font-family:-apple-system,"Microsoft YaHei",sans-serif;color:var(--ink);bac
    calc((100vh - 页头 - 上下留白 - gap) / 2) 各分一半 →
    两卡等高等分，且随视口自适应；页面滚动时两卡一并在视口内保持可见。
    作用域严格锁 .match-area / .ai-area，不影响手机端与其他页面。 */
-/* ⚠️ 本行会覆盖前面定义的 3 列版式，故必须同步写 3 列（notices 列）。 */
-.page.col-split{grid-template-columns:var(--side-w,174px) 340px minmax(0,1fr) var(--side-w,174px);grid-template-areas:"notices left right factory" "notices bottom bottom factory";align-items:stretch;align-content:start}
+/* ⚠️ 本行会覆盖前面定义的列版式，故必须同步写 3 列（side 列）。 */
+.page.col-split{grid-template-columns:340px minmax(0,1fr) var(--side-w,220px);grid-template-areas:"left right side" "bottom bottom side";align-items:stretch;align-content:start}
 .page.col-split .right-area{
   display:flex;flex-direction:column;gap:16px;
   /* height 用 auto → 由 align-self:stretch 撑满网格行高（=左卡高）。
@@ -457,24 +460,26 @@ tr:hover{background:var(--bg)}
   align-items:start;
   align-content:start;
 }
-/* 手机端：提示栏 + 厂家表栏放在最上面（两个并排一行），下面才是选型参数等。
-   用户要求：提示在最上面，厂家选型表在他下面。 */
+/* 手机端：提示栏 + 厂家表栏放在最上面（用户 13:23 明确「手机端不要改，就按之前」）。
+   顺序 = 提示栏 → 厂家选型表 → 选型参数 → 内容区 → 底部。
+   ⚠️ side 是一个容器同时含两条栏，若把整块 side 排到最前，
+      顺序会变成 提示→厂家→参数（对），但参数卡会被推到后面 —— 这正是之前的版式。
+   注意：桌面端两者在右侧叠放，手机端回到文档流顶部。 */
 .page.col-split{
   grid-template-areas:
-    "notices"
-    "factory"
+    "side"
     "left"
     "right"
     "bottom";
 }
-/* 侧栏容器在手机端解除「零高 + 绝对定位」，回到正常文档流 */
-.notices-area,.factory-area{
+/* 手机端：侧栏（提示 + 厂家选型表）回到正常文档流，每栏各占一行 */
+.side-area{
   position:static;height:auto;min-height:0;
   width:100%;max-width:100%;align-self:start;
+  display:flex;flex-direction:column;gap:10px;
 }
-.notices-area .notice-panel,
-.factory-area .notice-panel{
-  position:static;inset:auto;
+.side-area .notice-panel{
+  position:static;inset:auto;height:auto;
 }
 .notice-panel{height:auto;padding:10px 12px}
 .notice-panel .notice-inner{flex-direction:row;flex-wrap:wrap;justify-content:center;gap:0 8px;text-align:center}
@@ -487,6 +492,16 @@ tr:hover{background:var(--bg)}
 .notice-panel .notice-txt{font-size:13px}
 .notice-panel .notice-sub{font-size:12px}
 .notice-panel .notice-body{writing-mode:horizontal-tb;letter-spacing:normal;font-size:12px;margin-left:6px}
+/* 手机端：厂家选型表链接改为横排小胶囊，一行可读 */
+.notice-panel .fx-link{
+  writing-mode:horizontal-tb;text-orientation:flat;
+  flex-direction:row;gap:5px;padding:5px 10px;margin:0;
+  border-radius:999px;font-size:12px;line-height:1.5;
+}
+.notice-panel .fx-ico{font-size:13px}
+.notice-panel .fx-label{max-width:none;overflow:visible;white-space:normal}
+.notice-panel .fx-hint{writing-mode:horizontal-tb;letter-spacing:normal;margin-left:6px}
+.notice-panel .notice-inner:has(.fx-link){row-gap:6px}
 .page>*{min-width:0;max-width:100%}
 
 /* 右列：解除桌面固定高等分，回退为普通纵向堆叠 */
@@ -688,12 +703,19 @@ tr:hover{background:var(--bg)}
 </div>
 
 <div class="page col-split" id="selectorView">
-<div class="notices-area">
+<div class="side-area">
 <div class="notice-panel" title="数据还在校验中，请选型完进入厂家选型表核对">
 <div class="notice-inner">
 <div class="notice-ico">⚠️</div>
 <div class="notice-txt">数据还在校验中</div>
 <div class="notice-sub">请选型完进入厂家选型表核对</div>
+</div>
+</div>
+<div class="notice-panel factory-panel" title="厂家选型表">
+<div class="notice-inner">
+<div class="notice-ico">📑</div>
+<div class="notice-txt">厂家选型表</div>
+<div class="notice-body" id="factoryBody">请先选择品牌</div>
 </div>
 </div>
 </div>
@@ -781,16 +803,6 @@ tr:hover{background:var(--bg)}
 <div id="calcDisplay"></div>
 <h2 style="margin-top:16px">📋 全部候选</h2>
 <div id="listDisplay"></div>
-</div>
-
-<div class="factory-area">
-<div class="notice-panel factory-panel" title="厂家选型表">
-<div class="notice-inner">
-<div class="notice-ico">📑</div>
-<div class="notice-txt">厂家选型表</div>
-<div class="notice-body">核对用</div>
-</div>
-</div>
 </div>
 </div>
 
@@ -950,28 +962,22 @@ function syncRightColHeight(){
   if(window.innerWidth<=800)return; /* 手机端走堆叠，不需要固定高 */
   var L=page.querySelector('.card.left-area');
   if(!L)return;
-  var lh=Math.round(L.getBoundingClientRect().height);
-  if(lh<=0)return;
-  var page=document.getElementById('selectorView');
-  var RA=page.querySelector('.right-area');
-  if(!RA)return;
-  var gapPx=parseFloat(getComputedStyle(RA).rowGap)||16;
-  var bd=4; /* 两卡上下 border-box 补偿，避免累积出 1px 级溢出 */
   var root=document.documentElement;
 
-  /* 侧栏（提示栏 / 厂家选型表栏）高度 = 左卡高度。
-     ⚠️ 关键：量左卡高之前，必须先把侧栏高清成 0。
-     否则侧栏自身参与 grid 行高计算，会把行高顶高，量出的 lh 就是被污染的
-     值 → 写成 --rc-full 后再次污染 → 稳定收敛到 991 而不是真正的 1006。
-     清零后再量，得到的是「侧栏不占位时」的真实左卡高，写入即精确对齐。 */
-  root.style.removeProperty('--rc-full');
+  /* ★ 侧栏（提示 / 厂家选型表）已改到右列上下叠放，两条栏高度各 = (左卡高 - 卡间距)/2。
+     ⚠️ 量左卡高之前必须先把侧栏高清成 auto：否则侧栏自身参与 grid 行高计算，
+     会把行高顶高，量出的 lh 是被污染的值 → 写入后再污染 → 收敛到错的值。
+     清零后再量，得到「侧栏不占位时」的真实左卡高，写入才精确。 */
+  root.style.removeProperty('--rc-half');
 
   var lh=Math.round(L.getBoundingClientRect().height);
   if(lh<=200){ /* 左卡还没渲染出来（首次加载）→ 重试 */
     setTimeout(function(){ syncRightColHeight(); },60);
     return;
   }
-  var half=Math.max(140,Math.floor((lh-gapPx-bd)/2));
+  var SA=page.querySelector('.side-area')||page.querySelector('.right-area');
+  var gapPx=SA ? (parseFloat(getComputedStyle(SA).rowGap)||16) : 16;
+  var half=Math.max(140,Math.floor((lh-gapPx)/2));
   root.style.setProperty('--rc-half',half+'px');
   root.style.setProperty('--rc-full',lh+'px');
 }
@@ -2393,9 +2399,63 @@ loadBrandData(function(){
   fillBrandDropdown();
   fillBrowseBrand();
   var sel=document.getElementById('genBrand');
-  sel.onchange=onParamChange;
+  sel.onchange=function(){ onParamChange(); updateFactoryPanel(); };
   onParamChange();
+  loadCatalogs();   /* 厂家选型表：异步拉 catalogs.json，失败不影响选型 */
 });
+
+/* ================= 厂家选型表（厂家样本库）================= */
+// 独立库 catalogs.json：品牌 key → { name, files:[{label,path,kind}] }
+// 点开一律新标签页打开（target=_blank rel=noopener）
+var CATALOGS = null;
+
+function loadCatalogs(){
+  fetch('catalogs.json').then(function(r){
+    if(!r.ok) throw new Error('HTTP '+r.status);
+    return r.json();
+  }).then(function(d){
+    CATALOGS = d;
+    updateFactoryPanel();
+  }).catch(function(){
+    CATALOGS = null;
+    updateFactoryPanel();
+  });
+}
+
+// 品牌 → 更新右侧「厂家选型表」栏内容
+function updateFactoryPanel(){
+  var body = document.getElementById('factoryBody');
+  if(!body) return;
+  var brand = document.getElementById('genBrand') ? document.getElementById('genBrand').value : '';
+  var ICON = { pdf:'📄', excel:'📊' };
+
+  if(!brand){
+    body.innerHTML = '<span class="fx-hint">请先选择品牌</span>';
+    return;
+  }
+  if(!CATALOGS){
+    body.innerHTML = '<span class="fx-hint">厂家选型表加载中…</span>';
+    return;
+  }
+  var item = CATALOGS[brand];
+  if(!item || !item.files || !item.files.length){
+    body.innerHTML = '<span class="fx-hint">该品牌暂无厂家选型表</span>';
+    return;
+  }
+  var h = '';
+  for(var i=0;i<item.files.length;i++){
+    var f = item.files[i];
+    var ico = ICON[f.kind] || '📄';
+    var ttl = f.label.replace(/"/g,'&quot;');
+    h += '<a class="fx-link" href="'+encodeURI(f.path)+'" target="_blank" rel="noopener noreferrer" title="'+ttl+'（新标签页打开）">'
+       + '<span class="fx-ico">'+ico+'</span>'
+       + '<span class="fx-label">'+f.label+'</span>'
+       + '</a>';
+  }
+  body.innerHTML = h;
+  /* 内容变多/变少 → 左卡高度没变但侧栏内容高度变了，重算一次保证不裁切 */
+  if(window.syncRightColHeight) setTimeout(syncRightColHeight, 0);
+}
 
 /* ================= AI 售前工程师窗口 ================= */
 // ⚙️ 后端配置（预留）：接入真实对话时填写
