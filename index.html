@@ -920,6 +920,11 @@ function getConnVoltPairs(rec){
     }
     // voltage 字段缺失 → 退回解析 label
   }
+  // ★中高压：winding_conn 本来就没有（手册不给接线），电压档即唯一维度
+  //   旧逻辑会退回 parseVoltPairs('3ph 3.3kV') → 解析失败返回 [] → 接线下拉为空 → 选不了型
+  //   所以这里先按 voltage 区间自行构造一条，conn 用 '' 占位（UI 层用 winding_code 作 value）
+  var rg=voltRange(volt);
+  if(rg){ return [{conn:'', volt:rg.lo}]; }
   // 旧库 / 兜底：解析 winding_label
   return parseVoltPairs(rec.winding_label);
 }
@@ -1082,6 +1087,29 @@ function onVoltChange(){
     ws.innerHTML='<option value="">无匹配</option>';
     hint.textContent='❌ '+volt+'V 在 '+freq+' 下无匹配（请核对电压或频率）';
     hint.className='volt-hint warn';
+    return;
+  }
+  // ★中高压：无接线概念，下拉按「电压档」列出，value 用 winding_code
+  //   （低压仍按接线名聚合，逻辑不变）
+  if(isHVBrand(brand)){
+    var codes=[], seenCode={};
+    for(var hi=0;hi<hits.length;hi++){
+      var hr=hits[hi], hc=hr.rec.winding_code;
+      if(hc==null||hc===''||seenCode[hc]) continue;
+      seenCode[hc]=1;
+      codes.push(hc);
+    }
+    // winding_code 形如 '6-3300' / '3300V-W51' → 排序键取其中数字
+    codes.sort(function(a,b){ return voltRange(a).lo - voltRange(b).lo; });
+    ws.innerHTML='<option value="">请选择电压档</option>';
+    for(var ci=0;ci<codes.length;ci++){
+      var code=codes[ci];
+      var rg=voltRange(code);
+      ws.innerHTML+='<option value="'+esc(code)+'">'+esc(String(rg.lo))+'-'+esc(String(rg.hi))+' V 档</option>';
+    }
+    ws.setAttribute('data-mode','voltage');
+    hint.textContent='✅ '+volt+'V 命中 '+codes.length+' 个电压档、'+hits.length+' 个绕组档';
+    hint.className='volt-hint';
     return;
   }
   // 按接线名聚合：同一接线可能对应多个绕组代码/型号
@@ -1478,8 +1506,12 @@ function doSearch(){
       if(wSet) continue;                                  // 模式A 不处理中高压 combo
       if(!poleMatch(g)) continue;                          // 极数过滤
       if(!phaseMatch(g)) continue;                         // 相数过滤
-      // 范围档：用户电压落在区间内即算电压命中
-      if(voltHitRange(g, userVolt)){
+      // ★中高压：下拉出的是「电压档」，value=winding_code → 直接按 code 匹配
+      if(isHV){
+        if(g.winding_code!==w) continue;
+        wMatch = voltHitRange(g, userVolt);                // 仍需用户电压落该档区间
+      } else if(voltHitRange(g, userVolt)){
+        // 范围档：用户电压落在区间内即算电压命中
         var pr=getConnVoltPairs(g);
         wMatch = pr.length ? (pr[0].conn===w) : (String(g.winding_conn||'')===w);
       } else {
@@ -1530,7 +1562,7 @@ function doSearch(){
     }
     var ok = hasM&&hasS ? (okM&&okS) : (hasM?okM:okS);
     var bestGrade = isHV ? (mainCol==='cont_f'?'F':'H') : 'H';   // 中高压按主用列定温升级(template已无temp_grade)
-    list.push({m:g.model,wd:g.winding_label||g.winding_code,ch:g[mainCol+'_'+mkM],cl:g['cont_f_'+mkM]||0,
+    list.push({m:g.model,wd:g.winding_label||g.winding_code,vl:g.winding_label||g.winding_code,ch:g[mainCol+'_'+mkM],cl:g['cont_f_'+mkM]||0,
       s40:g[col40+'_'+mkS],s27:g[col27+'_'+mkS],
       baseM:baseM,cpM:cpM,okM:okM,baseS:baseS,cpS:cpS,okS:okS,
       cp:hasM?cpM:cpS,ok:ok,pf:g.pf,uk:hasM?mkM:mkS,exc:g.exc_std||'',grade:bestGrade,rec:g});
@@ -1700,7 +1732,7 @@ function doSearch(){
         if(cd.t==='#'){
           tds+='<td>'+(x.ok?rank:'✗')+'</td>';
         } else if(cd.t==='型号'){
-          tds+='<td><button class="copy-btn" onclick="copyModel(this,\''+escAttr(x.m)+'\')" title="复制型号">复制</button><b>'+esc(x.m)+'</b>'+(isHV?' <span class="wconn">'+esc(x.wd)+'</span>':'')+'</td>';
+          tds+='<td><button class="copy-btn" onclick="copyModel(this,\''+escAttr(x.m)+'\')" title="复制型号">复制</button><b>'+esc(x.m)+'</b>'+(isHV&&x.vl?' <span class="wconn">'+esc(x.vl)+'</span>':'')+'</td>';
         } else if(cd.t==='接线/电压'){
           tds+='<td>'+esc(x.wd)+(g.winding_conn?'<div class="wconn">'+esc(g.winding_conn)+'</div>':'')+'</td>';
         } else if(cd.t==='判断'){

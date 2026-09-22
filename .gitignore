@@ -26,3 +26,9 @@ node_modules/
 
 # docs 内的历史 Excel 中间产物（json 才是最终交付物）
 docs/*.xlsx
+
+# 暂存目录（临时素材/草稿，不进仓库）
+staging/
+
+# 一次性备份目录（_bak_ 前缀）
+_bak_*/
