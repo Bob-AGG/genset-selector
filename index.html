@@ -113,6 +113,32 @@ body{font-family:-apple-system,"Microsoft YaHei",sans-serif;color:var(--ink);bac
 .nav a.active{color:#fff;background:rgba(255,255,255,.22);box-shadow:0 1px 0 rgba(255,255,255,.25) inset}
 
 .page{max-width:1200px;margin:0 auto;padding:16px;display:grid;gap:16px;grid-template-columns:340px 1fr;grid-template-areas:"left right" "bottom bottom"}
+/* 选型页：最左侧「温馨提示」窄栏 + 选型参数 + 右列。
+   用 3 列网格，notices 独占第 1 列，参数卡与右列整体右移一列。 */
+.page.col-split{
+  grid-template-columns:112px 340px minmax(0,1fr);
+  grid-template-areas:"notices left right" "notices bottom bottom";
+}
+.notices-area{grid-area:notices;align-self:stretch}
+/* 提示栏：竖向窄条，文字竖排，随左卡等高 */
+.notice-panel{
+  height:100%;box-sizing:border-box;
+  background:linear-gradient(180deg,#fff8e6,#fffdf6);
+  border:1px solid #f2d99b;border-radius:14px;
+  padding:16px 10px;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 1px 2px rgba(31,35,40,.05);
+}
+.notice-panel .notice-txt{
+  writing-mode:vertical-rl;text-orientation:upright;letter-spacing:.14em;
+  font-size:13px;line-height:1.9;font-weight:700;color:#a15c07;
+}
+.notice-panel .notice-ico{writing-mode:horizontal-tb;font-size:16px;margin-bottom:8px}
+.notice-panel .notice-inner{display:flex;flex-direction:column;align-items:center}
+.notice-panel .notice-sub{
+  writing-mode:vertical-rl;text-orientation:upright;letter-spacing:.1em;
+  font-size:11px;line-height:1.8;font-weight:500;color:#b9832e;margin-top:10px;
+}
 .card{
   background:var(--surf);border-radius:14px;padding:20px;
   border:1px solid var(--line);
@@ -141,7 +167,8 @@ body{font-family:-apple-system,"Microsoft YaHei",sans-serif;color:var(--ink);bac
    calc((100vh - 页头 - 上下留白 - gap) / 2) 各分一半 →
    两卡等高等分，且随视口自适应；页面滚动时两卡一并在视口内保持可见。
    作用域严格锁 .match-area / .ai-area，不影响手机端与其他页面。 */
-.page.col-split{grid-template-columns:340px 1fr;grid-template-areas:"left right" "bottom bottom";align-items:stretch;align-content:start}
+/* ⚠️ 本行会覆盖前面定义的 3 列版式，故必须同步写 3 列（notices 列）。 */
+.page.col-split{grid-template-columns:112px 340px minmax(0,1fr);grid-template-areas:"notices left right" "notices bottom bottom";align-items:stretch;align-content:start}
 .page.col-split .right-area{
   display:flex;flex-direction:column;gap:16px;
   /* height 用 auto → 由 align-self:stretch 撑满网格行高（=左卡高）。
@@ -405,6 +432,21 @@ tr:hover{background:var(--bg)}
   align-items:start;
   align-content:start;
 }
+/* 手机端：提示栏单独一行，横排铺满（竖排文字在窄屏读不了）*/
+.page.col-split{
+  grid-template-areas:"notices" "left" "right" "bottom";
+}
+.notices-area{width:100%;max-width:100%}
+.notice-panel{height:auto;padding:10px 12px}
+.notice-panel .notice-inner{flex-direction:row;flex-wrap:wrap;justify-content:center;gap:0 8px;text-align:center}
+.notice-panel .notice-ico{margin-bottom:0}
+.notice-panel .notice-txt,
+.notice-panel .notice-sub{
+  writing-mode:horizontal-tb;letter-spacing:normal;
+  line-height:1.6;margin-top:0;
+}
+.notice-panel .notice-txt{font-size:13px}
+.notice-panel .notice-sub{font-size:12px}
 .page>*{min-width:0;max-width:100%}
 
 /* 右列：解除桌面固定高等分，回退为普通纵向堆叠 */
@@ -606,6 +648,15 @@ tr:hover{background:var(--bg)}
 </div>
 
 <div class="page col-split" id="selectorView">
+<div class="notices-area">
+<div class="notice-panel" title="数据还在校验中，请选型完进入厂家选型表核对">
+<div class="notice-inner">
+<div class="notice-ico">⚠️</div>
+<div class="notice-txt">数据还在校验中</div>
+<div class="notice-sub">请选型完进入厂家选型表核对</div>
+</div>
+</div>
+</div>
 <div class="card left-area">
 <h2>📋 选型参数</h2>
 <div class="form-group"><label>电机品牌</label><select id="genBrand"><option value="">请选择品牌</option></select></div>
