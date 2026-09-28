@@ -723,9 +723,13 @@ tr:hover{background:var(--bg)}
 @keyframes macFadeUp{from{opacity:0;transform:translateY(10px) scale(.985)}to{opacity:1;transform:none}}
 @keyframes macFadeIn{from{opacity:0}to{opacity:1}}
 .view{animation:macFadeIn .34s var(--ez-apple) both}
-.card,.browse-group,.mc-card{animation:macFadeUp .42s var(--ez-expo) both}
+/* ★ 侧栏两卡（警示栏 + 厂家选型表）与卡片共用同一入场动效，不再各写一套 */
+.card,.browse-group,.mc-card,.notice-panel{animation:macFadeUp .42s var(--ez-expo) both}
 .card:nth-child(2){animation-delay:.05s}
 .card:nth-child(3){animation-delay:.1s}
+/* 侧栏两卡：上=警示，下=厂家选型表，交错 90ms */
+.notice-panel:nth-child(1){animation-delay:.09s}
+.notice-panel:nth-child(2){animation-delay:.18s}
 /* 动画播完解除合成层，避免长期占用 GPU */
 .anim-done{animation:none!important}
 
@@ -735,7 +739,7 @@ tr:hover{background:var(--bg)}
 /* 无障碍/省电：尊重系统减少动效 */
 @media (prefers-reduced-motion:reduce){
   *{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
-  .card,.browse-group,.mc-card{animation:none}
+  .card,.browse-group,.mc-card,.notice-panel{animation:none}
 }
 
 </style>
@@ -3053,7 +3057,7 @@ if(document.readyState==='loading'){
   }
   function runStagger(scope){
     if(!scope)return;
-    var els=scope.querySelectorAll('.card,.browse-group,.mc-card');
+    var els=scope.querySelectorAll('.card,.browse-group,.mc-card,.notice-panel');
     if(!els.length)return;
     for(var i=0;i<els.length;i++){
       (function(el,idx){
