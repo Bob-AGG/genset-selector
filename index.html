@@ -2953,14 +2953,12 @@ function fuelPerformConversion(){
 // ===== 电流计算器：备用功率(kVA)→配置电流 + 施耐德断路器档位推荐 =====
 // 施耐德标准断路器档位（A），升序排列
 var SCHNEIDER_BREAKERS=[20,32,40,50,63,80,100,125,160,200,250,320,400,500,630,800,1000,1250,1600,2000,2500,3200,4000];
-// 取最近标准档位：绝对值差最小者优先；超出量程则取最大档
+// 取不低于计算电流的最小档（断路器额定电流不得小于实际电流）；超出量程则取最大档
 function nearestBreaker(amps){
-  var best=SCHNEIDER_BREAKERS[SCHNEIDER_BREAKERS.length-1], bestD=Infinity;
   for(var i=0;i<SCHNEIDER_BREAKERS.length;i++){
-    var d=Math.abs(SCHNEIDER_BREAKERS[i]-amps);
-    if(d<bestD){ bestD=d; best=SCHNEIDER_BREAKERS[i]; }
+    if(SCHNEIDER_BREAKERS[i]>=amps) return SCHNEIDER_BREAKERS[i];
   }
-  return best;
+  return SCHNEIDER_BREAKERS[SCHNEIDER_BREAKERS.length-1];
 }
 function setAmpsPhase(ph){
   var hid=document.querySelector('input[name="ampsPhase"]');
