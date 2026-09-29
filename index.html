@@ -691,6 +691,25 @@ tr:hover{background:var(--bg)}
 .tool-tab.active{background:var(--brand);color:#fff;border-color:var(--brand)}
 .tool-tab:hover{background:var(--line)}.tool-tab.active:hover{background:var(--brand-2)}
 .tool-panel{animation:toolFade .2s}
+/* ── 电流计算器样式 ── */
+.amps-form{display:flex;flex-direction:column;gap:14px}
+.amps-seg{display:inline-flex;background:var(--surf-3);border:1px solid var(--line);border-radius:10px;padding:3px;gap:3px;align-self:flex-start}
+.amps-seg-btn{background:transparent;border:0;color:var(--ink-2);padding:7px 26px;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;font-family:inherit;transition:.15s}
+.amps-seg-btn:hover{color:var(--brand-ink)}
+.amps-seg-btn.active{background:var(--brand);color:#fff;box-shadow:0 1px 3px rgba(26,54,93,.25)}
+.amps-fields{display:flex;gap:14px;flex-wrap:wrap}
+.amps-fields .form-group{flex:1;min-width:170px}
+.amps-result{margin-top:18px;background:linear-gradient(180deg,var(--surf-2),#fff);border:1px solid var(--line);border-radius:14px;padding:18px 20px}
+.amps-result-main{display:flex;align-items:stretch;gap:20px;flex-wrap:wrap}
+.amps-result-item{flex:1;min-width:150px;text-align:center}
+.amps-result-label{font-size:12px;color:var(--ink-3);margin-bottom:6px;letter-spacing:.02em}
+.amps-result-value{font-size:30px;font-weight:800;color:var(--ink-1);line-height:1.1;font-variant-numeric:tabular-nums}
+.amps-result-value.accent{color:var(--brand)}
+.amps-result-value .unit{font-size:.5em;font-weight:600;color:var(--ink-3);margin-left:2px}
+.amps-result-divider{width:1px;background:var(--line)}
+.amps-formula{margin-top:16px;padding-top:12px;border-top:1px dashed var(--line);font-size:12.5px;color:var(--ink-3);text-align:center}
+.amps-hint{margin-top:8px;font-size:12px;color:var(--ink-4);text-align:center}
+@media(max-width:560px){.amps-result-divider{display:none}.amps-fields .form-group{min-width:100%}}
 @keyframes toolFade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
 .half-card{flex:1;min-width:280px;background:#fff;border:1px solid var(--line);border-radius:10px;padding:1.2rem 1rem;box-shadow:0 1px 3px rgba(0,0,0,.05)}
 .input-field{width:100%;padding:7px 11px;font-size:13px;border:1px solid var(--line);border-radius:6px;background:#fff;font-family:inherit}
@@ -951,19 +970,36 @@ tr:hover{background:var(--bg)}
 <!-- 子工具 3：电流计算器（备用功率→断路器等值电流） -->
 <div id="tool-amps" class="tool-panel" style="display:none">
   <div style="font-size:1.2rem;font-weight:700;border-left:5px solid var(--brand);padding-left:.8rem;margin-bottom:.2rem;color:var(--brand-ink)">⚡ 电流计算器 <span style="font-size:.75rem;font-weight:400;color:var(--ink-3)">备用功率 kVA → 配置电流(断路器参考)</span></div>
-  <div style="color:var(--ink-3);margin-bottom:1.2rem;font-size:.82rem">输入备用功率(kVA)与额定线电压(V)，按 I = (备用kVA×1000) ÷ 线电压 ÷ 1.732 计算配置电流，用于断路器选型参考。</div>
+  <div style="color:var(--ink-3);margin-bottom:1.2rem;font-size:.82rem">输入备用功率(kVA)与额定电压(V)，按三相 I = (备用kVA×1000) ÷ (线电压×1.732) / 单相 I = (备用kVA×1000) ÷ 相电压 计算配置电流，并推荐施耐德标准断路器档位。</div>
 
-  <div style="display:flex;gap:1rem;align-items:flex-end;flex-wrap:wrap">
-    <div class="form-group" style="flex:1;min-width:160px"><label>备用功率 <span style="font-weight:normal">kVA</span></label><input type="number" id="ampsKVA" class="input-field" step="any" placeholder="例如 1100" oninput="ampsCalc()"></div>
-    <div class="form-group" style="flex:1;min-width:160px"><label>额定电压 <span style="font-weight:normal">V(线电压)</span></label><input type="number" id="ampsVolt" class="input-field" step="any" placeholder="例如 400" value="400" oninput="ampsCalc()"></div>
+  <div class="amps-form">
+    <div class="amps-seg" role="tablist">
+      <button type="button" class="amps-seg-btn active" data-phase="3" onclick="setAmpsPhase('3')">三相</button>
+      <button type="button" class="amps-seg-btn" data-phase="1" onclick="setAmpsPhase('1')">单相</button>
+    </div>
+    <div class="amps-fields">
+      <div class="form-group" style="margin-bottom:0"><label>备用功率 <span style="font-weight:normal">kVA</span></label><input type="number" id="ampsKVA" class="input-field" step="any" placeholder="例如 1100" oninput="ampsCalc()"></div>
+      <div class="form-group" style="margin-bottom:0"><label id="ampsVoltLabel">额定线电压 <span style="font-weight:normal">V</span></label><input type="number" id="ampsVolt" class="input-field" step="any" placeholder="例如 400" value="400" oninput="ampsCalc()"></div>
+    </div>
+    <input type="hidden" name="ampsPhase" value="3">
   </div>
 
-  <div class="calc-box" style="margin-top:14px">
-    <div class="calc-row"><span class="calc-label">配置电流(等值)</span><span class="calc-val" id="ampsValue">—</span></div>
-    <div class="calc-row"><span class="calc-label">公式</span><span class="calc-val" id="ampsFormula">I = (备用kVA×1000) ÷ 线电压 ÷ 1.732</span></div>
-    <div id="ampsHint" style="font-size:.78rem;color:#b45309;margin-top:6px">💡 如无合适断路器档位，请选下一档</div>
+  <div class="amps-result">
+    <div class="amps-result-main">
+      <div class="amps-result-item">
+        <div class="amps-result-label">配置电流（等值）</div>
+        <div class="amps-result-value" id="ampsValue">—</div>
+      </div>
+      <div class="amps-result-divider"></div>
+      <div class="amps-result-item">
+        <div class="amps-result-label">推荐断路器（施耐德）</div>
+        <div class="amps-result-value accent" id="ampsBreaker">—</div>
+      </div>
+    </div>
+    <div class="amps-formula" id="ampsFormula">I = (备用kVA×1000) ÷ 线电压 ÷ 1.732</div>
+    <div id="ampsHint" class="amps-hint">💡 施耐德标准档位取最近值</div>
   </div>
-  <div style="font-size:.72rem;color:var(--ink-4);margin-top:.6rem">📐 I(A) = (备用kVA × 1000) ÷ 线电压(V) ÷ 1.732，所得数值即断路器选型参考值；无合适的标准档位时，请选下一档。</div>
+  <div style="font-size:.72rem;color:var(--ink-4);margin-top:.6rem">📐 三相 I(A) = (备用kVA×1000) ÷ (线电压×1.732)　|　单相 I(A) = (备用kVA×1000) ÷ 相电压　—　推荐断路器在施耐德标准档位中取最接近值。</div>
 </div>
 
 <!-- 子工具 4：油箱容量计算（油耗 × 运行小时 → 油箱容积） -->
@@ -2914,22 +2950,62 @@ function fuelPerformConversion(){
   resEl.innerHTML=res.toFixed(4)+' <span style="font-size:.9rem;color:var(--ink-3)">'+unit+'</span>';
 }
 
-// ===== 电流计算器：备用功率(kVA)→配置电流(断路器参考) =====
+// ===== 电流计算器：备用功率(kVA)→配置电流 + 施耐德断路器档位推荐 =====
+// 施耐德标准断路器档位（A），升序排列
+var SCHNEIDER_BREAKERS=[20,32,40,50,63,80,100,125,160,200,250,320,400,500,630,800,1000,1250,1600,2000,2500,3200,4000];
+// 取最近标准档位：绝对值差最小者优先；超出量程则取最大档
+function nearestBreaker(amps){
+  var best=SCHNEIDER_BREAKERS[SCHNEIDER_BREAKERS.length-1], bestD=Infinity;
+  for(var i=0;i<SCHNEIDER_BREAKERS.length;i++){
+    var d=Math.abs(SCHNEIDER_BREAKERS[i]-amps);
+    if(d<bestD){ bestD=d; best=SCHNEIDER_BREAKERS[i]; }
+  }
+  return best;
+}
+function setAmpsPhase(ph){
+  var hid=document.querySelector('input[name="ampsPhase"]');
+  if(hid) hid.value=ph;
+  var btns=document.querySelectorAll('.amps-seg-btn');
+  for(var i=0;i<btns.length;i++){
+    btns[i].classList.toggle('active', btns[i].getAttribute('data-phase')===ph);
+  }
+  onAmpsPhaseChange();
+}
+function onAmpsPhaseChange(){
+  var hid=document.querySelector('input[name="ampsPhase"]');
+  var ph=hid?hid.value:'3';
+  var lbl=document.getElementById('ampsVoltLabel');
+  if(lbl) lbl.innerHTML = ph==='1' ? '额定相电压 <span style="font-weight:normal">V</span>' : '额定线电压 <span style="font-weight:normal">V</span>';
+  ampsCalc();
+}
 function ampsCalc(){
   var kva=parseFloat(document.getElementById('ampsKVA').value);
   var volt=parseFloat(document.getElementById('ampsVolt').value);
+  var hid=document.querySelector('input[name="ampsPhase"]');
+  var is1ph = hid && hid.value==='1';
   var valEl=document.getElementById('ampsValue');
+  var brkEl=document.getElementById('ampsBreaker');
   var fmEl=document.getElementById('ampsFormula');
   var hintEl=document.getElementById('ampsHint');
   if(isNaN(kva)||kva<=0||isNaN(volt)||volt<=0){
     valEl.textContent='—';
-    fmEl.textContent='I = (备用kVA×1000) ÷ 线电压 ÷ 1.732';
+    if(brkEl) brkEl.textContent='—';
+    fmEl.textContent = is1ph ? 'I = (备用kVA×1000) ÷ 相电压' : 'I = (备用kVA×1000) ÷ 线电压 ÷ 1.732';
     hintEl.style.display='';
     return;
   }
-  var i=kva*1000/volt/1.7320508075688772;
-  valEl.innerHTML=i.toFixed(1)+' <span style="font-size:.85rem;color:var(--ink-3)">A</span>';
-  fmEl.textContent='I = ('+kva+'×1000) ÷ '+volt+' ÷ 1.732 = '+i.toFixed(1)+' A';
+  var i, fm;
+  if(is1ph){
+    i=kva*1000/volt;
+    fm='单相：I = ('+kva+' × 1000) ÷ '+volt+' = '+i.toFixed(1)+' A';
+  }else{
+    i=kva*1000/volt/1.7320508075688772;
+    fm='三相：I = ('+kva+' × 1000) ÷ ('+volt+' × 1.732) = '+i.toFixed(1)+' A';
+  }
+  valEl.innerHTML=i.toFixed(1)+'<span class="unit">A</span>';
+  var brk=nearestBreaker(i);
+  if(brkEl) brkEl.innerHTML=brk+'<span class="unit">A</span>';
+  fmEl.textContent=fm;
   hintEl.style.display='';   // 始终显示断路器档位提示
 }
 
