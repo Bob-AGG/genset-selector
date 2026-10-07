@@ -46,7 +46,25 @@ BRAND_FILES = {
 }
 
 # 品牌别名（方便 LLM/用户口语命中）
+# ⚠️ resolve_brand 用「别名 in key」模糊匹配，所以中高压别名必须比低压更具体、
+#    且要放在前面优先命中（如「利莱森玛中高压」不能被「利莱森玛」抢先命中）
 BRAND_ALIASES = {
+    # ---- 中高压（必须优先，否则会被低压同名别名抢走）----
+    "利莱森玛中高压": "利莱森玛 LSA 中高压",
+    "利莱森玛 lsa 中高压": "利莱森玛 LSA 中高压",
+    "lsa中高压": "利莱森玛 LSA 中高压",
+    "lsa中压": "利莱森玛 LSA 中高压",
+    "利莱森玛hv": "利莱森玛 LSA 中高压",
+    "斯坦福中高压": "斯坦福中高压",
+    "stamford中高压": "斯坦福中高压",
+    "stanford中高压": "斯坦福中高压",
+    "斯坦福hv": "斯坦福中高压",
+    "qyh": "铨一QYH中高压",
+    "铨一qyh": "铨一QYH中高压",
+    "铨一 qyh": "铨一QYH中高压",
+    "铨一中高压": "铨一QYH中高压",
+    "qyh中高压": "铨一QYH中高压",
+    # ---- 低压 ----
     "利莱森玛": "leroysomer",
     "利莱森玛lsa": "leroysomer",
     "lsa": "leroysomer",
@@ -55,7 +73,7 @@ BRAND_ALIASES = {
     "tal": "利莱森玛 TAL",
     "斯坦福": "斯坦福",
     "stamford": "斯坦福",
-    "斯坦福中高压": "斯坦福中高压",
+    "stanford": "斯坦福",
     "ki": "AGG KI系列",
     "kk": "AGG KK系列",
     "agg": "AGG KK系列",
@@ -194,7 +212,7 @@ TOOLS = [{
         "parameters": {
             "type": "object",
             "properties": {
-                "brand": {"type": "string", "description": "品牌，如 利莱森玛LSA / 斯坦福 / AGG KK / 美奥迪 / 马拉松 / 英格 / 铨一QYK / 订高"},
+                "brand": {"type": "string", "description": "品牌，如 利莱森玛LSA(低压) / 利莱森玛中高压 / 斯坦福 / 斯坦福中高压 / AGG KK / AGG KI / 美奥迪 / 马拉松 / 英格N / 铨一QYK / 铨一QYI / 铨一QYH中高压 / 订高。中高压电压(3300/6600/10000/11000V等)必须用带「中高压」的品牌名"},
                 "frequency": {"type": "string", "enum": ["50Hz", "60Hz"], "description": "频率"},
                 "voltage": {"type": "number", "description": "额定电压（V）。中高压用 3300/6600/11000 等"},
                 "winding": {"type": "string", "description": "接线方式，如 Y / Δ / YY；中高压用绕组代码（工具会自动尝试）。不确定可留空"},
