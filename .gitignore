@@ -33,3 +33,6 @@ staging/
 
 # 一次性备份目录（_bak_ 前缀）
 _bak_*/
+
+# 临时浏览器 profile
+.tmp-*/

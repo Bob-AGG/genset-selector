@@ -2548,13 +2548,13 @@ function updateFactoryPanel(){
 }
 
 /* ================= AI 售前工程师窗口 ================= */
-// ⚙️ 后端配置（预留）：接入真实对话时填写
+// ⚙️ 后端配置：接入真实对话
 var AI_API = {
-  enabled: false,          // 置 true 即启用真实后端对话（演示模式关闭）
-  endpoint: "https://your-server.example.com/api/ai-sales",  // ⬅️ 后端代理地址
-  apiKey: "",             // ⬅️ DeepSeek / 大模型 API key（存后端，勿放前端正式环境）
-  model: "deepseek-chat"  // 模型名
+  enabled: true,           // true=真实后端对话；false=演示模式（本地关键词回复）
+  endpoint: "https://139.224.66.88.sslip.io/api/ai-sales",  // ⬅️ 后端地址（线上）
+  model: "deepseek-chat"   // 仅展示用，真正模型名由后端决定
 };
+var AI_HISTORY=[];         // 会话上下文（发给后端，帮助连续对话）
 
 function aiAsk(){
   var input=document.getElementById('aiInput');
@@ -2575,7 +2575,7 @@ function aiAsk(){
   } else {
     // 演示模式：本地规则回复，方便预览 UI
     setTimeout(function(){
-      var t=document.getElementById('aiTyping')
+      var t=document.getElementById('aiTyping');
       if(t)t.remove();
       chat.innerHTML+='<div class="ai-msg ai-bot"><div class="ai-avatar">🤖</div><div class="ai-bubble">'+demoReply(text)+'</div></div>';
       chat.scrollTop=chat.scrollHeight;
@@ -2583,7 +2583,6 @@ function aiAsk(){
     }, 700);
   }
 }
-
 // 演示模式回复（基于关键词给示例话术，仅预览用）
 function demoReply(text){
   var p=text.toLowerCase();
@@ -2601,13 +2600,35 @@ function demoReply(text){
   return r;
 }
 
-// 真实后端调用（预留）——接入时实现：fetch(AI_API.endpoint, {POST 用户问题+上下文})  → 把返回的 AI 回复渲染
+// 真实后端调用：POST 用户问题 + 上下文 → 渲染返回的 AI 回复
 function aiRealCall(text){
-  // TODO: 接入后端代理后实现真实请求
-  // fetch(AI_API.endpoint, {
-  //   method:'POST', headers:{'Content-Type':'application/json'},
-  //   body: JSON.stringify({question:text, apiKey:AI_API.apiKey, model:AI_API.model})
-  // }).then(r=>r.json()).then(d=>{ 渲染 d.reply })
+  var chat=document.getElementById('aiChat');
+  var sendBtn=document.getElementById('aiSendBtn');
+  var render=function(html){
+    var t=document.getElementById('aiTyping');
+    if(t)t.remove();
+    chat.innerHTML+='<div class="ai-msg ai-bot"><div class="ai-avatar">🤖</div><div class="ai-bubble">'+html+'</div></div>';
+    chat.scrollTop=chat.scrollHeight;
+    sendBtn.disabled=false;
+  };
+  var payload={question:text, history:AI_HISTORY.slice(-8)};
+  fetch(AI_API.endpoint, {
+    method:'POST', headers:{'Content-Type':'application/json'},
+    body: JSON.stringify(payload)
+  }).then(function(r){
+    if(!r.ok) throw new Error('HTTP '+r.status);
+    return r.json();
+  }).then(function(d){
+    var reply=d.reply||'（未获得回复）';
+    // 记录上下文（供后续连续对话）
+    AI_HISTORY.push({role:'user', content:text});
+    AI_HISTORY.push({role:'assistant', content:reply});
+    // 换行 → <br>，并做最小安全转义后再放开我们允许的标签
+    var safe=esc(reply).replace(/\n/g,'<br>');
+    render(safe);
+  }).catch(function(err){
+    render('<span style="color:#c00">连接 AI 服务失败：'+esc(err.message)+'</span><br><span style="color:var(--ink-4)">请确认后端已启动，或联系管理员。</span>');
+  });
 }
 
 function esc(s){ return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
