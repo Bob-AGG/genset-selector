@@ -36,3 +36,7 @@ _bak_*/
 
 # 临时浏览器 profile
 .tmp-*/
+
+# 销售经验库（含内部经验，只留服务器本地，不进公开仓库）
+knowledge.json
+backend/knowledge.json
