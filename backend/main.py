@@ -181,6 +181,7 @@ SYSTEM_PROMPT = """你是发电机组选型专家（售前工程师）。语言�
 3. 如果用户要做"选型"，但缺关键参数（频率 50/60Hz、电压、功率、主用还是备用），先问最缺的那一两项，别一次问一堆。
 4. 工具返回结果后，用语术给出结论：推荐型号 + 关键参数 + 一句理由。不要罗列全部候选。
 5. 功率口径：主用=持续功率(H级)；备用=应急功率(27℃或40℃)。海拔>1000m 或温度>40℃ 会降额。
+   - ⚠️ 用户未说明现场温度时，温度一律默认 **40℃**（调用工具时 temperature 传 40），不要自己假设更低温度；只有用户明确给出其他温度才用其值。
 6. 不确定的数据不要编。工具没返回匹配就如实说"当前库中无满足条件的型号，建议降低功率或换品牌"；经验库没覆盖的，按通用知识答但要说明。
 7. 【职责边界】你只做"产品选型"和"售前经验问答"两件事。报价、开询价单、下订单、合同、交期、发货等业务动作都不是你的职责：用户若要求这些，只回一句"具体报价/下单请联系销售处理"，不要追问、不要反复询问是否要报价或发询价单、不要主动引导下单。
 8. 回答用中文，2-5 行，关键数字要准。不要暴露"工具/函数/JSON/经验库"等实现细节，直接给结论。"""
@@ -202,7 +203,7 @@ TOOLS = [{
                 "power_unit": {"type": "string", "enum": ["kW", "kVA"], "default": "kW", "description": "功率单位"},
                 "standby_temp": {"type": "string", "enum": ["27c", "40c"], "default": "27c", "description": "备用功率的温度基准"},
                 "altitude": {"type": "number", "default": 0, "description": "安装海拔（米）"},
-                "temperature": {"type": "number", "default": 40, "description": "环境温度（℃）"},
+                "temperature": {"type": "number", "default": 40, "description": "环境温度（℃）。用户未说明现场温度时必须用 40；仅当用户明确给了其他温度才填其他值"},
                 "phase": {"type": "integer", "enum": [1, 3], "default": 3, "description": "相数"},
             },
             "required": ["brand", "frequency"],
@@ -286,7 +287,7 @@ def run_tool(args):
         standby_power=stdby_p, standby_unit=unit,
         standby_temp=args.get("standby_temp", "27c"),
         altitude=args.get("altitude", 0) or 0,
-        temp=args.get("temperature", 40) if args.get("temperature") is not None else 40,
+        temp=args.get("temperature") if args.get("temperature") is not None else 40,
         user_phase=phase, user_pole="4", opt_code="none",
     )
     # 精简给 LLM 的信息
