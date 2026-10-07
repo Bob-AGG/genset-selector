@@ -227,11 +227,17 @@ TOOLS = [{
 
 
 def _auto_winding(brand, freq, voltage, records, phase=3, pole="4", pf=0.8):
-    """用户没给接线时，自动挑一个该电压下的接线（取第一个命中）"""
+    """用户没给接线时，返回该电压下**所有**命中的接线（逗号分隔）。
+    如美奥迪 400V 同时有 Y / YY 两个接线档（覆盖不同型号段）——
+    只取第一个（Y）会导致 YY 型号永远不进候选，所以全部返回。
+    """
     hits = selection.find_volt_matches(records, brand, freq, voltage, pf, pole, phase)
-    if hits:
-        return hits[0]["conn"]
-    return ""
+    conns = []
+    for h in hits:
+        c = h["conn"]
+        if c and c not in conns:
+            conns.append(c)
+    return ",".join(conns)
 
 
 def call_deepseek(messages):

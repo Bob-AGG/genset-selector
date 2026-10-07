@@ -434,6 +434,11 @@ def select(records, brand, freq, voltage, winding, pf_user,
     # ---- 遍历记录（对齐前端 for 循环）----
     mode_a = voltage is not None
     w_set = winding.split(",") if (hv and winding and "," in str(winding)) else None
+    # 低压多接线：用户未指定单一接线时（如美奥迪 400V 有 Y 和 YY 两档覆盖不同型号），
+    # _auto_winding 会返回 "Y,YY" → 这里拆成集合，任一命中即算接线匹配
+    lv_conn_set = None
+    if (not hv) and winding and "," in str(winding):
+        lv_conn_set = [c.strip() for c in str(winding).split(",") if c.strip()]
 
     lst = []
     for g in records:
@@ -449,6 +454,19 @@ def select(records, brand, freq, voltage, winding, pf_user,
                 if g.get("winding_code") != winding:
                     continue
                 w_match = volt_hit_range(g, voltage)
+            elif lv_conn_set is not None:
+                # 低压多接线：该记录任一接线命中即算匹配（但仍需电压命中）
+                if volt_hit_range(g, voltage):
+                    pr = get_conn_volt_pairs(g)
+                    g_conn = pr[0]["conn"] if pr else str(g.get("winding_conn") or "")
+                    w_match = g_conn in lv_conn_set
+                else:
+                    pairs = get_conn_volt_pairs(g)
+                    w_match = False
+                    for pair in pairs:
+                        if volt_eq(pair["volt"], voltage) and pair["conn"] in lv_conn_set:
+                            w_match = True
+                            break
             elif volt_hit_range(g, voltage):
                 pr = get_conn_volt_pairs(g)
                 w_match = (pr[0]["conn"] == winding) if pr else (str(g.get("winding_conn") or "") == winding)
