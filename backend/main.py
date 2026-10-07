@@ -76,6 +76,22 @@ BRAND_ALIASES = {
 
 _DATA_CACHE = {}
 
+# 销售经验知识库（由 knowledge/*.md 生成，见 build_knowledge.py）
+_KNOWLEDGE = []
+
+
+def load_knowledge():
+    global _KNOWLEDGE
+    if _KNOWLEDGE:
+        return _KNOWLEDGE
+    p = BASE_DIR / "backend" / "knowledge.json"
+    if not p.exists():
+        p = BASE_DIR / "knowledge.json"
+    if p.exists():
+        with open(p, "r", encoding="utf-8") as f:
+            _KNOWLEDGE = json.load(f)
+    return _KNOWLEDGE
+
 
 def load_brand(brand):
     """按品牌读数据（懒加载 + 缓存）"""
@@ -92,6 +108,39 @@ def load_brand(brand):
     recs = [r for r in raw if r.get("type") == "generator"]
     _DATA_CACHE[brand] = recs
     return recs
+
+
+def search_knowledge(query, limit=6):
+    """在销售经验库里做关键词检索（无需外部依赖）。
+    中文按「单字命中 + 短语整体命中」加权打分，返回最相关条目。
+    """
+    entries = load_knowledge()
+    if not entries:
+        return []
+    q = (query or "").strip().lower()
+    if not q:
+        return entries[:limit]
+    # 提取查询片段：按空白/标点切，再补 2~4 字滑窗
+    segs = set()
+    for tok in re.split(r"[\s,，。/、；;：:？?！!（）()\[\]\"']+", q):
+        tok = tok.strip()
+        if len(tok) >= 2:
+            segs.add(tok)
+            # 长片段再拆 2-4 字子串，提升召回
+            for n in (2, 3, 4):
+                for i in range(len(tok) - n + 1):
+                    segs.add(tok[i:i + n])
+    scored = []
+    for e in entries:
+        hay = (e.get("title", "") + " " + e.get("body", "")).lower()
+        score = 0
+        for s in segs:
+            if s in hay:
+                score += len(s) * (3 if s in e.get("title", "").lower() else 1)
+        if score > 0:
+            scored.append((score, e))
+    scored.sort(key=lambda x: x[0], reverse=True)
+    return [e for _, e in scored[:limit]]
 
 
 def resolve_brand(name):
@@ -125,14 +174,15 @@ DEEPSEEK_URL = "https://api.deepseek.com/chat/completions"
 
 SYSTEM_PROMPT = """你是发电机组选型专家（售前工程师）。语言精简、专业，不寒暄、不啰嗦。
 
-你有工具，可查真实产品库并做选型计算。规则：
+你有工具，可查真实产品库做选型计算，并检索销售经验库。规则：
 
 1. 用户给出选型需求（功率/电压/频率/用途/海拔/温度等）时，调用 run_selection 工具，用真实数据给结论。
-2. 如果用户要做"选型"，但缺关键参数（频率 50/60Hz、电压、功率、主用还是备用），先问最缺的那一两项，别一次问一堆。
-3. 工具返回结果后，用语术给出结论：推荐型号 + 关键参数 + 一句理由。不要罗列全部候选。
-4. 功率口径：主用=持续功率(H级)；备用=应急功率(27℃或40℃)。海拔>1000m 或温度>40℃ 会降额。
-5. 不确定的数据不要编。工具没返回匹配就如实说"当前库中无满足条件的型号，建议降低功率或换品牌"。
-6. 回答用中文，2-5 行，关键数字要准。不要暴露"工具/函数/JSON"等实现细节。"""
+2. 涉及报价差价、认证（CE/UL/欧五/船级等）、防护等级、出线数/接线体系、降额曲线、动力特性、启动方式、尺寸参考、双频率/双轴等非纯选型问题，先调用 search_knowledge 检索经验库，按经验库口径回答（经验库是本厂实际做法，优先于通用知识）。
+3. 如果用户要做"选型"，但缺关键参数（频率 50/60Hz、电压、功率、主用还是备用），先问最缺的那一两项，别一次问一堆。
+4. 工具返回结果后，用语术给出结论：推荐型号 + 关键参数 + 一句理由。不要罗列全部候选。
+5. 功率口径：主用=持续功率(H级)；备用=应急功率(27℃或40℃)。海拔>1000m 或温度>40℃ 会降额。
+6. 不确定的数据不要编。工具没返回匹配就如实说"当前库中无满足条件的型号，建议降低功率或换品牌"；经验库没覆盖的，按通用知识答但要说明。
+7. 回答用中文，2-5 行，关键数字要准。不要暴露"工具/函数/JSON/经验库"等实现细节，直接给结论。"""
 
 TOOLS = [{
     "type": "function",
@@ -155,6 +205,19 @@ TOOLS = [{
                 "phase": {"type": "integer", "enum": [1, 3], "default": 3, "description": "相数"},
             },
             "required": ["brand", "frequency"],
+        },
+    },
+}, {
+    "type": "function",
+    "function": {
+        "name": "search_knowledge",
+        "description": "检索本厂销售经验库（实战经验/话术/认证/差价/防护/降额/尺寸/启动等）。当问题涉及选型以外的工厂实际口径（报价、认证、配置、流程、动力特性）时调用。",
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "query": {"type": "string", "description": "检索关键词，如 CE认证 / 双轴电机 差价 / 防护等级 IP54 / 断路器 并联"},
+            },
+            "required": ["query"],
         },
     },
 }]
@@ -255,7 +318,8 @@ class AskReq(BaseModel):
 
 @app.get("/health")
 def health():
-    return {"ok": True, "brands": len(BRAND_FILES), "keyConfigured": bool(os.environ.get("DEEPSEEK_API_KEY"))}
+    return {"ok": True, "brands": len(BRAND_FILES), "keyConfigured": bool(os.environ.get("DEEPSEEK_API_KEY")),
+            "knowledge": len(load_knowledge())}
 
 
 @app.post("/api/ai-sales")
@@ -272,8 +336,8 @@ def ai_sales(req: AskReq):
     msg = resp["choices"][0]["message"]
 
     tool_trace = []
-    # 最多两轮工具调用，防止死循环
-    for _ in range(2):
+    # 最多三轮工具调用（选型 + 经验检索可能混合），防止死循环
+    for _ in range(3):
         tool_calls = msg.get("tool_calls")
         if not tool_calls:
             break
@@ -287,6 +351,13 @@ def ai_sales(req: AskReq):
             if fn == "run_selection":
                 result = run_tool(args)
                 tool_trace.append({"fn": fn, "args": args, "result": result})
+            elif fn == "search_knowledge":
+                hits = search_knowledge(args.get("query", ""))
+                result = {"ok": True, "count": len(hits), "entries": [
+                    {"topic": h["topic"], "title": h["title"], "content": h["body"], "date": h.get("date", "")}
+                    for h in hits
+                ]}
+                tool_trace.append({"fn": fn, "args": args, "result": {"ok": True, "count": len(hits)}})
             else:
                 result = {"ok": False, "reason": "未知工具"}
             messages.append({
