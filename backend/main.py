@@ -205,6 +205,7 @@ TOOLS = [{
                 "altitude": {"type": "number", "default": 0, "description": "安装海拔（米）"},
                 "temperature": {"type": "number", "default": 40, "description": "环境温度（℃）。用户未说明现场温度时必须用 40；仅当用户明确给了其他温度才填其他值"},
                 "phase": {"type": "integer", "enum": [1, 3], "default": 3, "description": "相数"},
+                "option": {"type": "string", "enum": ["none", "ip44", "c5"], "default": "none", "description": "特殊选配：none=无；ip44=IP44防护（选型需求÷0.9放大）；c5=C5高防腐（暂不降额）。用户提到IP44/防护/防雨时传 ip44"},
             },
             "required": ["brand", "frequency"],
         },
@@ -288,12 +289,13 @@ def run_tool(args):
         standby_temp=args.get("standby_temp", "27c"),
         altitude=args.get("altitude", 0) or 0,
         temp=args.get("temperature") if args.get("temperature") is not None else 40,
-        user_phase=phase, user_pole="4", opt_code="none",
+        user_phase=phase, user_pole="4", opt_code=(args.get("option") or "none"),
     )
     # 精简给 LLM 的信息
     out = {
         "ok": res["ok"], "reason": res["reason"],
         "brand": brand, "frequency": freq, "voltage": voltage, "winding": winding,
+        "option": (args.get("option") or "none"),
         "af": res["af"], "tf": res["tf"], "tot": res["tot"],
         "goalMain": res["goalM"], "goalStandby": res["goalS"],
         "totalCandidates": res["total"], "passed": res["passed"],
