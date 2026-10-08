@@ -49,9 +49,12 @@ BRAND_FILES = {
 # ⚠️ resolve_brand 用「别名 in key」模糊匹配，所以中高压别名必须比低压更具体、
 #    且要放在前面优先命中（如「利莱森玛中高压」不能被「利莱森玛」抢先命中）
 BRAND_ALIASES = {
-    # ---- 中高压（必须优先，否则会被低压同名别名抢走）----
-    "利莱森玛中高压": "利莱森玛 LSA 中高压",
+    # ---- 中高压（最长的别名必须排最前！）----
+    # ⚠️ resolve_brand 用「alias in key」模糊匹配，短别名会抢先命中长别名：
+    #    "利莱森玛" in "利莱森玛中高压" → 若不先排中高压，会被解析成低压 LSA
+    #    "tal" 同理会把 "利莱森玛TAL" 抢成低压 → 这两个就是「TAL/中高压读不到」的根因
     "利莱森玛 lsa 中高压": "利莱森玛 LSA 中高压",
+    "利莱森玛中高压": "利莱森玛 LSA 中高压",
     "lsa中高压": "利莱森玛 LSA 中高压",
     "lsa中压": "利莱森玛 LSA 中高压",
     "利莱森玛hv": "利莱森玛 LSA 中高压",
@@ -64,13 +67,15 @@ BRAND_ALIASES = {
     "铨一 qyh": "铨一QYH中高压",
     "铨一中高压": "铨一QYH中高压",
     "qyh中高压": "铨一QYH中高压",
+    # ---- 利莱森玛 TAL（"tal" 必须在 "利莱森玛" 之前）----
+    "利莱森玛 tal": "利莱森玛 TAL",
+    "利莱森玛tal": "利莱森玛 TAL",
+    "tal": "利莱森玛 TAL",
     # ---- 低压 ----
     "利莱森玛": "leroysomer",
     "利莱森玛lsa": "leroysomer",
     "lsa": "leroysomer",
     "leroy": "leroysomer",
-    "利莱森玛tal": "利莱森玛 TAL",
-    "tal": "利莱森玛 TAL",
     "斯坦福": "斯坦福",
     "stamford": "斯坦福",
     "stanford": "斯坦福",
@@ -161,17 +166,32 @@ def search_knowledge(query, limit=6):
     return [e for _, e in scored[:limit]]
 
 
+def _norm(s):
+    """归一化品牌串：去所有空白 + 转小写（解决 '利莱森玛 LSA' vs '利莱森玛LSA' 这类空格差异）"""
+    return re.sub(r"\s+", "", str(s)).lower()
+
+
 def resolve_brand(name):
-    """把用户/LLM 给的品牌名解析成前端 option value"""
+    """把用户/LLM 给的品牌名解析成前端 option value
+
+    ⚠️ 匹配顺序陷阱：BRAND_ALIASES 用「alias in key」模糊匹配，
+    短别名会抢先命中长别名（如 "利莱森玛" 抢在 "利莱森玛中高压" 前），
+    所以字典里必须「长别名在前、短别名在后」（见 BRAND_ALIASES 注释）。
+    """
     if not name:
         return None
     if name in BRAND_FILES:
         return name
-    key = str(name).strip().lower()
-    if key in BRAND_ALIASES:
-        return BRAND_ALIASES[key]
+    key = _norm(name)
+    # 精确命中（别名已按「长优先」排序，第一命中即最优）
+    norm_aliases = {_norm(a): r for a, r in BRAND_ALIASES.items()}
+    if key in BRAND_FILES:
+        return key
+    if key in norm_aliases:
+        return norm_aliases[key]
     for alias, real in BRAND_ALIASES.items():
-        if alias in key or key in alias:
+        a = _norm(alias)
+        if a in key or key in a:
             return real
     return None
 
