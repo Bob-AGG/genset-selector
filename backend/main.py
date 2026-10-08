@@ -232,7 +232,7 @@ TOOLS = [{
         "parameters": {
             "type": "object",
             "properties": {
-                "brand": {"type": "string", "description": "品牌，如 利莱森玛LSA(低压) / 利莱森玛中高压 / 斯坦福 / 斯坦福中高压 / AGG KK / AGG KI / 美奥迪 / 马拉松 / 英格N / 铨一QYK / 铨一QYI / 铨一QYH中高压 / 订高。中高压电压(3300/6600/10000/11000V等)必须用带「中高压」的品牌名"},
+                "brand": {"type": "string", "description": "品牌，只能从下列原标题中选一个（不要自己改写、不要合并）：利莱森玛LSA(低压) / 利莱森玛TAL / 利莱森玛中高压 / 斯坦福 / 斯坦福中高压 / AGG KK / AGG KI / 美奥迪 / 马拉松 / 英格N / 英格N3 / 铨一QYK / 铨一QYI / 铨一QYH中高压 / 订高。⚠️规则：①用户说 TAL（或 TAL-A/利莱森玛TAL）时必须传「利莱森玛TAL」，绝不能传「利莱森玛LSA」——TAL 是独立系列，当LSA查会找不到型号；②中高压电压(3300/6600/10000/11000V等)必须用带「中高压」的品牌名"},
                 "frequency": {"type": "string", "enum": ["50Hz", "60Hz"], "description": "频率"},
                 "voltage": {"type": "number", "description": "额定电压（V）。中高压用 3300/6600/11000 等"},
                 "winding": {"type": "string", "description": "接线方式，如 Y / Δ / YY；中高压用绕组代码（工具会自动尝试）。不确定可留空"},
