@@ -338,6 +338,9 @@ body{font-family:-apple-system,"Microsoft YaHei",sans-serif;color:var(--ink);bac
 .ai-user .ai-bubble{background:var(--brand);color:#fff;border:none}
 .ai-bubble.typing{color:var(--ink-4)}
 .ai-typing .ai-bubble::after{content:"▍";animation:blink 1s infinite}
+/* 联网来源引用小标签（点击跳转） */
+.src-tag{display:inline-flex;align-items:center;justify-content:center;min-width:15px;height:15px;padding:0 4px;margin:0 1px;font-size:10px;line-height:1;font-weight:600;color:var(--brand);background:#eef2ff;border:1px solid #c7d2fe;border-radius:4px;text-decoration:none;vertical-align:super;cursor:pointer;transition:.15s}
+.src-tag:hover{background:var(--brand);color:#fff;border-color:var(--brand)}
 @keyframes blink{50%{opacity:0}}
 .ai-input-row{display:flex;gap:8px;padding:10px 12px;border-top:1px solid var(--line);align-items:flex-end}
 .ai-input{flex:1;resize:none;border:1px solid var(--line);border-radius:6px;padding:8px 10px;font-size:13px;font-family:inherit;line-height:1.5}
@@ -2625,6 +2628,7 @@ function aiRealCall(text){
     AI_HISTORY.push({role:'assistant', content:reply});
     // 换行 → <br>，并做最小安全转义后再放开我们允许的标签
     var safe=esc(reply).replace(/\n/g,'<br>');
+    safe=renderSources(safe, d.sources);
     render(safe);
   }).catch(function(err){
     render('<span style="color:#c00">连接 AI 服务失败：'+esc(err.message)+'</span><br><span style="color:var(--ink-4)">请确认后端已启动，或联系管理员。</span>');
@@ -2632,6 +2636,22 @@ function aiRealCall(text){
 }
 
 function esc(s){ return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+/* 把正文里的 [n] 渲染成可点击来源小标签（仅当后端返回 sources 时）；
+   [n] 与 sources 的 n 一一对应，点击新窗口跳转来源网页 */
+function renderSources(html, sources){
+  if(!sources || !sources.length) return html;
+  var map={};
+  for(var i=0;i<sources.length;i++){ map[sources[i].n]=sources[i]; }
+  return html.replace(/\[(\d+)\]/g, function(m,n){
+    var s=map[n];
+    if(!s) return m;
+    var url=String(s.url||'');
+    if(!/^https?:\/\//i.test(url)) return m;
+    var title=String(s.title||'').replace(/"/g,'&quot;');
+    return '<a class="src-tag" href="'+esc(url)+'" target="_blank" rel="noopener" title="'+esc(title)+'">'+n+'</a>';
+  });
+}
 
 /* ================= 产品库 ================= */
 function fillBrowseBrand(){

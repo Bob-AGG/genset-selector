@@ -222,7 +222,11 @@ SYSTEM_PROMPT = """你是发电机组选型专家（售前工程师）。语言�
    - ⚠️ 用户未说明现场温度时，温度一律默认 **40℃**（调用工具时 temperature 传 40），不要自己假设更低温度；只有用户明确给出其他温度才用其值。
 6. 不确定的数据不要编。工具没返回匹配就如实说"当前库中无满足条件的型号，建议降低功率或换品牌"；经验库没覆盖的，按通用知识答但要说明。
 7. 【职责边界】你只做"产品选型"和"售前经验问答"两件事。报价、开询价单、下订单、合同、交期、发货等业务动作都不是你的职责：用户若要求这些，只回一句"具体报价/下单请联系销售处理"，不要追问、不要反复询问是否要报价或发询价单、不要主动引导下单。
-8. 回答用中文，2-5 行，关键数字要准。不要暴露"工具/函数/JSON/经验库"等实现细节，直接给结论。"""
+8. 【联网搜索】本地经验库和产品库都覆盖不到的行业/技术/标准/品牌背景问题，可调用 web_search 联网查。要求：
+   - 联网结果仅供参考，回答时**在引用句末标注 [1][2] 编号**（对应搜索结果编号），不要编造编号之外的来源。
+   - 若联网结果与本地经验库冲突，**以本地经验库为准**，并在回答中说明本厂口径。
+   - 只引用与问题真正相关的结果；不相关的不引。
+9. 回答用中文，2-5 行，关键数字要准。不要暴露"工具/函数/JSON/经验库/搜索"等实现细节，直接给结论。"""
 
 TOOLS = [{
     "type": "function",
@@ -261,7 +265,76 @@ TOOLS = [{
             "required": ["query"],
         },
     },
+}, {
+    "type": "function",
+    "function": {
+        "name": "web_search",
+        "description": "联网搜索公开资料（行业知识、技术原理、标准规范、品牌背景、竞品信息等）。⚠️ 仅当本地经验库(search_knowledge)和产品库都覆盖不到时才用；本厂实际口径问题一律优先经验库，绝不用网络信息覆盖本厂做法。返回带编号[1][2]的结果，引用时在句末标注对应编号。",
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "query": {"type": "string", "description": "搜索关键词，尽量精准（如 '康明斯 QSK78 技术参数'、'ISO 8528 发电机组功率定义'）"},
+            },
+            "required": ["query"],
+        },
+    },
 }]
+
+
+# ============================================================
+# 联网搜索（Bing 中文，服务器实测可用；DDG/Google 被墙）
+# ============================================================
+import urllib.parse
+
+BING_URL = "https://cn.bing.com/search"
+_UA = ("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
+       "(KHTML, like Gecko) Chrome/120.0 Safari/537.36")
+
+
+def web_search(query, limit=5):
+    """抓取 Bing 中文搜索结果，返回 [{n,title,url,snippet}]。失败返回 []。"""
+    import urllib.request
+    q = (query or "").strip()
+    if not q:
+        return []
+    params = urllib.parse.urlencode({"q": q, "setlang": "zh-CN", "count": str(limit)})
+    url = BING_URL + "?" + params
+    req = urllib.request.Request(url, headers={
+        "User-Agent": _UA,
+        "Accept-Language": "zh-CN,zh;q=0.9",
+    })
+    try:
+        with urllib.request.urlopen(req, timeout=20) as resp:
+            html = resp.read().decode("utf-8", "ignore")
+    except Exception:
+        return []
+
+    results = []
+    # 每个结果是 <li class="b_algo">...<h2><a href="URL">TITLE</a></h2>...<p>SNAPPET</p>
+    for block in re.findall(r'<li class="b_algo".*?</li>', html, re.S):
+        m = re.search(r'<h2>\s*<a[^>]*href="([^"]+)"[^>]*>(.*?)</a>', block, re.S)
+        if not m:
+            continue
+        link = m.group(1)
+        title = re.sub(r'<[^>]+>', '', m.group(2))
+        snip_m = re.search(r'<p[^>]*>(.*?)</p>', block, re.S)
+        snip = re.sub(r'<[^>]+>', '', snip_m.group(1)) if snip_m else ""
+        title = _html_unescape(title).strip()
+        snip = _html_unescape(snip).strip()
+        if not title or not link.startswith("http"):
+            continue
+        results.append({"title": title, "url": link, "snippet": snip[:300]})
+        if len(results) >= limit:
+            break
+
+    for i, r in enumerate(results, 1):
+        r["n"] = i
+    return results
+
+
+def _html_unescape(s):
+    import html as _h
+    return _h.unescape(s or "")
 
 
 def _auto_winding(brand, freq, voltage, records, phase=3, pole="4", pf=0.8):
@@ -384,6 +457,7 @@ def ai_sales(req: AskReq):
     msg = resp["choices"][0]["message"]
 
     tool_trace = []
+    web_sources = []  # 本次真正搜索到的网页来源（带 n 编号）
     # 最多三轮工具调用（选型 + 经验检索可能混合），防止死循环
     for _ in range(3):
         tool_calls = msg.get("tool_calls")
@@ -406,6 +480,13 @@ def ai_sales(req: AskReq):
                     for h in hits
                 ]}
                 tool_trace.append({"fn": fn, "args": args, "result": {"ok": True, "count": len(hits)}})
+            elif fn == "web_search":
+                hits = web_search(args.get("query", ""))
+                result = {"ok": True, "count": len(hits), "results": hits}
+                tool_trace.append({"fn": fn, "args": args, "result": {"ok": True, "count": len(hits)}})
+                for h in hits:
+                    if h["n"] not in [w["n"] for w in web_sources]:
+                        web_sources.append(h)
             else:
                 result = {"ok": False, "reason": "未知工具"}
             messages.append({
@@ -415,8 +496,15 @@ def ai_sales(req: AskReq):
         resp = call_deepseek(messages)
         msg = resp["choices"][0]["message"]
 
+    reply_text = msg.get("content") or ""
+    # 只保留正文中真正引用到的编号 [n] 的来源（正文没有编号引用则整体不带来源）
+    cited = set(int(x) for x in re.findall(r'\[(\d+)\]', reply_text))
+    sources = [{"n": w["n"], "title": w["title"], "url": w["url"]}
+               for w in web_sources if w["n"] in cited]
+
     return JSONResponse({
-        "reply": msg.get("content") or "",
+        "reply": reply_text,
         "toolUsed": len(tool_trace) > 0,
         "trace": tool_trace,
+        "sources": sources,
     })
