@@ -1308,20 +1308,24 @@ function onVoltChange(){
   // ★中高压：无接线概念，下拉按「电压档」列出，value 用 winding_code
   //   （低压仍按接线名聚合，逻辑不变）
   if(isHVBrand(brand)){
-    var codes=[], seenCode={};
+    // 每个 code 收集：排序键(用该 code 下记录的 voltage 解析) + 显示标签(用 winding_label)
+    var codeMap={};
     for(var hi=0;hi<hits.length;hi++){
       var hr=hits[hi], hc=hr.rec.winding_code;
-      if(hc==null||hc===''||seenCode[hc]) continue;
-      seenCode[hc]=1;
-      codes.push(hc);
+      if(hc==null||hc==='') continue;
+      if(!codeMap[hc]){
+        var vrg=voltRange(hr.rec.voltage);
+        codeMap[hc]={ code:hc, sortKey:(vrg?vrg.lo:0), label:(hr.rec.winding_label||hr.rec.voltage||hc) };
+      }
     }
-    // winding_code 形如 '6-3300' / '3300V-W51' → 排序键取其中数字
-    codes.sort(function(a,b){ return voltRange(a).lo - voltRange(b).lo; });
+    var codes=Object.keys(codeMap).map(function(k){return codeMap[k];});
+    codes.sort(function(a,b){ return a.sortKey - b.sortKey; });
     ws.innerHTML='<option value="">请选择电压档</option>';
     for(var ci=0;ci<codes.length;ci++){
-      var code=codes[ci];
-      var rg=voltRange(code);
-      ws.innerHTML+='<option value="'+esc(code)+'">'+esc(String(rg.lo))+'-'+esc(String(rg.hi))+' V 档</option>';
+      var cobj=codes[ci];
+      var dup=codes.filter(function(z){return z.sortKey===cobj.sortKey;}).length>1;
+      var txt=cobj.label+(dup?('（'+cobj.code+'）'):'');
+      ws.innerHTML+='<option value="'+esc(cobj.code)+'">'+esc(txt)+'</option>';
     }
     ws.setAttribute('data-mode','voltage');
     hint.textContent='✅ '+volt+'V 命中 '+codes.length+' 个电压档、'+hits.length+' 个绕组档';
@@ -1361,21 +1365,31 @@ function onParamChange(){
   onVoltChange();   // 品牌/频率变了 → 按当前电压重算接线选项
 }
 
-// 用途选项联动：40℃ 备用功率仅低压品牌提供（中高压暂无 40℃ 备用数据，暂不做）
-// 注意：genDuty 单选按钮无 onchange 属性，靠 doSearch 读取，因此切换品牌时需主动同步显隐
+// 用途选项联动：备用温升 27℃/40℃ 选项对所有品牌开放
+// ★默认温升按该品牌实际数据决定：有27℃数据→默认27℃；只有40℃数据→默认40℃；两者都有→默认27℃(保持原默认)
+// 注意：genDuty 单选按钮无 onchange 属性，靠 doSearch 读取，因此切换品牌时需主动同步
 function syncDutyOptions(brand){
   var wrap=document.getElementById('dutyEsp40Wrap');
   if(!wrap) return;
-  var allow=!!brand && !isHVBrand(brand);
-  if(!allow){
-    // 切到中高压：隐藏 40℃ 选项；若当前正选中它，回退到 27℃ 备用
-    var cur=document.querySelector('input[name="genDuty"]:checked');
-    if(cur && cur.value==='ESP40'){
-      var fb=document.querySelector('input[name="genDuty"][value="ESP"]');
-      if(fb) fb.checked=true;
-    }
+  // 备用温升选项对所有品牌可见（含中高压）
+  wrap.style.display = '';
+  if(!brand) return;
+  // 探测该品牌是否有 27℃ / 40℃ 备用数据（F级或H级任一命中即视为有）
+  var recs=ALL_DATA[brand]||[];
+  var has27=false, has40=false;
+  for(var i=0;i<recs.length;i++){
+    var r=recs[i];
+    if(!has27 && (r['stdby_h_27c_kVA']>0 || r['stdby_f_27c_kVA']>0)) has27=true;
+    if(!has40 && (r['stdby_h_40c_kVA']>0 || r['stdby_f_40c_kVA']>0)) has40=true;
+    if(has27&&has40) break;
   }
-  wrap.style.display = allow ? '' : 'none';
+  // 默认温升：只有40℃数据→选40℃；否则默认27℃（保持原有默认行为）
+  var wantVal = (!has27 && has40) ? 'ESP40' : 'ESP';
+  var cur=document.querySelector('input[name="genDuty"]:checked');
+  if(!cur || cur.value!==wantVal){
+    var tgt=document.querySelector('input[name="genDuty"][value="'+wantVal+'"]');
+    if(tgt) tgt.checked=true;
+  }
 }
 
 // 判定电压接线相数：统一以 winding_code 前缀 1ph- 表示单相
@@ -1389,7 +1403,7 @@ function isSinglePhase(w, label){
 
 // 品牌是否为中高压(走中高压专用逻辑: 不适用海拔/温度修正, 主用功率取F级cont_f, 电压下拉数值升序)
 function isHVBrand(brand){
-  return (brand==='利莱森玛 LSA 中高压'||brand==='斯坦福中高压'||brand==='铨一QYH中高压');
+  return (brand==='利莱森玛 LSA 中高压'||brand==='斯坦福中高压'||brand==='铨一QYH中高压'||brand==='英格GS高压');
 }
 function isAGG(brand){
   return (brand==='AGG KI系列'||brand==='AGG KK系列');
@@ -1616,9 +1630,9 @@ function doSearch(){
   var userVoltRaw=document.getElementById('genVolt').value.trim();
   var userVolt=(userVoltRaw!=='' && isFinite(Number(userVoltRaw)))?Number(userVoltRaw):null;
   var freq=document.querySelector('input[name="genFreq"]:checked').value;
-  // 40℃ 备用仅低压支持（中高压暂不做）；防御：中高压若遗留 ESP40 选择则按 27℃ 处理
+  // 备用温升 27℃/40℃ 由用户选择决定（中高压同样支持 40℃ 备用）
   var duty0=document.querySelector('input[name="genDuty"]:checked').value;
-  var duty=(duty0==='ESP40' && isHVBrand(brand)) ? 'ESP' : duty0;
+  var duty=duty0;
   var isHV=isHVBrand(brand);
   // ===== 双功率输入：①主用(H级) ②备用(27/40℃)。至少填一个；都不填报错；都填则需同时满足 =====
   var unitM=document.querySelector('input[name="unitMain"]:checked').value;
@@ -2409,6 +2423,7 @@ var BRAND_FILES = {
   '马拉松低压': 'marathon.json',
   '英格N系列': 'inger-n.json',
   '英格N3系列': 'inger-n3.json',
+  '英格GS高压': 'inger-gs-hv.json',
   '铨一QYK': 'qyk.json',
   '铨一QYI': 'qyi.json',
   '铨一QYH中高压': 'qyh.json',
@@ -2469,6 +2484,7 @@ function brandLabel(k){
   else if(l==='马拉松低压')l='马拉松低压';
   else if(l==='英格N系列')l='英格N系列';
   else if(l==='英格N3系列')l='英格N3系列';
+  else if(l==='英格GS高压')l='英格GS高压';
   else if(l==='铨一QYK')l='铨一QYK';
   else if(l==='铨一QYI')l='铨一QYI';
   else if(l==='铨一QYH中高压')l='铨一 QYH 中高压';
