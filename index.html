@@ -724,6 +724,39 @@ tr:hover{background:var(--bg)}
 .notice-item .n-ts{font-size:11px;color:var(--ink-4);font-weight:400}
 .notice-item .n-content{font-size:13px;color:var(--ink-2);margin-top:6px;line-height:1.7;white-space:pre-wrap}
 .notice-empty{text-align:center;padding:24px;color:var(--ink-4);font-size:13px;border:1px dashed var(--line);border-radius:6px}
+
+/* ===== 公告弹窗（每次打开网页弹最新一条） ===== */
+.modal-mask{position:fixed;inset:0;z-index:9999;background:rgba(20,24,32,.45);display:flex;align-items:center;
+  justify-content:center;padding:20px;animation:maskIn .18s ease-out}
+@keyframes maskIn{from{opacity:0}to{opacity:1}}
+.modal-box{background:var(--surf);border-radius:14px;box-shadow:0 24px 60px -12px rgba(20,24,32,.4);
+  width:100%;max-width:560px;max-height:80vh;display:flex;flex-direction:column;overflow:hidden;
+  animation:boxIn .22s cubic-bezier(.2,.9,.3,1.1)}
+@keyframes boxIn{from{opacity:0;transform:translateY(12px) scale(.97)}to{opacity:1;transform:none}}
+.modal-hd{padding:16px 18px 12px;border-bottom:1px solid var(--line);display:flex;align-items:flex-start;gap:10px}
+.modal-hd .m-ico{font-size:19px;line-height:1.25;flex:0 0 auto}
+.modal-hd .m-tt{flex:1;min-width:0}
+.modal-hd .m-title{font-weight:600;font-size:15.5px;color:var(--brand);line-height:1.45;word-break:break-word}
+.modal-hd .m-ts{font-size:11.5px;color:var(--ink-4);margin-top:4px}
+.modal-bd{padding:16px 18px;overflow-y:auto;font-size:13.5px;color:var(--ink-2);line-height:1.75;
+  white-space:pre-wrap;word-break:break-word}
+.modal-ft{padding:12px 18px 16px;border-top:1px solid var(--line);display:flex;gap:10px;justify-content:flex-end;align-items:center}
+.modal-ft .m-link{font-size:12.5px;color:var(--ink-3);cursor:pointer;margin-right:auto;text-decoration:underline}
+.modal-ft .m-link:hover{color:var(--brand)}
+.modal-btn{border:1px solid var(--brand);background:var(--brand);color:#fff;border-radius:8px;padding:8px 22px;
+  font-size:13.5px;font-weight:600;cursor:pointer;transition:filter .15s}
+.modal-btn:hover{filter:brightness(1.08)}
+.modal-btn.ghost{background:transparent;color:var(--ink-2);border-color:var(--line)}
+.modal-btn.ghost:hover{background:var(--surf-2);filter:none}
+@media (max-width:640px){
+  .modal-box{max-height:86vh;border-radius:12px}
+  .modal-hd{padding:14px 15px 10px}
+  .modal-hd .m-title{font-size:14.5px}
+  .modal-bd{padding:14px 15px;font-size:13px}
+  .modal-ft{padding:10px 15px 14px}
+  .modal-btn{padding:9px 18px;flex:1}
+  .modal-ft .m-link{margin-right:0;width:100%;text-align:center;order:3;margin-top:2px}
+}
 .tool-err{font-size:.75rem;color:#e67e22;background:#fef2e6;border-radius:6px;padding:2px 8px;display:inline-block;margin-top:4px}
 .tool-subtab{flex:1;text-align:center;padding:8px 0;border-radius:32px;font-weight:600;cursor:pointer;transition:.15s;background:transparent;color:#2c5a44;border:none;font-size:14px}
 .tool-subtab.active{background:#fff;box-shadow:0 2px 6px rgba(0,0,0,.08);color:var(--brand);border:1px solid var(--line)}
@@ -1033,6 +1066,15 @@ tr:hover{background:var(--bg)}
 <div class="card" style="grid-column:1/-1">
 <h2 style="border-color:var(--brand)">📢 通知公告</h2>
 <div id="noticeList"><div class="notice-empty">加载中…</div></div>
+</div>
+
+<div class="card" style="grid-column:1/-1">
+<h2>🏠 首页公告弹窗</h2>
+<div class="landing" style="padding:14px 0 4px"><div class="icon">🔔</div>
+<p style="max-width:520px;margin:0 auto 12px">每次打开网页会自动弹出「最新一条」公告，点按钮可立即预览效果。</p></div>
+<div style="text-align:center;padding-bottom:8px">
+<button class="modal-btn" onclick="openNoticeModal(true)">立即预览弹窗</button>
+</div>
 </div>
 </div>
 
@@ -3172,10 +3214,80 @@ function loadHelpNotices(){
     box.innerHTML='<div class="notice-empty">暂无通知</div>';
   });
 }
+
+/* ============ 公告弹窗：每次打开网页弹「最新一条」 ============
+   规则（用户 2026-10-27 定）：每次打开都弹，不做「关了就再不弹」的记忆。
+   help_notices.json 按 id 排序，最新一条 = id 最大的那条。
+   任何异常（文件缺失 / 空数组 / 网络失败）都静默不弹，绝不挡用户选型。 */
+var _noticeCache = null;   // 复用帮助页已拉的数据，避免重复请求
+
+function fetchNotices(){
+  if(_noticeCache) return Promise.resolve(_noticeCache);
+  return fetch('help_notices.json?t='+Date.now())
+    .then(function(r){ if(!r.ok) throw new Error('no file'); return r.json(); })
+    .then(function(d){ _noticeCache = Array.isArray(d)?d:[]; return _noticeCache; });
+}
+
+function openNoticeModal(forcePreview){
+  fetchNotices().then(function(arr){
+    if(!arr.length) return;
+    // 最新一条：优先按 id 最大，缺失时退回最后一条
+    var latest = arr.slice().sort(function(a,b){
+      var ia = Number(a.id), ib = Number(b.id);
+      if(isFinite(ia) && isFinite(ib)) return ia - ib;
+      return String(a.ts||'').localeCompare(String(b.ts||''));
+    }).pop();
+    if(!latest || !latest.title) return;
+    showNoticeModal(latest);
+  }).catch(function(){});   // 静默失败，不影响主流程
+}
+
+function showNoticeModal(n){
+  closeNoticeModal();
+  var mask = document.createElement('div');
+  mask.className = 'modal-mask';
+  mask.id = 'noticeModal';
+  mask.onclick = function(e){ if(e.target === mask) closeNoticeModal(); };
+
+  var box = document.createElement('div');
+  box.className = 'modal-box';
+  box.setAttribute('role','dialog');
+  box.setAttribute('aria-modal','true');
+  box.innerHTML =
+      '<div class="modal-hd"><div class="m-ico">📢</div><div class="m-tt">'
+    +   '<div class="m-title">'+esc(n.title||'')+'</div>'
+    +   '<div class="m-ts">'+esc(n.ts||'')+'</div>'
+    + '</div></div>'
+    + '<div class="modal-bd">'+esc(n.content||'')+'</div>'
+    + '<div class="modal-ft">'
+    +   '<span class="m-link" onclick="closeNoticeModal();switchView(\'help\')">查看全部公告</span>'
+    +   '<button class="modal-btn" onclick="closeNoticeModal()">我知道了</button>'
+    + '</div>';
+  mask.appendChild(box);
+  document.body.appendChild(mask);
+  document.body.style.overflow = 'hidden';   // 弹窗期间锁滚动
+  // 焦点落到关闭按钮，方便键盘/回车操作
+  var btn = box.querySelector('.modal-btn');
+  if(btn) btn.focus();
+  // ESC 关闭
+  document.addEventListener('keydown', _noticeEsc);
+}
+
+function _noticeEsc(e){
+  if(e.key === 'Escape' || e.keyCode === 27){ closeNoticeModal(); }
+}
+
+function closeNoticeModal(){
+  var m = document.getElementById('noticeModal');
+  if(m && m.parentNode) m.parentNode.removeChild(m);
+  if(!document.getElementById('noticeModal')) document.body.style.overflow = '';
+  document.removeEventListener('keydown', _noticeEsc);
+}
+
 if(document.readyState==='loading'){
-  document.addEventListener('DOMContentLoaded',loadHelpNotices);
+  document.addEventListener('DOMContentLoaded',function(){ loadHelpNotices(); openNoticeModal(); });
 }else{
-  loadHelpNotices();
+  loadHelpNotices(); openNoticeModal();
 }
 
 /* ===== macOS 入场动画调度：播完立即解除合成层，避免长期占用 GPU ===== */
