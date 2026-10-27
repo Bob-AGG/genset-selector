@@ -33,7 +33,7 @@ def js_round3(x):
 # ============================================================
 # 品牌判定（对齐前端 isHVBrand / isAGG / isLeroy / isStanford）
 # ============================================================
-HV_BRANDS = {"利莱森玛 LSA 中高压", "斯坦福中高压", "铨一QYH中高压"}
+HV_BRANDS = {"利莱森玛 LSA 中高压", "斯坦福中高压", "铨一QYH中高压", "英格GS高压"}
 AGG_BRANDS = {"AGG KI系列", "AGG KK系列"}
 MECC_BRAND = "美奥迪 Mecc Alte"
 STANFORD_BRAND = "斯坦福"
@@ -389,10 +389,8 @@ def select(records, brand, freq, voltage, winding, pf_user,
     p_m = float(main_power) if has_m else 0
     p_s = float(standby_power) if has_s else 0
 
-    # 40℃ 备用仅低压；中高压防御性回落 27℃
+    # 备用温升 27℃/40℃ 由用户选择决定（中高压同样支持 40℃ 备用，对齐前端）
     tr_key = "40c" if standby_temp == "40c" else "27c"
-    if hv and tr_key == "40c":
-        tr_key = "27c"
 
     opt_dec = 0.9 if opt_code == "ip44" else 1.0
 

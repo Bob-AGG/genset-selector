@@ -39,6 +39,7 @@ BRAND_FILES = {
     "马拉松低压": "marathon.json",
     "英格N系列": "inger-n.json",
     "英格N3系列": "inger-n3.json",
+    "英格GS高压": "inger-gs-hv.json",
     "铨一QYK": "qyk.json",
     "铨一QYI": "qyi.json",
     "铨一QYH中高压": "qyh.json",
@@ -62,12 +63,27 @@ BRAND_ALIASES = {
     "stamford中高压": "斯坦福中高压",
     "stanford中高压": "斯坦福中高压",
     "斯坦福hv": "斯坦福中高压",
+    # ---- 英格GS高压（必须在"英格"之前，避免被短别名抢）----
+    "英格gs高压": "英格GS高压",
+    "英格gs": "英格GS高压",
+    "ingergs": "英格GS高压",
+    "gs高压": "英格GS高压",
+    "英格高压": "英格GS高压",
     "qyh": "铨一QYH中高压",
     "铨一qyh": "铨一QYH中高压",
     "铨一 qyh": "铨一QYH中高压",
     "铨一中高压": "铨一QYH中高压",
     "qyh中高压": "铨一QYH中高压",
-    # ---- 利莱森玛 TAL（"tal" 必须在 "利莱森玛" 之前）----
+    # ---- 英格 N3（2026-10-27 修：必须排在 "英格" 之前）----
+    #   原 bug：LLM 按工具描述原词传「英格N3」，模糊匹配时
+    #   "英格" in "英格n3" 先命中 → 落成 N系列 → 用 N 库查 N3 的功率 → 选错/选不出
+    "英格n3系列": "英格N3系列",
+    "英格n3": "英格N3系列",
+    "ingern3": "英格N3系列",
+    "英格 n3": "英格N3系列",
+    # N 系列必须排在 N3 之前，否则「英格N」会被模糊匹配抢先命中「英格n3」
+    "英格n系列": "英格N系列",
+    "英格n": "英格N系列",
     "利莱森玛 tal": "利莱森玛 TAL",
     "利莱森玛tal": "利莱森玛 TAL",
     "tal": "利莱森玛 TAL",
@@ -236,7 +252,7 @@ TOOLS = [{
         "parameters": {
             "type": "object",
             "properties": {
-                "brand": {"type": "string", "description": "品牌，只能从下列原标题中选一个（不要自己改写、不要合并）：利莱森玛LSA(低压) / 利莱森玛TAL / 利莱森玛中高压 / 斯坦福 / 斯坦福中高压 / AGG KK / AGG KI / 美奥迪 / 马拉松 / 英格N / 英格N3 / 铨一QYK / 铨一QYI / 铨一QYH中高压 / 订高。⚠️规则：①用户说 TAL（或 TAL-A/利莱森玛TAL）时必须传「利莱森玛TAL」，绝不能传「利莱森玛LSA」——TAL 是独立系列，当LSA查会找不到型号；②中高压电压(3300/6600/10000/11000V等)必须用带「中高压」的品牌名"},
+                "brand": {"type": "string", "description": "品牌，只能从下列原标题中选一个（不要自己改写、不要合并）：利莱森玛LSA(低压) / 利莱森玛TAL / 利莱森玛中高压 / 斯坦福 / 斯坦福中高压 / AGG KK / AGG KI / 美奥迪 / 马拉松 / 英格N / 英格N3 / 英格GS高压 / 铨一QYK / 铨一QYI / 铨一QYH中高压 / 订高。⚠️规则：①用户说 TAL（或 TAL-A/利莱森玛TAL）时必须传「利莱森玛TAL」，绝不能传「利莱森玛LSA」——TAL 是独立系列，当LSA查会找不到型号；②中高压电压(3300/6600/10000/11000V等)必须用带「中高压」或「GS高压」的品牌名；③英格GS是中高压(6kV/10kV)，英格N/N3是低压，三者不可混传"},
                 "frequency": {"type": "string", "enum": ["50Hz", "60Hz"], "description": "频率"},
                 "voltage": {"type": "number", "description": "额定电压（V）。中高压用 3300/6600/11000 等"},
                 "winding": {"type": "string", "description": "接线方式，如 Y / Δ / YY；中高压用绕组代码（工具会自动尝试）。不确定可留空"},
@@ -399,11 +415,19 @@ def run_tool(args):
         if codes and winding not in codes:
             winding = sorted(codes)[0]
 
+    # 备用温升：仅当该品牌「只有40℃备用数据」时自动用 40c（对齐前端 syncDutyOptions 逻辑）
+    standby_temp = args.get("standby_temp", "27c")
+    if not args.get("standby_temp_explicit"):
+        has27 = any((r.get("stdby_h_27c_kVA") or 0) > 0 or (r.get("stdby_f_27c_kVA") or 0) > 0 for r in records)
+        has40 = any((r.get("stdby_h_40c_kVA") or 0) > 0 or (r.get("stdby_f_40c_kVA") or 0) > 0 for r in records)
+        if not has27 and has40:
+            standby_temp = "40c"
+
     res = selection.select(
         records, brand, freq, voltage, winding, 0.8,
         main_power=main_p, main_unit=unit,
         standby_power=stdby_p, standby_unit=unit,
-        standby_temp=args.get("standby_temp", "27c"),
+        standby_temp=standby_temp,
         altitude=args.get("altitude", 0) or 0,
         temp=args.get("temperature") if args.get("temperature") is not None else 40,
         user_phase=phase, user_pole="4", opt_code=(args.get("option") or "none"),
@@ -457,7 +481,8 @@ def ai_sales(req: AskReq):
     msg = resp["choices"][0]["message"]
 
     tool_trace = []
-    web_sources = []  # 本次真正搜索到的网页来源（带 n 编号）
+    web_sources = []  # 本次真正搜索到的网页来源（全局唯一编号）
+    web_seq = 0       # 全局递增编号计数器（跨多轮搜索不重置）
     # 最多三轮工具调用（选型 + 经验检索可能混合），防止死循环
     for _ in range(3):
         tool_calls = msg.get("tool_calls")
@@ -482,11 +507,18 @@ def ai_sales(req: AskReq):
                 tool_trace.append({"fn": fn, "args": args, "result": {"ok": True, "count": len(hits)}})
             elif fn == "web_search":
                 hits = web_search(args.get("query", ""))
-                result = {"ok": True, "count": len(hits), "results": hits}
-                tool_trace.append({"fn": fn, "args": args, "result": {"ok": True, "count": len(hits)}})
+                # 编号全局递增，避免多轮搜索时编号撞车（轮内 1-5 会重复）
+                seen_urls = {w["url"] for w in web_sources}
+                fresh = []
                 for h in hits:
-                    if h["n"] not in [w["n"] for w in web_sources]:
-                        web_sources.append(h)
+                    if h["url"] in seen_urls:
+                        continue
+                    seen_urls.add(h["url"])
+                    web_seq += 1
+                    fresh.append({"n": web_seq, "title": h["title"], "url": h["url"], "snippet": h["snippet"]})
+                    web_sources.append(fresh[-1])
+                result = {"ok": True, "count": len(fresh), "results": fresh}
+                tool_trace.append({"fn": fn, "args": args, "result": {"ok": True, "count": len(fresh)}})
             else:
                 result = {"ok": False, "reason": "未知工具"}
             messages.append({
@@ -497,13 +529,31 @@ def ai_sales(req: AskReq):
         msg = resp["choices"][0]["message"]
 
     reply_text = msg.get("content") or ""
-    # 只保留正文中真正引用到的编号 [n] 的来源（正文没有编号引用则整体不带来源）
-    cited = set(int(x) for x in re.findall(r'\[(\d+)\]', reply_text))
-    sources = [{"n": w["n"], "title": w["title"], "url": w["url"]}
-               for w in web_sources if w["n"] in cited]
+
+    # 把正文里的 [n] 重映射为“按首次出现顺序”的连续编号 1,2,3...
+    # 解决 AI 引用跳号（如只引 [1][3][4]）导致用户看到“缺 2”像编号错误的问题。
+    src_by_n = {w["n"]: w for w in web_sources}
+    renum = {}   # 原 n -> 新连续编号
+    order = []   # 新编号顺序对应的来源
+
+    def _renum_sub(m):
+        old = int(m.group(1))
+        if old not in src_by_n:
+            return ""          # 引用了不存在的编号 -> 直接去掉，不留悬挂标记
+        if old not in renum:
+            renum[old] = len(order) + 1
+            order.append(src_by_n[old])
+        return "[%d]" % renum[old]
+
+    new_reply = re.sub(r'\[(\d+)\]', _renum_sub, reply_text)
+    # 清理因去掉无效编号可能残留的多余空格
+    new_reply = re.sub(r'\s+([,，。;；、])', r'\1', new_reply)
+
+    sources = [{"n": i + 1, "title": s["title"], "url": s["url"]}
+               for i, s in enumerate(order)]
 
     return JSONResponse({
-        "reply": reply_text,
+        "reply": new_reply,
         "toolUsed": len(tool_trace) > 0,
         "trace": tool_trace,
         "sources": sources,
