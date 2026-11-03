@@ -1212,6 +1212,91 @@ function parseVoltPairs(label){
 // 电压浮点比较：容忍 0.01 误差
 function voltEq(a,b){ return Math.abs(Number(a)-Number(b))<0.01; }
 
+// ============================================================
+// 电压两点插值（利莱森玛LSA 60Hz 三相 Y · 6号/6-12/8号绕组 380~416V）
+// 数据表只给 380V 与 416V 两点功率；用户请求 380<V<416 时线性插值
+// P(V) = P380 + (V-380)/36 * (P416-P380)，12 个功率字段各自独立插值
+// ============================================================
+var INTERP_BASES=['6-12','6','8'];              // 长在前，防 '6' 抢 '6-12'
+var INTERP_LO=380, INTERP_HI=416;
+var INTERP_FIELDS=['cont_h_kVA','cont_h_kW','stdby_h_40c_kVA','stdby_h_40c_kW',
+  'stdby_h_27c_kVA','stdby_h_27c_kW','cont_f_kVA','cont_f_kW',
+  'stdby_f_40c_kVA','stdby_f_40c_kW','stdby_f_27c_kVA','stdby_f_27c_kW'];
+
+// winding_code → 绕组基座 '6' / '6-12' / '8'；不在范围返回 null
+function interpWindingBase(code){
+  if(code==null) return null;
+  var c=String(code).trim();
+  for(var i=0;i<INTERP_BASES.length;i++){
+    var b=INTERP_BASES[i];
+    if(c===b || c.indexOf(b+'-')===0) return b;
+  }
+  return null;
+}
+
+// 记录是否属于插值适用范围（品牌/频率/相数/接线/绕组/电压档）
+function recInInterpScope(r){
+  if(!r) return false;
+  if(String(r.brand||'').trim()!=='leroysomer') return false;
+  if(String(r.frequency||'').trim()!=='60Hz') return false;
+  var ph=(r.phase==null?'3':String(r.phase).trim());
+  if(ph!=='3' && ph!=='三相' && ph!=='3ph') return false;
+  if(String(r.winding_conn||'').trim()!=='Y') return false;
+  if(interpWindingBase(r.winding_code)===null) return false;
+  var vs=String(r.voltage||'').trim();
+  return vs==='380V' || vs==='416V';
+}
+
+// 用户电压落在 (380,416) 开区间时，生成插值临时记录（带 estimated 标记）
+function buildInterpRecords(brand, freq, volt, pf){
+  var out=[];
+  if(volt==null || !isFinite(Number(volt))) return out;
+  var v=Number(volt);
+  if(!(v>INTERP_LO && v<INTERP_HI)) return out;      // 端点 380/416 走精确匹配
+  if(String(freq).trim()!=='60Hz') return out;
+  if(brand!=='leroysomer') return out;
+  var records=ALL_DATA[brand]||[];
+  if(pf==null) pf=0.8;
+
+  var buckets={};                                     // (model|base) -> {380V:rec, 416V:rec}
+  for(var i=0;i<records.length;i++){
+    var r=records[i];
+    if(!recInInterpScope(r)) continue;
+    if(r.pf!=null && Math.abs(Number(r.pf)-Number(pf))>0.01) continue;
+    var key=String(r.model)+'|'+interpWindingBase(r.winding_code);
+    if(!buckets[key]) buckets[key]={'380V':null,'416V':null};
+    buckets[key][String(r.voltage).trim()]=r;
+  }
+
+  for(var k in buckets){
+    if(!buckets.hasOwnProperty(k)) continue;
+    var a=buckets[k]['380V'], c=buckets[k]['416V'];
+    if(!a || !c) continue;                            // 缺一端 → 不插值
+    // 以 380V 记录为模板复制（label/conn/wires/pf 等沿用）
+    var rec={};
+    for(var f in a){ if(a.hasOwnProperty(f)) rec[f]=a[f]; }
+    rec.voltage=String(v)+'V';
+    rec.winding_label=String(v)+'V';
+    rec.estimated=true;
+    rec.interp_from='380V/416V';
+    rec.interp_base=interpWindingBase(a.winding_code);
+    rec.source_model=a.model;
+    var hasPower=false;
+    for(var j=0;j<INTERP_FIELDS.length;j++){
+      var fld=INTERP_FIELDS[j];
+      var p380=a[fld], p416=c[fld];
+      if(p380==null || p416==null) continue;
+      if(!isFinite(Number(p380)) || !isFinite(Number(p416))) continue;
+      var val=Number(p380)+(v-INTERP_LO)/(INTERP_HI-INTERP_LO)*(Number(p416)-Number(p380));
+      rec[fld]=Math.round(val*10)/10;
+      hasPower=true;
+    }
+    if(!hasPower) continue;                            // 无任何功率可插值 → 丢弃
+    out.push(rec);
+  }
+  return out;
+}
+
 // 找该品牌+频率下，所有「覆盖用户输入电压」的记录
 // 返回 [{rec:记录, conn:接线名, volt:该接线的电压}, ...]
 function findVoltMatches(brand, freq, volt){
@@ -1239,6 +1324,16 @@ function findVoltMatches(brand, freq, volt){
         hits.push({rec:r, conn:pairs2[j].conn, volt:pairs2[j].volt});
         break;                                             // 一条记录同一电压只取一次
       }
+    }
+  }
+  // ★精确匹配为空时，回退到 380/416 两点插值（仅利莱森玛LSA 60Hz 三相 Y 6/6-12/8号绕组）
+  if(hits.length===0){
+    var irs=buildInterpRecords(brand, freq, volt, wantPF);
+    for(var q=0;q<irs.length;q++){
+      var ir=irs[q];
+      if(!poleMatch(ir)) continue;
+      if(!phaseMatch(ir)) continue;
+      hits.push({rec:ir, conn:(ir.winding_conn||''), volt:volt});
     }
   }
   return hits;
@@ -1699,6 +1794,12 @@ function doSearch(){
   if(!hasM && !hasS){alert('请至少填写一个功率（① 主用功率 或 ② 备用功率）');return;}
 
   var records=ALL_DATA[brand]||[];
+  // ★电压两点插值：用户电压落在 380~416 之间时，生成临时记录并入匹配池
+  //   （仅利莱森玛LSA 60Hz 三相 Y 6号/6-12/8号绕组；其余情况该函数返回空数组，零影响）
+  if(userVolt!==null){
+    var _irs=buildInterpRecords(brand, freq, userVolt, userPF());
+    if(_irs.length) records=records.concat(_irs);
+  }
   // 单相判定：模式A（w=接线名）时，看同电压下的记录；模式B（w=code）时按 code
   var is1ph=(function(){
     if(userPhase()===1) return true;                     // 用户显式选单相 → 直接单相口径
@@ -1905,7 +2006,7 @@ function doSearch(){
   var uxCard=is1ph?uxS:'kVA';
   var mh='';
   if(top){
-    mh+='<div class="match-card"><div class="model">'+topM+(isHV&&top.grade?' <span class="badge">'+escG(top)+'级</span>':' <span class="badge">推荐</span>')+'</div>';
+    mh+='<div class="match-card"><div class="model">'+topM+((top.rec&&top.rec.estimated)?'<sup title="该电压档为 380/416V 两点插值估算">*</sup>':'')+(isHV&&top.grade?' <span class="badge">'+escG(top)+'级</span>':' <span class="badge">推荐</span>')+'</div>';
     mh+='<div class="params">';
     mh+='<span class="tag">绕组: '+esc(top.wd)+'</span> ';
     if(isHV) mh+='<span class="tag">温升: '+top.grade+'级（'+top.grade+'级温升选型）</span> ';
@@ -2006,7 +2107,7 @@ function doSearch(){
         if(cd.t==='#'){
           tds+='<td>'+(x.ok?rank:'✗')+'</td>';
         } else if(cd.t==='型号'){
-          tds+='<td><button class="copy-btn" onclick="copyModel(this,\''+escAttr(x.m)+'\')" title="复制型号">复制</button><b>'+esc(x.m)+'</b>'+(isHV&&x.vl?' <span class="wconn">'+esc(x.vl)+'</span>':'')+'</td>';
+          tds+='<td><button class="copy-btn" onclick="copyModel(this,\''+escAttr(x.m)+'\')" title="复制型号">复制</button><b>'+esc(x.m)+'</b>'+(g.estimated?'<sup title="该电压档为 380/416V 两点插值估算">*</sup>':'')+(isHV&&x.vl?' <span class="wconn">'+esc(x.vl)+'</span>':'')+'</td>';
         } else if(cd.t==='接线/电压'){
           tds+='<td>'+esc(x.wd)+(g.winding_conn?'<div class="wconn">'+esc(g.winding_conn)+'</div>':'')+'</td>';
         } else if(cd.t==='判断'){
